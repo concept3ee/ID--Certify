@@ -1,5 +1,34 @@
 import { useState } from 'react'
-import { X, ChevronLeft, ChevronRight, Shield, Home, FileText, CreditCard, BarChart3, Bell, Settings } from 'lucide-react'
+import { 
+  X, 
+  ChevronLeft, 
+  ChevronRight, 
+  Shield, 
+  Home, 
+  FileText, 
+  CreditCard, 
+  BarChart3, 
+  Bell, 
+  Settings,
+  UserCheck,
+  Database,
+  Lock,
+  Activity,
+  Users,
+  Code,
+  TrendingUp,
+  Key,
+  Eye,
+  MessageSquare,
+  HelpCircle,
+  Wallet,
+  Folder,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  Globe,
+  Zap
+} from 'lucide-react'
 
 interface TourStep {
   id: string
@@ -25,12 +54,12 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
       {
         id: 'welcome',
         title: 'Welcome to IDCertify!',
-        description: `Welcome to your ${userType} dashboard! Let's take a quick tour of your key features.`,
+        description: `Welcome to your ${userType} dashboard! Let's take a comprehensive tour of all your powerful features.`,
       },
       {
         id: 'dashboard',
-        title: 'Dashboard Overview',
-        description: 'Your central hub for all identity verification activities. Monitor your verification status, trust score, and recent activities.',
+        title: 'Enhanced Dashboard Overview',
+        description: 'Your intelligent central hub with real-time statistics, recent activities, quick actions, and verification status tracking.',
         target: 'dashboard-stats',
         position: 'bottom' as const,
         highlightSelector: '[data-tour="dashboard-stats"]'
@@ -41,103 +70,191 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
       individual: [
         {
           id: 'verification',
-          title: 'Identity Verification',
-          description: 'Start your identity verification process here. Upload documents and complete verification steps to build your trust score.',
+          title: 'Advanced Identity Verification',
+          description: 'Multi-document verification system supporting NIN, Passport, CAC, and more. Real-time status tracking and automated verification processes.',
           target: 'verification-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="verification"]'
         },
         {
-          id: 'documents',
-          title: 'Document Management',
-          description: 'Securely store and manage all your verification documents. Your data is encrypted and protected.',
-          target: 'documents-section',
+          id: 'attester',
+          title: 'Attester Network',
+          description: 'Connect with trusted attesters to verify your identity and build credibility. Request attestations and manage your network.',
+          target: 'attester-section',
           position: 'right' as const,
-          highlightSelector: '[data-tour="documents"]'
+          highlightSelector: '[data-tour="attester"]'
+        },
+        {
+          id: 'biobank',
+          title: 'Biometric Biobank',
+          description: 'Securely store and manage your biometric data for enhanced verification. Advanced security with end-to-end encryption.',
+          target: 'biobank-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="biobank"]'
         },
         {
           id: 'trust-score',
-          title: 'Trust Score',
-          description: 'Your trust score reflects your verification level and reputation on the platform. Higher scores unlock more features.',
+          title: 'Dynamic Trust Score',
+          description: 'AI-powered trust scoring system that adapts based on your verification activities, attestations, and platform engagement.',
           target: 'trust-score-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="trust-score"]'
         },
         {
           id: 'wallet',
-          title: 'Digital Wallet',
-          description: 'Manage your digital identity credentials and certificates. Share verified information securely.',
+          title: 'Digital Wallet & Payments',
+          description: 'Manage your digital identity credentials, make secure payments, and track all transactions with detailed billing.',
           target: 'wallet-section',
           position: 'bottom' as const,
           highlightSelector: '[data-tour="wallet"]'
+        },
+        {
+          id: 'documents',
+          title: 'Encrypted Document Storage',
+          description: 'Military-grade encrypted document vault with granular access controls, permission management, and audit trails.',
+          target: 'documents-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="documents"]'
+        },
+        {
+          id: 'monitoring',
+          title: 'Data Monitoring & Security',
+          description: 'Real-time activity monitoring, access request tracking, and comprehensive security logs for complete transparency.',
+          target: 'monitoring-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="monitoring"]'
+        },
+        {
+          id: 'notifications',
+          title: 'Smart Notifications',
+          description: 'Intelligent notification system that keeps you informed about verification status, security alerts, and important updates.',
+          target: 'notifications-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="notifications"]'
         }
       ],
       organisation: [
         {
           id: 'verification',
-          title: 'Verification Management',
-          description: 'Manage and oversee all verification requests for your organization. Track status and approve verifications.',
+          title: 'Enterprise Verification Management',
+          description: 'Comprehensive verification system for managing employee identities, bulk uploads, and compliance tracking.',
           target: 'verification-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="verification"]'
         },
         {
+          id: 'employees',
+          title: 'Employee Management',
+          description: 'Centralized employee database with verification status, role management, and compliance monitoring.',
+          target: 'employees-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="employees"]'
+        },
+        {
+          id: 'compliance',
+          title: 'AML & Compliance Center',
+          description: 'Automated AML screening, compliance monitoring, and regulatory reporting to meet industry standards.',
+          target: 'compliance-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="compliance"]'
+        },
+        {
           id: 'documents',
-          title: 'Document Center',
-          description: 'Centralized document management for your organization. Store and manage verification documents securely.',
+          title: 'Corporate Document Center',
+          description: 'Secure document management for corporate files with role-based access and audit trails.',
           target: 'documents-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="documents"]'
         },
         {
-          id: 'trust-score',
-          title: 'Organization Trust Score',
-          description: 'Your organization\'s trust score reflects your verification standards and compliance level.',
-          target: 'trust-score-section',
+          id: 'monitoring',
+          title: 'System Monitoring',
+          description: 'Real-time system health monitoring, performance analytics, and security incident tracking.',
+          target: 'monitoring-section',
           position: 'right' as const,
-          highlightSelector: '[data-tour="trust-score"]'
+          highlightSelector: '[data-tour="monitoring"]'
+        },
+        {
+          id: 'integrations',
+          title: 'Third-Party Integrations',
+          description: 'Seamless integration with HR systems, payroll platforms, and other enterprise tools.',
+          target: 'integrations-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="integrations"]'
         },
         {
           id: 'wallet',
           title: 'Corporate Wallet',
-          description: 'Manage corporate credentials and share verified information with partners and clients.',
+          description: 'Manage corporate payments, subscription billing, and financial transactions with detailed reporting.',
           target: 'wallet-section',
           position: 'bottom' as const,
           highlightSelector: '[data-tour="wallet"]'
+        },
+        {
+          id: 'billing',
+          title: 'Billing & Analytics',
+          description: 'Comprehensive billing management with usage analytics, cost tracking, and invoice generation.',
+          target: 'billing-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="billing"]'
         }
       ],
       developer: [
         {
           id: 'api-keys',
-          title: 'API Key Management',
-          description: 'Generate and manage API keys for integrating IDCertify services into your applications.',
+          title: 'Advanced API Management',
+          description: 'Generate, manage, and monitor API keys with detailed usage analytics and rate limiting controls.',
           target: 'api-keys-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="api-keys"]'
         },
         {
+          id: 'analytics',
+          title: 'API Analytics Dashboard',
+          description: 'Comprehensive analytics showing API usage patterns, performance metrics, and success rates.',
+          target: 'analytics-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="analytics"]'
+        },
+        {
+          id: 'webhooks',
+          title: 'Webhook Management',
+          description: 'Configure webhooks for real-time notifications, event-driven integrations, and automated workflows.',
+          target: 'webhooks-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="webhooks"]'
+        },
+        {
+          id: 'documentation',
+          title: 'Interactive Documentation',
+          description: 'Comprehensive API documentation with code examples, testing tools, and integration guides.',
+          target: 'documentation-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="documentation"]'
+        },
+        {
           id: 'verification',
           title: 'Verification API',
-          description: 'Access verification endpoints to integrate identity verification into your applications.',
+          description: 'RESTful API endpoints for identity verification, document processing, and trust score calculation.',
           target: 'verification-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="verification"]'
         },
         {
-          id: 'documents',
-          title: 'Document API',
-          description: 'Upload and manage documents programmatically through our secure API endpoints.',
-          target: 'documents-section',
-          position: 'right' as const,
-          highlightSelector: '[data-tour="documents"]'
-        },
-        {
           id: 'wallet',
-          title: 'Digital Wallet API',
-          description: 'Integrate digital wallet functionality to manage credentials in your applications.',
+          title: 'Payment API',
+          description: 'Secure payment processing API with transaction management and billing integration.',
           target: 'wallet-section',
           position: 'bottom' as const,
           highlightSelector: '[data-tour="wallet"]'
+        },
+        {
+          id: 'monitoring',
+          title: 'API Monitoring',
+          description: 'Real-time API performance monitoring, error tracking, and system health analytics.',
+          target: 'monitoring-section',
+          position: 'right' as const,
+          highlightSelector: '[data-tour="monitoring"]'
         }
       ]
     }
@@ -173,16 +290,36 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
         return <Home className="h-6 w-6" />
       case 'verification':
         return <Shield className="h-6 w-6" />
+      case 'attester':
+        return <UserCheck className="h-6 w-6" />
+      case 'biobank':
+        return <Database className="h-6 w-6" />
       case 'documents':
-        return <FileText className="h-6 w-6" />
+        return <Lock className="h-6 w-6" />
       case 'trust-score':
         return <BarChart3 className="h-6 w-6" />
       case 'wallet':
-        return <CreditCard className="h-6 w-6" />
+        return <Wallet className="h-6 w-6" />
       case 'api-keys':
-        return <Settings className="h-6 w-6" />
+        return <Key className="h-6 w-6" />
+      case 'analytics':
+        return <TrendingUp className="h-6 w-6" />
+      case 'webhooks':
+        return <Zap className="h-6 w-6" />
+      case 'documentation':
+        return <FileText className="h-6 w-6" />
       case 'notifications':
         return <Bell className="h-6 w-6" />
+      case 'monitoring':
+        return <Activity className="h-6 w-6" />
+      case 'employees':
+        return <Users className="h-6 w-6" />
+      case 'compliance':
+        return <CheckCircle className="h-6 w-6" />
+      case 'integrations':
+        return <Globe className="h-6 w-6" />
+      case 'billing':
+        return <CreditCard className="h-6 w-6" />
       case 'profile':
         return <Settings className="h-6 w-6" />
       default:
