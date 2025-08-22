@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import StatCard from '@/components/ui/StatCard'
-import { Shield, FileText, BarChart3, CreditCard, CheckCircle, Clock, XCircle } from 'lucide-react'
+import { Shield, FileText, BarChart3, CreditCard, CheckCircle, Clock, XCircle, Database, UserCheck } from 'lucide-react'
 
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.auth)
@@ -73,6 +73,7 @@ const Dashboard = () => {
           changeType="increase"
           icon={<BarChart3 className="h-6 w-6" />}
           color="primary"
+          data-tour="trust-score"
         />
         <StatCard
           title="Verified Documents"
@@ -96,7 +97,7 @@ const Dashboard = () => {
 
       {/* Recent Activities */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="card">
+        <div className="card" data-tour="monitoring">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activities</h2>
           <div className="space-y-4">
             {recentActivities.map((activity) => (
@@ -118,7 +119,10 @@ const Dashboard = () => {
         <div className="card">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
           <div className="space-y-3">
-            <button className="w-full flex items-center justify-between p-3 text-left bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200">
+            <button 
+              className="w-full flex items-center justify-between p-3 text-left bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200"
+              data-tour="verification"
+            >
               <div className="flex items-center space-x-3">
                 <Shield className="h-5 w-5 text-primary-600" />
                 <div>
@@ -128,7 +132,10 @@ const Dashboard = () => {
               </div>
             </button>
             
-            <button className="w-full flex items-center justify-between p-3 text-left bg-success-50 hover:bg-success-100 rounded-lg transition-colors duration-200">
+            <button 
+              className="w-full flex items-center justify-between p-3 text-left bg-success-50 hover:bg-success-100 rounded-lg transition-colors duration-200"
+              data-tour="documents"
+            >
               <div className="flex items-center space-x-3">
                 <FileText className="h-5 w-5 text-success-600" />
                 <div>
@@ -176,6 +183,49 @@ const Dashboard = () => {
             <div>
               <p className="text-sm font-medium text-gray-900">CAC</p>
               <p className="text-xs text-gray-500">Not Uploaded</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Biobank & Attester Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="card" data-tour="biobank">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Biometric Biobank</h2>
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+              <Database className="h-5 w-5 text-blue-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Fingerprint Data</p>
+                <p className="text-xs text-blue-600">Securely stored</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 bg-purple-50 rounded-lg">
+              <Database className="h-5 w-5 text-purple-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Facial Recognition</p>
+                <p className="text-xs text-purple-600">Encrypted vault</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="card" data-tour="attester">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Attester Network</h2>
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+              <UserCheck className="h-5 w-5 text-green-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Active Attesters</p>
+                <p className="text-xs text-green-600">3 verified</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 p-3 bg-orange-50 rounded-lg">
+              <UserCheck className="h-5 w-5 text-orange-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">Pending Requests</p>
+                <p className="text-xs text-orange-600">2 awaiting</p>
+              </div>
             </div>
           </div>
         </div>

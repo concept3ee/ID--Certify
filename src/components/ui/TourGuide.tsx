@@ -1,31 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   X, 
-  ChevronLeft, 
   ChevronRight, 
   Shield, 
   Home, 
   FileText, 
   CreditCard, 
   BarChart3, 
-  Bell, 
   Settings,
   UserCheck,
   Database,
   Lock,
   Activity,
   Users,
-  Code,
+
   TrendingUp,
   Key,
-  Eye,
-  MessageSquare,
-  HelpCircle,
-  Wallet,
-  Folder,
   CheckCircle,
-  Clock,
-  AlertTriangle,
   Globe,
   Zap
 } from 'lucide-react'
@@ -47,6 +38,7 @@ interface TourGuideProps {
 
 const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
   const [currentStep, setCurrentStep] = useState(0)
+  const [modalPosition, setModalPosition] = useState({ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' })
 
   // Define tour steps based on user type
   const getTourSteps = (): TourStep[] => {
@@ -101,14 +93,6 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
           highlightSelector: '[data-tour="trust-score"]'
         },
         {
-          id: 'wallet',
-          title: 'Digital Wallet & Payments',
-          description: 'Manage your digital identity credentials, make secure payments, and track all transactions with detailed billing.',
-          target: 'wallet-section',
-          position: 'bottom' as const,
-          highlightSelector: '[data-tour="wallet"]'
-        },
-        {
           id: 'documents',
           title: 'Encrypted Document Storage',
           description: 'Military-grade encrypted document vault with granular access controls, permission management, and audit trails.',
@@ -123,14 +107,6 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
           target: 'monitoring-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="monitoring"]'
-        },
-        {
-          id: 'notifications',
-          title: 'Smart Notifications',
-          description: 'Intelligent notification system that keeps you informed about verification status, security alerts, and important updates.',
-          target: 'notifications-section',
-          position: 'right' as const,
-          highlightSelector: '[data-tour="notifications"]'
         }
       ],
       organisation: [
@@ -183,14 +159,6 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
           highlightSelector: '[data-tour="integrations"]'
         },
         {
-          id: 'wallet',
-          title: 'Corporate Wallet',
-          description: 'Manage corporate payments, subscription billing, and financial transactions with detailed reporting.',
-          target: 'wallet-section',
-          position: 'bottom' as const,
-          highlightSelector: '[data-tour="wallet"]'
-        },
-        {
           id: 'billing',
           title: 'Billing & Analytics',
           description: 'Comprehensive billing management with usage analytics, cost tracking, and invoice generation.',
@@ -239,14 +207,6 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
           target: 'verification-section',
           position: 'right' as const,
           highlightSelector: '[data-tour="verification"]'
-        },
-        {
-          id: 'wallet',
-          title: 'Payment API',
-          description: 'Secure payment processing API with transaction management and billing integration.',
-          target: 'wallet-section',
-          position: 'bottom' as const,
-          highlightSelector: '[data-tour="wallet"]'
         },
         {
           id: 'monitoring',
@@ -298,8 +258,6 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
         return <Lock className="h-6 w-6" />
       case 'trust-score':
         return <BarChart3 className="h-6 w-6" />
-      case 'wallet':
-        return <Wallet className="h-6 w-6" />
       case 'api-keys':
         return <Key className="h-6 w-6" />
       case 'analytics':
@@ -308,8 +266,6 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
         return <Zap className="h-6 w-6" />
       case 'documentation':
         return <FileText className="h-6 w-6" />
-      case 'notifications':
-        return <Bell className="h-6 w-6" />
       case 'monitoring':
         return <Activity className="h-6 w-6" />
       case 'employees':
@@ -335,25 +291,92 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
   const isFirstStep = currentStep === 0
   const isLastStep = currentStep === tourSteps.length - 1
 
+  // Add highlighting effect and position modal near the target element
+  useEffect(() => {
+    if (currentTourStep.highlightSelector) {
+      const targetElement = document.querySelector(currentTourStep.highlightSelector)
+      console.log('Tour step:', currentTourStep.id, 'Looking for:', currentTourStep.highlightSelector, 'Found:', targetElement)
+      if (targetElement) {
+        // Add highlight class
+        targetElement.classList.add('tour-highlight')
+        console.log('Added tour-highlight class to:', targetElement)
+        
+        // Get target element position
+        const rect = targetElement.getBoundingClientRect()
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
+        
+        // Calculate optimal position for the modal
+        let top = '50%'
+        let left = '50%'
+        let transform = 'translate(-50%, -50%)'
+        
+        // Position modal based on target element location
+        if (rect.top < windowHeight / 2) {
+          // Target is in upper half - position modal below
+          top = `${Math.min(rect.bottom + 10, windowHeight - 200)}px`
+          left = `${Math.max(rect.left + rect.width / 2, 160)}px`
+          transform = 'translate(-50%, 0)'
+        } else {
+          // Target is in lower half - position modal above
+          top = `${Math.max(rect.top - 220, 20)}px`
+          left = `${Math.max(rect.left + rect.width / 2, 160)}px`
+          transform = 'translate(-50%, 0)'
+        }
+        
+        // Ensure modal doesn't go off-screen horizontally
+        if (rect.left + rect.width / 2 < 160) {
+          left = '160px'
+        } else if (rect.left + rect.width / 2 > windowWidth - 160) {
+          left = `${windowWidth - 160}px`
+        }
+        
+        setModalPosition({ top, left, transform })
+        
+        // Scroll element into view if needed
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center',
+          inline: 'center'
+        })
+        
+        // Remove highlight when component unmounts or step changes
+        return () => {
+          targetElement.classList.remove('tour-highlight')
+        }
+      }
+    } else {
+      // For welcome step, center the modal
+      setModalPosition({ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' })
+    }
+  }, [currentStep, currentTourStep.highlightSelector])
+
   return (
     <div className="fixed inset-0 z-[9999]">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       
       {/* Tour Content */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="bg-white rounded-lg shadow-2xl max-w-lg w-full mx-4 border-4 border-green-500">
+      <div 
+        className="absolute max-w-sm w-80 border-2 border-green-500 bg-white rounded-lg shadow-2xl"
+        style={{
+          top: modalPosition.top,
+          left: modalPosition.left,
+          transform: modalPosition.transform,
+          transition: 'all 0.3s ease-in-out'
+        }}
+      >
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
                 {getStepIcon(currentTourStep.id)}
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-gray-900">
                   {currentTourStep.title}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-xs text-gray-500">
                   Step {currentStep + 1} of {tourSteps.length}
                 </p>
               </div>
@@ -362,19 +385,19 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
               onClick={handleSkip}
               className="text-gray-400 hover:text-gray-600 transition-colors"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             </button>
           </div>
 
           {/* Content */}
-          <div className="p-6">
-            <p className="text-gray-600 leading-relaxed">
+          <div className="p-4">
+            <p className="text-sm text-gray-600 leading-relaxed">
               {currentTourStep.description}
             </p>
           </div>
 
           {/* Footer */}
-          <div className="p-6 border-t border-gray-200 bg-gray-50">
+          <div className="p-4 border-t border-gray-200 bg-gray-50">
             <div className="flex items-center justify-between">
               {!isFirstStep && (
                 <button
@@ -386,11 +409,11 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
               )}
               
               {/* Progress Indicator */}
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1">
                 {tourSteps.map((_, index) => (
                   <div
                     key={index}
-                    className={`w-8 h-1 rounded-full transition-all duration-300 ${
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       index <= currentStep ? 'bg-primary-600' : 'bg-gray-200'
                     }`}
                   ></div>
@@ -399,13 +422,12 @@ const TourGuide = ({ isOpen, onClose, userType }: TourGuideProps) => {
               
               <button
                 onClick={handleNext}
-                className="bg-primary-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors flex items-center space-x-2"
+                className="bg-primary-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors flex items-center space-x-1"
               >
                 <span>{isLastStep ? 'Finish' : 'Next'}</span>
-                {!isLastStep && <ChevronRight className="h-4 w-4" />}
+                {!isLastStep && <ChevronRight className="h-3 w-3" />}
               </button>
             </div>
-          </div>
         </div>
       </div>
     </div>

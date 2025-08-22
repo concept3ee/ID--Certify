@@ -81,7 +81,7 @@ function AppContent({ isAuthenticated, userType }: { isAuthenticated: boolean; u
         <WelcomeModal
           isOpen={showWelcomeModal}
           onClose={() => setShowWelcomeModal(false)}
-          userType={tourUserType || userType || 'individual'}
+          userType={(tourUserType || userType || 'individual') as 'individual' | 'organisation' | 'developer'}
         />
       )}
       
@@ -90,7 +90,7 @@ function AppContent({ isAuthenticated, userType }: { isAuthenticated: boolean; u
         <TourGuide
           isOpen={isOnboarding}
           onClose={() => setIsOnboarding(false)}
-          userType={tourUserType || userType || 'individual'}
+          userType={(tourUserType || userType || 'individual') as 'individual' | 'organisation' | 'developer'}
         />
       )}
     </div>

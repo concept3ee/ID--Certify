@@ -54,7 +54,7 @@ const Users = () => {
           <p className="text-gray-600">Manage all users across the platform</p>
         </div>
         <button className="btn-primary">
-          <Users className="h-4 w-4 mr-2" />
+          <UsersIcon className="h-4 w-4 mr-2" />
           Add User
         </button>
       </div>

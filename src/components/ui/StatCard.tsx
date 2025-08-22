@@ -8,6 +8,7 @@ interface StatCardProps {
   changeType?: 'increase' | 'decrease'
   icon?: ReactNode
   color?: 'primary' | 'success' | 'warning' | 'danger' | 'secondary'
+  [key: string]: any // Allow additional props like data attributes
 }
 
 const StatCard = ({ 
@@ -16,7 +17,8 @@ const StatCard = ({
   change, 
   changeType, 
   icon, 
-  color = 'primary' 
+  color = 'primary',
+  ...props
 }: StatCardProps) => {
   const colorClasses = {
     primary: 'bg-primary-50 text-primary-600',
@@ -32,7 +34,7 @@ const StatCard = ({
   }
 
   return (
-    <div className="card">
+    <div className="card" {...props}>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-600">{title}</p>

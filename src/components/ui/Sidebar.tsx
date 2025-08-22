@@ -15,22 +15,18 @@ import {
   Code,
   Database,
   TrendingUp,
-  CheckCircle,
   Clock,
-  MessageSquare,
-  HelpCircle,
-  Moon,
-  Sun,
-  Search,
-  Menu,
-  X,
   UserCheck,
   Lock,
   Activity,
   Wallet,
   Folder,
   Eye,
-  Key
+  Key,
+  Search,
+  Sun,
+  Moon,
+  HelpCircle
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -47,7 +43,7 @@ interface SidebarProps {
   onToggle?: () => void
 }
 
-const Sidebar = ({ isCollapsed = false, onToggle }: SidebarProps) => {
+const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
   const location = useLocation()
   const { userType } = useSelector((state: RootState) => state.auth)
   const [expandedItems, setExpandedItems] = useState<string[]>([])

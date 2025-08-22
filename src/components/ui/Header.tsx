@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store/store'
+import { RootState, AppDispatch } from '@/store/store'
 import { logoutUser } from '@/store/slices/authSlice'
 import { 
   Bell, 
@@ -32,7 +32,7 @@ interface HeaderProps {
 
 const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
   const { user } = useSelector((state: RootState) => state.auth)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const location = useLocation()
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfileMenu, setShowProfileMenu] = useState(false)
@@ -44,7 +44,7 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
 
   const getBreadcrumbs = () => {
     const pathSegments = location.pathname.split('/').filter(segment => segment)
-    const breadcrumbs = []
+    const breadcrumbs: Array<{name: string, path: string, isLast: boolean}> = []
     
     let currentPath = ''
     pathSegments.forEach((segment, index) => {
