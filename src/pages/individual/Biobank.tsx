@@ -13,7 +13,7 @@ import {
   FileText,
   MapPin,
   Building2,
-  IdCard,
+  CreditCard,
   Briefcase,
   Phone,
   Mail
@@ -24,7 +24,7 @@ type BioStatus = 'completed' | 'pending' | 'failed' | 'issues'
 interface BioItem {
   id: string
   date: string
-  type: 'Job' | 'Address' | 'BVN' | 'NIN' | 'Passport' | 'Education'
+  type: 'Job' | 'Address' | 'BVN' | 'NIN' | 'Passport' | 'Education' | 'Driver License' | 'Immigration Verification' | 'FIRS Verification'
   action: 'Submitted' | 'Verified' | 'Declined' | 'Expired'
   status: BioStatus
   impact: number
