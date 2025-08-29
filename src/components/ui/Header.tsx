@@ -21,7 +21,9 @@ import {
   Database,
   Wallet,
   Lock,
-  Activity
+  Activity,
+  Moon,
+  Sun
 } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 
@@ -37,6 +39,7 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfileMenu, setShowProfileMenu] = useState(false)
   const [showChats, setShowChats] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   const handleLogout = () => {
     dispatch(logoutUser())
@@ -284,6 +287,19 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
               </div>
             )}
           </div>
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="flex items-center justify-center w-10 h-10 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDarkMode ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </button>
 
           {/* Profile Menu */}
           <div className="relative">

@@ -1,143 +1,104 @@
 import { useState } from 'react'
-import { 
-  Database, 
-  Shield, 
-  Fingerprint, 
-  Eye, 
-  EyeOff, 
-  Upload, 
-  Download,
-  Lock,
-  Unlock,
+import { useNavigate } from 'react-router-dom'
+import {
+  BarChart3,
   CheckCircle,
   AlertCircle,
   Clock,
-  Settings,
-  Trash2,
-  Plus,
-  Scan,
-  Camera
+  Search,
+  Filter,
+  ArrowDownWideNarrow,
+  Download,
+  Eye,
+  FileText,
+  MapPin,
+  Building2,
+  IdCard,
+  Briefcase,
+  Phone,
+  Mail
 } from 'lucide-react'
 
-interface BiometricData {
+type BioStatus = 'completed' | 'pending' | 'failed' | 'issues'
+
+interface BioItem {
   id: string
-  type: 'fingerprint' | 'facial' | 'voice' | 'iris'
-  name: string
-  description: string
-  status: 'active' | 'pending' | 'expired'
-  uploadedAt: string
-  lastUsed: string
-  size: string
-  isEncrypted: boolean
+  date: string
+  type: 'Job' | 'Address' | 'BVN' | 'NIN' | 'Passport' | 'Education'
+  action: 'Submitted' | 'Verified' | 'Declined' | 'Expired'
+  status: BioStatus
+  impact: number
+  by: string
 }
 
 const Biobank = () => {
-  const [showUploadModal, setShowUploadModal] = useState(false)
-  const [selectedDataType, setSelectedDataType] = useState<string>('')
-  const [isEncryptionEnabled, setIsEncryptionEnabled] = useState(true)
+  const navigate = useNavigate()
+  const [activeMainTab, setActiveMainTab] = useState<'biodata' | 'logs'>('biodata')
+  const [activeView, setActiveView] = useState<'table' | 'timeline'>('table')
+  const [statusFilter, setStatusFilter] = useState<string>('')
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const biometricData: BiometricData[] = [
-    {
-      id: '1',
-      type: 'fingerprint',
-      name: 'Right Thumb',
-      description: 'Primary fingerprint for authentication',
-      status: 'active',
-      uploadedAt: '2024-01-15',
-      lastUsed: '2024-01-20',
-      size: '2.3 MB',
-      isEncrypted: true
-    },
-    {
-      id: '2',
-      type: 'facial',
-      name: 'Face Recognition',
-      description: 'Facial biometric data for identity verification',
-      status: 'active',
-      uploadedAt: '2024-01-15',
-      lastUsed: '2024-01-19',
-      size: '5.7 MB',
-      isEncrypted: true
-    },
-    {
-      id: '3',
-      type: 'voice',
-      name: 'Voice Sample',
-      description: 'Voice biometric for secure authentication',
-      status: 'pending',
-      uploadedAt: '2024-01-18',
-      lastUsed: 'Never',
-      size: '8.1 MB',
-      isEncrypted: false
-    },
-    {
-      id: '4',
-      type: 'iris',
-      name: 'Left Eye',
-      description: 'Iris scan data for high-security verification',
-      status: 'expired',
-      uploadedAt: '2023-12-10',
-      lastUsed: '2024-01-05',
-      size: '3.2 MB',
-      isEncrypted: true
-    }
+  const bioItems: BioItem[] = [
+    { id: '1', date: '2024-08-26', type: 'Job', action: 'Submitted', status: 'pending', impact: 12, by: 'Self' },
+    { id: '2', date: '2024-08-27', type: 'Passport', action: 'Verified', status: 'completed', impact: 12, by: 'Platform AI' },
+    { id: '3', date: '2024-08-28', type: 'Driver License', action: 'Declined', status: 'failed', impact: 0, by: 'Adekunle Ajayi' },
+    { id: '4', date: '2024-08-29', type: 'Immigration Verification', action: 'Expired', status: 'issues', impact: -14, by: 'Admin' },
+    { id: '5', date: '2024-08-30', type: 'Address', action: 'Submitted', status: 'pending', impact: 12, by: 'Self' },
+    { id: '6', date: '2024-08-31', type: 'FIRS Verification', action: 'Verified', status: 'completed', impact: 12, by: 'Ayomide Ikenna' }
   ]
 
-  const getStatusBadge = (status: string) => {
+  const getStatusPill = (status: BioStatus) => {
+    const base = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium'
+    if (status === 'completed') return <span className={`${base} bg-success-100 text-success-800`}><CheckCircle className="h-3 w-3 mr-1"/>COMPLETED</span>
+    if (status === 'pending') return <span className={`${base} bg-warning-100 text-warning-800`}><Clock className="h-3 w-3 mr-1"/>PENDING</span>
+    if (status === 'issues') return <span className={`${base} bg-danger-100 text-danger-800`}><AlertCircle className="h-3 w-3 mr-1"/>ISSUES</span>
+    return <span className={`${base} bg-danger-100 text-danger-800`}><AlertCircle className="h-3 w-3 mr-1"/>FAILED</span>
+  }
+
+  const filtered = bioItems.filter(i =>
+    (!statusFilter || i.status === statusFilter) &&
+    (searchTerm.trim() === '' || i.type.toLowerCase().includes(searchTerm.toLowerCase()))
+  )
+
+  // Bio data cards
+  type CardStatus = 'verified' | 'pending' | 'issue' | 'not_verified'
+  interface BioCard {
+    id: string
+    title: string
+    description: string
+    status: CardStatus
+    recommended?: boolean
+    href?: string
+  }
+
+  const bioCards: BioCard[] = [
+    { id: 'addr', title: 'Address Verification', description: 'Unlimited users, unlimited individual data and access to all features.', status: 'not_verified', recommended: true, href: '/individual/verification' },
+    { id: 'job', title: 'Job Verification', description: 'Unlimited users, unlimited individual data and access to all features.', status: 'pending', recommended: true, href: '/individual/verification/status' },
+    { id: 'nin', title: 'NIN', description: 'Unlimited users, unlimited individual data and access to all features.', status: 'not_verified', href: '/individual/verification' },
+    { id: 'bvn', title: 'BVN', description: 'Unlimited users, unlimited individual data and access to all features.', status: 'issue', href: '/individual/verification/status' },
+    { id: 'passport', title: 'Passport', description: 'Unlimited users, unlimited individual data and access to all features.', status: 'verified', href: '/individual/verification/history' },
+    { id: 'edu', title: 'Education Verification', description: 'Unlimited users, unlimited individual data and access to all features.', status: 'not_verified', recommended: true, href: '/individual/verification' }
+  ]
+
+  const renderCardStatus = (status: CardStatus) => {
+    const common = 'text-[11px] px-2 py-0.5 rounded-full inline-flex items-center whitespace-nowrap'
     switch (status) {
-      case 'active':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">
-            <CheckCircle className="h-3 w-3 mr-1" />
-            Active
-          </span>
-        )
+      case 'verified':
+        return <span className={`${common} bg-green-100 text-green-700`}>Verified</span>
       case 'pending':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-100 text-warning-800">
-            <Clock className="h-3 w-3 mr-1" />
-            Pending
-          </span>
-        )
-      case 'expired':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-danger-100 text-danger-800">
-            <AlertCircle className="h-3 w-3 mr-1" />
-            Expired
-          </span>
-        )
+        return <span className={`${common} bg-yellow-100 text-yellow-700`}>Pending</span>
+      case 'issue':
+        return <span className={`${common} bg-red-100 text-red-700`}>Issue</span>
       default:
-        return null
+        return <span className={`${common} bg-gray-100 text-gray-600`}>Not Verified</span>
     }
   }
 
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case 'fingerprint':
-        return <Fingerprint className="h-5 w-5" />
-      case 'facial':
-        return <Camera className="h-5 w-5" />
-      case 'voice':
-        return <Database className="h-5 w-5" />
-      case 'iris':
-        return <Eye className="h-5 w-5" />
-      default:
-        return <Database className="h-5 w-5" />
-    }
-  }
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'fingerprint':
-        return 'text-blue-600 bg-blue-100'
-      case 'facial':
-        return 'text-green-600 bg-green-100'
-      case 'voice':
-        return 'text-purple-600 bg-purple-100'
-      case 'iris':
-        return 'text-orange-600 bg-orange-100'
-      default:
-        return 'text-gray-600 bg-gray-100'
+  const onCardDetails = (card: BioCard) => {
+    if (card.status === 'not_verified') {
+      navigate('/individual/verification', { state: { preset: card.title } })
+    } else if (card.href) {
+      navigate(card.href)
     }
   }
 
@@ -146,275 +107,137 @@ const Biobank = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Biometric Data Bank</h1>
-          <p className="text-gray-600">Securely store and manage your biometric data</p>
-        </div>
-        <button
-          onClick={() => setShowUploadModal(true)}
-          className="flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Add Biometric Data
-        </button>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-              <Database className="h-6 w-6 text-primary-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Records</p>
-              <p className="text-2xl font-bold text-gray-900">{biometricData.length}</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center">
-              <CheckCircle className="h-6 w-6 text-success-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Active</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {biometricData.filter(d => d.status === 'active').length}
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-warning-100 rounded-lg flex items-center justify-center">
-              <Clock className="h-6 w-6 text-warning-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Pending</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {biometricData.filter(d => d.status === 'pending').length}
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <Lock className="h-6 w-6 text-blue-600" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Encrypted</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {biometricData.filter(d => d.isEncrypted).length}
-              </p>
-            </div>
-          </div>
+          <h1 className="text-2xl font-bold text-gray-900">BioBank</h1>
+          <p className="text-gray-600">Monitor your bio data and verification history</p>
         </div>
       </div>
 
-      {/* Security Settings */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900">Security Settings</h3>
-            <p className="text-sm text-gray-600">Manage encryption and access controls</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <span className="text-sm font-medium text-gray-700">Encryption</span>
-              <button
-                onClick={() => setIsEncryptionEnabled(!isEncryptionEnabled)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  isEncryptionEnabled ? 'bg-primary-600' : 'bg-gray-200'
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    isEncryptionEnabled ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-            </div>
-            <button className="flex items-center px-3 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
-              <Settings className="h-4 w-4 mr-2" />
-              Advanced
-            </button>
-          </div>
-        </div>
+      {/* Main Tabs */}
+      <div className="flex space-x-2">
+        <button onClick={() => setActiveMainTab('biodata')} className={`px-4 py-2 rounded-md border ${activeMainTab==='biodata' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200'}`}>Bio Data</button>
+        <button onClick={() => setActiveMainTab('logs')} className={`px-4 py-2 rounded-md border ${activeMainTab==='logs' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200'}`}>History / Log</button>
       </div>
 
-      {/* Biometric Data Table */}
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Biometric Records</h2>
-        </div>
-        
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Data Type
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Size
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Last Used
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Security
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {biometricData.map((data) => (
-                <tr key={data.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${getTypeColor(data.type)}`}>
-                        {getTypeIcon(data.type)}
-                      </div>
-                      <div className="ml-3">
-                        <div className="text-sm font-medium text-gray-900 capitalize">{data.type}</div>
-                        <div className="text-sm text-gray-500">{data.description}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {data.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {getStatusBadge(data.status)}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {data.size}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {data.lastUsed === 'Never' ? 'Never' : new Date(data.lastUsed).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      {data.isEncrypted ? (
-                        <Lock className="h-4 w-4 text-green-600" />
-                      ) : (
-                        <Unlock className="h-4 w-4 text-red-600" />
+      {activeMainTab === 'biodata' ? (
+        <div className="space-y-6">
+          {/* Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="text-sm text-gray-600">Completed</div>
+              <div className="mt-2 text-2xl font-bold text-gray-900">12</div>
+            </div>
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="text-sm text-gray-600">Pending</div>
+              <div className="mt-2 text-2xl font-bold text-gray-900">2</div>
+            </div>
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="text-sm text-gray-600">Not Done</div>
+              <div className="mt-2 text-2xl font-bold text-gray-900">24</div>
+            </div>
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="text-sm text-gray-600">Issues</div>
+              <div className="mt-2 text-2xl font-bold text-gray-900">4</div>
+            </div>
+            <div className="bg-white rounded-lg border border-gray-200 p-6">
+              <div className="text-sm text-gray-600">Trust Score</div>
+              <div className="mt-2 text-2xl font-bold text-primary-600">720</div>
+            </div>
+          </div>
+
+          {/* Filters */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="relative">
+                <Search className="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} placeholder="Search by Name, Commodity" className="pl-9 pr-3 py-2 border border-gray-300 rounded-md text-sm w-64" />
+              </div>
+              <select value={statusFilter} onChange={e=>setStatusFilter(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-md text-sm">
+                <option value="">Status</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+                <option value="issues">Issues</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Cards grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {bioCards.map((card) => (
+              <div key={card.id} className="bg-white border border-gray-200 rounded-xl p-5 md:p-6 shadow-sm hover:shadow transition">
+                <div className="flex items-start gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-full bg-red-100 flex-shrink-0" />
+                  <div className="min-w-0 w-full">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-gray-900 truncate">{card.title}</span>
+                      {card.recommended && (
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 whitespace-nowrap">Recommended</span>
                       )}
-                      <span className="ml-2 text-sm text-gray-500">
-                        {data.isEncrypted ? 'Encrypted' : 'Unencrypted'}
-                      </span>
                     </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div className="flex items-center justify-end space-x-2">
-                      <button className="text-primary-600 hover:text-primary-900">
-                        <Eye className="h-4 w-4" />
-                      </button>
-                      <button className="text-blue-600 hover:text-blue-900">
-                        <Download className="h-4 w-4" />
-                      </button>
-                      <button className="text-gray-600 hover:text-gray-900">
-                        <Settings className="h-4 w-4" />
-                      </button>
-                      <button className="text-red-600 hover:text-red-900">
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Upload Modal */}
-      {showUploadModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">Add Biometric Data</h3>
-                <button
-                  onClick={() => setShowUploadModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  ×
-                </button>
-              </div>
-            </div>
-            
-            <div className="px-6 py-4 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Data Type</label>
-                <select
-                  value={selectedDataType}
-                  onChange={(e) => setSelectedDataType(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  <option value="">Select data type</option>
-                  <option value="fingerprint">Fingerprint</option>
-                  <option value="facial">Facial Recognition</option>
-                  <option value="voice">Voice Sample</option>
-                  <option value="iris">Iris Scan</option>
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Upload Method</label>
-                <div className="space-y-2">
-                  <button className="w-full flex items-center justify-center px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 transition-colors">
-                    <Upload className="h-5 w-5 mr-2 text-gray-400" />
-                    Upload File
-                  </button>
-                  <button className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                    <Scan className="h-5 w-5 mr-2 text-gray-400" />
-                    Scan Now
-                  </button>
+                    <div className="mt-2">{renderCardStatus(card.status)}</div>
+                    <p className="text-xs text-gray-500 mt-2 leading-5">{card.description}</p>
+                    <button onClick={() => onCardDetails(card)} className="mt-3 text-xs font-medium text-primary-700 hover:underline">Details</button>
+                  </div>
                 </div>
               </div>
-              
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="encrypt"
-                  checked={isEncryptionEnabled}
-                  onChange={(e) => setIsEncryptionEnabled(e.target.checked)}
-                  className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-                />
-                <label htmlFor="encrypt" className="text-sm text-gray-700">
-                  Encrypt this data for enhanced security
-                </label>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {/* View Switch */}
+          <div className="flex items-center space-x-2">
+            <button onClick={()=>setActiveView('table')} className={`px-4 py-2 rounded-md ${activeView==='table' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700'}`}>Table View</button>
+            <button onClick={()=>setActiveView('timeline')} className={`px-4 py-2 rounded-md ${activeView==='timeline' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700'}`}>Timeline</button>
+          </div>
+
+          {activeView === 'table' ? (
+            <div className="bg-white rounded-lg border border-gray-200">
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Verification Type</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Impact</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">By</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {filtered.map((row)=> (
+                      <tr key={row.id}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{new Date(row.date).toLocaleDateString()}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{row.type}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{row.action}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{getStatusPill(row.status)}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`px-2 py-1 rounded-full text-xs ${row.impact>=0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{row.impact >= 0 ? `+${row.impact}` : row.impact}</span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-primary-700">{row.by}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
-            
-            <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-end space-x-3">
-              <button
-                onClick={() => setShowUploadModal(false)}
-                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowUploadModal(false)}
-                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
-              >
-                Upload
-              </button>
+          ) : (
+            <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-6">
+              {filtered.map((item)=> (
+                <div key={item.id} className="relative pl-10">
+                  <div className="absolute left-0 top-2 w-3 h-3 rounded-full bg-gray-300" />
+                  <div className="text-xs text-gray-500 mb-1">{new Date(item.date).toLocaleDateString()}</div>
+                  <div className="text-sm text-gray-900"><span className="font-medium">{item.by}</span> • {item.action} {item.type}</div>
+                  <div className="mt-1 flex items-center space-x-3">
+                    {getStatusPill(item.status)}
+                    <span className={`px-2 py-1 rounded-full text-xs ${item.impact>=0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{item.impact >= 0 ? `+${item.impact}` : item.impact}</span>
+                    <button className="text-xs text-primary-700">View detail pages</button>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

@@ -10,7 +10,10 @@ import {
   Phone,
   Calendar,
   Eye,
-  MessageSquare
+  MessageSquare,
+  X,
+  Plus,
+  Edit
 } from 'lucide-react'
 
 interface Attester {
@@ -37,6 +40,11 @@ interface AttesterRequest {
 
 const Attester = () => {
   const [activeTab, setActiveTab] = useState<'my-attesters' | 'requests'>('my-attesters')
+  const [showAddAttesterModal, setShowAddAttesterModal] = useState(false)
+  const [showAttesterDetails, setShowAttesterDetails] = useState<Attester | null>(null)
+  const [showRequestDetails, setShowRequestDetails] = useState<AttesterRequest | null>(null)
+  const [showMessageModal, setShowMessageModal] = useState<Attester | null>(null)
+  const [messageText, setMessageText] = useState('')
 
   const myAttesters: Attester[] = [
     {
@@ -101,6 +109,45 @@ const Attester = () => {
     }
   ]
 
+  // Handler functions
+  const handleAddAttester = () => {
+    setShowAddAttesterModal(true)
+  }
+
+  const handleViewAttester = (attester: Attester) => {
+    setShowAttesterDetails(attester)
+  }
+
+  const handleMessageAttester = (attester: Attester) => {
+    setShowMessageModal(attester)
+    setMessageText('')
+  }
+
+  const handleViewRequest = (request: AttesterRequest) => {
+    setShowRequestDetails(request)
+  }
+
+  const handleApproveRequest = (requestId: string) => {
+    // In a real app, this would make an API call
+    console.log('Approving request:', requestId)
+    alert('Request approved successfully!')
+  }
+
+  const handleRejectRequest = (requestId: string) => {
+    // In a real app, this would make an API call
+    console.log('Rejecting request:', requestId)
+    alert('Request rejected successfully!')
+  }
+
+  const handleSendMessage = () => {
+    if (messageText.trim()) {
+      console.log('Sending message to:', showMessageModal?.name, 'Message:', messageText)
+      alert('Message sent successfully!')
+      setShowMessageModal(null)
+      setMessageText('')
+    }
+  }
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'active':
@@ -139,7 +186,7 @@ const Attester = () => {
           <h1 className="text-2xl font-bold text-gray-900">Attester Management</h1>
           <p className="text-gray-600">Manage your attesters and verification requests</p>
         </div>
-        <button className="flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+        <button onClick={handleAddAttester} className="flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
           <UserPlus className="h-4 w-4 mr-2" />
           Add New Attester
         </button>
@@ -291,10 +338,18 @@ const Attester = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex items-center justify-end space-x-2">
-                          <button className="text-primary-600 hover:text-primary-900">
+                          <button 
+                            onClick={() => handleViewAttester(attester)}
+                            className="text-primary-600 hover:text-primary-900"
+                            title="View Details"
+                          >
                             <Eye className="h-4 w-4" />
                           </button>
-                          <button className="text-blue-600 hover:text-blue-900">
+                          <button 
+                            onClick={() => handleMessageAttester(attester)}
+                            className="text-blue-600 hover:text-blue-900"
+                            title="Send Message"
+                          >
                             <MessageSquare className="h-4 w-4" />
                           </button>
                         </div>
@@ -400,15 +455,27 @@ const Attester = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex items-center justify-end space-x-2">
-                          <button className="text-primary-600 hover:text-primary-900">
+                          <button 
+                            onClick={() => handleViewRequest(request)}
+                            className="text-primary-600 hover:text-primary-900"
+                            title="View Details"
+                          >
                             <Eye className="h-4 w-4" />
                           </button>
                           {request.status === 'pending' && (
                             <>
-                              <button className="text-success-600 hover:text-success-900">
+                              <button 
+                                onClick={() => handleApproveRequest(request.id)}
+                                className="text-success-600 hover:text-success-900"
+                                title="Approve Request"
+                              >
                                 <CheckCircle className="h-4 w-4" />
                               </button>
-                              <button className="text-danger-600 hover:text-danger-900">
+                              <button 
+                                onClick={() => handleRejectRequest(request.id)}
+                                className="text-danger-600 hover:text-danger-900"
+                                title="Reject Request"
+                              >
                                 <XCircle className="h-4 w-4" />
                               </button>
                             </>
@@ -419,6 +486,239 @@ const Attester = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add New Attester Modal */}
+      {showAddAttesterModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Add New Attester</h3>
+              <button 
+                onClick={() => setShowAddAttesterModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input 
+                  type="text" 
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  placeholder="Enter attester name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input 
+                  type="email" 
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  placeholder="Enter email address"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <input 
+                  type="tel" 
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  placeholder="Enter phone number"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Relationship</label>
+                <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <option value="">Select relationship</option>
+                  <option value="professor">Professor</option>
+                  <option value="employer">Employer</option>
+                  <option value="colleague">Colleague</option>
+                  <option value="friend">Friend</option>
+                  <option value="family">Family</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex justify-end space-x-3 mt-6">
+              <button 
+                onClick={() => setShowAddAttesterModal(false)}
+                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => {
+                  alert('Attester added successfully!')
+                  setShowAddAttesterModal(false)
+                }}
+                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
+              >
+                Add Attester
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Attester Details Modal */}
+      {showAttesterDetails && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Attester Details</h3>
+              <button 
+                onClick={() => setShowAttesterDetails(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                  <Users className="h-6 w-6 text-primary-600" />
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-semibold">{showAttesterDetails.name}</h4>
+                  <p className="text-gray-600">{showAttesterDetails.email}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Phone</label>
+                  <p className="text-sm text-gray-900">{showAttesterDetails.phone}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Relationship</label>
+                  <p className="text-sm text-gray-900">{showAttesterDetails.relationship}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Status</label>
+                  <div className="mt-1">{getStatusBadge(showAttesterDetails.status)}</div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Verifications</label>
+                  <p className="text-sm text-gray-900">{showAttesterDetails.totalVerifications}</p>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Last Verified</label>
+                <p className="text-sm text-gray-900">
+                  {new Date(showAttesterDetails.lastVerified).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end mt-6">
+              <button 
+                onClick={() => setShowAttesterDetails(null)}
+                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Request Details Modal */}
+      {showRequestDetails && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Request Details</h3>
+              <button 
+                onClick={() => setShowRequestDetails(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Requester</label>
+                <p className="text-sm text-gray-900">{showRequestDetails.requesterName}</p>
+                <p className="text-sm text-gray-600">{showRequestDetails.requesterEmail}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Verification Type</label>
+                <p className="text-sm text-gray-900">{showRequestDetails.verificationType}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Status</label>
+                <div className="mt-1">{getStatusBadge(showRequestDetails.status)}</div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Requested</label>
+                <p className="text-sm text-gray-900">
+                  {new Date(showRequestDetails.requestedAt).toLocaleDateString()}
+                </p>
+              </div>
+              {showRequestDetails.message && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Message</label>
+                  <p className="text-sm text-gray-900 bg-gray-50 p-3 rounded-md">
+                    {showRequestDetails.message}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="flex justify-end mt-6">
+              <button 
+                onClick={() => setShowRequestDetails(null)}
+                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Message Modal */}
+      {showMessageModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Send Message</h3>
+              <button 
+                onClick={() => setShowMessageModal(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">To</label>
+                <p className="text-sm text-gray-900">{showMessageModal.name}</p>
+                <p className="text-sm text-gray-600">{showMessageModal.email}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <textarea 
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  rows={4}
+                  placeholder="Enter your message..."
+                />
+              </div>
+            </div>
+            <div className="flex justify-end space-x-3 mt-6">
+              <button 
+                onClick={() => setShowMessageModal(null)}
+                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSendMessage}
+                className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
+              >
+                Send Message
+              </button>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { RootState } from '@/store/store'
 import StatCard from '@/components/ui/StatCard'
 import { Shield, FileText, BarChart3, CreditCard, CheckCircle, Clock, XCircle, Database, UserCheck } from 'lucide-react'
@@ -160,7 +161,12 @@ const Dashboard = () => {
 
       {/* Verification Status */}
       <div className="card">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Verification Status</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-gray-900">Verification Status</h2>
+          <Link to="/individual/verification/status" className="text-sm text-primary-600 hover:text-primary-700">
+            View All
+          </Link>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center space-x-3 p-3 bg-success-50 rounded-lg">
             <CheckCircle className="h-5 w-5 text-success-600" />

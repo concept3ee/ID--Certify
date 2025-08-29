@@ -26,7 +26,28 @@ import {
   Search,
   Sun,
   Moon,
-  HelpCircle
+  HelpCircle,
+  CheckCircle,
+  Calendar,
+  UserPlus,
+  AlertTriangle,
+  ExternalLink,
+  RefreshCw,
+  PieChart,
+  Lightbulb,
+  Clipboard,
+  Link as LinkIcon,
+  Gauge,
+  Play,
+  Download,
+  BookOpen,
+  TestTube,
+  Rocket,
+  GraduationCap,
+  Star,
+  DollarSign,
+  MessageCircle,
+  Mail
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -47,7 +68,6 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
   const location = useLocation()
   const { userType } = useSelector((state: RootState) => state.auth)
   const [expandedItems, setExpandedItems] = useState<string[]>([])
-  const [darkMode, setDarkMode] = useState(false)
 
   const toggleExpanded = (itemName: string) => {
     setExpandedItems(prev => 
@@ -72,6 +92,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             icon: Shield,
             children: [
               { name: 'Start Verification', href: '/individual/verification', icon: Shield },
+              { name: 'Verification Status', href: '/individual/verification/status', icon: CheckCircle },
               { name: 'Verification History', href: '/individual/verification/history', icon: FileText },
               { name: 'Pending Actions', href: '/individual/verification/pending', icon: Clock }
             ]
@@ -116,33 +137,230 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
           },
           {
             name: 'Data Monitoring',
-            href: '/individual/monitoring',
+            href: '/individual/data-monitoring',
             icon: Activity,
             children: [
-              { name: 'Activity Logs', href: '/individual/monitoring/activity', icon: Activity },
-              { name: 'Access Requests', href: '/individual/monitoring/access', icon: Eye }
+              { name: 'Overview', href: '/individual/data-monitoring', icon: BarChart3 },
+              { name: 'Activity Logs', href: '/individual/data-monitoring', icon: Activity },
+              { name: 'Security Events', href: '/individual/data-monitoring', icon: Shield },
+              { name: 'Privacy Dashboard', href: '/individual/data-monitoring', icon: Eye },
+              { name: 'Data Usage', href: '/individual/data-monitoring', icon: Database }
             ]
           }
         ]
       case 'organisation':
         return [
-          { name: 'Dashboard', href: '/organisation', icon: Home },
-          { name: 'Verification', href: '/organisation/verification', icon: Shield },
-          { name: 'Documents', href: '/organisation/documents', icon: FileText },
-          { name: 'Trust Score', href: '/organisation/trust-score', icon: BarChart3 },
-          { name: 'Wallet', href: '/organisation/wallet', icon: CreditCard },
-          { name: 'Notifications', href: '/organisation/notifications', icon: Bell },
-          { name: 'Profile', href: '/organisation/profile', icon: Settings }
+          { 
+            name: 'Overview', 
+            href: '/organisation', 
+            icon: Home 
+          },
+          {
+            name: 'Verification',
+            href: '/organisation/verification',
+            icon: Shield,
+            children: [
+              { name: 'Start Verification', href: '/organisation/verification', icon: Shield },
+              { name: 'Verification Status', href: '/organisation/verification/status', icon: CheckCircle },
+              { name: 'Verification History', href: '/organisation/verification/history', icon: FileText },
+              { name: 'Pending Actions', href: '/organisation/verification/pending', icon: Clock }
+            ]
+          },
+          {
+            name: 'Compliance',
+            href: '/organisation/compliance',
+            icon: CheckCircle,
+            children: [
+              { name: 'Compliance Overview', href: '/organisation/compliance', icon: BarChart3 },
+              { name: 'Regulatory Requirements', href: '/organisation/compliance/regulatory', icon: FileText },
+              { name: 'Audit Reports', href: '/organisation/compliance/audit', icon: Clipboard },
+              { name: 'Compliance Calendar', href: '/organisation/compliance/calendar', icon: Calendar }
+            ]
+          },
+          {
+            name: 'Employee Management',
+            href: '/organisation/employees',
+            icon: Users,
+            children: [
+              { name: 'Employee Directory', href: '/organisation/employees', icon: Users },
+              { name: 'Add Employee', href: '/organisation/employees/add', icon: UserPlus },
+              { name: 'Employee Verification', href: '/organisation/employees/verification', icon: Shield },
+              { name: 'Access Permissions', href: '/organisation/employees/permissions', icon: Key }
+            ]
+          },
+          {
+            name: 'AML & KYC',
+            href: '/organisation/aml',
+            icon: Shield,
+            children: [
+              { name: 'AML Overview', href: '/organisation/aml', icon: BarChart3 },
+              { name: 'KYC Procedures', href: '/organisation/aml/kyc', icon: UserCheck },
+              { name: 'Risk Assessment', href: '/organisation/aml/risk', icon: AlertTriangle },
+              { name: 'Suspicious Activity', href: '/organisation/aml/suspicious', icon: Eye }
+            ]
+          },
+          {
+            name: 'Data Monitoring',
+            href: '/organisation/monitoring',
+            icon: Activity,
+            children: [
+              { name: 'Monitoring Overview', href: '/organisation/monitoring', icon: BarChart3 },
+              { name: 'Activity Logs', href: '/organisation/monitoring/activity', icon: Activity },
+              { name: 'Security Events', href: '/organisation/monitoring/security', icon: Shield },
+              { name: 'Data Access', href: '/organisation/monitoring/access', icon: Database }
+            ]
+          },
+          {
+            name: 'Integrations',
+            href: '/organisation/integrations',
+            icon: LinkIcon,
+            children: [
+              { name: 'API Connections', href: '/organisation/integrations', icon: Code },
+              { name: 'Third-party Services', href: '/organisation/integrations/services', icon: ExternalLink },
+              { name: 'Webhooks', href: '/organisation/integrations/webhooks', icon: Code },
+              { name: 'Data Sync', href: '/organisation/integrations/sync', icon: RefreshCw }
+            ]
+          },
+          {
+            name: 'Trust Score',
+            href: '/organisation/trust-score',
+            icon: BarChart3,
+            children: [
+              { name: 'Score Overview', href: '/organisation/trust-score', icon: BarChart3 },
+              { name: 'Score Breakdown', href: '/organisation/trust-score/breakdown', icon: PieChart },
+              { name: 'Score History', href: '/organisation/trust-score/history', icon: TrendingUp },
+              { name: 'Improvement Tips', href: '/organisation/trust-score/tips', icon: Lightbulb }
+            ]
+          },
+          {
+            name: 'Financial',
+            href: '/organisation/wallet',
+            icon: Wallet,
+            children: [
+              { name: 'Wallet Balance', href: '/organisation/wallet', icon: CreditCard },
+              { name: 'Transactions', href: '/organisation/wallet/transactions', icon: TrendingUp },
+              { name: 'Billing & Invoices', href: '/organisation/billing', icon: FileText },
+              { name: 'Payment Methods', href: '/organisation/wallet/payment-methods', icon: CreditCard }
+            ]
+          },
+          {
+            name: 'Document Management',
+            href: '/organisation/documents',
+            icon: FileText,
+            children: [
+              { name: 'Document Vault', href: '/organisation/documents', icon: Folder },
+              { name: 'Document Templates', href: '/organisation/documents/templates', icon: FileText },
+              { name: 'Access Permissions', href: '/organisation/documents/permissions', icon: Key },
+              { name: 'Document Analytics', href: '/organisation/documents/analytics', icon: BarChart3 }
+            ]
+          },
+          {
+            name: 'Settings',
+            href: '/organisation/settings',
+            icon: Settings,
+            children: [
+              { name: 'General Settings', href: '/organisation/settings', icon: Settings },
+              { name: 'Security Settings', href: '/organisation/settings/security', icon: Shield },
+              { name: 'Notification Preferences', href: '/organisation/settings/notifications', icon: Bell },
+              { name: 'Team Management', href: '/organisation/settings/team', icon: Users }
+            ]
+          }
         ]
       case 'developer':
         return [
-          { name: 'Dashboard', href: '/developer', icon: Home },
-          { name: 'API Keys', href: '/developer/api-keys', icon: Code },
-          { name: 'Verification', href: '/developer/verification', icon: Shield },
-          { name: 'Documents', href: '/developer/documents', icon: FileText },
-          { name: 'Wallet', href: '/developer/wallet', icon: CreditCard },
-          { name: 'Notifications', href: '/developer/notifications', icon: Bell },
-          { name: 'Profile', href: '/developer/profile', icon: Settings }
+          { 
+            name: 'Overview', 
+            href: '/developer', 
+            icon: Home 
+          },
+          {
+            name: 'API Management',
+            href: '/developer/api-keys',
+            icon: Code,
+            children: [
+              { name: 'API Keys', href: '/developer/api-keys', icon: Key },
+              { name: 'API Documentation', href: '/developer/docs', icon: FileText },
+              { name: 'Rate Limits', href: '/developer/api-keys/rate-limits', icon: Gauge },
+              { name: 'API Testing', href: '/developer/api-keys/testing', icon: Play }
+            ]
+          },
+          {
+            name: 'Integration Tools',
+            href: '/developer/webhooks',
+            icon: LinkIcon,
+            children: [
+              { name: 'Webhooks', href: '/developer/webhooks', icon: Code },
+              { name: 'SDK Downloads', href: '/developer/webhooks/sdk', icon: Download },
+              { name: 'Integration Guides', href: '/developer/webhooks/guides', icon: BookOpen },
+              { name: 'Code Examples', href: '/developer/webhooks/examples', icon: Code }
+            ]
+          },
+          {
+            name: 'Verification',
+            href: '/developer/verification',
+            icon: Shield,
+            children: [
+              { name: 'Verification API', href: '/developer/verification', icon: Shield },
+              { name: 'Verification Status', href: '/developer/verification/status', icon: CheckCircle },
+              { name: 'Verification History', href: '/developer/verification/history', icon: FileText },
+              { name: 'Test Environment', href: '/developer/verification/test', icon: TestTube }
+            ]
+          },
+          {
+            name: 'Analytics & Monitoring',
+            href: '/developer/analytics',
+            icon: BarChart3,
+            children: [
+              { name: 'API Analytics', href: '/developer/analytics', icon: BarChart3 },
+              { name: 'Usage Metrics', href: '/developer/analytics/usage', icon: TrendingUp },
+              { name: 'Error Logs', href: '/developer/analytics/errors', icon: AlertTriangle },
+              { name: 'Performance', href: '/developer/analytics/performance', icon: Gauge }
+            ]
+          },
+          {
+            name: 'Documentation',
+            href: '/developer/docs',
+            icon: BookOpen,
+            children: [
+              { name: 'API Reference', href: '/developer/docs', icon: FileText },
+              { name: 'Quick Start', href: '/developer/docs/quickstart', icon: Rocket },
+              { name: 'Tutorials', href: '/developer/docs/tutorials', icon: GraduationCap },
+              { name: 'Best Practices', href: '/developer/docs/best-practices', icon: Star }
+            ]
+          },
+          {
+            name: 'Financial',
+            href: '/developer/wallet',
+            icon: Wallet,
+            children: [
+              { name: 'Wallet Balance', href: '/developer/wallet', icon: CreditCard },
+              { name: 'Billing History', href: '/developer/wallet/billing', icon: FileText },
+              { name: 'Usage Costs', href: '/developer/wallet/usage', icon: DollarSign },
+              { name: 'Payment Methods', href: '/developer/wallet/payment-methods', icon: CreditCard }
+            ]
+          },
+          {
+            name: 'Support & Community',
+            href: '/developer/support',
+            icon: HelpCircle,
+            children: [
+              { name: 'Developer Support', href: '/developer/support', icon: MessageCircle },
+              { name: 'Community Forum', href: '/developer/support/forum', icon: Users },
+              { name: 'Status Page', href: '/developer/support/status', icon: Activity },
+              { name: 'Contact Support', href: '/developer/support/contact', icon: Mail }
+            ]
+          },
+          {
+            name: 'Settings',
+            href: '/developer/settings',
+            icon: Settings,
+            children: [
+              { name: 'Account Settings', href: '/developer/settings', icon: Settings },
+              { name: 'Security Settings', href: '/developer/settings/security', icon: Shield },
+              { name: 'Notification Preferences', href: '/developer/settings/notifications', icon: Bell },
+              { name: 'API Preferences', href: '/developer/settings/api', icon: Code }
+            ]
+          }
         ]
       case 'admin':
         return [
@@ -257,18 +475,6 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
 
       {/* Bottom Section */}
       <div className="p-4 border-t border-gray-200 space-y-2">
-        {/* Dark Mode Toggle */}
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="flex items-center w-full px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors duration-200"
-        >
-          {darkMode ? (
-            <Sun className="h-5 w-5 mr-3 text-gray-400" />
-          ) : (
-            <Moon className="h-5 w-5 mr-3 text-gray-400" />
-          )}
-          {!isCollapsed && <span>{darkMode ? 'Light Mode' : 'Dark Mode'}</span>}
-        </button>
 
         {/* Support */}
         <Link

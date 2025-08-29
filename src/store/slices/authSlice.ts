@@ -103,9 +103,9 @@ export const logoutUser = createAsyncThunk(
 )
 
 const initialState: AuthState = {
-  isAuthenticated: false,
-  user: null,
-  userType: null,
+  isAuthenticated: true, // Temporarily set to true for testing
+  user: demoUsers.individual, // Set demo user
+  userType: 'individual', // Set user type
   loading: false,
   error: null,
 }
