@@ -5,6 +5,7 @@ import Header from '@/components/ui/Header'
 import SectionNav from '@/components/ui/SectionNav'
 import Dashboard from './Dashboard'
 import Verification from './Verification'
+import VerificationDashboard from './VerificationDashboard'
 import VerificationStatus from './VerificationStatus'
 import Documents from './Documents'
 import DataMonitoring from './DataMonitoring'
@@ -54,16 +55,11 @@ const IndividualDashboard = () => {
                 <Dashboard />
               </div>
             } />
-            <Route path="/verification" element={
-              <div className="p-6 mx-6">
-                <Verification />
-              </div>
-            } />
+            <Route path="/verification" element={<VerificationDashboard />} />
             <Route path="/verification/status" element={
               <>
                 <SectionNav
                   title="Verification Status"
-                  description="Track the progress of your verification requests"
                   tabs={[
                     { id: 'start', name: 'Start Verification', href: '/individual/verification' },
                     { id: 'status', name: 'Status', href: '/individual/verification/status', badge: 2 },
@@ -86,31 +82,14 @@ const IndividualDashboard = () => {
                 <VerificationStatus />
               </div>
             } />
-            <Route path="/attester" element={
-              <div className="p-6 mx-6">
-                <Attester />
-              </div>
-            } />
-            <Route path="/attester/my-attesters" element={
-              <div className="p-6 mx-6">
-                <Attester />
-              </div>
-            } />
-            <Route path="/attester/requests" element={
-              <div className="p-6 mx-6">
-                <Attester />
-              </div>
-            } />
-            <Route path="/biobank" element={
-              <div className="p-6 mx-6">
-                <Biobank />
-              </div>
-            } />
+            <Route path="/attester" element={<Attester />} />
+            <Route path="/attester/my-attesters" element={<Attester />} />
+            <Route path="/attester/requests" element={<Attester />} />
+            <Route path="/biobank" element={<Biobank />} />
             <Route path="/trust-score" element={
               <>
                 <SectionNav
                   title="Trust Score"
-                  description="Track and improve your trust score"
                   tabs={[
                     { id: 'overview', name: 'Overview', href: '/individual/trust-score' },
                     { id: 'linked-organisation', name: 'Linked Organisation', href: '/individual/trust-score/organisation' },
@@ -128,7 +107,6 @@ const IndividualDashboard = () => {
               <>
                 <SectionNav
                   title="Trust Score"
-                  description="Track and improve your trust score"
                   tabs={[
                     { id: 'overview', name: 'Overview', href: '/individual/trust-score' },
                     { id: 'linked-organisation', name: 'Linked Organisation', href: '/individual/trust-score/organisation' },
@@ -146,7 +124,6 @@ const IndividualDashboard = () => {
               <>
                 <SectionNav
                   title="Trust Score"
-                  description="Track and improve your trust score"
                   tabs={[
                     { id: 'overview', name: 'Overview', href: '/individual/trust-score' },
                     { id: 'linked-organisation', name: 'Linked Organisation', href: '/individual/trust-score/organisation' },
@@ -164,7 +141,6 @@ const IndividualDashboard = () => {
               <>
                 <SectionNav
                   title="Trust Score"
-                  description="Track and improve your trust score"
                   tabs={[
                     { id: 'overview', name: 'Overview', href: '/individual/trust-score' },
                     { id: 'linked-organisation', name: 'Linked Organisation', href: '/individual/trust-score/organisation' },
@@ -182,7 +158,6 @@ const IndividualDashboard = () => {
               <>
                 <SectionNav
                   title="Trust Score"
-                  description="Track and improve your trust score"
                   tabs={[
                     { id: 'overview', name: 'Overview', href: '/individual/trust-score' },
                     { id: 'linked-organisation', name: 'Linked Organisation', href: '/individual/trust-score/organisation' },
@@ -196,36 +171,12 @@ const IndividualDashboard = () => {
                 </div>
               </>
             } />
-            <Route path="/wallet" element={
-              <div className="p-6 mx-6">
-                <Wallet />
-              </div>
-            } />
-            <Route path="/wallet/transactions" element={
-              <div className="p-6 mx-6">
-                <Wallet />
-              </div>
-            } />
-            <Route path="/wallet/billing" element={
-              <div className="p-6 mx-6">
-                <Wallet />
-              </div>
-            } />
-            <Route path="/documents" element={
-              <div className="p-6 mx-6">
-                <Documents />
-              </div>
-            } />
-            <Route path="/data-monitoring" element={
-              <div className="p-6 mx-6">
-                <DataMonitoring />
-              </div>
-            } />
-            <Route path="/documents/permissions" element={
-              <div className="p-6 mx-6">
-                <Documents />
-              </div>
-            } />
+            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/wallet/transactions" element={<Wallet />} />
+            <Route path="/wallet/billing" element={<Wallet />} />
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/data-monitoring" element={<DataMonitoring />} />
+            <Route path="/documents/permissions" element={<Documents />} />
 
 
             <Route path="/profile" element={
@@ -233,21 +184,13 @@ const IndividualDashboard = () => {
                 <Profile />
               </div>
             } />
-            <Route path="/settings" element={
-              <div className="p-6 mx-6">
-                <Settings />
-              </div>
-            } />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/notifications" element={
               <div className="p-6 mx-6">
                 <Notifications />
               </div>
             } />
-            <Route path="/support" element={
-              <div className="p-6 mx-6">
-                <Support />
-              </div>
-            } />
+            <Route path="/support" element={<Support />} />
           </Routes>
         </main>
       </div>

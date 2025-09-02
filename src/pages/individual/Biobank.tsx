@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import {
   BarChart3,
   CheckCircle,
@@ -104,22 +105,50 @@ const Biobank = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">BioBank</h1>
-          <p className="text-gray-600">Monitor your bio data and verification history</p>
+      {/* Section Navigation */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="px-6 py-3">
+          {/* Section Header Row - Title, Centered Navigation, and Action Button */}
+          <div className="flex items-center">
+            {/* Left Side - Title Only */}
+            <div className="flex items-center flex-shrink-0">
+              <h1 className="text-xl font-bold text-gray-900">BioBank</h1>
+            </div>
+
+            {/* Center - Navigation Tabs with Trust Score Styling */}
+            <div className="flex-1 flex justify-center">
+              <div className="bg-gray-100 rounded-lg p-1">
+                <nav className="flex space-x-1">
+                  <button
+                    onClick={() => setActiveMainTab('biodata')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeMainTab === 'biodata'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Bio Data</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveMainTab('logs')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeMainTab === 'logs'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>History / Log</span>
+                  </button>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Main Tabs */}
-      <div className="flex space-x-2">
-        <button onClick={() => setActiveMainTab('biodata')} className={`px-4 py-2 rounded-md border ${activeMainTab==='biodata' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200'}`}>Bio Data</button>
-        <button onClick={() => setActiveMainTab('logs')} className={`px-4 py-2 rounded-md border ${activeMainTab==='logs' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200'}`}>History / Log</button>
-      </div>
-
+      {/* Content */}
       {activeMainTab === 'biodata' ? (
-        <div className="space-y-6">
+        <div className="px-6 space-y-6">
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             <div className="bg-white rounded-lg border border-gray-200 p-6">
@@ -184,7 +213,7 @@ const Biobank = () => {
           </div>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="px-6 space-y-4">
           {/* View Switch */}
           <div className="flex items-center space-x-2">
             <button onClick={()=>setActiveView('table')} className={`px-4 py-2 rounded-md ${activeView==='table' ? 'bg-primary-600 text-white' : 'bg-white border border-gray-200 text-gray-700'}`}>Table View</button>

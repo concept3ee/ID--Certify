@@ -9,10 +9,8 @@ import {
   Settings, 
   ChevronDown,
   MessageSquare,
-  Search,
   Menu,
   X,
-  Home,
   Shield,
   FileText,
   BarChart3,
@@ -45,60 +43,7 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
     dispatch(logoutUser())
   }
 
-  const getBreadcrumbs = () => {
-    const pathSegments = location.pathname.split('/').filter(segment => segment)
-    const breadcrumbs: Array<{name: string, path: string, isLast: boolean}> = []
-    
-    let currentPath = ''
-    pathSegments.forEach((segment, index) => {
-      currentPath += `/${segment}`
-      
-      // Map route segments to readable names
-      let name = segment
-      switch (segment) {
-        case 'individual':
-          name = 'Individual'
-          break
-        case 'organisation':
-          name = 'Organisation'
-          break
-        case 'developer':
-          name = 'Developer'
-          break
-        case 'admin':
-          name = 'Admin'
-          break
-        case 'verification':
-          name = 'Verification'
-          break
-        case 'documents':
-          name = 'Documents'
-          break
-        case 'trust-score':
-          name = 'Trust Score'
-          break
-        case 'wallet':
-          name = 'Wallet'
-          break
-        case 'profile':
-          name = 'Profile'
-          break
-        case 'settings':
-          name = 'Settings'
-          break
-        default:
-          name = segment.charAt(0).toUpperCase() + segment.slice(1)
-      }
-      
-      breadcrumbs.push({
-        name,
-        path: currentPath,
-        isLast: index === pathSegments.length - 1
-      })
-    })
-    
-    return breadcrumbs
-  }
+
 
   const notifications = [
     {
@@ -141,10 +86,10 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
     }
   ]
 
-  const breadcrumbs = getBreadcrumbs()
+
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4">
+    <header className="bg-white border-b border-gray-200 px-6 py-3">
       <div className="flex items-center justify-between">
         {/* Left Section - Toggle Button and Breadcrumbs */}
         <div className="flex items-center space-x-4">
@@ -156,48 +101,22 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
             <Menu className="h-5 w-5" />
           </button>
 
-          {/* Breadcrumbs */}
-          <nav className="flex items-center space-x-2">
-            <Home className="h-4 w-4 text-gray-400" />
-            {breadcrumbs.map((breadcrumb, index) => (
-              <div key={breadcrumb.path} className="flex items-center space-x-2">
-                <span className="text-gray-400">/</span>
-                {breadcrumb.isLast ? (
-                  <span className="text-sm font-medium text-gray-900">{breadcrumb.name}</span>
-                ) : (
-                  <a
-                    href={breadcrumb.path}
-                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                  >
-                    {breadcrumb.name}
-                  </a>
-                )}
-              </div>
-            ))}
-          </nav>
+
         </div>
 
         {/* Right Section - Search, Notifications, Chats, Profile */}
         <div className="flex items-center space-x-4">
-          {/* Search Bar */}
-          <div className="relative hidden md:block">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm w-64"
-            />
-          </div>
+
 
           {/* Notifications */}
           <div className="relative">
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              className="relative flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors"
             >
-              <Bell className="h-5 w-5" />
+              <Bell className="h-5 w-5 text-black" />
               {notifications.filter(n => n.type === 'warning').length > 0 && (
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full"></span>
+                <span className="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full"></span>
               )}
             </button>
 
@@ -241,11 +160,11 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
           <div className="relative">
             <button
               onClick={() => setShowChats(!showChats)}
-              className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              className="relative flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors"
             >
-              <MessageSquare className="h-5 w-5" />
+              <MessageSquare className="h-5 w-5 text-black" />
               {chats.filter(c => c.unread).length > 0 && (
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-blue-500 rounded-full"></span>
+                <span className="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full"></span>
               )}
             </button>
 
@@ -291,13 +210,13 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
           {/* Dark Mode Toggle */}
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="flex items-center justify-center w-10 h-10 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors"
             title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {isDarkMode ? (
-              <Sun className="h-5 w-5" />
+              <Sun className="h-5 w-5 text-black" />
             ) : (
-              <Moon className="h-5 w-5" />
+              <Moon className="h-5 w-5 text-black" />
             )}
           </button>
 

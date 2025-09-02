@@ -19,6 +19,10 @@ export interface IndividualUser extends User {
   address?: string
   biometricEnrolled: boolean
   documents: Document[]
+  biobankData?: BiobankData
+  attesters: Attester[]
+  verificationRequests: VerificationRequest[]
+  pepStatus: PEPStatus
 }
 
 export interface OrganisationUser extends User {
@@ -29,6 +33,8 @@ export interface OrganisationUser extends User {
   employeeCount: number
   complianceStatus: 'pending' | 'approved' | 'rejected'
   amlChecks: AMLCheck[]
+  verificationRequests: VerificationRequest[]
+  employeeVerifications: EmployeeVerification[]
 }
 
 export interface DeveloperUser extends User {
@@ -36,13 +42,169 @@ export interface DeveloperUser extends User {
   apiKeys: APIKey[]
   webhooks: Webhook[]
   usageStats: UsageStats
+  verificationTemplates: VerificationTemplate[]
+  verificationAnalytics: VerificationAnalytics
 }
 
 export interface AdminUser extends User {
   userType: 'admin'
   permissions: string[]
+  systemOverview: SystemOverview
 }
 
+// New Verification Flow Types
+export interface VerificationRequest {
+  id: string
+  requesterId: string
+  requesterType: UserType
+  targetId: string
+  targetType: UserType
+  status: 'pending' | 'in_progress' | 'completed' | 'expired' | 'cancelled' | 'failed'
+  type: 'individual' | 'organisation' | 'document' | 'biometric' | 'custom'
+  requestedData: RequestedData[]
+  expiryDate: string
+  createdAt: string
+  updatedAt: string
+  completedAt?: string
+  result?: VerificationResult
+  cost?: number
+  templateId?: string // For developer custom flows
+}
+
+export interface RequestedData {
+  field: string
+  label: string
+  type: 'text' | 'file' | 'select' | 'date' | 'boolean'
+  required: boolean
+  description?: string
+  options?: string[] // For select type
+  provided?: boolean
+  value?: any
+}
+
+export interface VerificationResult {
+  isVerified: boolean
+  confidence: number
+  details: Record<string, any>
+  errors?: string[]
+  trustScoreImpact?: number
+  pepStatus?: PEPStatus
+  attesterImpact?: AttesterImpact[]
+}
+
+export interface PEPStatus {
+  isPEP: boolean
+  confidence: number
+  details?: string
+  lastChecked: string
+}
+
+export interface Attester {
+  id: string
+  name: string
+  email: string
+  relationship: string
+  trustScore: number
+  isVerified: boolean
+  attestations: Attestation[]
+  createdAt: string
+}
+
+export interface Attestation {
+  id: string
+  attesterId: string
+  targetId: string
+  type: 'identity' | 'character' | 'professional' | 'custom'
+  description: string
+  confidence: number
+  status: 'pending' | 'approved' | 'rejected'
+  createdAt: string
+  expiresAt?: string
+}
+
+export interface AttesterImpact {
+  attesterId: string
+  impact: number
+  reason: string
+}
+
+export interface BiobankData {
+  id: string
+  userId: string
+  biometricType: 'fingerprint' | 'facial' | 'voice' | 'iris'
+  dataHash: string
+  isEncrypted: boolean
+  trustScore: number
+  lastVerified: string
+  verificationCount: number
+}
+
+export interface VerificationTemplate {
+  id: string
+  developerId: string
+  name: string
+  description: string
+  fields: RequestedData[]
+  isActive: boolean
+  costPerVerification: number
+  usageCount: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface VerificationAnalytics {
+  totalVerifications: number
+  successfulVerifications: number
+  failedVerifications: number
+  averageCost: number
+  totalRevenue: number
+  monthlyStats: MonthlyStats[]
+  templatePerformance: TemplatePerformance[]
+}
+
+export interface MonthlyStats {
+  month: string
+  verifications: number
+  revenue: number
+  successRate: number
+}
+
+export interface TemplatePerformance {
+  templateId: string
+  templateName: string
+  usageCount: number
+  successRate: number
+  averageCost: number
+}
+
+export interface EmployeeVerification {
+  id: string
+  employeeId: string
+  employeeName: string
+  verificationStatus: 'pending' | 'verified' | 'failed'
+  documents: Document[]
+  trustScore: number
+  lastVerified: string
+  nextReviewDate: string
+}
+
+export interface SystemOverview {
+  totalUsers: number
+  totalVerifications: number
+  activeRequests: number
+  systemHealth: 'excellent' | 'good' | 'warning' | 'critical'
+  recentActivity: SystemActivity[]
+}
+
+export interface SystemActivity {
+  id: string
+  type: 'verification' | 'registration' | 'payment' | 'system'
+  description: string
+  timestamp: string
+  severity: 'info' | 'warning' | 'error'
+}
+
+// Existing types (keeping for compatibility)
 export interface Document {
   id: string
   type: 'NIN' | 'Passport' | 'CAC' | 'Certificate' | 'Other'
@@ -84,23 +246,6 @@ export interface UsageStats {
   successfulRequests: number
   failedRequests: number
   lastMonthRequests: number
-}
-
-export interface VerificationRequest {
-  id: string
-  userId: string
-  documentType: string
-  status: 'pending' | 'processing' | 'completed' | 'failed'
-  createdAt: string
-  completedAt?: string
-  result?: VerificationResult
-}
-
-export interface VerificationResult {
-  isVerified: boolean
-  confidence: number
-  details: Record<string, any>
-  errors?: string[]
 }
 
 export interface TrustScoreHistory {

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { 
   FileText, 
   Upload, 
@@ -278,77 +279,91 @@ const Documents = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Encrypted Document Storage</h1>
+      {/* Section Navigation */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="px-6 py-3">
+          {/* Section Header Row - Title, Centered Navigation, and Action Button */}
+          <div className="flex items-center">
+            {/* Left Side - Title Only */}
+            <div className="flex items-center flex-shrink-0">
+              <h1 className="text-xl font-bold text-gray-900">Encrypted Document Storage</h1>
+            </div>
+
+            {/* Center - Navigation Tabs with Trust Score Styling */}
+            <div className="flex-1 flex justify-center">
+              <div className="bg-gray-100 rounded-lg p-1">
+                <nav className="flex space-x-1">
+                  <button
+                    onClick={() => setActiveTab('overview')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'overview'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Overview</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('shared')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'shared'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Shared</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('encrypted')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'encrypted'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Encrypted</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('favourite')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'favourite'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Favourite</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('bin')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'bin'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Recycle Bin</span>
+                  </button>
+                </nav>
+              </div>
+            </div>
+
+            {/* Right Side - Action Button */}
+            <div className="flex-shrink-0">
+              <button 
+                onClick={() => setShowUploadModal(true)}
+                className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+              >
+                <Upload className="h-4 w-4" />
+                <span>Upload +</span>
+              </button>
+            </div>
+          </div>
         </div>
-        <button 
-          onClick={() => setShowUploadModal(true)}
-          className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
-        >
-          <Upload className="h-4 w-4" />
-          <span>Upload +</span>
-        </button>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="flex space-x-8 border-b border-gray-200">
-        <button
-          onClick={() => setActiveTab('overview')}
-          className={`pb-2 px-1 font-medium text-sm ${
-            activeTab === 'overview'
-              ? 'text-primary-600 border-b-2 border-primary-600'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Overview
-        </button>
-        <button
-          onClick={() => setActiveTab('shared')}
-          className={`pb-2 px-1 font-medium text-sm flex items-center gap-2 ${
-            activeTab === 'shared'
-              ? 'text-primary-600 border-b-2 border-primary-600'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Shared File
-          <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">4</span>
-        </button>
-        <button
-          onClick={() => setActiveTab('encrypted')}
-          className={`pb-2 px-1 font-medium text-sm ${
-            activeTab === 'encrypted'
-              ? 'text-primary-600 border-b-2 border-primary-600'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Encrypted Document
-        </button>
-        <button
-          onClick={() => setActiveTab('favourite')}
-          className={`pb-2 px-1 font-medium text-sm ${
-            activeTab === 'favourite'
-              ? 'text-primary-600 border-b-2 border-primary-600'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Favourite
-        </button>
-        <button
-          onClick={() => setActiveTab('bin')}
-          className={`pb-2 px-1 font-medium text-sm ${
-            activeTab === 'bin'
-              ? 'text-primary-600 border-b-2 border-primary-600'
-              : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Bin
-        </button>
-      </div>
-
+      {/* Content */}
       {activeTab === 'overview' && (
-        <>
+        <div className="px-6 space-y-6">
           {/* Storage Usage Summary */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Storage Gauge */}
@@ -568,245 +583,251 @@ const Documents = () => {
               </table>
             </div>
           </div>
-        </>
+        </div>
       )}
 
       {/* Shared Files Tab */}
       {activeTab === 'shared' && (
-        <div className="bg-white rounded-xl border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Shared Files</h2>
-              <div className="flex items-center space-x-3">
-                <button className="text-sm text-gray-600 hover:text-gray-800">
-                  <Users className="h-4 w-4 mr-1" />
-                  Manage Sharing
-                </button>
+        <div className="px-6 space-y-6">
+          <div className="bg-white rounded-xl border border-gray-200">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-gray-900">Shared Files</h2>
+                <div className="flex items-center space-x-3">
+                  <button className="text-sm text-gray-600 hover:text-gray-800">
+                    <Users className="h-4 w-4 mr-1" />
+                    Manage Sharing
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Shared Files Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>File Name</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Shared With</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Permission</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Shared Date</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {recentFiles.filter(f => f.sharedWith !== '-').map((file) => (
-                  <tr key={file.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-8 w-8">
-                          {getFileIcon(file.fileType)}
-                        </div>
-                        <div className="ml-3">
-                          <div className="text-sm font-medium text-gray-900">{file.name}</div>
-                          <div className="text-xs text-gray-500">{file.size}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            {/* Shared Files Table */}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <div className="flex items-center space-x-1">
-                        <div className="flex -space-x-2">
-                          {[1, 2, 3].map((i) => (
-                            <div key={i} className="w-6 h-6 bg-gray-300 rounded-full border-2 border-white"></div>
-                          ))}
-                        </div>
-                        <span className="text-xs text-gray-400">{file.sharedWith.split('+')[1]}</span>
+                        <span>File Name</span>
+                        <ChevronDown className="h-3 w-3" />
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                        View & Edit
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {file.lastModified}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button className="text-gray-400 hover:text-gray-600">
-                        <MoreVertical className="h-4 w-4" />
-                      </button>
-                    </td>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Shared With</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Permission</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Shared Date</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Action
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {recentFiles.filter(f => f.sharedWith !== '-').map((file) => (
+                    <tr key={file.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 h-8 w-8">
+                            {getFileIcon(file.fileType)}
+                          </div>
+                          <div className="ml-3">
+                            <div className="text-sm font-medium text-gray-900">{file.name}</div>
+                            <div className="text-xs text-gray-500">{file.size}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div className="flex items-center space-x-1">
+                          <div className="flex -space-x-2">
+                            {[1, 2, 3].map((i) => (
+                              <div key={i} className="w-6 h-6 bg-gray-300 rounded-full border-2 border-white"></div>
+                            ))}
+                          </div>
+                          <span className="text-xs text-gray-400">{file.sharedWith.split('+')[1]}</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                          View & Edit
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {file.lastModified}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button className="text-gray-400 hover:text-gray-600">
+                          <MoreVertical className="h-4 w-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
 
       {/* Encrypted Documents Tab */}
       {activeTab === 'encrypted' && (
-        <div className="bg-white rounded-xl border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Encrypted Documents</h2>
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Lock className="h-4 w-4" />
-                  <span>End-to-end encrypted</span>
+        <div className="px-6 space-y-6">
+          <div className="bg-white rounded-xl border border-gray-200">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-gray-900">Encrypted Documents</h2>
+                <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <Lock className="h-4 w-4" />
+                    <span>End-to-end encrypted</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Encryption Stats */}
-          <div className="p-6 border-b border-gray-200">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-600">1,247</div>
-                <div className="text-sm text-gray-600">Encrypted Files</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">256-bit</div>
-                <div className="text-sm text-gray-600">AES Encryption</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">99.9%</div>
-                <div className="text-sm text-gray-600">Security Score</div>
+            {/* Encryption Stats */}
+            <div className="p-6 border-b border-gray-200">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-primary-600">1,247</div>
+                  <div className="text-sm text-gray-600">Encrypted Files</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600">256-bit</div>
+                  <div className="text-sm text-gray-600">AES Encryption</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-600">99.9%</div>
+                  <div className="text-sm text-gray-600">Security Score</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Encrypted Files Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>File Name</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Encryption Level</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Last Accessed</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Status</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {recentFiles.slice(0, 5).map((file) => (
-                  <tr key={file.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-8 w-8">
-                          {getFileIcon(file.fileType)}
-                        </div>
-                        <div className="ml-3">
-                          <div className="text-sm font-medium text-gray-900">{file.name}</div>
-                          <div className="text-xs text-gray-500">{file.size}</div>
-                        </div>
+            {/* Encrypted Files Table */}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>File Name</span>
+                        <ChevronDown className="h-3 w-3" />
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                        AES-256
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {file.lastModified}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                        Secure
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button className="text-gray-400 hover:text-gray-600">
-                        <MoreVertical className="h-4 w-4" />
-                      </button>
-                    </td>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Encryption Level</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Last Accessed</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Status</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Action
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {recentFiles.slice(0, 5).map((file) => (
+                    <tr key={file.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 h-8 w-8">
+                            {getFileIcon(file.fileType)}
+                          </div>
+                          <div className="ml-3">
+                            <div className="text-sm font-medium text-gray-900">{file.name}</div>
+                            <div className="text-xs text-gray-500">{file.size}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                          AES-256
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {file.lastModified}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                          Secure
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button className="text-gray-400 hover:text-gray-600">
+                          <MoreVertical className="h-4 w-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
 
       {/* Favourite Tab */}
       {activeTab === 'favourite' && (
-        <div className="bg-white rounded-xl border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Favourite Files</h2>
-              <div className="flex items-center space-x-3">
-                <button className="text-sm text-gray-600 hover:text-gray-800">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  Sort by Date
-                </button>
+        <div className="px-6 space-y-6">
+          <div className="bg-white rounded-xl border border-gray-200">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-gray-900">Favourite Files</h2>
+                <div className="flex items-center space-x-3">
+                  <button className="text-sm text-gray-600 hover:text-gray-800">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    Sort by Date
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Favourite Files Grid */}
-          <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {recentFiles.slice(0, 8).map((file) => (
-                <div key={file.id} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex-shrink-0 h-10 w-10">
-                      {getFileIcon(file.fileType)}
+            {/* Favourite Files Grid */}
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {recentFiles.slice(0, 8).map((file) => (
+                  <div key={file.id} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex-shrink-0 h-10 w-10">
+                        {getFileIcon(file.fileType)}
+                      </div>
+                      <button className="text-yellow-500 hover:text-yellow-600">
+                        <svg className="h-5 w-5 fill-current" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      </button>
                     </div>
-                    <button className="text-yellow-500 hover:text-yellow-600">
-                      <svg className="h-5 w-5 fill-current" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    </button>
+                    <div className="text-sm font-medium text-gray-900 mb-1 truncate">{file.name}</div>
+                    <div className="text-xs text-gray-500 mb-2">{file.size}</div>
+                    <div className="text-xs text-gray-400">{file.lastModified}</div>
                   </div>
-                  <div className="text-sm font-medium text-gray-900 mb-1 truncate">{file.name}</div>
-                  <div className="text-xs text-gray-500 mb-2">{file.size}</div>
-                  <div className="text-xs text-gray-400">{file.lastModified}</div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -814,117 +835,119 @@ const Documents = () => {
 
       {/* Bin Tab */}
       {activeTab === 'bin' && (
-        <div className="bg-white rounded-xl border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Recycle Bin</h2>
-              <div className="flex items-center space-x-3">
-                <button 
-                  onClick={handleEmptyBin}
-                  className="text-sm text-red-600 hover:text-red-700"
-                >
-                  <Trash2 className="h-4 w-4 mr-1" />
-                  Empty Bin
-                </button>
+        <div className="px-6 space-y-6">
+          <div className="bg-white rounded-xl border border-gray-200">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-gray-900">Recycle Bin</h2>
+                <div className="flex items-center space-x-3">
+                  <button 
+                    onClick={handleEmptyBin}
+                    className="text-sm text-red-600 hover:text-red-700"
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Empty Bin
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Bin Stats */}
-          <div className="p-6 border-b border-gray-200">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-600">23</div>
-                <div className="text-sm text-gray-600">Deleted Files</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-gray-600">2.4GB</div>
-                <div className="text-sm text-gray-600">Storage Used</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-red-600">7 days</div>
-                <div className="text-sm text-gray-600">Auto-delete in</div>
+            {/* Bin Stats */}
+            <div className="p-6 border-b border-gray-200">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-600">23</div>
+                  <div className="text-sm text-gray-600">Deleted Files</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-600">2.4GB</div>
+                  <div className="text-sm text-gray-600">Storage Used</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-red-600">7 days</div>
+                  <div className="text-sm text-gray-600">Auto-delete in</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Deleted Files Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>File Name</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Original Location</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Deleted Date</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <div className="flex items-center space-x-1">
-                      <span>Auto-delete</span>
-                      <ChevronDown className="h-3 w-3" />
-                    </div>
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {recentFiles.slice(0, 5).map((file, index) => (
-                  <tr key={file.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-8 w-8 opacity-50">
-                          {getFileIcon(file.fileType)}
-                        </div>
-                        <div className="ml-3">
-                          <div className="text-sm font-medium text-gray-500 line-through">{file.name}</div>
-                          <div className="text-xs text-gray-400">{file.size}</div>
-                        </div>
+            {/* Deleted Files Table */}
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>File Name</span>
+                        <ChevronDown className="h-3 w-3" />
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      Documents/{file.fileType}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {file.lastModified}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {7 - index} days
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex items-center space-x-2">
-                        <button 
-                          onClick={() => handleRestoreFile(file)}
-                          className="text-blue-600 hover:text-blue-700 text-xs"
-                        >
-                          Restore
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteFile(file)}
-                          className="text-red-600 hover:text-red-700 text-xs"
-                        >
-                          Delete
-                        </button>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Original Location</span>
+                        <ChevronDown className="h-3 w-3" />
                       </div>
-                    </td>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Deleted Date</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center space-x-1">
+                        <span>Auto-delete</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Action
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {recentFiles.slice(0, 5).map((file, index) => (
+                    <tr key={file.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 h-8 w-8 opacity-50">
+                            {getFileIcon(file.fileType)}
+                          </div>
+                          <div className="ml-3">
+                            <div className="text-sm font-medium text-gray-500 line-through">{file.name}</div>
+                            <div className="text-xs text-gray-400">{file.size}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Documents/{file.fileType}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {file.lastModified}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {7 - index} days
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <div className="flex items-center space-x-2">
+                          <button 
+                            onClick={() => handleRestoreFile(file)}
+                            className="text-blue-600 hover:text-blue-700 text-xs"
+                          >
+                            Restore
+                          </button>
+                          <button 
+                            onClick={() => handleDeleteFile(file)}
+                            className="text-red-600 hover:text-red-700 text-xs"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

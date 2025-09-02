@@ -39,7 +39,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="API Management"
-                  description="Manage your API keys and access"
                   tabs={[
                     { id: 'keys', name: 'API Keys', href: '/developer/api-keys' },
                     { id: 'docs', name: 'API Documentation', href: '/developer/docs' },
@@ -56,7 +55,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="API Management"
-                  description="Manage your API keys and access"
                   tabs={[
                     { id: 'keys', name: 'API Keys', href: '/developer/api-keys' },
                     { id: 'docs', name: 'API Documentation', href: '/developer/docs' },
@@ -99,7 +97,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Integration Tools"
-                  description="Webhooks, SDKs, and integration resources"
                   tabs={[
                     { id: 'webhooks', name: 'Webhooks', href: '/developer/webhooks' },
                     { id: 'sdk', name: 'SDK Downloads', href: '/developer/webhooks/sdk' },
@@ -116,7 +113,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Integration Tools"
-                  description="Webhooks, SDKs, and integration resources"
                   tabs={[
                     { id: 'webhooks', name: 'Webhooks', href: '/developer/webhooks' },
                     { id: 'sdk', name: 'SDK Downloads', href: '/developer/webhooks/sdk' },
@@ -175,7 +171,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Verification"
-                  description="API endpoints for identity verification"
                   tabs={[
                     { id: 'api', name: 'Verification API', href: '/developer/verification' },
                     { id: 'status', name: 'Verification Status', href: '/developer/verification/status' },
@@ -195,7 +190,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Verification"
-                  description="API endpoints for identity verification"
                   tabs={[
                     { id: 'api', name: 'Verification API', href: '/developer/verification' },
                     { id: 'status', name: 'Verification Status', href: '/developer/verification/status' },
@@ -233,7 +227,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Analytics & Monitoring"
-                  description="Monitor your API usage and performance"
                   tabs={[
                     { id: 'analytics', name: 'API Analytics', href: '/developer/analytics' },
                     { id: 'usage', name: 'Usage Metrics', href: '/developer/analytics/usage' },
@@ -250,7 +243,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Analytics & Monitoring"
-                  description="Monitor your API usage and performance"
                   tabs={[
                     { id: 'analytics', name: 'API Analytics', href: '/developer/analytics' },
                     { id: 'usage', name: 'Usage Metrics', href: '/developer/analytics/usage' },
@@ -288,7 +280,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Documentation"
-                  description="Comprehensive API documentation and guides"
                   tabs={[
                     { id: 'reference', name: 'API Reference', href: '/developer/docs' },
                     { id: 'quickstart', name: 'Quick Start', href: '/developer/docs/quickstart' },
@@ -305,7 +296,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Documentation"
-                  description="Comprehensive API documentation and guides"
                   tabs={[
                     { id: 'reference', name: 'API Reference', href: '/developer/docs' },
                     { id: 'quickstart', name: 'Quick Start', href: '/developer/docs/quickstart' },
@@ -343,7 +333,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Financial"
-                  description="Manage your billing and payment information"
                   tabs={[
                     { id: 'balance', name: 'Wallet Balance', href: '/developer/wallet' },
                     { id: 'billing', name: 'Billing History', href: '/developer/wallet/billing' },
@@ -360,7 +349,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Financial"
-                  description="Manage your billing and payment information"
                   tabs={[
                     { id: 'balance', name: 'Wallet Balance', href: '/developer/wallet' },
                     { id: 'billing', name: 'Billing History', href: '/developer/wallet/billing' },
@@ -398,7 +386,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Support & Community"
-                  description="Get help and connect with other developers"
                   tabs={[
                     { id: 'support', name: 'Developer Support', href: '/developer/support' },
                     { id: 'forum', name: 'Community Forum', href: '/developer/support/forum' },
@@ -418,7 +405,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Support & Community"
-                  description="Get help and connect with other developers"
                   tabs={[
                     { id: 'support', name: 'Developer Support', href: '/developer/support' },
                     { id: 'forum', name: 'Community Forum', href: '/developer/support/forum' },
@@ -456,7 +442,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Settings"
-                  description="Manage your account and API preferences"
                   tabs={[
                     { id: 'account', name: 'Account Settings', href: '/developer/settings' },
                     { id: 'security', name: 'Security Settings', href: '/developer/settings/security' },
@@ -473,7 +458,6 @@ const DeveloperDashboard = () => {
               <>
                 <SectionNav
                   title="Settings"
-                  description="Manage your account and API preferences"
                   tabs={[
                     { id: 'account', name: 'Account Settings', href: '/developer/settings' },
                     { id: 'security', name: 'Security Settings', href: '/developer/settings/security' },

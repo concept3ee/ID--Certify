@@ -41,13 +41,11 @@ const OrganisationDashboard = () => {
             <Route path="/verification" element={
               <>
                 <SectionNav
-                  title="Verification"
-                  description="Start and manage verification processes for candidates"
+                  title="Verification Management"
                   tabs={[
-                    { id: 'start', name: 'Start Verification', href: '/organisation/verification' },
-                    { id: 'status', name: 'Verification Status', href: '/organisation/verification/status', badge: 3 },
-                    { id: 'history', name: 'Verification History', href: '/organisation/verification/history' },
-                    { id: 'pending', name: 'Pending Actions', href: '/organisation/verification/pending', badge: 2 }
+                    { id: 'initiate', name: 'Initiate Verification', href: '/organisation/verification', badge: 3 },
+                    { id: 'requests', name: 'Verification Requests', href: '/organisation/verification/requests', badge: 2 },
+                    { id: 'templates', name: 'Verification Templates', href: '/organisation/verification/templates' }
                   ]}
                 />
                 <div className="p-6 mx-6">
@@ -59,7 +57,7 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Verification Status"
-                  description="Track the progress of verification requests"
+
                   tabs={[
                     { id: 'start', name: 'Start Verification', href: '/organisation/verification' },
                     { id: 'status', name: 'Verification Status', href: '/organisation/verification/status', badge: 3 },
@@ -88,7 +86,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Compliance"
-                  description="Manage regulatory compliance and audit requirements"
                   tabs={[
                     { id: 'overview', name: 'Compliance Overview', href: '/organisation/compliance' },
                     { id: 'regulatory', name: 'Regulatory Requirements', href: '/organisation/compliance/regulatory' },
@@ -105,7 +102,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Compliance"
-                  description="Manage regulatory compliance and audit requirements"
                   tabs={[
                     { id: 'overview', name: 'Compliance Overview', href: '/organisation/compliance' },
                     { id: 'regulatory', name: 'Regulatory Requirements', href: '/organisation/compliance/regulatory' },
@@ -134,7 +130,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Employee Management"
-                  description="Manage your organization's employees and their access"
                   tabs={[
                     { id: 'directory', name: 'Employee Directory', href: '/organisation/employees' },
                     { id: 'add', name: 'Add Employee', href: '/organisation/employees/add' },
@@ -151,7 +146,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Employee Management"
-                  description="Manage your organization's employees and their access"
                   tabs={[
                     { id: 'directory', name: 'Employee Directory', href: '/organisation/employees' },
                     { id: 'add', name: 'Add Employee', href: '/organisation/employees/add' },
@@ -180,7 +174,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="AML & KYC"
-                  description="Anti-Money Laundering and Know Your Customer procedures"
                   tabs={[
                     { id: 'overview', name: 'AML Overview', href: '/organisation/aml' },
                     { id: 'kyc', name: 'KYC Procedures', href: '/organisation/aml/kyc' },
@@ -197,7 +190,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="AML & KYC"
-                  description="Anti-Money Laundering and Know Your Customer procedures"
                   tabs={[
                     { id: 'overview', name: 'AML Overview', href: '/organisation/aml' },
                     { id: 'kyc', name: 'KYC Procedures', href: '/organisation/aml/kyc' },
@@ -226,7 +218,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Data Monitoring"
-                  description="Monitor system activity and security events"
                   tabs={[
                     { id: 'overview', name: 'Monitoring Overview', href: '/organisation/monitoring' },
                     { id: 'activity', name: 'Activity Logs', href: '/organisation/monitoring/activity' },
@@ -243,7 +234,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Data Monitoring"
-                  description="Monitor system activity and security events"
                   tabs={[
                     { id: 'overview', name: 'Monitoring Overview', href: '/organisation/monitoring' },
                     { id: 'activity', name: 'Activity Logs', href: '/organisation/monitoring/activity' },
@@ -272,7 +262,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Integrations"
-                  description="Manage API connections and third-party integrations"
                   tabs={[
                     { id: 'api', name: 'API Connections', href: '/organisation/integrations' },
                     { id: 'services', name: 'Third-party Services', href: '/organisation/integrations/services' },
@@ -289,7 +278,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Integrations"
-                  description="Manage API connections and third-party integrations"
                   tabs={[
                     { id: 'api', name: 'API Connections', href: '/organisation/integrations' },
                     { id: 'services', name: 'Third-party Services', href: '/organisation/integrations/services' },
@@ -318,7 +306,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Trust Score"
-                  description="Track and improve your organization's trust score"
                   tabs={[
                     { id: 'overview', name: 'Score Overview', href: '/organisation/trust-score' },
                     { id: 'breakdown', name: 'Score Breakdown', href: '/organisation/trust-score/breakdown' },
@@ -351,7 +338,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Trust Score"
-                  description="Track and improve your organization's trust score"
                   tabs={[
                     { id: 'overview', name: 'Score Overview', href: '/organisation/trust-score' },
                     { id: 'breakdown', name: 'Score Breakdown', href: '/organisation/trust-score/breakdown' },
@@ -406,7 +392,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Financial"
-                  description="Manage your organization's financial transactions and billing"
                   tabs={[
                     { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
@@ -423,7 +408,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Financial"
-                  description="Manage your organization's financial transactions and billing"
                   tabs={[
                     { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
@@ -445,7 +429,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Financial"
-                  description="Manage your organization's financial transactions and billing"
                   tabs={[
                     { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
@@ -464,7 +447,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Document Management"
-                  description="Manage your organization's documents and templates"
                   tabs={[
                     { id: 'vault', name: 'Document Vault', href: '/organisation/documents' },
                     { id: 'templates', name: 'Document Templates', href: '/organisation/documents/templates' },
@@ -484,7 +466,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Document Management"
-                  description="Manage your organization's documents and templates"
                   tabs={[
                     { id: 'vault', name: 'Document Vault', href: '/organisation/documents' },
                     { id: 'templates', name: 'Document Templates', href: '/organisation/documents/templates' },
@@ -522,7 +503,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Settings"
-                  description="Manage your organization's settings and preferences"
                   tabs={[
                     { id: 'general', name: 'General Settings', href: '/organisation/settings' },
                     { id: 'security', name: 'Security Settings', href: '/organisation/settings/security' },
@@ -539,7 +519,6 @@ const OrganisationDashboard = () => {
               <>
                 <SectionNav
                   title="Settings"
-                  description="Manage your organization's settings and preferences"
                   tabs={[
                     { id: 'general', name: 'General Settings', href: '/organisation/settings' },
                     { id: 'security', name: 'Security Settings', href: '/organisation/settings/security' },

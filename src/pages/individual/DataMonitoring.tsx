@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { 
   Activity, 
   Shield, 
@@ -208,7 +209,7 @@ const DataMonitoring = () => {
     { id: 'overview', name: 'Overview', icon: BarChart3 },
     { id: 'activity', name: 'Activity Logs', icon: Activity },
     { id: 'security', name: 'Security Events', icon: Shield },
-    { id: 'privacy', name: 'Privacy Dashboard', icon: Eye },
+    { id: 'privacy', name: 'Privacy Dashboard', icon: Lock },
     { id: 'usage', name: 'Data Usage', icon: Database }
   ]
 
@@ -630,46 +631,93 @@ const DataMonitoring = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Data Monitoring</h1>
-          <p className="text-gray-600">Monitor your data access, security events, and privacy controls</p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
-            <Download className="h-4 w-4 mr-2" />
-            Export Report
-          </button>
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh
-          </button>
-        </div>
-      </div>
+      {/* Section Navigation */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="px-6 py-3">
+          {/* Section Header Row - Title, Centered Navigation, and Action Button */}
+          <div className="flex items-center">
+            {/* Left Side - Title Only */}
+            <div className="flex items-center flex-shrink-0">
+              <h1 className="text-xl font-bold text-gray-900">Data Monitoring</h1>
+            </div>
 
-      {/* Tabs */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-2 py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === tab.id
-                  ? 'border-primary-500 text-primary-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              <tab.icon className="h-4 w-4" />
-              <span>{tab.name}</span>
-            </button>
-          ))}
-        </nav>
+            {/* Center - Navigation Tabs with Trust Score Styling */}
+            <div className="flex-1 flex justify-center">
+              <div className="bg-gray-100 rounded-lg p-1">
+                <nav className="flex space-x-1">
+                  <button
+                    onClick={() => setActiveTab('overview')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'overview'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Overview</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('activity')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'activity'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Activity Logs</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('security')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'security'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Security Events</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('privacy')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'privacy'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Privacy Dashboard</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('usage')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'usage'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <span>Data Usage</span>
+                  </button>
+                </nav>
+              </div>
+            </div>
+
+            {/* Right Side - Action Button */}
+            <div className="flex-shrink-0">
+              <div className="flex items-center space-x-2">
+                <button className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
+                  <Download className="h-4 w-4 mr-2" />
+                  Export Report
+                </button>
+                <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Refresh
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Tab Content */}
-      <div>
+      <div className="px-6">
         {activeTab === 'overview' && renderOverview()}
         {activeTab === 'activity' && renderActivityLogs()}
         {activeTab === 'security' && renderSecurityEvents()}

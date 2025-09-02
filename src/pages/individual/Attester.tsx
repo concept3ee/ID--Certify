@@ -180,49 +180,59 @@ const Attester = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Attester Management</h1>
-          <p className="text-gray-600">Manage your attesters and verification requests</p>
-        </div>
-        <button onClick={handleAddAttester} className="flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
-          <UserPlus className="h-4 w-4 mr-2" />
-          Add New Attester
-        </button>
-      </div>
+      {/* Header Row - Title, Centered Navigation, and Action Button on Same Line */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="px-6 py-3">
+          <div className="flex items-center">
+            {/* Left Side - Title */}
+            <div className="flex items-center flex-shrink-0">
+              <h1 className="text-xl font-bold text-gray-900">Attester Management</h1>
+            </div>
 
-      {/* Tabs */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
-          <button
-            onClick={() => setActiveTab('my-attesters')}
-            className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
-              activeTab === 'my-attesters'
-                ? 'border-primary-500 text-primary-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
-          >
-            <Users className="h-4 w-4 inline mr-2" />
-            My Attesters ({myAttesters.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('requests')}
-            className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
-              activeTab === 'requests'
-                ? 'border-primary-500 text-primary-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
-          >
-            <Bell className="h-4 w-4 inline mr-2" />
-            Requests to Me ({attesterRequests.filter(r => r.status === 'pending').length})
-          </button>
-        </nav>
+            {/* Center - Navigation Tabs with Trust Score Styling */}
+            <div className="flex-1 flex justify-center">
+              <div className="bg-gray-100 rounded-lg p-1">
+                <nav className="flex space-x-1">
+                  <button
+                    onClick={() => setActiveTab('my-attesters')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'my-attesters'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <Users className="h-4 w-4" />
+                    <span>My Attesters ({myAttesters.length})</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('requests')}
+                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                      activeTab === 'requests'
+                        ? 'bg-white text-gray-900 shadow-sm font-bold'
+                        : 'text-gray-500 hover:text-gray-700 font-medium'
+                    }`}
+                  >
+                    <Bell className="h-4 w-4" />
+                    <span>Requests to Me ({attesterRequests.filter(r => r.status === 'pending').length})</span>
+                  </button>
+                </nav>
+              </div>
+            </div>
+
+            {/* Right Side - Action Button */}
+            <div className="flex-shrink-0">
+              <button onClick={handleAddAttester} className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                <UserPlus className="h-4 w-4 mr-2" />
+                Add New Attester
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Content */}
       {activeTab === 'my-attesters' ? (
-        <div className="space-y-6">
+        <div className="px-6 space-y-6">
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-white rounded-lg border border-gray-200 p-6">
@@ -362,7 +372,7 @@ const Attester = () => {
           </div>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="px-6 space-y-6">
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white rounded-lg border border-gray-200 p-6">
