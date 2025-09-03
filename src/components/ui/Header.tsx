@@ -199,9 +199,12 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
                   ))}
                 </div>
                 <div className="p-4 border-t border-gray-200">
-                  <button className="text-sm text-primary-600 hover:text-primary-700 font-medium">
+                  <a 
+                    href="/individual/messages" 
+                    className="text-sm text-primary-600 hover:text-primary-700 font-medium block text-center"
+                  >
                     View all messages
-                  </button>
+                  </a>
                 </div>
               </div>
             )}

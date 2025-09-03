@@ -8,6 +8,8 @@ import Verification from './Verification'
 import VerificationDashboard from './VerificationDashboard'
 import VerificationStatus from './VerificationStatus'
 import Documents from './Documents'
+import DocumentPermissions from './DocumentPermissions'
+import DocumentAnalytics from './DocumentAnalytics'
 import DataMonitoring from './DataMonitoring'
 import Support from './Support'
 import TrustScore from './TrustScore'
@@ -16,11 +18,21 @@ import TrustScoreIndividual from './TrustScoreIndividual'
 import TrustScoreBreakdown from './TrustScoreBreakdown'
 import TrustScoreHistory from './TrustScoreHistory'
 import Wallet from './Wallet'
+import PaymentMethods from './PaymentMethods'
+import BillingInvoices from './BillingInvoices'
 import Profile from './Profile'
 import Settings from './Settings'
+import SecuritySettings from './SecuritySettings'
+import NotificationPreferences from './NotificationPreferences'
+import PrivacySettings from './PrivacySettings'
+import BillingSettings from './BillingSettings'
+import Integrations from './Integrations'
+import Branding from './Branding'
+import Affiliates from './Affiliates'
 import Notifications from './Notifications'
 import Biobank from './Biobank'
 import Attester from './Attester'
+import Messages from './Messages'
  
 
 const IndividualDashboard = () => {
@@ -173,10 +185,13 @@ const IndividualDashboard = () => {
             } />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/wallet/transactions" element={<Wallet />} />
-            <Route path="/wallet/billing" element={<Wallet />} />
+            <Route path="/wallet/payment-methods" element={<PaymentMethods />} />
+            <Route path="/wallet/billing" element={<BillingInvoices />} />
             <Route path="/documents" element={<Documents />} />
             <Route path="/data-monitoring" element={<DataMonitoring />} />
-            <Route path="/documents/permissions" element={<Documents />} />
+            <Route path="/documents/permissions" element={<DocumentPermissions />} />
+            <Route path="/documents/analytics" element={<DocumentAnalytics />} />
+            <Route path="/messages" element={<Messages />} />
 
 
             <Route path="/profile" element={
@@ -185,6 +200,13 @@ const IndividualDashboard = () => {
               </div>
             } />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/security" element={<SecuritySettings />} />
+            <Route path="/settings/notifications" element={<NotificationPreferences />} />
+            <Route path="/settings/privacy" element={<PrivacySettings />} />
+            <Route path="/settings/billing" element={<BillingSettings />} />
+            <Route path="/settings/integrations" element={<Integrations />} />
+            <Route path="/settings/branding" element={<Branding />} />
+            <Route path="/settings/affiliates" element={<Affiliates />} />
             <Route path="/notifications" element={
               <div className="p-6 mx-6">
                 <Notifications />

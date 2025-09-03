@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import SecuritySettings from './SecuritySettings'
+import NotificationPreferences from './NotificationPreferences'
+import PrivacySettings from './PrivacySettings'
+import BillingSettings from './BillingSettings'
+import Integrations from './Integrations'
+import Branding from './Branding'
+import Affiliates from './Affiliates'
+import RewardsAndPoints from './RewardsAndPoints'
+import Referral from './Referral'
 
 import { 
   User, 
@@ -20,7 +29,6 @@ import {
   EyeOff,
   CheckCircle,
   AlertCircle,
-  Download,
   Upload,
   Key,
   Lock,
@@ -49,6 +57,9 @@ const Settings = () => {
     { id: 'security', label: 'Security' },
     { id: 'billing', label: 'Billing' },
     { id: 'notifications', label: 'Notifications' },
+    { id: 'privacy', label: 'Privacy' },
+    { id: 'rewards', label: 'Rewards & Points' },
+    { id: 'referral', label: 'Referral' },
     { id: 'integrations', label: 'Integrations' },
     { id: 'branding', label: 'Branding' },
     { id: 'affiliates', label: 'Affiliates' }
@@ -207,173 +218,23 @@ const Settings = () => {
     </div>
   )
 
-  const renderSecurityTab = () => (
-    <div className="space-y-6">
-      {/* Password Change */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Change Password</h3>
-        
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
-            <div className="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                className="w-full px-3 py-2 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-              <button
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-            </div>
-          </div>
+  const renderSecurityTab = () => <SecuritySettings />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
-            <div className="relative">
-              <input
-                type={showNewPassword ? 'text' : 'password'}
-                className="w-full px-3 py-2 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-              <button
-                onClick={() => setShowNewPassword(!showNewPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-            </div>
-          </div>
+  const renderBillingTab = () => <BillingSettings />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
-            <div className="relative">
-              <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                className="w-full px-3 py-2 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-              <button
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-            </div>
-          </div>
+  const renderNotificationsTab = () => <NotificationPreferences />
 
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
-            Update Password
-          </button>
-        </div>
-      </div>
+  const renderPrivacyTab = () => <PrivacySettings />
 
-      {/* Two-Factor Authentication */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Two-Factor Authentication</h3>
-        
-        <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-gray-300 rounded-lg">
-            <div className="flex items-center space-x-3">
-              <Smartphone className="h-8 w-8 text-green-600" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">SMS Authentication</p>
-                <p className="text-sm text-gray-500">Receive codes via SMS</p>
-              </div>
-            </div>
-            <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
-              Enable
-            </button>
-          </div>
+  const renderRewardsTab = () => <RewardsAndPoints />
 
-          <div className="flex items-center justify-between p-4 border border-gray-300 rounded-lg">
-            <div className="flex items-center space-x-3">
-              <Key className="h-8 w-8 text-blue-600" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">Authenticator App</p>
-                <p className="text-sm text-gray-500">Use Google Authenticator or similar</p>
-              </div>
-            </div>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
-              Setup
-            </button>
-          </div>
-        </div>
-      </div>
+  const renderReferralTab = () => <Referral />
 
-      {/* API Keys */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">API Keys</h3>
-        
-        <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-gray-300 rounded-lg">
-            <div>
-              <p className="text-sm font-medium text-gray-900">Production API Key</p>
-              <p className="text-sm text-gray-500">Used for live applications</p>
-            </div>
-            <div className="flex items-center space-x-2">
-              <button className="px-3 py-1 text-blue-600 border border-blue-600 rounded hover:bg-blue-50 text-sm">
-                Regenerate
-              </button>
-              <button className="px-3 py-1 text-red-600 border border-red-600 rounded hover:bg-red-50 text-sm">
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
+  const renderIntegrationsTab = () => <Integrations />
 
-          <button className="flex items-center px-4 py-2 text-primary-600 border border-primary-600 rounded-lg hover:bg-primary-50">
-            <Plus className="h-4 w-4 mr-2" />
-            Generate New API Key
-          </button>
-        </div>
-      </div>
-    </div>
-  )
+  const renderBrandingTab = () => <Branding />
 
-  const renderBillingTab = () => (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Billing Information</h3>
-        <p className="text-gray-600">Billing settings and payment methods will be implemented here.</p>
-      </div>
-    </div>
-  )
-
-  const renderNotificationsTab = () => (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Notification Preferences</h3>
-        <p className="text-gray-600">Notification settings will be implemented here.</p>
-      </div>
-    </div>
-  )
-
-  const renderIntegrationsTab = () => (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Third-Party Integrations</h3>
-        <p className="text-gray-600">Integration settings will be implemented here.</p>
-      </div>
-    </div>
-  )
-
-  const renderBrandingTab = () => (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Branding & Customization</h3>
-        <p className="text-gray-600">Branding settings will be implemented here.</p>
-      </div>
-    </div>
-  )
-
-  const renderAffiliatesTab = () => (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">Affiliate Program</h3>
-        <p className="text-gray-600">Affiliate settings will be implemented here.</p>
-      </div>
-    </div>
-  )
+  const renderAffiliatesTab = () => <Affiliates />
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -385,6 +246,12 @@ const Settings = () => {
         return renderBillingTab()
       case 'notifications':
         return renderNotificationsTab()
+      case 'privacy':
+        return renderPrivacyTab()
+      case 'rewards':
+        return renderRewardsTab()
+      case 'referral':
+        return renderReferralTab()
       case 'integrations':
         return renderIntegrationsTab()
       case 'branding':
@@ -429,18 +296,7 @@ const Settings = () => {
               </div>
             </div>
 
-            {/* Right Side - Action Button */}
-            <div className="flex-shrink-0">
-              <div className="flex items-center space-x-3">
-                <button className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
-                  <Download className="h-4 w-4 inline mr-2" />
-                  Export Data
-                </button>
-                <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
-                  Save Changes
-                </button>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>

@@ -62,7 +62,7 @@ import {
   Cpu,
   Server
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface SidebarItem {
   name: string
@@ -91,6 +91,28 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
         : [...prev, itemName]
     )
   }
+
+  // Auto-expand parent items when child routes are active
+  useEffect(() => {
+    const navigationItems = getNavigationItems()
+    const newExpandedItems: string[] = []
+    
+    navigationItems.forEach(item => {
+      if (item.children) {
+        const hasActiveChild = item.children.some(child => 
+          location.pathname === child.href
+        )
+        if (hasActiveChild) {
+          newExpandedItems.push(item.name)
+        }
+      }
+    })
+    
+    setExpandedItems(prev => {
+      const combined = [...new Set([...prev, ...newExpandedItems])]
+      return combined
+    })
+  }, [location.pathname, userType])
 
   const getNavigationItems = (): SidebarItem[] => {
     switch (userType) {
@@ -255,6 +277,13 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 description: 'Frequently asked questions'
               }
             ]
+          },
+          {
+            name: 'Chat',
+            href: '/individual/messages',
+            icon: MessageCircle,
+            description: 'Direct messaging with support and verification teams',
+            badge: 2 // Unread messages count
           },
           {
             name: 'Settings',
@@ -905,8 +934,17 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
   const navigationItems = getNavigationItems()
 
   const renderNavItem = (item: SidebarItem, level: number = 0) => {
-    const isActive = location.pathname === item.href || 
-                    (item.href !== `/${userType}` && location.pathname.startsWith(item.href))
+    // Improved active state logic for nested routes
+    let isActive = false
+    if (level === 0) {
+      // For top-level items, check if current path starts with the href
+      isActive = location.pathname === item.href || 
+                 (item.href !== `/${userType}` && location.pathname.startsWith(item.href))
+    } else {
+      // For child items, use exact path matching
+      isActive = location.pathname === item.href
+    }
+    
     const hasChildren = item.children && item.children.length > 0
     const isExpanded = expandedItems.includes(item.name)
     
