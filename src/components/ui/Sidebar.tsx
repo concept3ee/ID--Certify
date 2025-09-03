@@ -106,35 +106,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             name: 'Verification Hub',
             href: '/individual/verification',
             icon: Shield,
-            badge: 2, // Pending requests
-            description: 'Manage all verification processes and requests',
-            children: [
-              { 
-                name: 'Verification Dashboard', 
-                href: '/individual/verification', 
-                icon: Grid,
-                description: 'Comprehensive view of all verification activities'
-              },
-              { 
-                name: 'Pending Requests', 
-                href: '/individual/verification/pending', 
-                icon: Clock,
-                badge: 2,
-                description: 'Requests requiring your attention'
-              },
-              { 
-                name: 'Verification History', 
-                href: '/individual/verification/history', 
-                icon: History,
-                description: 'Complete history of all verifications'
-              },
-              { 
-                name: 'Response Forms', 
-                href: '/individual/verification/respond', 
-                icon: FileCheck,
-                description: 'Submit verification responses'
-              }
-            ]
+            description: 'Manage all verification processes and requests'
           },
           {
             name: 'Trust Network',

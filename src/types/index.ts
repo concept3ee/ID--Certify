@@ -59,8 +59,8 @@ export interface VerificationRequest {
   requesterType: UserType
   targetId: string
   targetType: UserType
-  status: 'pending' | 'in_progress' | 'completed' | 'expired' | 'cancelled' | 'failed'
-  type: 'individual' | 'organisation' | 'document' | 'biometric' | 'custom'
+  status: 'pending' | 'in_progress' | 'assigned' | 'in_review' | 'requires_info' | 'completed' | 'expired' | 'cancelled' | 'failed'
+  type: 'individual' | 'organisation' | 'document' | 'biometric' | 'custom' | 'bvn-verification' | 'nin-verification' | 'employment-verification' | 'education-verification' | 'address-verification' | 'income-verification' | 'reference-verification' | 'business-verification' | 'facial-verification' | 'fingerprint-verification' | 'frsc-verification' | 'immigration-verification' | 'cac-verification' | 'firs-verification'
   requestedData: RequestedData[]
   expiryDate: string
   createdAt: string
