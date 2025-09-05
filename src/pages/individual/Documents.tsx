@@ -1368,15 +1368,15 @@ const Documents = () => {
           {/* Recent Files */}
           <div className="bg-white rounded-xl border border-gray-200">
             <div className="p-6 border-b border-gray-200">
-                              <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900">Recent Files</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-gray-900">Recent Files</h2>
                   <button 
                     onClick={() => setActiveTab('overview')}
                     className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                   >
-                    View All
+                  View All
                   </button>
-                </div>
+              </div>
             </div>
 
             {/* Filter Tabs */}
@@ -1755,22 +1755,22 @@ const Documents = () => {
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     <div className="flex items-center space-x-1">
-                        <span>Last Accessed</span>
+                      <span>Last Accessed</span>
                       <ChevronDown className="h-3 w-3" />
                     </div>
                   </th>
-                                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      <div className="flex items-center space-x-1">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <div className="flex items-center space-x-1">
                         <span>Permissions</span>
-                        <ChevronDown className="h-3 w-3" />
-                      </div>
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <ChevronDown className="h-3 w-3" />
+                    </div>
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <div className="flex items-center space-x-1">
                         <span>Actions</span>
                         <ChevronDown className="h-3 w-3" />
                       </div>
-                    </th>
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -1813,8 +1813,8 @@ const Documents = () => {
                             Score: {file.securityScore}/100
                           </div>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <div className="space-y-1">
                           <div>{file.lastModified}</div>
                           {file.lastDecrypted && (
@@ -1829,7 +1829,7 @@ const Documents = () => {
                           <div className="flex items-center space-x-2">
                             <span className="text-xs text-gray-500">
                               {filePermissions[file.id.toString()]?.length || 0} users
-                            </span>
+                      </span>
                             <button
                               onClick={() => {
                                 setSelectedFileForPermissions(file)
@@ -1859,8 +1859,8 @@ const Documents = () => {
                             </span>
                           )}
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex items-center space-x-2">
                           {file.decryptionStatus === 'locked' ? (
                             <button
@@ -1879,11 +1879,11 @@ const Documents = () => {
                               Decrypt
                             </button>
                           )}
-                          <button className="text-gray-400 hover:text-gray-600">
-                            <MoreVertical className="h-4 w-4" />
-                          </button>
+                      <button className="text-gray-400 hover:text-gray-600">
+                        <MoreVertical className="h-4 w-4" />
+                      </button>
                         </div>
-                      </td>
+                    </td>
                   </tr>
                 ))}
               </tbody>

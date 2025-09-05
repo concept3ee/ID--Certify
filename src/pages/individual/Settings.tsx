@@ -273,7 +273,7 @@ const Settings = () => {
             {/* Left Side - Title Only */}
             <div className="flex items-center flex-shrink-0">
               <h1 className="text-xl font-bold text-gray-900">Settings</h1>
-            </div>
+        </div>
 
             {/* Center - Navigation Tabs with Trust Score Styling */}
             <div className="flex-1 flex justify-center">
@@ -290,7 +290,7 @@ const Settings = () => {
                       }`}
                     >
                       <span>{tab.label}</span>
-                    </button>
+          </button>
                   ))}
                 </nav>
               </div>
@@ -303,7 +303,7 @@ const Settings = () => {
 
       {/* Tab Content */}
       <div className="px-6">
-        {renderTabContent()}
+      {renderTabContent()}
       </div>
     </div>
   )

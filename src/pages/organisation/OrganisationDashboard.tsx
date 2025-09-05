@@ -14,71 +14,171 @@ import Wallet from './Wallet'
 import Billing from './Billing'
 import Settings from './Settings'
 import Verification from './Verification'
+// New Organization Verification System Components
+import VerificationDashboard from './VerificationDashboard'
+import CandidateManager from './CandidateManager'
+import VerificationHistory from './VerificationHistory'
+import AttesterConfigurator from './AttesterConfigurator'
+import VerificationAnalytics from './VerificationAnalytics'
+import ComplianceWorkflow from './ComplianceWorkflow'
+import CollaborationOversight from './CollaborationOversight'
+import VerificationPayment from './VerificationPayment'
 
 const OrganisationDashboard = () => {
   const { userType } = useSelector((state: RootState) => state.auth)
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* Sidebar */}
-      <div className="w-64 flex-shrink-0">
+      <div className="w-64 flex-shrink-0 h-full overflow-hidden">
         <Sidebar />
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Header />
         
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto min-h-0">
           <Routes>
             <Route path="/" element={
-              <div className="p-6 mx-6">
+              <div className="p-4 sm:p-6">
                 <Dashboard />
               </div>
             } />
             
-            {/* Verification Routes */}
+            {/* Verification Routes - New Comprehensive System */}
             <Route path="/verification" element={
               <>
                 <SectionNav
-                  title="Verification Management"
+                  title="Verification"
                   tabs={[
-                    { id: 'initiate', name: 'Initiate Verification', href: '/organisation/verification', badge: 3 },
-                    { id: 'requests', name: 'Verification Requests', href: '/organisation/verification/requests', badge: 2 },
-                    { id: 'templates', name: 'Verification Templates', href: '/organisation/verification/templates' }
+                    { id: 'dashboard', name: 'Dashboard', href: '/organisation/verification' },
+                    { id: 'candidates', name: 'Candidates', href: '/organisation/verification/candidates' },
+                    { id: 'history', name: 'History', href: '/organisation/verification/history' },
+                    { id: 'attesters', name: 'Attesters', href: '/organisation/verification/attesters' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/verification/analytics' },
+                    { id: 'compliance', name: 'Compliance', href: '/organisation/verification/compliance' },
+                    { id: 'collaboration', name: 'Collaboration', href: '/organisation/verification/collaboration' }
                   ]}
                 />
-                <div className="p-6 mx-6">
-                  <Verification />
+                <div className="p-4 sm:p-6">
+                  <VerificationDashboard />
                 </div>
               </>
             } />
-            <Route path="/verification/status" element={
+            <Route path="/verification/candidates" element={
               <>
                 <SectionNav
-                  title="Verification Status"
-
+                  title="Verification"
                   tabs={[
-                    { id: 'start', name: 'Start Verification', href: '/organisation/verification' },
-                    { id: 'status', name: 'Verification Status', href: '/organisation/verification/status', badge: 3 },
-                    { id: 'history', name: 'Verification History', href: '/organisation/verification/history' },
-                    { id: 'pending', name: 'Pending Actions', href: '/organisation/verification/pending', badge: 2 }
+                    { id: 'dashboard', name: 'Dashboard', href: '/organisation/verification' },
+                    { id: 'candidates', name: 'Candidates', href: '/organisation/verification/candidates' },
+                    { id: 'history', name: 'History', href: '/organisation/verification/history' },
+                    { id: 'attesters', name: 'Attesters', href: '/organisation/verification/attesters' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/verification/analytics' },
+                    { id: 'compliance', name: 'Compliance', href: '/organisation/verification/compliance' },
+                    { id: 'collaboration', name: 'Collaboration', href: '/organisation/verification/collaboration' }
                   ]}
                 />
-                <div className="p-6 mx-6">
-                  <Verification />
+                <div className="p-4 sm:p-6">
+                  <CandidateManager />
                 </div>
               </>
             } />
             <Route path="/verification/history" element={
-              <div className="p-6 mx-6">
-                <Verification />
-              </div>
+              <>
+                <SectionNav
+                  title="Verification"
+                  tabs={[
+                    { id: 'dashboard', name: 'Dashboard', href: '/organisation/verification' },
+                    { id: 'candidates', name: 'Candidates', href: '/organisation/verification/candidates' },
+                    { id: 'history', name: 'History', href: '/organisation/verification/history' },
+                    { id: 'attesters', name: 'Attesters', href: '/organisation/verification/attesters' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/verification/analytics' },
+                    { id: 'compliance', name: 'Compliance', href: '/organisation/verification/compliance' },
+                    { id: 'collaboration', name: 'Collaboration', href: '/organisation/verification/collaboration' }
+                  ]}
+                />
+                <div className="p-4 sm:p-6">
+                  <VerificationHistory />
+                </div>
+              </>
             } />
-            <Route path="/verification/pending" element={
+            <Route path="/verification/attesters" element={
+              <>
+                <SectionNav
+                  title="Verification"
+                  tabs={[
+                    { id: 'dashboard', name: 'Dashboard', href: '/organisation/verification' },
+                    { id: 'candidates', name: 'Candidates', href: '/organisation/verification/candidates' },
+                    { id: 'history', name: 'History', href: '/organisation/verification/history' },
+                    { id: 'attesters', name: 'Attesters', href: '/organisation/verification/attesters' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/verification/analytics' },
+                    { id: 'compliance', name: 'Compliance', href: '/organisation/verification/compliance' },
+                    { id: 'collaboration', name: 'Collaboration', href: '/organisation/verification/collaboration' }
+                  ]}
+                />
+                <div className="p-4 sm:p-6">
+                  <AttesterConfigurator />
+                </div>
+              </>
+            } />
+            <Route path="/verification/analytics" element={
+              <>
+                <SectionNav
+                  title="Verification"
+                  tabs={[
+                    { id: 'dashboard', name: 'Dashboard', href: '/organisation/verification' },
+                    { id: 'candidates', name: 'Candidates', href: '/organisation/verification/candidates' },
+                    { id: 'history', name: 'History', href: '/organisation/verification/history' },
+                    { id: 'attesters', name: 'Attesters', href: '/organisation/verification/attesters' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/verification/analytics' },
+                    { id: 'compliance', name: 'Compliance', href: '/organisation/verification/compliance' },
+                    { id: 'collaboration', name: 'Collaboration', href: '/organisation/verification/collaboration' }
+                  ]}
+                />
+                <div className="p-4 sm:p-6">
+                  <VerificationAnalytics />
+                </div>
+              </>
+            } />
+            <Route path="/verification/compliance" element={
+              <>
+                <SectionNav
+                  title="Verification"
+                  tabs={[
+                    { id: 'dashboard', name: 'Dashboard', href: '/organisation/verification' },
+                    { id: 'candidates', name: 'Candidates', href: '/organisation/verification/candidates' },
+                    { id: 'history', name: 'History', href: '/organisation/verification/history' },
+                    { id: 'attesters', name: 'Attesters', href: '/organisation/verification/attesters' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/verification/analytics' },
+                    { id: 'compliance', name: 'Compliance', href: '/organisation/verification/compliance' },
+                    { id: 'collaboration', name: 'Collaboration', href: '/organisation/verification/collaboration' }
+                  ]}
+                />
               <div className="p-6 mx-6">
-                <Verification />
+                  <ComplianceWorkflow />
               </div>
+              </>
+            } />
+            <Route path="/verification/collaboration" element={
+              <>
+                <SectionNav
+                  title="Verification"
+                  tabs={[
+                    { id: 'dashboard', name: 'Dashboard', href: '/organisation/verification' },
+                    { id: 'candidates', name: 'Candidates', href: '/organisation/verification/candidates' },
+                    { id: 'history', name: 'History', href: '/organisation/verification/history' },
+                    { id: 'attesters', name: 'Attesters', href: '/organisation/verification/attesters' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/verification/analytics' },
+                    { id: 'compliance', name: 'Compliance', href: '/organisation/verification/compliance' },
+                    { id: 'collaboration', name: 'Collaboration', href: '/organisation/verification/collaboration' }
+                  ]}
+                />
+              <div className="p-6 mx-6">
+                  <CollaborationOversight />
+              </div>
+              </>
             } />
 
             {/* Compliance Routes */}
@@ -93,7 +193,7 @@ const OrganisationDashboard = () => {
                     { id: 'calendar', name: 'Compliance Calendar', href: '/organisation/compliance/calendar' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Compliance />
                 </div>
               </>
@@ -109,7 +209,7 @@ const OrganisationDashboard = () => {
                     { id: 'calendar', name: 'Compliance Calendar', href: '/organisation/compliance/calendar' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Compliance />
                 </div>
               </>
@@ -132,41 +232,84 @@ const OrganisationDashboard = () => {
                   title="Employee Management"
                   tabs={[
                     { id: 'directory', name: 'Employee Directory', href: '/organisation/employees' },
-                    { id: 'add', name: 'Add Employee', href: '/organisation/employees/add' },
-                    { id: 'verification', name: 'Employee Verification', href: '/organisation/employees/verification' },
-                    { id: 'permissions', name: 'Access Permissions', href: '/organisation/employees/permissions' }
+                    { id: 'onboarding', name: 'Onboarding', href: '/organisation/employees/onboarding' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/organisation/employees/bulk' },
+                    { id: 'permissions', name: 'Access Control', href: '/organisation/employees/permissions' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/employees/analytics' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Employees />
                 </div>
               </>
             } />
-            <Route path="/employees/add" element={
+            <Route path="/employees/onboarding" element={
               <>
                 <SectionNav
                   title="Employee Management"
                   tabs={[
                     { id: 'directory', name: 'Employee Directory', href: '/organisation/employees' },
-                    { id: 'add', name: 'Add Employee', href: '/organisation/employees/add' },
-                    { id: 'verification', name: 'Employee Verification', href: '/organisation/employees/verification' },
-                    { id: 'permissions', name: 'Access Permissions', href: '/organisation/employees/permissions' }
+                    { id: 'onboarding', name: 'Onboarding', href: '/organisation/employees/onboarding' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/organisation/employees/bulk' },
+                    { id: 'permissions', name: 'Access Control', href: '/organisation/employees/permissions' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/employees/analytics' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Employees />
                 </div>
               </>
             } />
-            <Route path="/employees/verification" element={
-              <div className="p-6 mx-6">
-                <Employees />
-              </div>
+            <Route path="/employees/bulk" element={
+              <>
+                <SectionNav
+                  title="Employee Management"
+                  tabs={[
+                    { id: 'directory', name: 'Employee Directory', href: '/organisation/employees' },
+                    { id: 'onboarding', name: 'Onboarding', href: '/organisation/employees/onboarding' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/organisation/employees/bulk' },
+                    { id: 'permissions', name: 'Access Control', href: '/organisation/employees/permissions' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/employees/analytics' }
+                  ]}
+                />
+                <div className="p-4 sm:p-6">
+                  <Employees />
+                </div>
+              </>
             } />
             <Route path="/employees/permissions" element={
-              <div className="p-6 mx-6">
-                <Employees />
-              </div>
+              <>
+                <SectionNav
+                  title="Employee Management"
+                  tabs={[
+                    { id: 'directory', name: 'Employee Directory', href: '/organisation/employees' },
+                    { id: 'onboarding', name: 'Onboarding', href: '/organisation/employees/onboarding' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/organisation/employees/bulk' },
+                    { id: 'permissions', name: 'Access Control', href: '/organisation/employees/permissions' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/employees/analytics' }
+                  ]}
+                />
+                <div className="p-4 sm:p-6">
+                  <Employees />
+                </div>
+              </>
+            } />
+            <Route path="/employees/analytics" element={
+              <>
+                <SectionNav
+                  title="Employee Management"
+                  tabs={[
+                    { id: 'directory', name: 'Employee Directory', href: '/organisation/employees' },
+                    { id: 'onboarding', name: 'Onboarding', href: '/organisation/employees/onboarding' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/organisation/employees/bulk' },
+                    { id: 'permissions', name: 'Access Control', href: '/organisation/employees/permissions' },
+                    { id: 'analytics', name: 'Analytics', href: '/organisation/employees/analytics' }
+                  ]}
+                />
+                <div className="p-4 sm:p-6">
+                  <Employees />
+                </div>
+              </>
             } />
 
             {/* AML & KYC Routes */}
@@ -181,7 +324,7 @@ const OrganisationDashboard = () => {
                     { id: 'suspicious', name: 'Suspicious Activity', href: '/organisation/aml/suspicious' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <AML />
                 </div>
               </>
@@ -197,7 +340,7 @@ const OrganisationDashboard = () => {
                     { id: 'suspicious', name: 'Suspicious Activity', href: '/organisation/aml/suspicious' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <AML />
                 </div>
               </>
@@ -225,7 +368,7 @@ const OrganisationDashboard = () => {
                     { id: 'access', name: 'Data Access', href: '/organisation/monitoring/access' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Monitoring />
                 </div>
               </>
@@ -241,7 +384,7 @@ const OrganisationDashboard = () => {
                     { id: 'access', name: 'Data Access', href: '/organisation/monitoring/access' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Monitoring />
                 </div>
               </>
@@ -269,7 +412,7 @@ const OrganisationDashboard = () => {
                     { id: 'sync', name: 'Data Sync', href: '/organisation/integrations/sync' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Integrations />
                 </div>
               </>
@@ -285,7 +428,7 @@ const OrganisationDashboard = () => {
                     { id: 'sync', name: 'Data Sync', href: '/organisation/integrations/sync' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Integrations />
                 </div>
               </>
@@ -313,7 +456,7 @@ const OrganisationDashboard = () => {
                     { id: 'tips', name: 'Improvement Tips', href: '/organisation/trust-score/tips' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <div className="bg-white rounded-lg border border-gray-200 p-6">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Trust Score Overview</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -345,7 +488,7 @@ const OrganisationDashboard = () => {
                     { id: 'tips', name: 'Improvement Tips', href: '/organisation/trust-score/tips' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <div className="bg-white rounded-lg border border-gray-200 p-6">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Score Breakdown</h2>
                     <div className="space-y-4">
@@ -399,7 +542,7 @@ const OrganisationDashboard = () => {
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Wallet />
                 </div>
               </>
@@ -415,7 +558,7 @@ const OrganisationDashboard = () => {
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Wallet />
                 </div>
               </>
@@ -436,11 +579,14 @@ const OrganisationDashboard = () => {
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Billing />
                 </div>
               </>
             } />
+            
+            {/* Verification Payment Route */}
+            <Route path="/verification/payment" element={<VerificationPayment />} />
 
             {/* Document Management Routes */}
             <Route path="/documents" element={
@@ -454,7 +600,7 @@ const OrganisationDashboard = () => {
                     { id: 'analytics', name: 'Document Analytics', href: '/organisation/documents/analytics' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <div className="bg-white rounded-lg border border-gray-200 p-6">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Document Vault</h2>
                     <p className="text-gray-600">Secure document storage and management for your organization.</p>
@@ -473,7 +619,7 @@ const OrganisationDashboard = () => {
                     { id: 'analytics', name: 'Document Analytics', href: '/organisation/documents/analytics' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <div className="bg-white rounded-lg border border-gray-200 p-6">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">Document Templates</h2>
                     <p className="text-gray-600">Manage document templates for your organization.</p>
@@ -510,7 +656,7 @@ const OrganisationDashboard = () => {
                     { id: 'team', name: 'Team Management', href: '/organisation/settings/team' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Settings />
                 </div>
               </>
@@ -526,7 +672,7 @@ const OrganisationDashboard = () => {
                     { id: 'team', name: 'Team Management', href: '/organisation/settings/team' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                <div className="p-4 sm:p-6">
                   <Settings />
                 </div>
               </>

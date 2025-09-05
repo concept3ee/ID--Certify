@@ -28,6 +28,9 @@ import {
   Moon,
   HelpCircle,
   CheckCircle,
+  Grid,
+  History,
+  Layers,
   Calendar,
   UserPlus,
   AlertTriangle,
@@ -55,10 +58,7 @@ import {
   Award,
   ShieldCheck,
   FileCheck,
-  History,
   Plus,
-  Grid,
-  Layers,
   Cpu,
   Server
 } from 'lucide-react'
@@ -334,34 +334,52 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             description: 'Manage verification processes for individuals and organizations',
             children: [
               { 
-                name: 'Verification Management', 
+                name: 'Dashboard', 
                 href: '/organisation/verification', 
                 icon: Grid,
-                description: 'Comprehensive verification management'
+                description: 'Verification overview and analytics'
               },
               { 
-                name: 'Initiate Verification', 
-                href: '/organisation/verification/initiate', 
-                icon: Plus,
-                description: 'Start new verification processes'
-              },
-              { 
-                name: 'Employee Verifications', 
-                href: '/organisation/verification/employees', 
+                name: 'Candidate Management', 
+                href: '/organisation/verification/candidates', 
                 icon: Users,
-                description: 'Manage employee verification status'
+                description: 'Monitor candidates and track verification status'
+              },
+              { 
+                name: 'Verification History', 
+                href: '/organisation/verification/history', 
+                icon: History,
+                description: 'Complete audit trail of all verifications'
+              },
+              { 
+                name: 'Attester Config', 
+                href: '/organisation/verification/attesters', 
+                icon: Shield,
+                description: 'Configure and manage attesters'
+              },
+              { 
+                name: 'Analytics', 
+                href: '/organisation/verification/analytics', 
+                icon: TrendingUp,
+                description: 'Verification performance analytics'
+              },
+              { 
+                name: 'Compliance', 
+                href: '/organisation/verification/compliance', 
+                icon: CheckCircle,
+                description: 'Compliance and workflow integration'
+              },
+              { 
+                name: 'Collaboration', 
+                href: '/organisation/verification/collaboration', 
+                icon: Users,
+                description: 'Team collaboration and oversight'
               },
               { 
                 name: 'Bulk Operations', 
                 href: '/organisation/verification/bulk', 
                 icon: Layers,
                 description: 'Process multiple verifications'
-              },
-              { 
-                name: 'Verification History', 
-                href: '/organisation/verification/history', 
-                icon: History,
-                description: 'Complete verification history'
               }
             ]
           },
@@ -369,71 +387,13 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             name: 'Employee Management',
             href: '/organisation/employees',
             icon: Users,
-            description: 'Manage employee database and verification status',
-            children: [
-              { 
-                name: 'Employee Directory', 
-                href: '/organisation/employees', 
-                icon: Users,
-                description: 'View all employees'
-              },
-              { 
-                name: 'Add Employee', 
-                href: '/organisation/employees/add', 
-                icon: UserPlus,
-                description: 'Add new employees to the system'
-              },
-              { 
-                name: 'Verification Status', 
-                href: '/organisation/employees/verification', 
-                icon: Shield,
-                description: 'Track employee verification status'
-              },
-              { 
-                name: 'Access Permissions', 
-                href: '/organisation/employees/permissions', 
-                icon: Key,
-                description: 'Manage employee access levels'
-              }
-            ]
+            description: 'Manage employee database and verification status'
           },
           {
             name: 'Compliance & AML',
             href: '/organisation/compliance',
             icon: CheckCircle,
-            description: 'Ensure regulatory compliance and AML procedures',
-            children: [
-              { 
-                name: 'Compliance Overview', 
-                href: '/organisation/compliance', 
-                icon: BarChart3,
-                description: 'Compliance status and requirements'
-              },
-              { 
-                name: 'AML Screening', 
-                href: '/organisation/aml', 
-                icon: Shield,
-                description: 'Anti-money laundering procedures'
-              },
-              { 
-                name: 'KYC Procedures', 
-                href: '/organisation/aml/kyc', 
-                icon: UserCheck,
-                description: 'Know Your Customer processes'
-              },
-              { 
-                name: 'Risk Assessment', 
-                href: '/organisation/aml/risk', 
-                icon: AlertTriangle,
-                description: 'Risk assessment and monitoring'
-              },
-              { 
-                name: 'Audit Reports', 
-                href: '/organisation/compliance/audit', 
-                icon: Clipboard,
-                description: 'Compliance audit reports'
-              }
-            ]
+            description: 'Ensure regulatory compliance and AML procedures'
           },
           {
             name: 'System Monitoring',
@@ -939,7 +899,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
     if (level === 0) {
       // For top-level items, check if current path starts with the href
       isActive = location.pathname === item.href || 
-                 (item.href !== `/${userType}` && location.pathname.startsWith(item.href))
+                    (item.href !== `/${userType}` && location.pathname.startsWith(item.href))
     } else {
       // For child items, use exact path matching
       isActive = location.pathname === item.href
@@ -963,23 +923,23 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
           <item.icon className={`h-5 w-5 mr-3 ${
             isActive ? 'text-primary-600' : 'text-gray-400 group-hover:text-gray-500'
           }`} />
-          <span className="flex-1">{item.name}</span>
+              <span className="flex-1">{item.name}</span>
           {item.badge && (
             <span className="ml-2 inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
               {item.badge}
-            </span>
-          )}
-          {hasChildren && (
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                toggleExpanded(item.name)
-              }}
+                </span>
+              )}
+              {hasChildren && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    toggleExpanded(item.name)
+                  }}
               className="ml-2 p-1 rounded-md hover:bg-gray-100"
-            >
-              {isExpanded ? (
+                >
+                  {isExpanded ? (
                 <ChevronDown className="h-4 w-4 text-gray-400" />
-              ) : (
+                  ) : (
                 <ChevronRight className="h-4 w-4 text-gray-400" />
               )}
             </button>
@@ -996,11 +956,11 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
   }
 
   return (
-    <div className={`bg-white border-r border-gray-200 flex flex-col ${isCollapsed ? 'w-16' : 'w-64'} transition-all duration-300`}>
+    <div className={`bg-white border-r border-gray-200 flex flex-col h-full ${isCollapsed ? 'w-16' : 'w-64'} transition-all duration-300 overflow-hidden`}>
       {/* Logo */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         {!isCollapsed && (
-          <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3">
             {/* Custom iDCERTIFY Logo */}
             <div className="relative w-8 h-8">
               {/* White oval background */}
@@ -1025,8 +985,8 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             <div className="absolute inset-2 border-2 border-red-600 rounded-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}></div>
             <div className="absolute inset-3 border-2 border-red-600 rounded-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}></div>
             <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-1 bg-red-600 rounded-full"></div>
-          </div>
-        )}
+            </div>
+          )}
       </div>
 
       {/* Search */}
@@ -1044,7 +1004,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+      <nav className="flex-1 overflow-y-auto p-4 space-y-2 min-h-0">
         {navigationItems.map((item) => renderNavItem(item))}
       </nav>
 
