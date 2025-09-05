@@ -23,6 +23,8 @@ import VerificationAnalytics from './VerificationAnalytics'
 import ComplianceWorkflow from './ComplianceWorkflow'
 import CollaborationOversight from './CollaborationOversight'
 import VerificationPayment from './VerificationPayment'
+import Documents from './Documents'
+import TrustScore from './TrustScore'
 
 const OrganisationDashboard = () => {
   const { userType } = useSelector((state: RootState) => state.auth)
@@ -446,87 +448,8 @@ const OrganisationDashboard = () => {
 
             {/* Trust Score Routes */}
             <Route path="/trust-score" element={
-              <>
-                <SectionNav
-                  title="Trust Score"
-                  tabs={[
-                    { id: 'overview', name: 'Score Overview', href: '/organisation/trust-score' },
-                    { id: 'breakdown', name: 'Score Breakdown', href: '/organisation/trust-score/breakdown' },
-                    { id: 'history', name: 'Score History', href: '/organisation/trust-score/history' },
-                    { id: 'tips', name: 'Improvement Tips', href: '/organisation/trust-score/tips' }
-                  ]}
-                />
-                <div className="p-4 sm:p-6">
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Trust Score Overview</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg p-6 text-white">
-                        <div className="text-3xl font-bold">850</div>
-                        <div className="text-primary-100">Current Score</div>
-                      </div>
-                      <div className="bg-white border border-gray-200 rounded-lg p-6">
-                        <div className="text-2xl font-bold text-gray-900">+25</div>
-                        <div className="text-gray-600">This Month</div>
-                      </div>
-                      <div className="bg-white border border-gray-200 rounded-lg p-6">
-                        <div className="text-2xl font-bold text-gray-900">A+</div>
-                        <div className="text-gray-600">Grade</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            } />
-            <Route path="/trust-score/breakdown" element={
-              <>
-                <SectionNav
-                  title="Trust Score"
-                  tabs={[
-                    { id: 'overview', name: 'Score Overview', href: '/organisation/trust-score' },
-                    { id: 'breakdown', name: 'Score Breakdown', href: '/organisation/trust-score/breakdown' },
-                    { id: 'history', name: 'Score History', href: '/organisation/trust-score/history' },
-                    { id: 'tips', name: 'Improvement Tips', href: '/organisation/trust-score/tips' }
-                  ]}
-                />
-                <div className="p-4 sm:p-6">
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Score Breakdown</h2>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span>Identity Verification</span>
-                        <span className="font-semibold">200/200</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span>Compliance Score</span>
-                        <span className="font-semibold">180/200</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span>Document Verification</span>
-                        <span className="font-semibold">170/200</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span>Activity Score</span>
-                        <span className="font-semibold">150/200</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            } />
-            <Route path="/trust-score/history" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Score History</h2>
-                  <p className="text-gray-600">Historical trust score data will be displayed here.</p>
-                </div>
-              </div>
-            } />
-            <Route path="/trust-score/tips" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Improvement Tips</h2>
-                  <p className="text-gray-600">Tips to improve your trust score will be displayed here.</p>
-                </div>
+              <div className="p-4 sm:p-6">
+                <TrustScore />
               </div>
             } />
 
@@ -590,23 +513,9 @@ const OrganisationDashboard = () => {
 
             {/* Document Management Routes */}
             <Route path="/documents" element={
-              <>
-                <SectionNav
-                  title="Document Management"
-                  tabs={[
-                    { id: 'vault', name: 'Document Vault', href: '/organisation/documents' },
-                    { id: 'templates', name: 'Document Templates', href: '/organisation/documents/templates' },
-                    { id: 'permissions', name: 'Access Permissions', href: '/organisation/documents/permissions' },
-                    { id: 'analytics', name: 'Document Analytics', href: '/organisation/documents/analytics' }
-                  ]}
-                />
-                <div className="p-4 sm:p-6">
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Document Vault</h2>
-                    <p className="text-gray-600">Secure document storage and management for your organization.</p>
-                  </div>
-                </div>
-              </>
+              <div className="p-4 sm:p-6">
+                <Documents />
+              </div>
             } />
             <Route path="/documents/templates" element={
               <>
