@@ -715,7 +715,7 @@ const VerificationDashboard: React.FC = () => {
               </div>
               
               <button 
-                onClick={() => window.location.href = '/individual/biobank'}
+                onClick={() => setShowSystemVerification(true)}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-medium transition-colors flex items-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
