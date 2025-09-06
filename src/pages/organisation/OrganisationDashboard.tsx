@@ -15,13 +15,13 @@ import Billing from './Billing'
 import Settings from './Settings'
 import Verification from './Verification'
 // New Organization Verification System Components
-// import VerificationDashboard from './VerificationDashboard'
-// import CandidateManager from './CandidateManager'
+import VerificationDashboard from './VerificationDashboard'
+import CandidateManager from './CandidateManager'
 import VerificationHistory from './VerificationHistory'
-// import AttesterConfigurator from './AttesterConfigurator'
-// import VerificationAnalytics from './VerificationAnalytics'
-// import ComplianceWorkflow from './ComplianceWorkflow'
-// import CollaborationOversight from './CollaborationOversight'
+import AttesterConfigurator from './AttesterConfigurator'
+import VerificationAnalytics from './VerificationAnalytics'
+import ComplianceWorkflow from './ComplianceWorkflow'
+import CollaborationOversight from './CollaborationOversight'
 import VerificationPayment from './VerificationPayment'
 import Documents from './Documents'
 import TrustScore from './TrustScore'
@@ -69,10 +69,7 @@ const OrganisationDashboard = () => {
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <div className="text-center py-12">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Verification Dashboard</h3>
-                    <p className="text-gray-600">Component temporarily disabled</p>
-                  </div>
+                  <VerificationDashboard />
                 </div>
               </>
             } />
@@ -91,10 +88,7 @@ const OrganisationDashboard = () => {
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <div className="text-center py-12">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Candidate Manager</h3>
-                    <p className="text-gray-600">Component temporarily disabled</p>
-                  </div>
+                  <CandidateManager />
                 </div>
               </>
             } />
@@ -132,10 +126,7 @@ const OrganisationDashboard = () => {
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <div className="text-center py-12">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Attester Configurator</h3>
-                    <p className="text-gray-600">Component temporarily disabled</p>
-                  </div>
+                  <AttesterConfigurator />
                 </div>
               </>
             } />
@@ -154,10 +145,7 @@ const OrganisationDashboard = () => {
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <div className="text-center py-12">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Verification Analytics</h3>
-                    <p className="text-gray-600">Component temporarily disabled</p>
-                  </div>
+                  <VerificationAnalytics />
                 </div>
               </>
             } />
@@ -176,10 +164,7 @@ const OrganisationDashboard = () => {
                   ]}
                 />
               <div className="p-6 mx-6">
-                  <div className="text-center py-12">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Compliance Workflow</h3>
-                    <p className="text-gray-600">Component temporarily disabled</p>
-                  </div>
+                  <ComplianceWorkflow />
               </div>
               </>
             } />
@@ -198,10 +183,7 @@ const OrganisationDashboard = () => {
                   ]}
                 />
               <div className="p-6 mx-6">
-                  <div className="text-center py-12">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Collaboration Oversight</h3>
-                    <p className="text-gray-600">Component temporarily disabled</p>
-                  </div>
+                  <CollaborationOversight />
               </div>
               </>
             } />
@@ -298,8 +280,8 @@ const OrganisationDashboard = () => {
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <Employees />
-                </div>
+                <Employees />
+              </div>
               </>
             } />
             <Route path="/employees/permissions" element={
@@ -332,8 +314,8 @@ const OrganisationDashboard = () => {
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <Employees />
-                </div>
+                <Employees />
+              </div>
               </>
             } />
 
@@ -520,80 +502,80 @@ const OrganisationDashboard = () => {
             <Route path="/approval/marketplace" element={
               <div className="p-4 sm:p-6">
                 <ApprovalWorkflow />
-              </div>
+                      </div>
             } />
 
             {/* Rewards Routes */}
             <Route path="/rewards" element={
               <div className="p-4 sm:p-6">
                 <Rewards />
-              </div>
+                      </div>
             } />
             <Route path="/rewards/catalog" element={
               <div className="p-4 sm:p-6">
                 <Rewards />
-              </div>
+                      </div>
             } />
             <Route path="/rewards/transactions" element={
               <div className="p-4 sm:p-6">
                 <Rewards />
-              </div>
+                    </div>
             } />
             <Route path="/rewards/my-rewards" element={
               <div className="p-4 sm:p-6">
                 <Rewards />
-              </div>
+                  </div>
             } />
 
             {/* Ratings Routes */}
             <Route path="/ratings" element={
               <div className="p-4 sm:p-6">
                 <Ratings />
-              </div>
+                </div>
             } />
             <Route path="/ratings/reviews" element={
               <div className="p-4 sm:p-6">
                 <Ratings />
-              </div>
+                      </div>
             } />
             <Route path="/ratings/analytics" element={
               <div className="p-4 sm:p-6">
                 <Ratings />
-              </div>
+                      </div>
             } />
             <Route path="/ratings/feedback" element={
               <div className="p-4 sm:p-6">
                 <Ratings />
-              </div>
+                      </div>
             } />
 
             {/* Historical Data Routes */}
             <Route path="/historical-data" element={
               <div className="p-4 sm:p-6">
                 <HistoricalData />
-              </div>
+                      </div>
             } />
             <Route path="/historical-data/analytics" element={
               <div className="p-4 sm:p-6">
                 <HistoricalData />
-              </div>
+                    </div>
             } />
             <Route path="/historical-data/audit-logs" element={
               <div className="p-4 sm:p-6">
                 <HistoricalData />
-              </div>
+                  </div>
             } />
             <Route path="/historical-data/reports" element={
               <div className="p-4 sm:p-6">
                 <HistoricalData />
-              </div>
+                </div>
             } />
 
             {/* Chat & Communication Routes */}
             <Route path="/chat" element={
               <div className="p-4 sm:p-6">
                 <Chat />
-              </div>
+                </div>
             } />
             <Route path="/chat/support" element={
               <div className="p-4 sm:p-6">
@@ -603,7 +585,7 @@ const OrganisationDashboard = () => {
             <Route path="/chat/notifications" element={
               <div className="p-4 sm:p-6">
                 <Chat />
-              </div>
+                </div>
             } />
             <Route path="/chat/email" element={
               <div className="p-4 sm:p-6">
@@ -673,7 +655,7 @@ const OrganisationDashboard = () => {
             <Route path="/documents" element={
               <div className="p-4 sm:p-6">
                 <Documents />
-              </div>
+                </div>
             } />
             <Route path="/documents/templates" element={
               <>
