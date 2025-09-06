@@ -884,7 +884,7 @@ const TrustScore = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <style jsx>{`
+      <style>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }

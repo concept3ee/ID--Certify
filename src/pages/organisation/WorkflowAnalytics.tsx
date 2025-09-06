@@ -55,14 +55,8 @@ import {
   SignalHigh,
   SignalLow,
   SignalZero,
-  WifiHigh,
-  WifiLow,
-  WifiMedium,
   WifiOff as WifiOffIcon,
   Wifi as WifiIcon,
-  WifiHigh as WifiHighIcon,
-  WifiLow as WifiLowIcon,
-  WifiMedium as WifiMediumIcon
 } from 'lucide-react'
 
 // Types

@@ -35,7 +35,8 @@ import {
   FileText,
   Link,
   X,
-  Check
+  Check,
+  Target
 } from 'lucide-react'
 
 // Types

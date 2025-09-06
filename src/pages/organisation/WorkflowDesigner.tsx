@@ -35,7 +35,8 @@ import {
   MoreVertical,
   Search,
   Filter,
-  RefreshCw
+  RefreshCw,
+  Star
 } from 'lucide-react'
 
 // Types
@@ -210,7 +211,7 @@ const WorkflowDesigner: React.FC = () => {
       nodes: [
         { id: 'start', type: 'start', name: 'Patient Registration', description: '', position: { x: 50, y: 50 }, size: { width: 120, height: 60 }, config: {}, connections: ['identity-verify'] },
         { id: 'identity-verify', type: 'verification', name: 'Identity Verification', description: '', position: { x: 250, y: 50 }, size: { width: 150, height: 80 }, config: { assignee: 'Verification System', assigneeType: 'user' }, connections: ['privacy-check'] },
-        { id: 'privacy-check', type: 'compliance', name: 'Privacy Compliance', description: '', position: { x: 450, y: 50 }, size: { width: 150, height: 80 }, config: { assignee: 'Privacy Officer', assigneeType: 'role' }, connections: ['medical-review'] },
+        { id: 'privacy-check', type: 'approval', name: 'Privacy Compliance', description: '', position: { x: 450, y: 50 }, size: { width: 150, height: 80 }, config: { assignee: 'Privacy Officer', assigneeType: 'role' }, connections: ['medical-review'] },
         { id: 'medical-review', type: 'approval', name: 'Medical Review', description: '', position: { x: 650, y: 50 }, size: { width: 150, height: 80 }, config: { assignee: 'Medical Staff', assigneeType: 'role' }, connections: ['end'] },
         { id: 'end', type: 'end', name: 'Complete', description: '', position: { x: 850, y: 50 }, size: { width: 120, height: 60 }, config: {}, connections: [] }
       ],

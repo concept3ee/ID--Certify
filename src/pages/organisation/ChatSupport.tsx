@@ -36,7 +36,6 @@ import {
   User,
   Calendar,
   TrendingUp,
-  MessageSquareText,
   FileText,
   Download,
   Upload,
@@ -348,7 +347,7 @@ const ChatSupport = () => {
       case 'technical': return <Settings className="w-4 h-4" />
       case 'billing': return <CreditCard className="w-4 h-4" />
       case 'verification': return <Shield className="w-4 h-4" />
-      case 'general': return <MessageSquareText className="w-4 h-4" />
+      case 'general': return <MessageSquare className="w-4 h-4" />
       case 'bug': return <AlertCircle className="w-4 h-4" />
       default: return <FileText className="w-4 h-4" />
     }

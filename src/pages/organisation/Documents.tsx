@@ -196,7 +196,7 @@ const Documents = () => {
   const filteredFiles = files.filter(file => {
     const matchesSearch = file.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          file.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-    const matchesFilter = activeFilter === 'all' || file.fileType === activeFilter
+    const matchesFilter = activeFilter === 'all' || (activeFilter === 'documents' && ['pdf', 'docx', 'xlsx', 'pptx'].includes(file.fileType)) || (activeFilter === 'images' && ['png', 'jpg', 'jpeg'].includes(file.fileType)) || (activeFilter === 'video' && ['mp4', 'avi'].includes(file.fileType)) || (activeFilter === 'other' && !['pdf', 'docx', 'xlsx', 'pptx', 'png', 'jpg', 'jpeg', 'mp4', 'avi'].includes(file.fileType))
     return matchesSearch && matchesFilter
   })
 

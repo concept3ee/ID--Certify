@@ -347,7 +347,7 @@ const CrossPlatformWorkflows: React.FC = () => {
       initiatedAt: '2024-01-20T10:30:00Z',
       participants: [
         { organization: 'TechCorp Ltd', individual: 'John Smith', role: 'Employee', status: 'completed', lastActivity: '2024-01-20T11:00:00Z' },
-        { organization: 'TechCorp Ltd', role: 'HR Manager', status: 'in_progress', lastActivity: '2024-01-20T10:30:00Z' }
+        { organization: 'TechCorp Ltd', role: 'HR Manager', status: 'pending', lastActivity: '2024-01-20T10:30:00Z' }
       ],
       data: { employee_id: 'EMP001', verification_type: 'background_check' },
       processingTime: 0.5
@@ -683,7 +683,7 @@ const CrossPlatformWorkflows: React.FC = () => {
                               <div key={index} className="flex items-center space-x-2 px-3 py-1 bg-gray-100 rounded-lg">
                                 <div className={`w-2 h-2 rounded-full ${
                                   participant.status === 'completed' ? 'bg-green-500' :
-                                  participant.status === 'in_progress' ? 'bg-blue-500' :
+                                  participant.status === 'pending' ? 'bg-blue-500' :
                                   'bg-yellow-500'
                                 }`}></div>
                                 <span className="text-sm text-gray-700">

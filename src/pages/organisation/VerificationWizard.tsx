@@ -16,6 +16,10 @@ import {
   GraduationCap,
   Shield,
   CreditCard,
+
+
+
+
   Calendar,
   Clock,
   AlertTriangle,
@@ -60,7 +64,6 @@ import {
   Send,
   Play,
   Pause,
-  Stop,
   SkipForward,
   SkipBack,
   Volume2,
@@ -70,27 +73,20 @@ import {
   Radio,
   Tv,
   Laptop,
-  Desktop,
   Printer,
-  Scanner,
   HardDrive,
   Cpu,
   MemoryStick,
   Disc,
-  Cd,
-  Dvd,
   Usb,
   Bluetooth,
   Signal,
   BatteryLow,
   BatteryMedium,
-  BatteryHigh,
   BatteryFull,
   PowerOff,
   Plug,
   Unplug,
-  Flash,
-  FlashOff,
   Sun,
   Moon,
   CloudRain,
@@ -121,30 +117,16 @@ import {
   Meh,
   Laugh,
   Angry,
-  Surprised,
-  Confused,
-  Tongue,
-  Wink,
-  Kiss,
-  Hug,
   Hand,
-  Handshake,
-  Clap,
-  Wave,
-  Point,
   Fingerprint,
   Scan,
   QrCode,
-  Barcode,
   Tag,
-  Label,
   Ticket,
   Gift,
   Package,
   Box,
   Container,
-  Crate,
-  Pallet,
   Truck,
   Car,
   Bus,
@@ -152,62 +134,8 @@ import {
   Plane,
   Ship,
   Bike,
-  Scooter,
-  Skateboard,
-  RollerSkate,
-  Wheelchair,
-  Stroller,
   Baby,
-  Child,
-  Adult,
-  Senior,
-  Male,
-  Female,
-  Transgender,
-  NonBinary,
-  GenderFluid,
-  Agender,
-  Bigender,
-  Demigender,
-  Pangender,
-  TwoSpirit,
-  Intersex,
-  Asexual,
-  Bisexual,
-  Gay,
-  Lesbian,
-  Pansexual,
-  Polysexual,
-  Demisexual,
-  Graysexual,
-  Queer,
-  Questioning,
-  Ally,
-  Pride,
   Rainbow,
-  Trans,
-  NonBinary as NonBinaryIcon,
-  GenderFluid as GenderFluidIcon,
-  Agender as AgenderIcon,
-  Bigender as BigenderIcon,
-  Demigender as DemigenderIcon,
-  Pangender as PangenderIcon,
-  TwoSpirit as TwoSpiritIcon,
-  Intersex as IntersexIcon,
-  Asexual as AsexualIcon,
-  Bisexual as BisexualIcon,
-  Gay as GayIcon,
-  Lesbian as LesbianIcon,
-  Pansexual as PansexualIcon,
-  Polysexual as PolysexualIcon,
-  Demisexual as DemisexualIcon,
-  Graysexual as GraysexualIcon,
-  Queer as QueerIcon,
-  Questioning as QuestioningIcon,
-  Ally as AllyIcon,
-  Pride as PrideIcon,
-  Rainbow as RainbowIcon,
-  Trans as TransIcon
 } from 'lucide-react'
 
 // Types
@@ -383,7 +311,7 @@ const VerificationWizard: React.FC<{ onClose: () => void; onComplete: (setup: Ve
       status: 'draft'
     }
     console.log('Saving draft setup:', draftSetup)
-    onComplete(draftSetup)
+    onComplete({...draftSetup, attesters: []})
   }
 
   const renderStepContent = () => {
@@ -504,7 +432,7 @@ const VerificationWizard: React.FC<{ onClose: () => void; onComplete: (setup: Ve
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                           <span className="text-sm font-medium text-blue-600">
-                            {candidate.name.split(' ').map(n => n[0]).join('')}
+                            {candidate.name.split(' ').map((n: string) => n[0]).join('')}
                           </span>
                         </div>
                         <div>
@@ -1323,7 +1251,7 @@ const VerificationWizard: React.FC<{ onClose: () => void; onComplete: (setup: Ve
                     onKeyDown={(e) => {
                       // Handle backspace
                       if (e.key === 'Backspace' && !otpCode[index] && index > 0) {
-                        const prevInput = e.target.parentElement?.children[index - 1] as HTMLInputElement
+                        const prevInput = (e.target as HTMLInputElement).parentElement?.children[index - 1] as HTMLInputElement
                         prevInput?.focus()
                       }
                     }}
