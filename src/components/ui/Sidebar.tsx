@@ -48,6 +48,8 @@ import {
   Rocket,
   GraduationCap,
   Star,
+  Smartphone,
+  Globe,
   DollarSign,
   MessageCircle,
   Mail,
@@ -57,6 +59,11 @@ import {
   Target,
   Award,
   ShieldCheck,
+  Archive,
+  MessageSquare,
+  CheckSquare,
+  Gift,
+  ThumbsUp,
   FileCheck,
   Plus,
   Cpu,
@@ -362,11 +369,11 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 href: '/organisation/verification/analytics', 
                 icon: TrendingUp,
                 description: 'Verification performance analytics'
-              },
-              { 
-                name: 'Compliance', 
+          },
+          {
+            name: 'Compliance',
                 href: '/organisation/verification/compliance', 
-                icon: CheckCircle,
+            icon: CheckCircle,
                 description: 'Compliance and workflow integration'
               },
               { 
@@ -584,6 +591,196 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 href: '/organisation/settings/team', 
                 icon: Users,
                 description: 'Manage team members and roles'
+              }
+            ]
+          },
+          {
+            name: 'Historical Data',
+            href: '/organisation/historical-data',
+            icon: Archive,
+            description: 'Access and analyze historical verification data',
+            children: [
+              { 
+                name: 'Data Archive', 
+                href: '/organisation/historical-data', 
+                icon: Archive,
+                description: 'Browse historical verification records'
+              },
+              { 
+                name: 'Analytics', 
+                href: '/organisation/historical-data/analytics', 
+                icon: BarChart3,
+                description: 'Historical data analytics and insights'
+              },
+              { 
+                name: 'Export Data', 
+                href: '/organisation/historical-data/export', 
+                icon: Download,
+                description: 'Export historical data for analysis'
+              },
+              { 
+                name: 'Data Retention', 
+                href: '/organisation/historical-data/retention', 
+                icon: Clock,
+                description: 'Manage data retention policies'
+              }
+            ]
+          },
+          {
+            name: 'Chat and Communication',
+            href: '/organisation/chat',
+            icon: MessageSquare,
+            description: 'Internal and external communication tools',
+            children: [
+              { 
+                name: 'Team Chat', 
+                href: '/organisation/chat', 
+                icon: MessageSquare,
+                description: 'Internal team communication'
+              },
+              { 
+                name: 'Customer Support', 
+                href: '/organisation/chat/support', 
+                icon: MessageCircle,
+                description: 'Customer support chat system'
+              },
+              { 
+                name: 'Notifications', 
+                href: '/organisation/chat/notifications', 
+                icon: Bell,
+                description: 'Manage notification preferences'
+              },
+              { 
+                name: 'Email Integration', 
+                href: '/organisation/chat/email', 
+                icon: Mail,
+                description: 'Email communication tools'
+              }
+            ]
+          },
+          {
+            name: 'Approval Workflow',
+            href: '/organisation/approval',
+            icon: CheckSquare,
+            description: 'Manage approval processes and workflows',
+            children: [
+              { 
+                name: 'Workflow Designer', 
+                href: '/organisation/approval', 
+                icon: CheckSquare,
+                description: 'Design and configure approval workflows'
+              },
+              { 
+                name: 'Pending Approvals', 
+                href: '/organisation/approval/pending', 
+                icon: Clock,
+                description: 'Review and process pending approvals'
+              },
+              { 
+                name: 'Approval History', 
+                href: '/organisation/approval/history', 
+                icon: History,
+                description: 'Track approval history and decisions'
+              },
+              { 
+                name: 'Workflow Analytics', 
+                href: '/organisation/approval/analytics', 
+                icon: TrendingUp,
+                description: 'Analyze workflow performance'
+              },
+              { 
+                name: 'Cross-Platform Workflows', 
+                href: '/organisation/approval/cross-platform', 
+                icon: Users,
+                description: 'Manage workflows between organizations and individuals'
+              },
+              { 
+                name: 'Industry Templates', 
+                href: '/organisation/approval/templates', 
+                icon: FileText,
+                description: 'Pre-built workflow templates for different industries'
+              },
+              { 
+                name: 'Advanced Analytics', 
+                href: '/organisation/approval/advanced-analytics', 
+                icon: BarChart3,
+                description: 'Enterprise-grade analytics and business intelligence'
+              },
+              { 
+                name: 'Mobile Workflow', 
+                href: '/organisation/approval/mobile', 
+                icon: Smartphone,
+                description: 'Mobile-optimized workflow interface'
+              },
+              { 
+                name: 'Workflow Marketplace', 
+                href: '/organisation/approval/marketplace', 
+                icon: Globe,
+                description: 'Discover and share workflow templates'
+              }
+            ]
+          },
+          {
+            name: 'Rewards and Points',
+            href: '/organisation/rewards',
+            icon: Gift,
+            description: 'Manage reward systems and point programs',
+            children: [
+              { 
+                name: 'Points Dashboard', 
+                href: '/organisation/rewards', 
+                icon: Gift,
+                description: 'Overview of points and rewards system'
+              },
+              { 
+                name: 'Reward Catalog', 
+                href: '/organisation/rewards/catalog', 
+                icon: Award,
+                description: 'Manage available rewards and prizes'
+              },
+              { 
+                name: 'Point Transactions', 
+                href: '/organisation/rewards/transactions', 
+                icon: TrendingUp,
+                description: 'Track point earning and spending'
+              },
+              { 
+                name: 'Redemption Center', 
+                href: '/organisation/rewards/redemption', 
+                icon: CheckCircle,
+                description: 'Process reward redemptions'
+              }
+            ]
+          },
+          {
+            name: 'Ratings powered by Sureratings',
+            href: '/organisation/ratings',
+            icon: ThumbsUp,
+            description: 'Customer and service ratings powered by Sureratings',
+            children: [
+              { 
+                name: 'Rating Dashboard', 
+                href: '/organisation/ratings', 
+                icon: ThumbsUp,
+                description: 'Overview of ratings and feedback'
+              },
+              { 
+                name: 'Customer Reviews', 
+                href: '/organisation/ratings/reviews', 
+                icon: MessageCircle,
+                description: 'View and respond to customer reviews'
+              },
+              { 
+                name: 'Rating Analytics', 
+                href: '/organisation/ratings/analytics', 
+                icon: BarChart3,
+                description: 'Analyze rating trends and insights'
+              },
+              { 
+                name: 'Feedback Management', 
+                href: '/organisation/ratings/feedback', 
+                icon: Star,
+                description: 'Manage and respond to feedback'
               }
             ]
           }
@@ -941,8 +1138,8 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 <ChevronDown className="h-4 w-4 text-gray-400" />
                   ) : (
                 <ChevronRight className="h-4 w-4 text-gray-400" />
-              )}
-            </button>
+                  )}
+                </button>
           )}
         </Link>
         
@@ -971,12 +1168,12 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
               <div className="absolute inset-3 border-2 border-red-600 rounded-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}></div>
               {/* Red dot */}
               <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-1 bg-red-600 rounded-full"></div>
-            </div>
+          </div>
             <span className="text-lg font-bold text-gray-900">
               <span className="text-sm">i</span>DCERTIFY
             </span>
-          </div>
-        )}
+            </div>
+          )}
         {isCollapsed && (
           <div className="relative w-8 h-8 mx-auto">
             {/* Custom iDCERTIFY Logo (collapsed) */}
@@ -985,7 +1182,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             <div className="absolute inset-2 border-2 border-red-600 rounded-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}></div>
             <div className="absolute inset-3 border-2 border-red-600 rounded-full" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}></div>
             <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-1 bg-red-600 rounded-full"></div>
-            </div>
+        </div>
           )}
       </div>
 
