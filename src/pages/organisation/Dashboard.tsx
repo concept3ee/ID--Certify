@@ -1,6 +1,13 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import StatCard from '@/components/ui/StatCard'
+import SmartRecommendations from '@/components/ui/SmartRecommendations'
+import ProgressiveDisclosure from '@/components/ui/ProgressiveDisclosure'
+import ContextualHelp from '@/components/ui/ContextualHelp'
+import CustomizableWorkspace from '@/components/ui/CustomizableWorkspace'
+import AdvancedAnalytics from '@/components/ui/AdvancedAnalytics'
+import { AnimatedCard, AnimatedButton } from '@/components/ui/AnimationSystem'
 import { 
   Shield, 
   Users, 
@@ -14,11 +21,33 @@ import {
   Activity,
   ArrowRight,
   Target,
-  Zap
+  Zap,
+  Settings,
+  Eye,
+  EyeOff
 } from 'lucide-react'
 
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.auth)
+  const [showAdvanced, setShowAdvanced] = useState(false)
+  const [currentSection, setCurrentSection] = useState('dashboard')
+  const [recentActivity, setRecentActivity] = useState([
+    'verification-completed',
+    'employee-added',
+    'compliance-check'
+  ])
+  const [workspaceConfig, setWorkspaceConfig] = useState<{
+    layout: 'grid' | 'list' | 'compact'
+    theme: 'light' | 'dark' | 'auto'
+    density: 'comfortable' | 'compact' | 'spacious'
+    animations: boolean
+  }>({
+    layout: 'grid',
+    theme: 'light',
+    density: 'comfortable',
+    animations: true
+  })
+  const [showAnalytics, setShowAnalytics] = useState(false)
 
   // Priority-based data structure
   const urgentActions = [
@@ -165,6 +194,7 @@ const Dashboard = () => {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <AnimatedCard delay={0.1}>
         <StatCard
           title="Total Employees"
           value="156"
@@ -173,24 +203,31 @@ const Dashboard = () => {
           icon={<Users className="h-6 w-6" />}
           color="primary"
         />
+        </AnimatedCard>
+        <AnimatedCard delay={0.2}>
         <StatCard
           title="Verified Employees"
           value="142"
           icon={<CheckCircle className="h-6 w-6" />}
           color="success"
         />
+        </AnimatedCard>
+        <AnimatedCard delay={0.3}>
         <StatCard
           title="Pending Verifications"
           value="14"
           icon={<Clock className="h-6 w-6" />}
           color="warning"
         />
+        </AnimatedCard>
+        <AnimatedCard delay={0.4}>
         <StatCard
           title="Trust Score"
           value="1450/2000"
           icon={<Shield className="h-6 w-6" />}
           color="secondary"
         />
+        </AnimatedCard>
       </div>
 
       {/* Urgent Actions */}
@@ -199,13 +236,13 @@ const Dashboard = () => {
           <h2 className="text-xl font-semibold text-gray-900">🚨 Urgent Actions</h2>
           <span className="text-sm text-gray-500">Priority-based</span>
         </div>
-        <div className="space-y-4">
+          <div className="space-y-4">
           {urgentActions.map((action) => (
             <div key={action.id} className={`p-4 rounded-xl border-2 ${getPriorityColor(action.priority)}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   {getPriorityIcon(action.priority)}
-                  <div>
+                <div>
                     <h3 className="font-semibold">{action.title}</h3>
                     <p className="text-sm opacity-80">{action.description}</p>
                   </div>
@@ -217,11 +254,11 @@ const Dashboard = () => {
                     <ArrowRight className="inline-block ml-2 h-4 w-4" />
                   </button>
                 </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
       {/* Quick Insights */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
@@ -240,14 +277,32 @@ const Dashboard = () => {
               </div>
               <h3 className="font-semibold text-gray-900 mb-1">{insight.title}</h3>
               <p className="text-sm text-gray-600">{insight.description}</p>
-            </div>
-          ))}
+              </div>
+            ))}
         </div>
       </div>
 
       {/* Quick Actions */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">⚡ Quick Actions</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-semibold text-gray-900">⚡ Quick Actions</h2>
+          <div className="flex items-center space-x-2">
+            <AnimatedButton
+              variant="secondary"
+              size="sm"
+              onClick={() => setShowAnalytics(!showAnalytics)}
+            >
+              {showAnalytics ? 'Hide Analytics' : 'Show Analytics'}
+            </AnimatedButton>
+            <button
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              className="flex items-center space-x-2 px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+            >
+              {showAdvanced ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              <span className="text-sm">{showAdvanced ? 'Hide Advanced' : 'Show Advanced'}</span>
+          </button>
+            </div>
+            </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickActions.map((action) => (
             <button 
@@ -257,10 +312,82 @@ const Dashboard = () => {
               <action.icon className="h-8 w-8 mb-3" />
               <h3 className="font-semibold text-gray-900 mb-1">{action.title}</h3>
               <p className="text-sm text-gray-600">{action.description}</p>
-            </button>
+          </button>
           ))}
         </div>
       </div>
+
+      {/* Smart Features Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Smart Recommendations */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-6">
+          <SmartRecommendations
+            userRole="organisation"
+            currentSection={currentSection}
+            recentActivity={recentActivity}
+            onDismiss={(id) => {
+              console.log('Dismissed recommendation:', id)
+            }}
+          />
+          </div>
+
+        {/* Progressive Disclosure */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-6">
+          <ProgressiveDisclosure
+            currentSection={currentSection}
+            userRole="organisation"
+            showAdvanced={showAdvanced}
+            onItemClick={(item) => {
+              console.log('Clicked item:', item)
+              if (item.action) {
+                // Navigate to the action URL
+                window.location.href = item.action.href
+              }
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Advanced Analytics */}
+      {showAnalytics && (
+        <div className="bg-white rounded-2xl border border-gray-200 p-6">
+          <AdvancedAnalytics
+            onExport={(data) => {
+              console.log('Exporting analytics data:', data)
+            }}
+            onRefresh={() => {
+              console.log('Refreshing analytics data')
+            }}
+          />
+        </div>
+      )}
+
+      {/* Contextual Help */}
+      <ContextualHelp
+        currentSection={currentSection}
+        currentPage="dashboard"
+        userRole="organisation"
+        onHelpItemClick={(item) => {
+          console.log('Help item clicked:', item)
+          if (item.url) {
+            window.open(item.url, '_blank')
+          }
+        }}
+      />
+
+      {/* Customizable Workspace */}
+      <CustomizableWorkspace
+        onConfigChange={(config) => {
+          setWorkspaceConfig({
+            layout: config.layout || 'grid',
+            theme: config.theme || 'light',
+            density: config.density || 'comfortable',
+            animations: config.animations ?? true
+          })
+          console.log('Workspace configuration updated:', config)
+        }}
+        initialConfig={workspaceConfig}
+      />
     </div>
   )
 }

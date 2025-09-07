@@ -4,6 +4,7 @@ import { RootState } from '@/store/store'
 import Sidebar from '@/components/ui/Sidebar'
 import Header from '@/components/ui/Header'
 import SectionNav from '@/components/ui/SectionNav'
+import MobileNavigation from '@/components/ui/MobileNavigation'
 import { Users, Shield, MessageSquare, Award, BarChart3, TrendingUp, CheckCircle, Activity, Archive, Settings as SettingsIcon, CheckSquare, FileText, LinkIcon, Wallet as WalletIcon, Gift, ThumbsUp } from 'lucide-react'
 import Dashboard from './Dashboard'
 import Compliance from './Compliance'
@@ -11,7 +12,7 @@ import Employees from './Employees'
 import AML from './AML'
 import Monitoring from './Monitoring'
 import Integrations from './Integrations'
-import Wallet from './Wallet'
+import WalletComponent from './Wallet'
 import Billing from './Billing'
 import Settings from './Settings'
 import Verification from './Verification'
@@ -37,8 +38,11 @@ const OrganisationDashboard = () => {
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
-      {/* Sidebar */}
-      <div className="w-64 flex-shrink-0 h-full overflow-hidden">
+      {/* Mobile Navigation */}
+      <MobileNavigation userType={userType || 'organisation'} />
+      
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block w-64 flex-shrink-0 h-full overflow-hidden">
         <Sidebar />
       </div>
 
@@ -685,14 +689,14 @@ const OrganisationDashboard = () => {
                 <SectionNav
                   title="Financial"
                   tabs={[
-                    { id: 'balance', name: 'WalletIcon Balance', href: '/organisation/wallet' },
+                    { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
                     { id: 'billing', name: 'Billing & Invoices', href: '/organisation/billing' },
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <WalletIcon />
+                  <WalletComponent />
                 </div>
               </>
             } />
@@ -701,20 +705,20 @@ const OrganisationDashboard = () => {
                 <SectionNav
                   title="Financial"
                   tabs={[
-                    { id: 'balance', name: 'WalletIcon Balance', href: '/organisation/wallet' },
+                    { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
                     { id: 'billing', name: 'Billing & Invoices', href: '/organisation/billing' },
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <WalletIcon />
+                  <WalletComponent />
                 </div>
               </>
             } />
             <Route path="/wallet/payment-methods" element={
               <div className="p-6 mx-6">
-                <WalletIcon />
+                <WalletComponent />
               </div>
             } />
             <Route path="/billing" element={
@@ -722,7 +726,7 @@ const OrganisationDashboard = () => {
                 <SectionNav
                   title="Financial"
                   tabs={[
-                    { id: 'balance', name: 'WalletIcon Balance', href: '/organisation/wallet' },
+                    { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
                     { id: 'billing', name: 'Billing & Invoices', href: '/organisation/billing' },
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }

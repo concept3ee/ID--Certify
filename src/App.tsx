@@ -13,14 +13,17 @@ import ProtectedRoute from './components/auth/ProtectedRoute'
 import { TourProvider, useTour } from './contexts/TourContext'
 import TourGuide from './components/ui/TourGuide'
 import WelcomeModal from './components/ui/WelcomeModal'
+import { AccessibilityProvider } from './components/ui/AccessibilitySystem'
 
 function App() {
   const { isAuthenticated, userType } = useSelector((state: RootState) => state.auth)
 
   return (
-    <TourProvider>
-      <AppContent isAuthenticated={isAuthenticated} userType={userType} />
-    </TourProvider>
+    <AccessibilityProvider>
+      <TourProvider>
+        <AppContent isAuthenticated={isAuthenticated} userType={userType} />
+      </TourProvider>
+    </AccessibilityProvider>
   )
 }
 
