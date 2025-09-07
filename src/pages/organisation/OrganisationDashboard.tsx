@@ -4,6 +4,7 @@ import { RootState } from '@/store/store'
 import Sidebar from '@/components/ui/Sidebar'
 import Header from '@/components/ui/Header'
 import SectionNav from '@/components/ui/SectionNav'
+import { Users, Shield, MessageSquare, Award, BarChart3, TrendingUp, CheckCircle, Activity, Archive, Settings as SettingsIcon, CheckSquare, FileText, LinkIcon, Wallet as WalletIcon, Gift, ThumbsUp } from 'lucide-react'
 import Dashboard from './Dashboard'
 import Compliance from './Compliance'
 import Employees from './Employees'
@@ -232,7 +233,34 @@ const OrganisationDashboard = () => {
               </div>
             } />
 
-            {/* Employee Management Routes */}
+            {/* People Routes */}
+            <Route path="/people" element={
+              <div className="p-4 sm:p-6">
+                <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center">
+                  <Users className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">People Management</h2>
+                  <p className="text-gray-600 mb-6">Manage employees, verification, and team collaboration</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="/organisation/employees" className="p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                      <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Employee Directory</h3>
+                    </a>
+                    <a href="/organisation/verification" className="p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+                      <Shield className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Verification Center</h3>
+                    </a>
+                    <a href="/organisation/chat" className="p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors">
+                      <MessageSquare className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Team Chat</h3>
+                    </a>
+                    <a href="/organisation/trust-score" className="p-4 bg-yellow-50 rounded-xl hover:bg-yellow-100 transition-colors">
+                      <Award className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Trust Score</h3>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            } />
             <Route path="/employees" element={
               <>
                 <SectionNav
@@ -451,6 +479,64 @@ const OrganisationDashboard = () => {
               </div>
             } />
 
+            {/* Analytics Routes */}
+            <Route path="/analytics" element={
+              <div className="p-4 sm:p-6">
+                <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center">
+                  <BarChart3 className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Analytics & Reports</h2>
+                  <p className="text-gray-600 mb-6">Reports, insights, and performance metrics</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="/organisation/verification/analytics" className="p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                      <TrendingUp className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Verification Reports</h3>
+                    </a>
+                    <a href="/organisation/compliance" className="p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+                      <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Compliance Metrics</h3>
+                    </a>
+                    <a href="/organisation/monitoring" className="p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors">
+                      <Activity className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">System Monitoring</h3>
+                    </a>
+                    <a href="/organisation/historical-data" className="p-4 bg-yellow-50 rounded-xl hover:bg-yellow-100 transition-colors">
+                      <Archive className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Historical Data</h3>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            } />
+
+            {/* Operations Routes */}
+            <Route path="/operations" element={
+              <div className="p-4 sm:p-6">
+                <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center">
+                  <SettingsIcon className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Operations Center</h2>
+                  <p className="text-gray-600 mb-6">Workflows, compliance, and document management</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="/organisation/approval" className="p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                      <CheckSquare className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Approval Workflows</h3>
+                    </a>
+                    <a href="/organisation/compliance" className="p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+                      <Shield className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Compliance & AML</h3>
+                    </a>
+                    <a href="/organisation/documents" className="p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors">
+                      <FileText className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Document Center</h3>
+                    </a>
+                    <a href="/organisation/integrations" className="p-4 bg-yellow-50 rounded-xl hover:bg-yellow-100 transition-colors">
+                      <LinkIcon className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Integrations</h3>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            } />
+
             {/* Trust Score Routes */}
             <Route path="/trust-score" element={
               <div className="p-4 sm:p-6">
@@ -599,14 +685,14 @@ const OrganisationDashboard = () => {
                 <SectionNav
                   title="Financial"
                   tabs={[
-                    { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
+                    { id: 'balance', name: 'WalletIcon Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
                     { id: 'billing', name: 'Billing & Invoices', href: '/organisation/billing' },
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <Wallet />
+                  <WalletIcon />
                 </div>
               </>
             } />
@@ -615,20 +701,20 @@ const OrganisationDashboard = () => {
                 <SectionNav
                   title="Financial"
                   tabs={[
-                    { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
+                    { id: 'balance', name: 'WalletIcon Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
                     { id: 'billing', name: 'Billing & Invoices', href: '/organisation/billing' },
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
                   ]}
                 />
                 <div className="p-4 sm:p-6">
-                  <Wallet />
+                  <WalletIcon />
                 </div>
               </>
             } />
             <Route path="/wallet/payment-methods" element={
               <div className="p-6 mx-6">
-                <Wallet />
+                <WalletIcon />
               </div>
             } />
             <Route path="/billing" element={
@@ -636,7 +722,7 @@ const OrganisationDashboard = () => {
                 <SectionNav
                   title="Financial"
                   tabs={[
-                    { id: 'balance', name: 'Wallet Balance', href: '/organisation/wallet' },
+                    { id: 'balance', name: 'WalletIcon Balance', href: '/organisation/wallet' },
                     { id: 'transactions', name: 'Transactions', href: '/organisation/wallet/transactions' },
                     { id: 'billing', name: 'Billing & Invoices', href: '/organisation/billing' },
                     { id: 'payment', name: 'Payment Methods', href: '/organisation/wallet/payment-methods' }
@@ -695,6 +781,37 @@ const OrganisationDashboard = () => {
 
             {/* Settings Routes */}
             <Route path="/settings" element={
+              <div className="p-4 sm:p-6">
+                <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center">
+                  <SettingsIcon className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Organization Settings</h2>
+                  <p className="text-gray-600 mb-6">Configuration and preferences for your organization</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <a href="/organisation/settings" className="p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                      <SettingsIcon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">General Settings</h3>
+                    </a>
+                    <a href="/organisation/settings/security" className="p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+                      <Shield className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Security & Access</h3>
+                    </a>
+                    <a href="/organisation/wallet" className="p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors">
+                      <WalletIcon className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Financial Management</h3>
+                    </a>
+                    <a href="/organisation/rewards" className="p-4 bg-yellow-50 rounded-xl hover:bg-yellow-100 transition-colors">
+                      <Gift className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Rewards & Points</h3>
+                    </a>
+                    <a href="/organisation/ratings" className="p-4 bg-pink-50 rounded-xl hover:bg-pink-100 transition-colors">
+                      <ThumbsUp className="h-8 w-8 text-pink-600 mx-auto mb-2" />
+                      <h3 className="font-semibold">Ratings & Reviews</h3>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            } />
+            <Route path="/settings/detailed" element={
               <>
                 <SectionNav
                   title="Settings"

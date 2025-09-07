@@ -21,16 +21,16 @@ const StatCard = ({
   ...props
 }: StatCardProps) => {
   const colorClasses = {
-    primary: 'bg-primary-50 text-primary-600',
-    success: 'bg-success-50 text-success-600',
-    warning: 'bg-warning-50 text-warning-600',
-    danger: 'bg-danger-50 text-danger-600',
+    primary: 'bg-blue-50 text-blue-600',
+    success: 'bg-green-50 text-green-600',
+    warning: 'bg-orange-50 text-orange-600',
+    danger: 'bg-red-50 text-red-600',
     secondary: 'bg-gray-50 text-gray-600',
   }
 
   const changeColorClasses = {
-    increase: 'text-success-600',
-    decrease: 'text-danger-600',
+    increase: 'text-green-600',
+    decrease: 'text-red-600',
   }
 
   return (
@@ -42,9 +42,9 @@ const StatCard = ({
           {change !== undefined && (
             <div className="flex items-center mt-2">
               {changeType === 'increase' ? (
-                <TrendingUp className="h-4 w-4 text-success-600 mr-1" />
+                <TrendingUp className="h-4 w-4 text-green-600 mr-1" />
               ) : (
-                <TrendingDown className="h-4 w-4 text-danger-600 mr-1" />
+                <TrendingDown className="h-4 w-4 text-red-600 mr-1" />
               )}
               <span className={`text-sm font-medium ${changeColorClasses[changeType || 'increase']}`}>
                 {change > 0 ? '+' : ''}{change}%

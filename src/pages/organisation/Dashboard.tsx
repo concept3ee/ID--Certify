@@ -1,85 +1,170 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import StatCard from '@/components/ui/StatCard'
-import { Shield, Users, BarChart3, CreditCard, CheckCircle, Clock, AlertTriangle } from 'lucide-react'
+import { 
+  Shield, 
+  Users, 
+  BarChart3, 
+  CheckCircle, 
+  Clock, 
+  AlertTriangle, 
+  TrendingUp, 
+  UserPlus, 
+  FileText, 
+  Activity,
+  ArrowRight,
+  Target,
+  Zap
+} from 'lucide-react'
 
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.auth)
 
-  const complianceStatus = [
+  // Priority-based data structure
+  const urgentActions = [
     {
       id: 1,
-      type: 'AML Compliance',
-      status: 'compliant',
-      lastCheck: '2024-01-20',
-      nextCheck: '2024-02-20',
+      title: '14 Verifications Pending',
+      description: 'Employee verifications require immediate attention',
+      priority: 'high',
+      count: 14,
+      action: 'Review Now',
+      href: '/organisation/verification'
     },
     {
       id: 2,
-      type: 'KYC Verification',
-      status: 'pending',
-      lastCheck: '2024-01-15',
-      nextCheck: '2024-01-25',
-    },
-    {
-      id: 3,
-      type: 'Data Protection',
-      status: 'compliant',
-      lastCheck: '2024-01-10',
-      nextCheck: '2024-02-10',
-    },
+      title: '3 Compliance Checks Due',
+      description: 'AML and KYC checks due this week',
+      priority: 'medium',
+      count: 3,
+      action: 'Schedule',
+      href: '/organisation/compliance'
+    }
   ]
 
-  const recentVerifications = [
+  const insights = [
     {
       id: 1,
-      employee: 'Sarah Johnson',
-      type: 'NIN Verification',
-      status: 'completed',
-      date: '2024-01-20',
+      type: 'success',
+      title: 'Verification Time Improved',
+      value: '15%',
+      description: 'Average processing time down from last month',
+      icon: TrendingUp
     },
     {
       id: 2,
-      employee: 'Michael Chen',
-      type: 'Passport Verification',
-      status: 'pending',
-      date: '2024-01-19',
+      type: 'success',
+      title: 'Compliance Rate',
+      value: '98%',
+      description: 'Above target of 95%',
+      icon: CheckCircle
     },
     {
       id: 3,
-      employee: 'Emily Davis',
-      type: 'CAC Verification',
-      status: 'failed',
-      date: '2024-01-18',
-    },
+      type: 'info',
+      title: 'New Integrations',
+      value: '3',
+      description: 'Available for enhanced workflow',
+      icon: Zap
+    }
   ]
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'compliant':
-      case 'completed':
-        return <span className="px-2 py-1 text-xs font-medium bg-success-100 text-success-800 rounded-full">Compliant</span>
-      case 'pending':
-        return <span className="px-2 py-1 text-xs font-medium bg-warning-100 text-warning-800 rounded-full">Pending</span>
-      case 'failed':
-        return <span className="px-2 py-1 text-xs font-medium bg-danger-100 text-danger-800 rounded-full">Failed</span>
+  const quickActions = [
+    {
+      id: 1,
+      title: 'Add Employee',
+      description: 'Register new team member',
+      icon: UserPlus,
+      color: 'primary',
+      href: '/organisation/employees'
+    },
+    {
+      id: 2,
+      title: 'Run Verification',
+      description: 'Start verification process',
+      icon: Shield,
+      color: 'success',
+      href: '/organisation/verification'
+    },
+    {
+      id: 3,
+      title: 'View Analytics',
+      description: 'Check performance metrics',
+      icon: BarChart3,
+      color: 'info',
+      href: '/organisation/analytics'
+    },
+    {
+      id: 4,
+      title: 'Manage Documents',
+      description: 'Access document center',
+      icon: FileText,
+      color: 'secondary',
+      href: '/organisation/documents'
+    }
+  ]
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high':
+        return 'bg-red-50 border-red-200 text-red-900'
+      case 'medium':
+        return 'bg-orange-50 border-orange-200 text-orange-900'
+      case 'low':
+        return 'bg-blue-50 border-blue-200 text-blue-900'
       default:
-        return <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Unknown</span>
+        return 'bg-gray-50 border-gray-200 text-gray-900'
+    }
+  }
+
+  const getPriorityIcon = (priority: string) => {
+    switch (priority) {
+      case 'high':
+        return <AlertTriangle className="h-5 w-5 text-red-600" />
+      case 'medium':
+        return <Clock className="h-5 w-5 text-orange-600" />
+      case 'low':
+        return <Target className="h-5 w-5 text-blue-600" />
+      default:
+        return <Activity className="h-5 w-5 text-gray-600" />
+    }
+  }
+
+  const getActionColor = (color: string) => {
+    switch (color) {
+      case 'primary':
+        return 'bg-blue-50 hover:bg-blue-100 text-blue-600'
+      case 'success':
+        return 'bg-green-50 hover:bg-green-100 text-green-600'
+      case 'info':
+        return 'bg-blue-50 hover:bg-blue-100 text-blue-600'
+      case 'secondary':
+        return 'bg-gray-50 hover:bg-gray-100 text-gray-600'
+      default:
+        return 'bg-gray-50 hover:bg-gray-100 text-gray-600'
     }
   }
 
   return (
-    <div className="space-y-6">
-      {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-6 text-white">
-        <h1 className="text-2xl font-bold mb-2">Welcome back, {user?.name}!</h1>
-        <p className="text-green-100">
-          Organization ID: {user?.verificationId} | Compliance Status: Active
-        </p>
+    <div className="space-y-8">
+      {/* Welcome Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.name}!</h1>
+            <p className="text-blue-100 text-lg">
+              Organization ID: {user?.verificationId} | Status: Active
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold">Today's Focus</div>
+            <div className="text-blue-100">14 Pending Verifications</div>
+          </div>
+        </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" data-tour="dashboard-stats">
+      {/* Key Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Total Employees"
           value="156"
@@ -108,90 +193,72 @@ const Dashboard = () => {
         />
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Compliance Status */}
-        <div className="card">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Compliance Status</h2>
-          <div className="space-y-4">
-            {complianceStatus.map((item) => (
-              <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{item.type}</p>
-                  <p className="text-xs text-gray-500">Last check: {item.lastCheck}</p>
-                </div>
-                <div className="text-right">
-                  {getStatusBadge(item.status)}
-                  <p className="text-xs text-gray-500 mt-1">Next: {item.nextCheck}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Urgent Actions */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-semibold text-gray-900">🚨 Urgent Actions</h2>
+          <span className="text-sm text-gray-500">Priority-based</span>
         </div>
-
-        {/* Recent Verifications */}
-        <div className="card">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Employee Verifications</h2>
-          <div className="space-y-3">
-            {recentVerifications.map((verification) => (
-              <div key={verification.id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{verification.employee}</p>
-                  <p className="text-xs text-gray-500">{verification.type}</p>
+        <div className="space-y-4">
+          {urgentActions.map((action) => (
+            <div key={action.id} className={`p-4 rounded-xl border-2 ${getPriorityColor(action.priority)}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  {getPriorityIcon(action.priority)}
+                  <div>
+                    <h3 className="font-semibold">{action.title}</h3>
+                    <p className="text-sm opacity-80">{action.description}</p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  {getStatusBadge(verification.status)}
-                  <p className="text-xs text-gray-500 mt-1">{verification.date}</p>
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl font-bold">{action.count}</span>
+                  <button className="px-4 py-2 bg-white rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                    {action.action}
+                    <ArrowRight className="inline-block ml-2 h-4 w-4" />
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick Insights */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">📈 Quick Insights</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {insights.map((insight) => (
+            <div key={insight.id} className="p-4 bg-gray-50 rounded-xl">
+              <div className="flex items-center justify-between mb-3">
+                <insight.icon className="h-6 w-6 text-gray-600" />
+                <span className={`text-2xl font-bold ${
+                  insight.type === 'success' ? 'text-green-600' : 
+                  insight.type === 'warning' ? 'text-orange-600' : 'text-blue-600'
+                }`}>
+                  {insight.value}
+                </span>
+              </div>
+              <h3 className="font-semibold text-gray-900 mb-1">{insight.title}</h3>
+              <p className="text-sm text-gray-600">{insight.description}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="card">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button className="flex items-center p-4 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200">
-            <Users className="h-6 w-6 text-primary-600 mr-3" />
-            <div className="text-left">
-              <p className="text-sm font-medium text-gray-900">Add Employee</p>
-              <p className="text-xs text-gray-600">Register new employee</p>
-            </div>
-          </button>
-          
-          <button className="flex items-center p-4 bg-success-50 hover:bg-success-100 rounded-lg transition-colors duration-200">
-            <Shield className="h-6 w-6 text-success-600 mr-3" />
-            <div className="text-left">
-              <p className="text-sm font-medium text-gray-900">Run AML Check</p>
-              <p className="text-xs text-gray-600">Perform compliance check</p>
-            </div>
-          </button>
-          
-          <button className="flex items-center p-4 bg-warning-50 hover:bg-warning-100 rounded-lg transition-colors duration-200">
-            <BarChart3 className="h-6 w-6 text-warning-600 mr-3" />
-            <div className="text-left">
-              <p className="text-sm font-medium text-gray-900">View Reports</p>
-              <p className="text-xs text-gray-600">Generate compliance reports</p>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      {/* Alerts */}
-      <div className="card bg-warning-50 border-warning-200">
-        <div className="flex items-start space-x-3">
-          <AlertTriangle className="h-5 w-5 text-warning-600 mt-0.5" />
-          <div>
-            <h3 className="text-sm font-medium text-warning-900">Action Required</h3>
-            <p className="text-sm text-warning-800 mt-1">
-              14 employee verifications are pending. Please complete these verifications to maintain compliance.
-            </p>
-            <button className="text-sm text-warning-900 font-medium mt-2 hover:text-warning-700">
-              View Pending Verifications →
+      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">⚡ Quick Actions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {quickActions.map((action) => (
+            <button 
+              key={action.id}
+              className={`p-6 rounded-xl transition-all duration-200 hover:scale-105 ${getActionColor(action.color)}`}
+            >
+              <action.icon className="h-8 w-8 mb-3" />
+              <h3 className="font-semibold text-gray-900 mb-1">{action.title}</h3>
+              <p className="text-sm text-gray-600">{action.description}</p>
             </button>
-          </div>
+          ))}
         </div>
       </div>
     </div>
