@@ -11,9 +11,27 @@ import Webhooks from './Webhooks'
 import Analytics from './Analytics'
 import Wallet from './Wallet'
 import Settings from './Settings'
+import VisualFlowBuilder from '@/components/developer/VisualFlowBuilder'
+import TemplateMarketplace from '@/components/developer/TemplateMarketplace'
+import CustomerVerificationDashboard from '@/components/developer/CustomerVerificationDashboard'
+import FlowTestingEnvironment from '@/components/developer/FlowTestingEnvironment'
+import VerificationTemplates from './VerificationTemplates'
+import WhiteLabelingSystem from '@/components/developer/WhiteLabelingSystem'
+import MobileSDKIntegration from '@/components/developer/MobileSDKIntegration'
+import AdvancedAPIManagement from '@/components/developer/AdvancedAPIManagement'
+import AIPoweredFeatures from '@/components/developer/AIPoweredFeatures'
+import MultiTenantManagement from '@/components/developer/MultiTenantManagement'
+import EnterpriseSecurity from '@/components/developer/EnterpriseSecurity'
+import AdvancedAnalytics from '@/components/developer/AdvancedAnalytics'
+import EnterpriseIntegrations from '@/components/developer/EnterpriseIntegrations'
+import WorkflowOrchestration from '@/components/developer/WorkflowOrchestration'
+import ComplianceManagement from '@/components/developer/ComplianceManagement'
+import BulkOperations from '@/components/developer/BulkOperations'
+import CustomerAnalytics from '@/components/developer/CustomerAnalytics'
+import CustomerDetails from '@/components/developer/CustomerDetails'
 
 const DeveloperDashboard = () => {
-  const { userType } = useSelector((state: RootState) => state.auth)
+  const { userType, user } = useSelector((state: RootState) => state.auth)
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -186,6 +204,436 @@ const DeveloperDashboard = () => {
                 </div>
               </>
             } />
+
+            {/* Verification Templates Routes */}
+            <Route path="/verification-templates" element={
+              <>
+                <SectionNav
+                  title="Verification Flows"
+                  tabs={[
+                    { id: 'builder', name: 'Flow Builder', href: '/developer/verification-templates' },
+                    { id: 'marketplace', name: 'Template Marketplace', href: '/developer/template-marketplace' },
+                    { id: 'testing', name: 'Flow Testing', href: '/developer/flow-testing' },
+                    { id: 'analytics', name: 'Analytics & Insights', href: '/developer/verification-templates/analytics' },
+                    { id: 'costs', name: 'Cost Management', href: '/developer/verification-templates/costs' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  {user && <VerificationTemplates user={user as any} />}
+                </div>
+              </>
+            } />
+
+            <Route path="/verification-templates/analytics" element={
+              <>
+                <SectionNav
+                  title="Verification Flows"
+                  tabs={[
+                    { id: 'builder', name: 'Flow Builder', href: '/developer/verification-templates' },
+                    { id: 'marketplace', name: 'Template Marketplace', href: '/developer/template-marketplace' },
+                    { id: 'testing', name: 'Flow Testing', href: '/developer/flow-testing' },
+                    { id: 'analytics', name: 'Analytics & Insights', href: '/developer/verification-templates/analytics' },
+                    { id: 'costs', name: 'Cost Management', href: '/developer/verification-templates/costs' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Analytics & Insights</h2>
+                    <p className="text-gray-600">Track flow performance, usage metrics, and get actionable insights.</p>
+                  </div>
+                </div>
+              </>
+            } />
+
+            <Route path="/verification-templates/costs" element={
+              <>
+                <SectionNav
+                  title="Verification Flows"
+                  tabs={[
+                    { id: 'builder', name: 'Flow Builder', href: '/developer/verification-templates' },
+                    { id: 'marketplace', name: 'Template Marketplace', href: '/developer/template-marketplace' },
+                    { id: 'testing', name: 'Flow Testing', href: '/developer/flow-testing' },
+                    { id: 'analytics', name: 'Analytics & Insights', href: '/developer/verification-templates/analytics' },
+                    { id: 'costs', name: 'Cost Management', href: '/developer/verification-templates/costs' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Cost Management</h2>
+                    <p className="text-gray-600">Monitor verification costs, pricing, and optimize spending.</p>
+                  </div>
+                </div>
+              </>
+            } />
+
+            {/* Template Marketplace Route */}
+            <Route path="/template-marketplace" element={
+              <>
+                <SectionNav
+                  title="Verification Flows"
+                  tabs={[
+                    { id: 'builder', name: 'Flow Builder', href: '/developer/verification-templates' },
+                    { id: 'marketplace', name: 'Template Marketplace', href: '/developer/template-marketplace' },
+                    { id: 'testing', name: 'Flow Testing', href: '/developer/flow-testing' },
+                    { id: 'analytics', name: 'Analytics & Insights', href: '/developer/verification-templates/analytics' },
+                    { id: 'costs', name: 'Cost Management', href: '/developer/verification-templates/costs' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <TemplateMarketplace
+                    onSelectTemplate={(template) => {
+                      console.log('Selected template:', template)
+                      // In real app, this would open the template in flow builder
+                    }}
+                    onCreateCustom={() => {
+                      // Navigate to flow builder
+                      window.location.href = '/developer/verification-templates'
+                    }}
+                  />
+                </div>
+              </>
+            } />
+
+            <Route path="/customer-verifications" element={
+              <>
+                <SectionNav
+                  title="Customer Management"
+                  tabs={[
+                    { id: 'dashboard', name: 'Verification Dashboard', href: '/developer/customer-verifications' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/developer/customer-verifications/bulk' },
+                    { id: 'analytics', name: 'Customer Analytics', href: '/developer/customer-verifications/analytics' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <CustomerVerificationDashboard
+                    onViewDetails={(verification) => {
+                      console.log('Viewing verification details:', verification)
+                      // In real app, this would open detailed view
+                    }}
+                    onBulkAction={(action, verificationIds) => {
+                      console.log('Bulk action:', action, verificationIds)
+                      // In real app, this would perform bulk operations
+                    }}
+                    onExport={(verifications) => {
+                      console.log('Exporting verifications:', verifications)
+                      // In real app, this would export data
+                    }}
+                  />
+                </div>
+              </>
+            } />
+
+            <Route path="/customer-verifications/bulk" element={
+              <>
+                <SectionNav
+                  title="Customer Management"
+                  tabs={[
+                    { id: 'dashboard', name: 'Verification Dashboard', href: '/developer/customer-verifications' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/developer/customer-verifications/bulk' },
+                    { id: 'analytics', name: 'Customer Analytics', href: '/developer/customer-verifications/analytics' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <BulkOperations
+                    onExecuteOperation={(operation, customerIds) => {
+                      console.log('Executing bulk operation:', operation, customerIds)
+                      // In real app, this would execute the bulk operation
+                    }}
+                    onViewCustomer={(customer) => {
+                      console.log('Viewing customer:', customer)
+                      // In real app, this would open customer details
+                    }}
+                    onClose={() => {
+                      window.history.back()
+                    }}
+                  />
+                </div>
+              </>
+            } />
+
+            <Route path="/customer-verifications/analytics" element={
+              <>
+                <SectionNav
+                  title="Customer Management"
+                  tabs={[
+                    { id: 'dashboard', name: 'Verification Dashboard', href: '/developer/customer-verifications' },
+                    { id: 'bulk', name: 'Bulk Operations', href: '/developer/customer-verifications/bulk' },
+                    { id: 'analytics', name: 'Customer Analytics', href: '/developer/customer-verifications/analytics' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <CustomerAnalytics
+                    onExportData={(format) => {
+                      console.log('Exporting data in format:', format)
+                      // In real app, this would export analytics data
+                    }}
+                    onViewDetails={(metric) => {
+                      console.log('Viewing details for metric:', metric)
+                      // In real app, this would open detailed view
+                    }}
+                    onClose={() => {
+                      window.history.back()
+                    }}
+                  />
+                </div>
+              </>
+            } />
+
+            <Route path="/customer-verifications/:customerId" element={
+              <CustomerDetails
+                customerId="1"
+                onClose={() => {
+                  window.history.back()
+                }}
+                onEdit={(customer) => {
+                  console.log('Editing customer:', customer)
+                  // In real app, this would open customer edit form
+                }}
+                onSendMessage={(customer) => {
+                  console.log('Sending message to customer:', customer)
+                  // In real app, this would open message composer
+                }}
+                onAddNote={(customerId) => {
+                  console.log('Adding note for customer:', customerId)
+                  // In real app, this would open note composer
+                }}
+                onUpdateStatus={(customerId, status) => {
+                  console.log('Updating status for customer:', customerId, status)
+                  // In real app, this would update customer status
+                }}
+              />
+            } />
+
+            <Route path="/flow-testing" element={
+              <>
+                <SectionNav
+                  title="Verification Flows"
+                  tabs={[
+                    { id: 'builder', name: 'Flow Builder', href: '/developer/verification-templates' },
+                    { id: 'marketplace', name: 'Template Marketplace', href: '/developer/template-marketplace' },
+                    { id: 'testing', name: 'Flow Testing', href: '/developer/flow-testing' },
+                    { id: 'analytics', name: 'Analytics & Insights', href: '/developer/verification-templates/analytics' },
+                    { id: 'costs', name: 'Cost Management', href: '/developer/verification-templates/costs' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <FlowTestingEnvironment
+                    flow={{
+                      id: 'test-flow',
+                      name: 'Test Flow',
+                      nodes: [],
+                      connections: []
+                    }}
+                    onClose={() => {
+                      window.history.back()
+                    }}
+                  />
+                </div>
+              </>
+            } />
+
+            {/* Phase 2: Advanced Integration Routes */}
+            <Route path="/white-labeling" element={
+              <WhiteLabelingSystem
+                onSave={(config) => {
+                  console.log('Saving branding config:', config)
+                  // In real app, this would save to API
+                }}
+                onPreview={(config) => {
+                  console.log('Previewing branding config:', config)
+                  // In real app, this would open preview
+                }}
+                onExport={(config) => {
+                  console.log('Exporting branding config:', config)
+                  // In real app, this would export config
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            <Route path="/mobile-sdk" element={
+              <MobileSDKIntegration
+                onGenerateCode={(platform, config) => {
+                  console.log('Generating code for platform:', platform, config)
+                  // In real app, this would generate SDK code
+                }}
+                onDownloadSDK={(platform) => {
+                  console.log('Downloading SDK for platform:', platform)
+                  // In real app, this would download SDK
+                }}
+                onViewDocs={(platform) => {
+                  console.log('Viewing docs for platform:', platform)
+                  // In real app, this would open documentation
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            <Route path="/advanced-api" element={
+              <AdvancedAPIManagement
+                onTestEndpoint={(endpoint) => {
+                  console.log('Testing endpoint:', endpoint)
+                  // In real app, this would test the endpoint
+                }}
+                onGenerateSDK={(platform) => {
+                  console.log('Generating SDK for platform:', platform)
+                  // In real app, this would generate SDK
+                }}
+                onViewDocs={(endpoint) => {
+                  console.log('Viewing docs for endpoint:', endpoint)
+                  // In real app, this would open documentation
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            <Route path="/ai-features" element={
+              <AIPoweredFeatures
+                onConfigureFeature={(feature) => {
+                  console.log('Configuring AI feature:', feature)
+                  // In real app, this would open configuration
+                }}
+                onTestFeature={(feature) => {
+                  console.log('Testing AI feature:', feature)
+                  // In real app, this would test the feature
+                }}
+                onViewAnalytics={(feature) => {
+                  console.log('Viewing analytics for feature:', feature)
+                  // In real app, this would open analytics
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            {/* Phase 3: Enterprise Features Routes */}
+            <Route path="/multi-tenant" element={
+              <MultiTenantManagement
+                onManageTenant={(tenant) => {
+                  console.log('Managing tenant:', tenant)
+                  // In real app, this would open tenant management
+                }}
+                onCreateTenant={() => {
+                  console.log('Creating new tenant')
+                  // In real app, this would open tenant creation
+                }}
+                onViewAnalytics={(tenant) => {
+                  console.log('Viewing tenant analytics:', tenant)
+                  // In real app, this would open tenant analytics
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            <Route path="/enterprise-security" element={
+              <EnterpriseSecurity
+                onConfigureSSO={(provider) => {
+                  console.log('Configuring SSO provider:', provider)
+                  // In real app, this would open SSO configuration
+                }}
+                onManageRoles={(role) => {
+                  console.log('Managing role:', role)
+                  // In real app, this would open role management
+                }}
+                onViewAuditLogs={() => {
+                  console.log('Viewing audit logs')
+                  // In real app, this would open audit logs
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            <Route path="/advanced-analytics" element={
+              <AdvancedAnalytics
+                onCreateReport={() => {
+                  console.log('Creating new report')
+                  // In real app, this would open report creation
+                }}
+                onExportData={(format) => {
+                  console.log('Exporting data in format:', format)
+                  // In real app, this would export data
+                }}
+                onShareDashboard={(dashboard) => {
+                  console.log('Sharing dashboard:', dashboard)
+                  // In real app, this would share dashboard
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            {/* Phase 4: Advanced Enterprise Features Routes */}
+            <Route path="/enterprise-integrations" element={
+              <EnterpriseIntegrations
+                onConfigureIntegration={(integration) => {
+                  console.log('Configuring integration:', integration)
+                  // In real app, this would open integration configuration
+                }}
+                onTestIntegration={(integration) => {
+                  console.log('Testing integration:', integration)
+                  // In real app, this would test the integration
+                }}
+                onViewLogs={(integration) => {
+                  console.log('Viewing integration logs:', integration)
+                  // In real app, this would open integration logs
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            <Route path="/workflow-orchestration" element={
+              <WorkflowOrchestration
+                onCreateWorkflow={() => {
+                  console.log('Creating new workflow')
+                  // In real app, this would open workflow builder
+                }}
+                onEditWorkflow={(workflow) => {
+                  console.log('Editing workflow:', workflow)
+                  // In real app, this would open workflow editor
+                }}
+                onExecuteWorkflow={(workflow) => {
+                  console.log('Executing workflow:', workflow)
+                  // In real app, this would execute the workflow
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
+
+            <Route path="/compliance-management" element={
+              <ComplianceManagement
+                onCreateReport={() => {
+                  console.log('Creating compliance report')
+                  // In real app, this would open report creation
+                }}
+                onScheduleAudit={() => {
+                  console.log('Scheduling audit')
+                  // In real app, this would open audit scheduling
+                }}
+                onViewFramework={(framework) => {
+                  console.log('Viewing framework:', framework)
+                  // In real app, this would open framework details
+                }}
+                onClose={() => {
+                  window.history.back()
+                }}
+              />
+            } />
             <Route path="/verification/status" element={
               <>
                 <SectionNav
@@ -259,20 +707,63 @@ const DeveloperDashboard = () => {
               </>
             } />
             <Route path="/analytics/errors" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Error Logs</h2>
-                  <p className="text-gray-600">Monitor and debug API errors and issues.</p>
+              <>
+                <SectionNav
+                  title="Analytics & Monitoring"
+                  tabs={[
+                    { id: 'analytics', name: 'API Analytics', href: '/developer/analytics' },
+                    { id: 'usage', name: 'Usage Metrics', href: '/developer/analytics/usage' },
+                    { id: 'errors', name: 'Error Logs', href: '/developer/analytics/errors' },
+                    { id: 'performance', name: 'Performance', href: '/developer/analytics/performance' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Error Logs</h2>
+                    <p className="text-gray-600">Monitor and debug API errors and issues.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
             <Route path="/analytics/performance" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Performance</h2>
-                  <p className="text-gray-600">Track API response times and performance metrics.</p>
+              <>
+                <SectionNav
+                  title="Analytics & Monitoring"
+                  tabs={[
+                    { id: 'analytics', name: 'API Analytics', href: '/developer/analytics' },
+                    { id: 'usage', name: 'Usage Metrics', href: '/developer/analytics/usage' },
+                    { id: 'errors', name: 'Error Logs', href: '/developer/analytics/errors' },
+                    { id: 'performance', name: 'Performance', href: '/developer/analytics/performance' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Performance</h2>
+                    <p className="text-gray-600">Track API response times and performance metrics.</p>
+                  </div>
                 </div>
-              </div>
+              </>
+            } />
+
+            <Route path="/analytics/realtime" element={
+              <>
+                <SectionNav
+                  title="Analytics & Monitoring"
+                  tabs={[
+                    { id: 'analytics', name: 'API Analytics', href: '/developer/analytics' },
+                    { id: 'usage', name: 'Usage Metrics', href: '/developer/analytics/usage' },
+                    { id: 'errors', name: 'Error Logs', href: '/developer/analytics/errors' },
+                    { id: 'performance', name: 'Performance', href: '/developer/analytics/performance' },
+                    { id: 'realtime', name: 'Real-time Monitoring', href: '/developer/analytics/realtime' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Real-time Monitoring</h2>
+                    <p className="text-gray-600">Live monitoring of API performance and usage.</p>
+                  </div>
+                </div>
+              </>
             } />
 
             {/* Documentation Routes */}
@@ -312,20 +803,42 @@ const DeveloperDashboard = () => {
               </>
             } />
             <Route path="/docs/tutorials" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Tutorials</h2>
-                  <p className="text-gray-600">Step-by-step tutorials for common integration scenarios.</p>
+              <>
+                <SectionNav
+                  title="Documentation"
+                  tabs={[
+                    { id: 'reference', name: 'API Reference', href: '/developer/docs' },
+                    { id: 'quickstart', name: 'Quick Start', href: '/developer/docs/quickstart' },
+                    { id: 'tutorials', name: 'Tutorials', href: '/developer/docs/tutorials' },
+                    { id: 'best-practices', name: 'Best Practices', href: '/developer/docs/best-practices' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Tutorials</h2>
+                    <p className="text-gray-600">Step-by-step tutorials for common integration scenarios.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
             <Route path="/docs/best-practices" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Best Practices</h2>
-                  <p className="text-gray-600">Learn the best practices for integrating IDCertify API.</p>
+              <>
+                <SectionNav
+                  title="Documentation"
+                  tabs={[
+                    { id: 'reference', name: 'API Reference', href: '/developer/docs' },
+                    { id: 'quickstart', name: 'Quick Start', href: '/developer/docs/quickstart' },
+                    { id: 'tutorials', name: 'Tutorials', href: '/developer/docs/tutorials' },
+                    { id: 'best-practices', name: 'Best Practices', href: '/developer/docs/best-practices' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Best Practices</h2>
+                    <p className="text-gray-600">Learn the best practices for integrating IDCertify API.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
 
             {/* Financial Routes */}
@@ -365,20 +878,42 @@ const DeveloperDashboard = () => {
               </>
             } />
             <Route path="/wallet/usage" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Usage Costs</h2>
-                  <p className="text-gray-600">Track your API usage costs and consumption.</p>
+              <>
+                <SectionNav
+                  title="Financial"
+                  tabs={[
+                    { id: 'balance', name: 'Wallet Balance', href: '/developer/wallet' },
+                    { id: 'billing', name: 'Billing History', href: '/developer/wallet/billing' },
+                    { id: 'usage', name: 'Usage Costs', href: '/developer/wallet/usage' },
+                    { id: 'payment', name: 'Payment Methods', href: '/developer/wallet/payment-methods' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Usage Costs</h2>
+                    <p className="text-gray-600">Track your API usage costs and consumption.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
             <Route path="/wallet/payment-methods" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Methods</h2>
-                  <p className="text-gray-600">Manage your payment methods and billing preferences.</p>
+              <>
+                <SectionNav
+                  title="Financial"
+                  tabs={[
+                    { id: 'balance', name: 'Wallet Balance', href: '/developer/wallet' },
+                    { id: 'billing', name: 'Billing History', href: '/developer/wallet/billing' },
+                    { id: 'usage', name: 'Usage Costs', href: '/developer/wallet/usage' },
+                    { id: 'payment', name: 'Payment Methods', href: '/developer/wallet/payment-methods' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Methods</h2>
+                    <p className="text-gray-600">Manage your payment methods and billing preferences.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
 
             {/* Support & Community Routes */}
@@ -421,20 +956,42 @@ const DeveloperDashboard = () => {
               </>
             } />
             <Route path="/support/status" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Status Page</h2>
-                  <p className="text-gray-600">Check the current status of IDCertify services.</p>
+              <>
+                <SectionNav
+                  title="Support & Community"
+                  tabs={[
+                    { id: 'contact', name: 'Contact Support', href: '/developer/support' },
+                    { id: 'forum', name: 'Community Forum', href: '/developer/support/forum' },
+                    { id: 'faq', name: 'FAQs', href: '/developer/support/faq' },
+                    { id: 'status', name: 'Status Page', href: '/developer/support/status' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Status Page</h2>
+                    <p className="text-gray-600">Check the current status of IDCertify services.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
             <Route path="/support/contact" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Contact Support</h2>
-                  <p className="text-gray-600">Get in touch with our technical support team.</p>
+              <>
+                <SectionNav
+                  title="Support & Community"
+                  tabs={[
+                    { id: 'contact', name: 'Contact Support', href: '/developer/support' },
+                    { id: 'forum', name: 'Community Forum', href: '/developer/support/forum' },
+                    { id: 'faq', name: 'FAQs', href: '/developer/support/faq' },
+                    { id: 'status', name: 'Status Page', href: '/developer/support/status' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Contact Support</h2>
+                    <p className="text-gray-600">Get in touch with our technical support team.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
 
             {/* Settings Routes */}
@@ -474,20 +1031,83 @@ const DeveloperDashboard = () => {
               </>
             } />
             <Route path="/settings/notifications" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Notification Preferences</h2>
-                  <p className="text-gray-600">Configure your notification preferences and alerts.</p>
+              <>
+                <SectionNav
+                  title="Settings"
+                  tabs={[
+                    { id: 'account', name: 'Account Settings', href: '/developer/settings' },
+                    { id: 'security', name: 'Security Settings', href: '/developer/settings/security' },
+                    { id: 'notifications', name: 'Notification Preferences', href: '/developer/settings/notifications' },
+                    { id: 'api', name: 'API Preferences', href: '/developer/settings/api' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Notification Preferences</h2>
+                    <p className="text-gray-600">Configure your notification preferences and alerts.</p>
+                  </div>
                 </div>
-              </div>
+              </>
             } />
             <Route path="/settings/api" element={
-              <div className="p-6 mx-6">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">API Preferences</h2>
-                  <p className="text-gray-600">Configure your API settings and preferences.</p>
+              <>
+                <SectionNav
+                  title="Settings"
+                  tabs={[
+                    { id: 'account', name: 'Account Settings', href: '/developer/settings' },
+                    { id: 'security', name: 'Security Settings', href: '/developer/settings/security' },
+                    { id: 'notifications', name: 'Notification Preferences', href: '/developer/settings/notifications' },
+                    { id: 'api', name: 'API Preferences', href: '/developer/settings/api' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">API Preferences</h2>
+                    <p className="text-gray-600">Configure your API settings and preferences.</p>
+                  </div>
                 </div>
-              </div>
+              </>
+            } />
+
+            <Route path="/support/faq" element={
+              <>
+                <SectionNav
+                  title="Support & Community"
+                  tabs={[
+                    { id: 'contact', name: 'Contact Support', href: '/developer/support' },
+                    { id: 'forum', name: 'Community Forum', href: '/developer/support/forum' },
+                    { id: 'faq', name: 'FAQs', href: '/developer/support/faq' },
+                    { id: 'status', name: 'Status Page', href: '/developer/support/status' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                    <p className="text-gray-600">Find answers to common questions about IDCertify API.</p>
+                  </div>
+                </div>
+              </>
+            } />
+
+            <Route path="/settings/team" element={
+              <>
+                <SectionNav
+                  title="Settings"
+                  tabs={[
+                    { id: 'account', name: 'Account Settings', href: '/developer/settings' },
+                    { id: 'security', name: 'Security Settings', href: '/developer/settings/security' },
+                    { id: 'team', name: 'Team Management', href: '/developer/settings/team' },
+                    { id: 'notifications', name: 'Notification Preferences', href: '/developer/settings/notifications' },
+                    { id: 'api', name: 'API Preferences', href: '/developer/settings/api' }
+                  ]}
+                />
+                <div className="p-6 mx-6">
+                  <div className="bg-white rounded-lg border border-gray-200 p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Team Management</h2>
+                    <p className="text-gray-600">Manage team members and their access permissions.</p>
+                  </div>
+                </div>
+              </>
             } />
           </Routes>
         </main>

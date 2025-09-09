@@ -67,7 +67,10 @@ import {
   FileCheck,
   Plus,
   Cpu,
-  Server
+  Server,
+  Palette,
+  Brain,
+  Workflow
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
@@ -794,28 +797,150 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             description: 'Overview of API usage and verification activities'
           },
           {
-            name: 'Verification Templates',
+            name: 'Verification Flows',
             href: '/developer/verification-templates',
             icon: Shield,
-            description: 'Create and manage custom verification templates',
+            description: 'Create, manage, and test verification flows',
             children: [
               { 
-                name: 'Template Builder', 
+                name: 'Flow Builder', 
                 href: '/developer/verification-templates', 
                 icon: Grid,
-                description: 'Build custom verification flows'
+                description: 'Visual drag-and-drop flow creation'
               },
               { 
-                name: 'Template Analytics', 
+                name: 'Template Marketplace', 
+                href: '/developer/template-marketplace', 
+                icon: Download,
+                description: 'Browse and use pre-built templates'
+              },
+              { 
+                name: 'Flow Testing', 
+                href: '/developer/flow-testing', 
+                icon: Play,
+                description: 'Test and validate flows before deployment'
+              },
+              { 
+                name: 'Analytics & Insights', 
                 href: '/developer/verification-templates/analytics', 
                 icon: BarChart3,
-                description: 'Track template performance'
+                description: 'Track flow performance and usage'
               },
               { 
                 name: 'Cost Management', 
                 href: '/developer/verification-templates/costs', 
                 icon: DollarSign,
-                description: 'Monitor verification costs'
+                description: 'Monitor verification costs and pricing'
+              }
+            ]
+          },
+          {
+            name: 'Customer Management',
+            href: '/developer/customer-verifications',
+            icon: Users,
+            description: 'Monitor customer verification processes',
+            children: [
+              { 
+                name: 'Verification Dashboard', 
+                href: '/developer/customer-verifications', 
+                icon: BarChart3,
+                description: 'Track customer verifications'
+              },
+              { 
+                name: 'Bulk Operations', 
+                href: '/developer/customer-verifications/bulk', 
+                icon: Users,
+                description: 'Manage multiple verifications'
+              },
+              { 
+                name: 'Customer Analytics', 
+                href: '/developer/customer-verifications/analytics', 
+                icon: TrendingUp,
+                description: 'Customer verification insights'
+              }
+            ]
+          },
+          {
+            name: 'Advanced Integration',
+            href: '/developer/white-labeling',
+            icon: Palette,
+            description: 'White-labeling, mobile SDK, and advanced APIs',
+            children: [
+              { 
+                name: 'White-Labeling', 
+                href: '/developer/white-labeling', 
+                icon: Palette,
+                description: 'Custom branding and theming'
+              },
+              { 
+                name: 'Mobile SDK', 
+                href: '/developer/mobile-sdk', 
+                icon: Smartphone,
+                description: 'Cross-platform mobile integration'
+              },
+              { 
+                name: 'Advanced API', 
+                href: '/developer/advanced-api', 
+                icon: Code,
+                description: 'REST, GraphQL, and API testing'
+              },
+              { 
+                name: 'AI Features', 
+                href: '/developer/ai-features', 
+                icon: Brain,
+                description: 'AI-powered verification features'
+              }
+            ]
+          },
+          {
+            name: 'Enterprise Features',
+            href: '/developer/multi-tenant',
+            icon: Building,
+            description: 'Multi-tenant, security, and enterprise analytics',
+            children: [
+              { 
+                name: 'Multi-Tenant', 
+                href: '/developer/multi-tenant', 
+                icon: Building,
+                description: 'Multi-tenant management and isolation'
+              },
+              { 
+                name: 'Enterprise Security', 
+                href: '/developer/enterprise-security', 
+                icon: Shield,
+                description: 'SSO, RBAC, and security policies'
+              },
+              { 
+                name: 'Advanced Analytics', 
+                href: '/developer/advanced-analytics', 
+                icon: BarChart3,
+                description: 'Enterprise reporting and dashboards'
+              }
+            ]
+          },
+          {
+            name: 'Advanced Enterprise',
+            href: '/developer/enterprise-integrations',
+            icon: LinkIcon,
+            description: 'Integrations, workflows, and compliance management',
+            children: [
+              { 
+                name: 'Enterprise Integrations', 
+                href: '/developer/enterprise-integrations', 
+                icon: LinkIcon,
+                description: 'CRM, ERP, and business system integrations'
+              },
+              { 
+                name: 'Workflow Orchestration', 
+                href: '/developer/workflow-orchestration', 
+                icon: Workflow,
+                description: 'Automated workflow and process management'
+              },
+              { 
+                name: 'Compliance Management', 
+                href: '/developer/compliance-management', 
+                icon: Shield,
+                description: 'Regulatory compliance and audit management'
               }
             ]
           },
