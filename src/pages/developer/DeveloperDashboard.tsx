@@ -29,6 +29,8 @@ import ComplianceManagement from '@/components/developer/ComplianceManagement'
 import BulkOperations from '@/components/developer/BulkOperations'
 import CustomerAnalytics from '@/components/developer/CustomerAnalytics'
 import CustomerDetails from '@/components/developer/CustomerDetails'
+import VerificationAnalytics from '@/components/developer/VerificationAnalytics'
+import VerificationCostManagement from '@/components/developer/VerificationCostManagement'
 
 const DeveloperDashboard = () => {
   const { userType, user } = useSelector((state: RootState) => state.auth)
@@ -237,10 +239,17 @@ const DeveloperDashboard = () => {
                   ]}
                 />
                 <div className="p-6 mx-6">
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Analytics & Insights</h2>
-                    <p className="text-gray-600">Track flow performance, usage metrics, and get actionable insights.</p>
-                  </div>
+                  <VerificationAnalytics
+                    onExportData={(format) => {
+                      console.log('Exporting analytics data in format:', format)
+                    }}
+                    onViewDetails={(metric) => {
+                      console.log('Viewing details for metric:', metric)
+                    }}
+                    onClose={() => {
+                      window.history.back()
+                    }}
+                  />
                 </div>
               </>
             } />
@@ -258,10 +267,17 @@ const DeveloperDashboard = () => {
                   ]}
                 />
                 <div className="p-6 mx-6">
-                  <div className="bg-white rounded-lg border border-gray-200 p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Cost Management</h2>
-                    <p className="text-gray-600">Monitor verification costs, pricing, and optimize spending.</p>
-                  </div>
+                  <VerificationCostManagement
+                    onExportData={(format) => {
+                      console.log('Exporting cost data in format:', format)
+                    }}
+                    onViewDetails={(metric) => {
+                      console.log('Viewing details for metric:', metric)
+                    }}
+                    onClose={() => {
+                      window.history.back()
+                    }}
+                  />
                 </div>
               </>
             } />
