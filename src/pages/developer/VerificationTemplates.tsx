@@ -26,6 +26,18 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
   const [editingTemplate, setEditingTemplate] = useState<VerificationTemplate | null>(null)
   const [activeTab, setActiveTab] = useState<'templates' | 'analytics' | 'costs'>('templates')
 
+  // Handle case where user or verificationTemplates might be undefined
+  if (!user || !user.verificationTemplates) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Loading...</h2>
+          <p className="text-gray-600">Please wait while we load your verification templates.</p>
+        </div>
+      </div>
+    )
+  }
+
   const activeTemplates = user.verificationTemplates.filter(t => t.isActive)
   const inactiveTemplates = user.verificationTemplates.filter(t => !t.isActive)
 

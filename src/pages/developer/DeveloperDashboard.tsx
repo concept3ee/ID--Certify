@@ -219,7 +219,7 @@ const DeveloperDashboard = () => {
                   ]}
                 />
                 <div className="p-6 mx-6">
-                  {user && <VerificationTemplates user={user as any} />}
+                  <VerificationTemplates user={user as any} />
                 </div>
               </>
             } />
