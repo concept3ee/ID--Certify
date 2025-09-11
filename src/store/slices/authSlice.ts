@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { AuthState, User, UserType } from '@/types'
+import { AuthState, User, UserType, DeveloperUser } from '@/types'
 
 // Demo users for testing
 const demoUsers: Record<UserType, User> = {
@@ -35,7 +35,88 @@ const demoUsers: Record<UserType, User> = {
     isVerified: true,
     createdAt: '2024-01-01T00:00:00Z',
     updatedAt: '2024-01-01T00:00:00Z',
-  },
+    // Extended properties for DeveloperUser
+    apiKeys: [
+      {
+        id: '1',
+        name: 'Production API Key',
+        key: 'sk_live_...',
+        isActive: true,
+        createdAt: '2024-01-01T00:00:00Z',
+        lastUsed: '2024-01-15T10:30:00Z'
+      }
+    ],
+    webhooks: [
+      {
+        id: '1',
+        url: 'https://api.example.com/webhook',
+        events: ['verification.completed', 'verification.failed'],
+        isActive: true,
+        createdAt: '2024-01-01T00:00:00Z'
+      }
+    ],
+    usageStats: {
+      totalVerifications: 1247,
+      monthlyVerifications: 456,
+      apiCalls: 8934,
+      lastUpdated: '2024-01-15T10:30:00Z'
+    },
+    verificationTemplates: [
+      {
+        id: '1',
+        name: 'Basic Identity Verification',
+        description: 'Standard identity verification flow',
+        isActive: true,
+        createdAt: '2024-01-01T00:00:00Z',
+        updatedAt: '2024-01-15T10:30:00Z',
+        steps: [
+          { id: '1', type: 'document_upload', name: 'Upload ID Document' },
+          { id: '2', type: 'selfie', name: 'Take Selfie' },
+          { id: '3', type: 'verification', name: 'Verify Identity' }
+        ],
+        usage: 234
+      },
+      {
+        id: '2',
+        name: 'Enhanced KYC Flow',
+        description: 'Comprehensive KYC verification process',
+        isActive: true,
+        createdAt: '2024-01-05T00:00:00Z',
+        updatedAt: '2024-01-10T14:20:00Z',
+        steps: [
+          { id: '1', type: 'document_upload', name: 'Upload Documents' },
+          { id: '2', type: 'address_verification', name: 'Verify Address' },
+          { id: '3', type: 'selfie', name: 'Biometric Verification' },
+          { id: '4', type: 'background_check', name: 'Background Check' }
+        ],
+        usage: 156
+      },
+      {
+        id: '3',
+        name: 'Quick Phone Verification',
+        description: 'Fast phone number verification',
+        isActive: false,
+        createdAt: '2024-01-08T00:00:00Z',
+        updatedAt: '2024-01-12T09:15:00Z',
+        steps: [
+          { id: '1', type: 'phone_input', name: 'Enter Phone Number' },
+          { id: '2', type: 'sms_verification', name: 'Verify SMS Code' }
+        ],
+        usage: 89
+      }
+    ],
+    verificationAnalytics: {
+      totalVerifications: 1247,
+      successRate: 94.2,
+      avgProcessingTime: 2.3,
+      totalRevenue: 18450,
+      monthlyTrend: [
+        { month: 'Jan', verifications: 234, revenue: 3510 },
+        { month: 'Feb', verifications: 267, revenue: 4005 },
+        { month: 'Mar', verifications: 298, revenue: 4470 }
+      ]
+    }
+  } as DeveloperUser,
   admin: {
     id: '4',
     email: 'demo@admin.com',
@@ -104,8 +185,8 @@ export const logoutUser = createAsyncThunk(
 
 const initialState: AuthState = {
   isAuthenticated: true, // Temporarily set to true for testing
-  user: demoUsers.organisation, // Set demo user
-  userType: 'organisation', // Set user type
+  user: demoUsers.developer, // Set demo user
+  userType: 'developer', // Set user type
   loading: false,
   error: null,
 }

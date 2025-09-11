@@ -27,7 +27,7 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
   const [activeTab, setActiveTab] = useState<'templates' | 'analytics' | 'costs'>('templates')
 
   // Handle case where user or verificationTemplates might be undefined
-  if (!user || !user.verificationTemplates) {
+  if (!user) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
@@ -38,8 +38,11 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
     )
   }
 
-  const activeTemplates = user.verificationTemplates.filter(t => t.isActive)
-  const inactiveTemplates = user.verificationTemplates.filter(t => !t.isActive)
+  // Ensure verificationTemplates exists, provide empty array as fallback
+  const verificationTemplates = user.verificationTemplates || []
+
+  const activeTemplates = verificationTemplates.filter(t => t.isActive)
+  const inactiveTemplates = verificationTemplates.filter(t => !t.isActive)
 
   const handleCreateTemplate = () => {
     setEditingTemplate(null)
@@ -400,7 +403,7 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
               <div className="bg-white border rounded-lg p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">Cost Breakdown by Template</h3>
                 <div className="space-y-4">
-                  {user.verificationTemplates.map((template) => (
+                  {verificationTemplates.map((template) => (
                     <div key={template.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                       <div>
                         <h4 className="font-medium text-gray-900">{template.name}</h4>

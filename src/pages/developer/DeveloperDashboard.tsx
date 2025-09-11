@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import { DeveloperUser } from '@/types'
 import Sidebar from '@/components/ui/Sidebar'
 import Header from '@/components/ui/Header'
 import SectionNav from '@/components/ui/SectionNav'
@@ -221,7 +222,7 @@ const DeveloperDashboard = () => {
                   ]}
                 />
                 <div className="p-6 mx-6">
-                  <VerificationTemplates user={user as any} />
+                  <VerificationTemplates user={user as DeveloperUser} />
                 </div>
               </>
             } />
