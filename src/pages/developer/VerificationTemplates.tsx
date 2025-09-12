@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { DeveloperUser, VerificationTemplate, VerificationAnalytics } from '../../types'
 import VerificationTemplateBuilder from '../../components/verification/VerificationTemplateBuilder'
-import SectionNav from '../../components/ui/SectionNav'
 import { 
   Plus, 
   Settings, 
@@ -44,6 +43,13 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
   const activeTemplates = verificationTemplates.filter(t => t.isActive)
   const inactiveTemplates = verificationTemplates.filter(t => !t.isActive)
 
+  // Debug: Log user object to console
+  console.log('VerificationTemplates - User object:', user)
+  console.log('VerificationTemplates - User verificationTemplates:', user.verificationTemplates)
+  console.log('VerificationTemplates - Active tab:', activeTab)
+  console.log('VerificationTemplates - Active templates:', activeTemplates)
+  console.log('VerificationTemplates - Inactive templates:', inactiveTemplates)
+
   const handleCreateTemplate = () => {
     setEditingTemplate(null)
     setShowTemplateBuilder(true)
@@ -84,24 +90,16 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
 
   return (
     <div className="space-y-6">
-      {/* Section Navigation */}
-      <SectionNav
-        title="Verification Templates"
-        tabs={[
-          { id: 'templates', name: 'Templates', href: '/developer/templates' },
-          { id: 'analytics', name: 'Analytics', href: '/developer/analytics' },
-          { id: 'costs', name: 'Costs & Revenue', href: '/developer/costs' }
-        ]}
-        actionButton={
-          <button
-            onClick={handleCreateTemplate}
-            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Create Template</span>
-          </button>
-        }
-      />
+      {/* Create Template Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={handleCreateTemplate}
+          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        >
+          <Plus className="w-4 h-4" />
+          <span>Create Template</span>
+        </button>
+      </div>
 
       {/* Content */}
       {activeTab === 'templates' && (
