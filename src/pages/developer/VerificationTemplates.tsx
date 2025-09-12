@@ -25,7 +25,19 @@ import {
   AlertTriangle,
   Zap,
   Target,
-  Layers
+  Layers,
+  FileText,
+  Camera,
+  Shield,
+  Building,
+  CreditCard,
+  Fingerprint,
+  MapPin,
+  Phone,
+  Mail,
+  Calendar,
+  ArrowRight,
+  ArrowDown
 } from 'lucide-react'
 
 interface VerificationTemplatesProps {
@@ -37,6 +49,10 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchQuery, setSearchQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'inactive'>('all')
+  const [showFlowBuilder, setShowFlowBuilder] = useState(false)
+  const [showTemplateBuilder, setShowTemplateBuilder] = useState(false)
+  const [showMarketplace, setShowMarketplace] = useState(false)
+  const [editingTemplate, setEditingTemplate] = useState<VerificationTemplate | null>(null)
 
   // Ensure verificationTemplates exists, provide empty array as fallback
   const verificationTemplates = user.verificationTemplates || []
@@ -53,50 +69,52 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
   })
 
   const handleCreateTemplate = () => {
-    console.log('Create template clicked')
-    // TODO: Open template builder modal
+    setEditingTemplate(null)
+    setShowTemplateBuilder(true)
   }
 
   const handleCreateFlow = () => {
-    console.log('Create flow clicked')
-    // TODO: Open flow builder modal
+    setShowFlowBuilder(true)
   }
 
   const handleBrowseMarketplace = () => {
-    console.log('Browse marketplace clicked')
-    // TODO: Open marketplace modal
+    setShowMarketplace(true)
   }
 
   const handleEditTemplate = (template: VerificationTemplate) => {
-    console.log('Edit template:', template.id)
-    // TODO: Open template editor
+    setEditingTemplate(template)
+    setShowTemplateBuilder(true)
+  }
+
+  const handleSaveTemplate = (templateData: any) => {
+    console.log('Saving template:', templateData)
+    setShowTemplateBuilder(false)
+    setEditingTemplate(null)
+  }
+
+  const handleSaveFlow = (flowData: any) => {
+    console.log('Saving flow:', flowData)
+    setShowFlowBuilder(false)
+  }
+
+  const handleTestFlow = (flowData: any) => {
+    console.log('Testing flow:', flowData)
   }
 
   const handleToggleTemplateStatus = (templateId: string) => {
-    console.log('Toggle template status:', templateId)
-    // TODO: Toggle template status
+    console.log('Toggling template status:', templateId)
   }
 
   const handleDeleteTemplate = (templateId: string) => {
-    console.log('Delete template:', templateId)
-    // TODO: Delete template
+    console.log('Deleting template:', templateId)
   }
 
   const handleDuplicateTemplate = (template: VerificationTemplate) => {
-    console.log('Duplicate template:', template.id)
-    // TODO: Duplicate template
+    console.log('Duplicating template:', template)
   }
 
   return (
     <div className="space-y-6">
-      {/* Debug Info */}
-      <div className="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded">
-        <p><strong>Flow Builder Page is Working!</strong></p>
-        <p>User: {user ? 'Present' : 'Missing'}</p>
-        <p>Templates: {verificationTemplates.length}</p>
-        <p>Active Tab: {activeTab}</p>
-      </div>
-
       {/* Header with Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -174,143 +192,20 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
         </div>
       </div>
 
-      {/* Tab Navigation */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
-          <button
-            onClick={() => setActiveTab('templates')}
-            className={`py-2 px-1 border-b-2 font-medium text-sm ${
-              activeTab === 'templates'
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
-          >
-            Templates
-          </button>
-          <button
-            onClick={() => setActiveTab('analytics')}
-            className={`py-2 px-1 border-b-2 font-medium text-sm ${
-              activeTab === 'analytics'
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
-          >
-            Analytics
-          </button>
-          <button
-            onClick={() => setActiveTab('costs')}
-            className={`py-2 px-1 border-b-2 font-medium text-sm ${
-              activeTab === 'costs'
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-            }`}
-          >
-            Costs & Revenue
-          </button>
-        </nav>
-      </div>
-
-      {/* Content */}
-      {activeTab === 'templates' && (
-        <div className="space-y-6">
-          {/* Templates Grid/List */}
-          {filteredTemplates.length > 0 ? (
-            <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}>
-              {filteredTemplates.map((template) => (
-                <div key={template.id} className={`bg-white border rounded-lg hover:shadow-md transition-shadow ${
-                  viewMode === 'list' ? 'p-4 flex items-center justify-between' : 'p-6'
-                }`}>
-                  {viewMode === 'grid' ? (
-                    <>
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h4 className="text-lg font-semibold text-gray-900">{template.name}</h4>
-                          <p className="text-sm text-gray-500">{template.description}</p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <button
-                            onClick={() => handleToggleTemplateStatus(template.id)}
-                            className="text-yellow-600 hover:text-yellow-700"
-                            title={template.isActive ? "Pause template" : "Activate template"}
-                          >
-                            {template.isActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                          </button>
-                          <button
-                            onClick={() => handleEditTemplate(template)}
-                            className="text-blue-600 hover:text-blue-700"
-                            title="Edit template"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDuplicateTemplate(template)}
-                            className="text-green-600 hover:text-green-700"
-                            title="Duplicate template"
-                          >
-                            <Copy className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteTemplate(template.id)}
-                            className="text-red-600 hover:text-red-700"
-                            title="Delete template"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-500">Fields:</span>
-                          <span className="font-medium">{template.fields.length}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-500">Usage:</span>
-                          <span className="font-medium">{template.usageCount}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-500">Last Updated:</span>
-                          <span className="font-medium">{new Date(template.updatedAt).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 pt-4 border-t border-gray-200">
-                        <div className="flex items-center justify-between">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            template.isActive 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {template.isActive ? 'Active' : 'Inactive'}
-                          </span>
-                          <button
-                            onClick={() => handleEditTemplate(template)}
-                            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
-                          >
-                            View Details
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3">
-                          <h4 className="text-lg font-semibold text-gray-900">{template.name}</h4>
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            template.isActive 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {template.isActive ? 'Active' : 'Inactive'}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-500 mt-1">{template.description}</p>
-                        <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500">
-                          <span>{template.fields.length} fields</span>
-                          <span>{template.usageCount} uses</span>
-                          <span>Updated {new Date(template.updatedAt).toLocaleDateString()}</span>
-                        </div>
+      {/* Templates Content */}
+      <div className="space-y-6">
+        {filteredTemplates.length > 0 ? (
+          <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}>
+            {filteredTemplates.map((template) => (
+              <div key={template.id} className={`bg-white border rounded-lg hover:shadow-md transition-shadow ${
+                viewMode === 'list' ? 'p-4 flex items-center justify-between' : 'p-6'
+              }`}>
+                {viewMode === 'grid' ? (
+                  <>
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h4 className="text-lg font-semibold text-gray-900">{template.name}</h4>
+                        <p className="text-sm text-gray-500">{template.description}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <button
@@ -342,175 +237,261 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
-                    </>
-                  )}
-                </div>
-              ))}
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">Fields:</span>
+                        <span className="font-medium">{template.fields.length}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">Usage:</span>
+                        <span className="font-medium">{template.usageCount}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">Last Updated:</span>
+                        <span className="font-medium">{new Date(template.updatedAt).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <div className="flex items-center justify-between">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          template.isActive 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {template.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                        <button
+                          onClick={() => handleEditTemplate(template)}
+                          className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-3">
+                        <h4 className="text-lg font-semibold text-gray-900">{template.name}</h4>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          template.isActive 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {template.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-1">{template.description}</p>
+                      <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500">
+                        <span>{template.fields.length} fields</span>
+                        <span>{template.usageCount} uses</span>
+                        <span>Updated {new Date(template.updatedAt).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handleToggleTemplateStatus(template.id)}
+                        className="text-yellow-600 hover:text-yellow-700"
+                        title={template.isActive ? "Pause template" : "Activate template"}
+                      >
+                        {template.isActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                      </button>
+                      <button
+                        onClick={() => handleEditTemplate(template)}
+                        className="text-blue-600 hover:text-blue-700"
+                        title="Edit template"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDuplicateTemplate(template)}
+                        className="text-green-600 hover:text-green-700"
+                        title="Duplicate template"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteTemplate(template.id)}
+                        className="text-red-600 hover:text-red-700"
+                        title="Delete template"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <Settings className="w-12 h-12 mx-auto text-gray-300 mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              {searchQuery ? 'No templates found' : 'No templates yet'}
+            </h3>
+            <p className="text-gray-500 mb-4">
+              {searchQuery 
+                ? 'Try adjusting your search or filters'
+                : 'Create your first verification template to get started.'
+              }
+            </p>
+            {!searchQuery && (
+              <div className="flex items-center justify-center space-x-3">
+                <button
+                  onClick={handleCreateTemplate}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  Create Template
+                </button>
+                <button
+                  onClick={handleBrowseMarketplace}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  Browse Marketplace
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Modals */}
+      {showFlowBuilder && (
+        <div className="fixed inset-0 bg-gray-900 z-50 flex flex-col">
+          <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+            <h1 className="text-xl font-semibold text-gray-900">Visual Flow Builder</h1>
+            <button
+              onClick={() => setShowFlowBuilder(false)}
+              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Close
+            </button>
+          </div>
+          <div className="flex-1 flex items-center justify-center bg-gray-50">
+            <div className="text-center">
+              <Layers className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Flow Builder</h3>
+              <p className="text-gray-500">Drag and drop interface coming soon</p>
             </div>
-          ) : (
-            <div className="text-center py-12">
-              <Settings className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                {searchQuery ? 'No templates found' : 'No templates yet'}
-              </h3>
-              <p className="text-gray-500 mb-4">
-                {searchQuery 
-                  ? 'Try adjusting your search or filters'
-                  : 'Create your first verification template to get started.'
-                }
-              </p>
-              {!searchQuery && (
-                <div className="flex items-center justify-center space-x-3">
-                  <button
-                    onClick={handleCreateTemplate}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    Create Template
-                  </button>
-                  <button
-                    onClick={handleBrowseMarketplace}
-                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
-                  >
-                    Browse Marketplace
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+          </div>
         </div>
       )}
 
-      {activeTab === 'analytics' && (
-        <div className="space-y-6">
-          <h2 className="text-lg font-semibold text-gray-900">Verification Analytics</h2>
-
-          {/* Key Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-white border rounded-lg p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <Users className="h-8 w-8 text-blue-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Total Verifications</dt>
-                    <dd className="text-lg font-medium text-gray-900">{user.verificationAnalytics.totalVerifications}</dd>
-                  </dl>
-                </div>
-              </div>
+      {showTemplateBuilder && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-20 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-md bg-white">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">
+                {editingTemplate ? 'Edit Template' : 'Create New Template'}
+              </h2>
+              <button
+                onClick={() => setShowTemplateBuilder(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <span className="sr-only">Close</span>
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-
-            <div className="bg-white border rounded-lg p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <TrendingUp className="h-8 w-8 text-green-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Success Rate</dt>
-                    <dd className="text-lg font-medium text-gray-900">
-                      {user.verificationAnalytics.totalVerifications > 0 
-                        ? Math.round((user.verificationAnalytics.successfulVerifications / user.verificationAnalytics.totalVerifications) * 100)
-                        : 0}%
-                    </dd>
-                  </dl>
-                </div>
+            
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Template Name</label>
+                <input
+                  type="text"
+                  defaultValue={editingTemplate?.name || ''}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter template name"
+                />
               </div>
-            </div>
-
-            <div className="bg-white border rounded-lg p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <BarChart3 className="h-8 w-8 text-purple-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Avg Processing Time</dt>
-                    <dd className="text-lg font-medium text-gray-900">2.3s</dd>
-                  </dl>
-                </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea
+                  defaultValue={editingTemplate?.description || ''}
+                  rows={3}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter template description"
+                />
               </div>
-            </div>
-
-            <div className="bg-white border rounded-lg p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <DollarSign className="h-8 w-8 text-green-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Total Revenue</dt>
-                    <dd className="text-lg font-medium text-gray-900">${user.verificationAnalytics.totalRevenue}</dd>
-                  </dl>
-                </div>
+              
+              <div className="flex items-center justify-end space-x-3">
+                <button
+                  onClick={() => setShowTemplateBuilder(false)}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSaveTemplate}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  {editingTemplate ? 'Update Template' : 'Create Template'}
+                </button>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {activeTab === 'costs' && (
-        <div className="space-y-6">
-          <h2 className="text-lg font-semibold text-gray-900">Costs & Revenue</h2>
-
-          {/* Cost Overview */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white border rounded-lg p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <DollarSign className="h-8 w-8 text-green-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Total Revenue</dt>
-                    <dd className="text-lg font-medium text-gray-900">${user.verificationAnalytics.totalRevenue}</dd>
-                  </dl>
-                </div>
-              </div>
+      {showMarketplace && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+          <div className="relative top-10 mx-auto p-5 border w-11/12 max-w-6xl shadow-lg rounded-md bg-white">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">Template Marketplace</h2>
+              <button
+                onClick={() => setShowMarketplace(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <span className="sr-only">Close</span>
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-
-            <div className="bg-white border rounded-lg p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <TrendingUp className="h-8 w-8 text-blue-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Monthly Revenue</dt>
-                    <dd className="text-lg font-medium text-gray-900">$6,150</dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white border rounded-lg p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <BarChart3 className="h-8 w-8 text-purple-600" />
-                </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Avg Cost per Verification</dt>
-                    <dd className="text-lg font-medium text-gray-900">$14.80</dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Cost Breakdown */}
-          <div className="bg-white border rounded-lg p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Cost Breakdown by Template</h3>
-            <div className="space-y-4">
-              {verificationTemplates.map((template) => (
-                <div key={template.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div>
-                    <h4 className="font-medium text-gray-900">{template.name}</h4>
-                    <p className="text-sm text-gray-500">{template.usageCount} verifications</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { name: 'Basic Identity Verification', description: 'Standard identity verification flow', category: 'Identity', rating: 4.8, downloads: 1250, price: 0 },
+                { name: 'Enhanced KYC Flow', description: 'Comprehensive KYC verification process', category: 'KYC', rating: 4.9, downloads: 890, price: 25 },
+                { name: 'Quick Phone Verification', description: 'Fast phone number verification', category: 'Phone', rating: 4.7, downloads: 2100, price: 0 }
+              ].map((template, index) => (
+                <div key={index} className="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900">{template.name}</h4>
+                      <p className="text-sm text-gray-500">{template.description}</p>
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {template.category}
+                    </span>
                   </div>
-                  <div className="text-right">
-                    <p className="font-medium text-gray-900">${(template.usageCount * template.costPerVerification).toFixed(2)}</p>
-                    <p className="text-sm text-gray-500">${template.costPerVerification} per verification</p>
+                  
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2">
+                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                      <span className="text-sm font-medium">{template.rating}</span>
+                      <span className="text-sm text-gray-500">({template.downloads} downloads)</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-lg font-semibold text-gray-900">
+                        {template.price === 0 ? 'Free' : `$${template.price}`}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <button className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm">
+                      {template.price === 0 ? 'Use Template' : 'Purchase'}
+                    </button>
+                    <button className="px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
+                      <Eye className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               ))}
