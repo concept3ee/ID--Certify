@@ -69,12 +69,13 @@ const demoUsers: Record<UserType, User> = {
         isActive: true,
         createdAt: '2024-01-01T00:00:00Z',
         updatedAt: '2024-01-15T10:30:00Z',
-        steps: [
+        fields: [
           { id: '1', type: 'document_upload', name: 'Upload ID Document' },
           { id: '2', type: 'selfie', name: 'Take Selfie' },
           { id: '3', type: 'verification', name: 'Verify Identity' }
         ],
-        usage: 234
+        usageCount: 234,
+        costPerVerification: 15
       },
       {
         id: '2',
@@ -83,13 +84,14 @@ const demoUsers: Record<UserType, User> = {
         isActive: true,
         createdAt: '2024-01-05T00:00:00Z',
         updatedAt: '2024-01-10T14:20:00Z',
-        steps: [
+        fields: [
           { id: '1', type: 'document_upload', name: 'Upload Documents' },
           { id: '2', type: 'address_verification', name: 'Verify Address' },
           { id: '3', type: 'selfie', name: 'Biometric Verification' },
           { id: '4', type: 'background_check', name: 'Background Check' }
         ],
-        usage: 156
+        usageCount: 156,
+        costPerVerification: 25
       },
       {
         id: '3',
@@ -98,11 +100,12 @@ const demoUsers: Record<UserType, User> = {
         isActive: false,
         createdAt: '2024-01-08T00:00:00Z',
         updatedAt: '2024-01-12T09:15:00Z',
-        steps: [
+        fields: [
           { id: '1', type: 'phone_input', name: 'Enter Phone Number' },
           { id: '2', type: 'sms_verification', name: 'Verify SMS Code' }
         ],
-        usage: 89
+        usageCount: 89,
+        costPerVerification: 5
       }
     ],
     verificationAnalytics: {
