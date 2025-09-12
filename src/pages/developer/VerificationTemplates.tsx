@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import { DeveloperUser, VerificationTemplate } from '../../types'
-import VisualFlowBuilder from '../../components/developer/VisualFlowBuilder'
-import TemplateMarketplace from '../../components/developer/TemplateMarketplace'
-import VerificationTemplateBuilder from '../../components/verification/VerificationTemplateBuilder'
 import { 
   Plus, 
   Settings, 
@@ -40,10 +37,6 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchQuery, setSearchQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'inactive'>('all')
-  const [showTemplateBuilder, setShowTemplateBuilder] = useState(false)
-  const [showFlowBuilder, setShowFlowBuilder] = useState(false)
-  const [showMarketplace, setShowMarketplace] = useState(false)
-  const [editingTemplate, setEditingTemplate] = useState<VerificationTemplate | null>(null)
 
   // Ensure verificationTemplates exists, provide empty array as fallback
   const verificationTemplates = user.verificationTemplates || []
@@ -60,52 +53,50 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
   })
 
   const handleCreateTemplate = () => {
-    setEditingTemplate(null)
-    setShowTemplateBuilder(true)
+    console.log('Create template clicked')
+    // TODO: Open template builder modal
   }
 
   const handleCreateFlow = () => {
-    setShowFlowBuilder(true)
+    console.log('Create flow clicked')
+    // TODO: Open flow builder modal
   }
 
   const handleBrowseMarketplace = () => {
-    setShowMarketplace(true)
+    console.log('Browse marketplace clicked')
+    // TODO: Open marketplace modal
   }
 
   const handleEditTemplate = (template: VerificationTemplate) => {
-    setEditingTemplate(template)
-    setShowTemplateBuilder(true)
-  }
-
-  const handleSaveTemplate = (templateData: any) => {
-    console.log('Saving template:', templateData)
-    setShowTemplateBuilder(false)
-    setEditingTemplate(null)
-  }
-
-  const handleSaveFlow = (flowData: any) => {
-    console.log('Saving flow:', flowData)
-    setShowFlowBuilder(false)
-  }
-
-  const handleTestFlow = (flowData: any) => {
-    console.log('Testing flow:', flowData)
+    console.log('Edit template:', template.id)
+    // TODO: Open template editor
   }
 
   const handleToggleTemplateStatus = (templateId: string) => {
-    console.log('Toggling template status:', templateId)
+    console.log('Toggle template status:', templateId)
+    // TODO: Toggle template status
   }
 
   const handleDeleteTemplate = (templateId: string) => {
-    console.log('Deleting template:', templateId)
+    console.log('Delete template:', templateId)
+    // TODO: Delete template
   }
 
   const handleDuplicateTemplate = (template: VerificationTemplate) => {
-    console.log('Duplicating template:', template)
+    console.log('Duplicate template:', template.id)
+    // TODO: Duplicate template
   }
 
   return (
     <div className="space-y-6">
+      {/* Debug Info */}
+      <div className="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded">
+        <p><strong>Flow Builder Page is Working!</strong></p>
+        <p>User: {user ? 'Present' : 'Missing'}</p>
+        <p>Templates: {verificationTemplates.length}</p>
+        <p>Active Tab: {activeTab}</p>
+      </div>
+
       {/* Header with Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -293,7 +284,7 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
                             {template.isActive ? 'Active' : 'Inactive'}
                           </span>
                           <button
-                            onClick={() => console.log('View details:', template.id)}
+                            onClick={() => handleEditTemplate(template)}
                             className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                           >
                             View Details
@@ -524,64 +515,6 @@ const VerificationTemplates: React.FC<VerificationTemplatesProps> = ({ user }) =
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Template Builder Modal */}
-      {showTemplateBuilder && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-md bg-white">
-            <div className="mt-3">
-              <VerificationTemplateBuilder
-                template={editingTemplate || undefined}
-                onSave={handleSaveTemplate}
-                onCancel={() => {
-                  setShowTemplateBuilder(false)
-                  setEditingTemplate(null)
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Flow Builder Modal */}
-      {showFlowBuilder && (
-        <VisualFlowBuilder
-          onSave={handleSaveFlow}
-          onTest={handleTestFlow}
-          onClose={() => setShowFlowBuilder(false)}
-        />
-      )}
-
-      {/* Marketplace Modal */}
-      {showMarketplace && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-10 mx-auto p-5 border w-11/12 max-w-6xl shadow-lg rounded-md bg-white">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">Template Marketplace</h2>
-              <button
-                onClick={() => setShowMarketplace(false)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <span className="sr-only">Close</span>
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <TemplateMarketplace 
-              onSelectTemplate={(template) => {
-                console.log('Selected template:', template)
-                setShowMarketplace(false)
-              }}
-              onCreateCustom={() => {
-                console.log('Create custom template')
-                setShowMarketplace(false)
-                setShowTemplateBuilder(true)
-              }}
-            />
           </div>
         </div>
       )}
