@@ -394,6 +394,12 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             ]
           },
           {
+            name: 'Background Checks',
+            href: '/organisation/background-check',
+            icon: Shield,
+            description: 'Comprehensive background verification for candidates and employees'
+          },
+          {
             name: 'Employee Management',
             href: '/organisation/employees',
             icon: Users,
@@ -847,12 +853,6 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 description: 'Track customer verifications'
               },
               { 
-                name: 'Bulk Operations', 
-                href: '/developer/customer-verifications/bulk', 
-                icon: Users,
-                description: 'Manage multiple verifications'
-              },
-              { 
                 name: 'Customer Analytics', 
                 href: '/developer/customer-verifications/analytics', 
                 icon: TrendingUp,
@@ -1103,6 +1103,12 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 description: 'Manage payment options'
               }
             ]
+          },
+          {
+            name: 'Background Check API',
+            href: '/developer/background-check',
+            icon: Shield,
+            description: 'Integrate comprehensive background verification into your platform'
           },
           {
             name: 'Support & Community',

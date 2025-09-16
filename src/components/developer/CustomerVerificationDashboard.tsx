@@ -48,11 +48,34 @@ interface CustomerVerification {
   steps: VerificationStep[]
   documents: Document[]
   results: VerificationResults
+  appName: string
+  country: string
+  dateOfBirth: string
+  gender: string
+  phoneNumber: string
+  verificationTypes: VerificationType[]
   metadata: CustomerMetadata
   priority: 'low' | 'medium' | 'high' | 'urgent'
   assignedTo?: string
   notes?: string
   tags: string[]
+}
+
+interface VerificationType {
+  id: string
+  name: string
+  type: 'government_lookup' | 'document_analysis' | 'biometric_verification' | 'aml_screening' | 'address_verification' | 'phone_verification' | 'liveness_check'
+  status: 'completed' | 'pending' | 'failed' | 'not_started'
+  completedAt?: string
+  results?: any
+  required: boolean
+}
+
+interface CustomerMetadata {
+  ipAddress: string
+  userAgent: string
+  deviceType: string
+  location: string
 }
 
 interface VerificationStep {

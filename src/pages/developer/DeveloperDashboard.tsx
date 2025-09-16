@@ -27,11 +27,14 @@ import AdvancedAnalytics from '@/components/developer/AdvancedAnalytics'
 import EnterpriseIntegrations from '@/components/developer/EnterpriseIntegrations'
 import WorkflowOrchestration from '@/components/developer/WorkflowOrchestration'
 import ComplianceManagement from '@/components/developer/ComplianceManagement'
-import BulkOperations from '@/components/developer/BulkOperations'
 import CustomerAnalytics from '@/components/developer/CustomerAnalytics'
 import CustomerDetails from '@/components/developer/CustomerDetails'
+import CustomerMonitoringDashboard from '@/components/developer/CustomerMonitoringDashboard'
+import CustomerDetailView from '@/components/developer/CustomerDetailView'
 import VerificationAnalytics from '@/components/developer/VerificationAnalytics'
 import VerificationCostManagement from '@/components/developer/VerificationCostManagement'
+import Financial from './Financial'
+import BackgroundCheckAPI from './BackgroundCheckAPI'
 
 const DeveloperDashboard = () => {
   const { userType, user } = useSelector((state: RootState) => state.auth)
@@ -317,22 +320,21 @@ const DeveloperDashboard = () => {
                   title="Customer Management"
                   tabs={[
                     { id: 'dashboard', name: 'Verification Dashboard', href: '/developer/customer-verifications' },
-                    { id: 'bulk', name: 'Bulk Operations', href: '/developer/customer-verifications/bulk' },
                     { id: 'analytics', name: 'Customer Analytics', href: '/developer/customer-verifications/analytics' }
                   ]}
                 />
                 <div className="p-6 mx-6">
-                  <CustomerVerificationDashboard
-                    onViewDetails={(verification) => {
-                      console.log('Viewing verification details:', verification)
+                  <CustomerMonitoringDashboard
+                    onViewCustomer={(customer) => {
+                      console.log('Viewing customer details:', customer)
                       // In real app, this would open detailed view
                     }}
-                    onBulkAction={(action, verificationIds) => {
-                      console.log('Bulk action:', action, verificationIds)
+                    onBulkAction={(action, customerIds) => {
+                      console.log('Bulk action:', action, customerIds)
                       // In real app, this would perform bulk operations
                     }}
-                    onExport={(verifications) => {
-                      console.log('Exporting verifications:', verifications)
+                    onExport={(customers) => {
+                      console.log('Exporting customers:', customers)
                       // In real app, this would export data
                     }}
                   />
@@ -340,33 +342,6 @@ const DeveloperDashboard = () => {
               </>
             } />
 
-            <Route path="/customer-verifications/bulk" element={
-              <>
-                <SectionNav
-                  title="Customer Management"
-                  tabs={[
-                    { id: 'dashboard', name: 'Verification Dashboard', href: '/developer/customer-verifications' },
-                    { id: 'bulk', name: 'Bulk Operations', href: '/developer/customer-verifications/bulk' },
-                    { id: 'analytics', name: 'Customer Analytics', href: '/developer/customer-verifications/analytics' }
-                  ]}
-                />
-                <div className="p-6 mx-6">
-                  <BulkOperations
-                    onExecuteOperation={(operation, customerIds) => {
-                      console.log('Executing bulk operation:', operation, customerIds)
-                      // In real app, this would execute the bulk operation
-                    }}
-                    onViewCustomer={(customer) => {
-                      console.log('Viewing customer:', customer)
-                      // In real app, this would open customer details
-                    }}
-                    onClose={() => {
-                      window.history.back()
-                    }}
-                  />
-                </div>
-              </>
-            } />
 
             <Route path="/customer-verifications/analytics" element={
               <>
@@ -374,7 +349,6 @@ const DeveloperDashboard = () => {
                   title="Customer Management"
                   tabs={[
                     { id: 'dashboard', name: 'Verification Dashboard', href: '/developer/customer-verifications' },
-                    { id: 'bulk', name: 'Bulk Operations', href: '/developer/customer-verifications/bulk' },
                     { id: 'analytics', name: 'Customer Analytics', href: '/developer/customer-verifications/analytics' }
                   ]}
                 />
@@ -396,27 +370,17 @@ const DeveloperDashboard = () => {
               </>
             } />
 
+
+
+
             <Route path="/customer-verifications/:customerId" element={
-              <CustomerDetails
-                customerId="1"
+              <CustomerDetailView
                 onClose={() => {
                   window.history.back()
                 }}
-                onEdit={(customer) => {
-                  console.log('Editing customer:', customer)
-                  // In real app, this would open customer edit form
-                }}
-                onSendMessage={(customer) => {
-                  console.log('Sending message to customer:', customer)
-                  // In real app, this would open message composer
-                }}
-                onAddNote={(customerId) => {
-                  console.log('Adding note for customer:', customerId)
-                  // In real app, this would open note composer
-                }}
-                onUpdateStatus={(customerId, status) => {
-                  console.log('Updating status for customer:', customerId, status)
-                  // In real app, this would update customer status
+                onVerificationAction={(verificationType, action) => {
+                  console.log('Verification action:', verificationType, action)
+                  // In real app, this would perform verification actions
                 }}
               />
             } />
@@ -859,22 +823,7 @@ const DeveloperDashboard = () => {
             } />
 
             {/* Financial Routes */}
-            <Route path="/wallet" element={
-              <>
-                <SectionNav
-                  title="Financial"
-                  tabs={[
-                    { id: 'balance', name: 'Wallet Balance', href: '/developer/wallet' },
-                    { id: 'billing', name: 'Billing History', href: '/developer/wallet/billing' },
-                    { id: 'usage', name: 'Usage Costs', href: '/developer/wallet/usage' },
-                    { id: 'payment', name: 'Payment Methods', href: '/developer/wallet/payment-methods' }
-                  ]}
-                />
-                <div className="p-6 mx-6">
-                  <Wallet />
-                </div>
-              </>
-            } />
+            <Route path="/wallet" element={<Financial />} />
             <Route path="/wallet/billing" element={
               <>
                 <SectionNav
@@ -932,6 +881,9 @@ const DeveloperDashboard = () => {
                 </div>
               </>
             } />
+
+            {/* Background Check API Route */}
+            <Route path="/background-check" element={<BackgroundCheckAPI />} />
 
             {/* Support & Community Routes */}
             <Route path="/support" element={
