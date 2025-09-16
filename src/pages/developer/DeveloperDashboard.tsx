@@ -15,17 +15,17 @@ import Settings from './Settings'
 import VisualFlowBuilder from '@/components/developer/VisualFlowBuilder'
 import TemplateMarketplace from '@/components/developer/TemplateMarketplace'
 import CustomerVerificationDashboard from '@/components/developer/CustomerVerificationDashboard'
-import FlowTestingEnvironment from '@/components/developer/FlowTestingEnvironment'
+// import FlowTestingEnvironment from '@/components/developer/FlowTestingEnvironment'
 import VerificationTemplates from './VerificationTemplates'
 import WhiteLabelingSystem from '@/components/developer/WhiteLabelingSystem'
 import MobileSDKIntegration from '@/components/developer/MobileSDKIntegration'
 import AdvancedAPIManagement from '@/components/developer/AdvancedAPIManagement'
-import AIPoweredFeatures from '@/components/developer/AIPoweredFeatures'
+// import AIPoweredFeatures from '@/components/developer/AIPoweredFeatures'
 import MultiTenantManagement from '@/components/developer/MultiTenantManagement'
 import EnterpriseSecurity from '@/components/developer/EnterpriseSecurity'
 import AdvancedAnalytics from '@/components/developer/AdvancedAnalytics'
 import EnterpriseIntegrations from '@/components/developer/EnterpriseIntegrations'
-import WorkflowOrchestration from '@/components/developer/WorkflowOrchestration'
+// import WorkflowOrchestration from '@/components/developer/WorkflowOrchestration'
 import ComplianceManagement from '@/components/developer/ComplianceManagement'
 import CustomerAnalytics from '@/components/developer/CustomerAnalytics'
 import CustomerDetails from '@/components/developer/CustomerDetails'
@@ -397,7 +397,7 @@ const DeveloperDashboard = () => {
                     { id: 'costs', name: 'Cost Management', href: '/developer/verification-templates/costs' }
                   ]}
                 />
-                <div className="p-6 mx-6">
+                {/* <div className="p-6 mx-6">
                   <FlowTestingEnvironment
                     flow={{
                       id: 'test-flow',
@@ -409,7 +409,7 @@ const DeveloperDashboard = () => {
                       window.history.back()
                     }}
                   />
-                </div>
+                </div> */}
               </>
             } />
 
@@ -474,7 +474,7 @@ const DeveloperDashboard = () => {
               />
             } />
 
-            <Route path="/ai-features" element={
+            {/* <Route path="/ai-features" element={
               <AIPoweredFeatures
                 onConfigureFeature={(feature) => {
                   console.log('Configuring AI feature:', feature)
@@ -492,7 +492,7 @@ const DeveloperDashboard = () => {
                   window.history.back()
                 }}
               />
-            } />
+            } /> */}
 
             {/* Phase 3: Enterprise Features Routes */}
             <Route path="/multi-tenant" element={
@@ -576,7 +576,7 @@ const DeveloperDashboard = () => {
               />
             } />
 
-            <Route path="/workflow-orchestration" element={
+            {/* <Route path="/workflow-orchestration" element={
               <WorkflowOrchestration
                 onCreateWorkflow={() => {
                   console.log('Creating new workflow')
@@ -594,7 +594,7 @@ const DeveloperDashboard = () => {
                   window.history.back()
                 }}
               />
-            } />
+            } /> */}
 
             <Route path="/compliance-management" element={
               <ComplianceManagement

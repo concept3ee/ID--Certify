@@ -31,9 +31,9 @@ import {
   WifiOff,
   Camera,
   Mic,
-  Location,
+  MapPin,
   Fingerprint,
-  Face,
+  User,
   FileImage,
   Upload,
   Check,
@@ -448,16 +448,16 @@ public partial class VerificationPage : ContentPage
                 Environment = IDCertifyEnvironment.${sdkConfig.environment},
                 Features = new IDCertifyFeatures
                 {
-                    Camera = ${sdkConfig.features.camera.ToString().ToLower()},
-                    Microphone = ${sdkConfig.features.microphone.ToString().ToLower()},
-                    Location = ${sdkConfig.features.location.ToString().ToLower()},
-                    Biometrics = ${sdkConfig.features.biometrics.ToString().ToLower()}
+                    Camera = ${sdkConfig.features.camera.toString().toLowerCase()},
+                    Microphone = ${sdkConfig.features.microphone.toString().toLowerCase()},
+                    Location = ${sdkConfig.features.location.toString().toLowerCase()},
+                    Biometrics = ${sdkConfig.features.biometrics.toString().toLowerCase()}
                 },
                 Security = new IDCertifySecurity
                 {
-                    Encryption = ${sdkConfig.security.encryption.ToString().ToLower()},
-                    CertificatePinning = ${sdkConfig.security.certificatePinning.ToString().ToLower()},
-                    JailbreakDetection = ${sdkConfig.security.jailbreakDetection.ToString().ToLower()}
+                    Encryption = ${sdkConfig.security.encryption.toString().toLowerCase()},
+                    CertificatePinning = ${sdkConfig.security.certificatePinning.toString().toLowerCase()},
+                    JailbreakDetection = ${sdkConfig.security.jailbreakDetection.toString().toLowerCase()}
                 }
             };
 

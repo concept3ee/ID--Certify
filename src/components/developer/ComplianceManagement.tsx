@@ -45,7 +45,6 @@ import {
   Smartphone, 
   Tablet, 
   Laptop, 
-  Desktop, 
   User, 
   UserCheck, 
   UserX, 

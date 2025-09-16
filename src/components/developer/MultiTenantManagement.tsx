@@ -60,8 +60,7 @@ import {
   Monitor, 
   Smartphone, 
   Tablet, 
-  Laptop, 
-  Desktop
+  Laptop
 } from 'lucide-react'
 
 interface Tenant {
