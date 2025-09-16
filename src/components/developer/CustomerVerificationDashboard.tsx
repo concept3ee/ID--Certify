@@ -171,6 +171,16 @@ const CustomerVerificationDashboard: React.FC<CustomerVerificationDashboardProps
         progress: 100,
         startedAt: '2024-01-20T10:30:00Z',
         completedAt: '2024-01-20T10:45:00Z',
+        appName: 'ID-Certify App',
+        country: 'USA',
+        dateOfBirth: '1990-01-15',
+        gender: 'Male',
+        phoneNumber: '+1-555-0123',
+        verificationTypes: [
+          { id: '1', name: 'Document Verification', type: 'document_analysis', required: true, status: 'completed' },
+          { id: '2', name: 'Face Matching', type: 'biometric_verification', required: true, status: 'completed' },
+          { id: '3', name: 'Liveness Check', type: 'liveness_check', required: true, status: 'completed' }
+        ],
         steps: [
           { id: '1', name: 'Document Upload', type: 'document-upload', status: 'completed', startedAt: '2024-01-20T10:30:00Z', completedAt: '2024-01-20T10:35:00Z', duration: 300 },
           { id: '2', name: 'Face Matching', type: 'face-match', status: 'completed', startedAt: '2024-01-20T10:35:00Z', completedAt: '2024-01-20T10:40:00Z', duration: 300 },
@@ -192,6 +202,7 @@ const CustomerVerificationDashboard: React.FC<CustomerVerificationDashboardProps
           userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
           location: 'New York, NY, USA',
           device: 'Desktop',
+          deviceType: 'desktop',
           browser: 'Chrome',
           referrer: 'https://example.com',
           campaign: 'signup-2024'
@@ -211,6 +222,16 @@ const CustomerVerificationDashboard: React.FC<CustomerVerificationDashboardProps
         progress: 60,
         startedAt: '2024-01-20T14:00:00Z',
         estimatedCompletion: '2024-01-20T16:00:00Z',
+        appName: 'ID-Certify Business',
+        country: 'USA',
+        dateOfBirth: '1985-03-20',
+        gender: 'N/A',
+        phoneNumber: '+1-555-0456',
+        verificationTypes: [
+          { id: '1', name: 'Business Registration', type: 'document_analysis', required: true, status: 'completed' },
+          { id: '2', name: 'Authorized Representative', type: 'biometric_verification', required: true, status: 'pending' },
+          { id: '3', name: 'Business Verification', type: 'government_lookup', required: true, status: 'pending' }
+        ],
         steps: [
           { id: '1', name: 'Business Registration', type: 'document-upload', status: 'completed', startedAt: '2024-01-20T14:00:00Z', completedAt: '2024-01-20T14:15:00Z', duration: 900 },
           { id: '2', name: 'Authorized Representative', type: 'face-match', status: 'in-progress', startedAt: '2024-01-20T14:15:00Z' },
@@ -232,6 +253,7 @@ const CustomerVerificationDashboard: React.FC<CustomerVerificationDashboardProps
           userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
           location: 'San Francisco, CA, USA',
           device: 'Desktop',
+          deviceType: 'desktop',
           browser: 'Safari'
         },
         priority: 'high',
@@ -249,6 +271,16 @@ const CustomerVerificationDashboard: React.FC<CustomerVerificationDashboardProps
         status: 'failed',
         progress: 40,
         startedAt: '2024-01-20T09:00:00Z',
+        appName: 'ID-Certify App',
+        country: 'USA',
+        dateOfBirth: '1988-07-10',
+        gender: 'Female',
+        phoneNumber: '+1-555-0789',
+        verificationTypes: [
+          { id: '1', name: 'Document Verification', type: 'document_analysis', required: true, status: 'completed' },
+          { id: '2', name: 'Face Matching', type: 'biometric_verification', required: true, status: 'completed' },
+          { id: '3', name: 'Liveness Check', type: 'liveness_check', required: true, status: 'completed' }
+        ],
         steps: [
           { id: '1', name: 'Document Upload', type: 'document-upload', status: 'failed', startedAt: '2024-01-20T09:00:00Z', errors: ['Document quality too low', 'Unable to extract text'] },
           { id: '2', name: 'Face Matching', type: 'face-match', status: 'pending' },
@@ -270,6 +302,7 @@ const CustomerVerificationDashboard: React.FC<CustomerVerificationDashboardProps
           userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15',
           location: 'Chicago, IL, USA',
           device: 'Mobile',
+          deviceType: 'mobile',
           browser: 'Safari'
         },
         priority: 'medium',

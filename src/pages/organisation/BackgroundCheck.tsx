@@ -82,7 +82,13 @@ const BackgroundCheck = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [selectedCheck, setSelectedCheck] = useState<BackgroundCheck | null>(null)
   const [showDetails, setShowDetails] = useState(false)
-  const [candidateInfo, setCandidateInfo] = useState(null)
+  const [candidateInfo, setCandidateInfo] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    score: number;
+    profileImage: string;
+  } | null>(null)
   const [isSearching, setIsSearching] = useState(false)
   const [showOTPModal, setShowOTPModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -188,8 +194,8 @@ const BackgroundCheck = () => {
     setSelectedChecks(prev => ({
       ...prev,
       [checkName]: {
-        ...prev[checkName],
-        selected: !prev[checkName].selected
+        ...prev[checkName as keyof typeof prev],
+        selected: !prev[checkName as keyof typeof prev].selected
       }
     }))
   }

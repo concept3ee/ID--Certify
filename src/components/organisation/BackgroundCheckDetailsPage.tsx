@@ -1858,8 +1858,8 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
     return (
       <div className="space-y-8">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold text-gray-900 tracking-tight">{subTab.name}</h3>
-          <span className="text-sm text-gray-500 font-medium">{subTab.data.timeline}</span>
+          <h3 className="text-xl font-bold text-gray-900 tracking-tight">{(subTab as any).name}</h3>
+          <span className="text-sm text-gray-500 font-medium">{(subTab as any).data.timeline}</span>
         </div>
 
         {/* Personal & Identity Information */}
