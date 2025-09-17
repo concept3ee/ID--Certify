@@ -659,6 +659,11 @@ const BackgroundCheck = () => {
 
             {/* Requests Table */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
+                <p className="text-sm text-gray-600">
+                  💡 Click on any row to view detailed background check information
+                </p>
+              </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-50">
@@ -705,8 +710,12 @@ const BackgroundCheck = () => {
                       }
                       
                       return (
-                        <tr key={check.id} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap">
+                        <tr 
+                          key={check.id} 
+                          className="hover:bg-blue-50 cursor-pointer transition-all duration-200 border-l-4 border-transparent hover:border-primary-500"
+                          onClick={() => handleViewDetails(check)}
+                        >
+                          <td className="px-6 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
                             <input type="checkbox" className="rounded border-gray-300" />
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -737,7 +746,7 @@ const BackgroundCheck = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             Oct 16, 2024 13:45:00
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium" onClick={(e) => e.stopPropagation()}>
                             <button className="text-gray-600 hover:text-gray-700">
                               <MoreVertical className="h-4 w-4" />
                             </button>
