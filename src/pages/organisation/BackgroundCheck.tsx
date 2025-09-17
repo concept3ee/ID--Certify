@@ -625,75 +625,148 @@ const BackgroundCheck = () => {
               </div>
             )}
 
+            {/* Table Controls */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-4">
+                {/* Search Bar */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Q Search"
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  />
+                </div>
+                
+                {/* Date Range Selector */}
+                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                  <Calendar className="h-4 w-4" />
+                  <span>Start Jan 6, 2022 - End Jan 13, 2022</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                  <Download className="h-4 w-4" />
+                  <span>Export</span>
+                </button>
+                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                  <Filter className="h-4 w-4" />
+                  <span>Filter</span>
+                </button>
+              </div>
+            </div>
+
             {/* Requests Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cost</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {backgroundChecks.map((check) => (
-                    <tr key={check.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                            <User className="h-5 w-5 text-blue-600" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">{check.candidateName}</div>
-                            <div className="text-sm text-gray-500">{check.candidateEmail}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{check.position}</div>
-                        <div className="text-sm text-gray-500">{check.department}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-2">
-                          {getStatusIcon(check.status)}
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(check.status)}`}>
-                            {check.status.replace('-', ' ')}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityColor(check.priority)}`}>
-                          {check.priority}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {formatCurrency(check.cost)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <div className="flex items-center space-x-2">
-                          <button
-                            onClick={() => handleViewDetails(check)}
-                            className="text-primary-600 hover:text-primary-700"
-                          >
-                            <Eye className="h-4 w-4" />
-                          </button>
-                          {check.reportUrl && (
-                            <button className="text-green-600 hover:text-green-700">
-                              <Download className="h-4 w-4" />
-                            </button>
-                          )}
-                          <button className="text-gray-600 hover:text-gray-700">
-                            <MoreVertical className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </td>
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <input type="checkbox" className="rounded border-gray-300" />
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">FIRST NAME</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MIDDLE NAME</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">LAST NAME</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">STATUS</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">TRUST SCORE</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">BG CHECK SCORE</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DATE INITIATED</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {backgroundChecks.map((check, index) => {
+                      // Generate mock data similar to the image
+                      const names = check.candidateName.split(' ')
+                      const firstName = names[0] || 'Unknown'
+                      const middleName = 'Elijah'
+                      const lastName = names[1] || 'Elias'
+                      
+                      // Generate trust score based on status
+                      const getTrustScore = () => {
+                        if (check.status === 'completed') {
+                          const scores = [300, 241, 812, 790, 830, 932, 540]
+                          return scores[index % scores.length]
+                        }
+                        return 'NIL'
+                      }
+                      
+                      const trustScore = getTrustScore()
+                      const getScoreColor = (score: number | string) => {
+                        if (score === 'NIL') return 'bg-gray-100 text-gray-600'
+                        if (typeof score === 'number') {
+                          if (score < 400) return 'bg-red-100 text-red-700'
+                          if (score < 600) return 'bg-orange-100 text-orange-700'
+                          return 'bg-green-100 text-green-700'
+                        }
+                        return 'bg-gray-100 text-gray-600'
+                      }
+                      
+                      return (
+                        <tr key={check.id} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <input type="checkbox" className="rounded border-gray-300" />
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center mr-3 text-white font-semibold text-sm">
+                                {firstName.charAt(0)}
+                              </div>
+                              <span className="text-sm font-medium text-gray-900">{firstName}</span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{middleName}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{lastName}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 border border-green-200">
+                              COMPLETED
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getScoreColor(trustScore)}`}>
+                              {trustScore}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getScoreColor(trustScore)}`}>
+                              {trustScore}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            Oct 16, 2024 13:45:00
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button className="text-gray-600 hover:text-gray-700">
+                              <MoreVertical className="h-4 w-4" />
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              
+              {/* Pagination */}
+              <div className="bg-white px-6 py-3 border-t border-gray-200 flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">← Previous</button>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <button className="px-3 py-1 text-sm bg-red-500 text-white rounded">1</button>
+                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">2</button>
+                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">3</button>
+                  <span className="px-2 text-gray-400">...</span>
+                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">8</button>
+                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">9</button>
+                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">10</button>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">Next →</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
