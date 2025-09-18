@@ -965,25 +965,14 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             <div className="p-6">
               {selectedCategory && (
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <h3 className="text-xl font-semibold text-gray-900">
-                        {categories.find(c => c.key === selectedCategory)?.name}
-                      </h3>
-                      {request.results?.[selectedCategory as keyof typeof request.results] && (
-                        <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full border ${getStatusColor(request.results[selectedCategory as keyof typeof request.results])}`}>
-                          {request.results[selectedCategory as keyof typeof request.results]?.toUpperCase().replace('-', ' ')}
-                        </span>
-                      )}
-                    </div>
-                    {isEditing && (
-                      <button
-                        onClick={handleSave}
-                        className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-                      >
-                        <Save className="h-4 w-4" />
-                        <span>Save Changes</span>
-                      </button>
+                  <div className="flex items-center space-x-3">
+                    <h3 className="text-xl font-semibold text-gray-900">
+                      {categories.find(c => c.key === selectedCategory)?.name}
+                    </h3>
+                    {request.results?.[selectedCategory as keyof typeof request.results] && (
+                      <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full border ${getStatusColor(request.results[selectedCategory as keyof typeof request.results])}`}>
+                        {request.results[selectedCategory as keyof typeof request.results]?.toUpperCase().replace('-', ' ')}
+                      </span>
                     )}
                   </div>
                   {renderDetailContent()}
