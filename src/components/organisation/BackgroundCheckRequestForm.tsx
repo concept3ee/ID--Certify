@@ -131,7 +131,15 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const [selectedSubTab, setSelectedSubTab] = useState('address')
   const [showDetails, setShowDetails] = useState(false)
   const [selectedChecks, setSelectedChecks] = useState<{[key: string]: {selected: boolean, price: number}}>({
-    personalIdentity: { selected: false, price: 5000 },
+    // Personal Identity sub-checks
+    'personalIdentity.address': { selected: false, price: 2000 },
+    'personalIdentity.bvn': { selected: false, price: 1500 },
+    'personalIdentity.nin': { selected: false, price: 1000 },
+    'personalIdentity.frsc': { selected: false, price: 2500 },
+    'personalIdentity.residency': { selected: false, price: 1200 },
+    'personalIdentity.nameChange': { selected: false, price: 800 },
+    'personalIdentity.email': { selected: false, price: 500 },
+    // Other categories
     criminalRecord: { selected: false, price: 8000 },
     financialCredit: { selected: false, price: 6000 },
     fraudDetection: { selected: false, price: 4000 },
@@ -404,10 +412,30 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const getSelectedChecksList = () => {
     return Object.entries(selectedChecks)
       .filter(([_, check]) => check.selected)
-      .map(([key, check]) => ({
-        name: categories.find(c => c.key === key)?.name || key,
-        price: check.price
-      }))
+      .map(([key, check]) => {
+        // Handle personal identity sub-checks
+        if (key.startsWith('personalIdentity.')) {
+          const subTab = key.split('.')[1]
+          const subTabNames: {[key: string]: string} = {
+            'address': 'Address Verification',
+            'bvn': 'BVN Check',
+            'nin': 'NIN Check',
+            'frsc': 'FRSC History Check',
+            'residency': 'State Residency Verification',
+            'nameChange': 'Name Change History',
+            'email': 'Email Verification'
+          }
+          return {
+            name: subTabNames[subTab] || key,
+            price: check.price
+          }
+        }
+        // Handle other categories
+        return {
+          name: categories.find(c => c.key === key)?.name || key,
+          price: check.price
+        }
+      })
   }
 
   const renderPersonalIdentityContent = () => {
@@ -444,7 +472,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         {/* Content based on selected sub-tab */}
         {selectedSubTab === 'address' && (
           <div className="space-y-4">
-            {!selectedChecks.personalIdentity?.selected ? (
+            {!selectedChecks['personalIdentity.address']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <MapPin className="h-8 w-8 text-gray-400" />
@@ -452,7 +480,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Address Verification</h3>
                 <p className="text-gray-500 mb-4">Verify the candidate's residential address</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity')}
+                  onClick={() => toggleCheck('personalIdentity.address')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Add Address Check - ₦2,000
@@ -463,7 +491,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">Address Verification</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity')}
+                    onClick={() => toggleCheck('personalIdentity.address')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -535,7 +563,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {selectedSubTab === 'bvn' && (
           <div className="space-y-4">
-            {!selectedChecks.personalIdentity?.selected ? (
+            {!selectedChecks['personalIdentity.bvn']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <User className="h-8 w-8 text-gray-400" />
@@ -543,7 +571,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <h3 className="text-lg font-medium text-gray-900 mb-2">BVN Verification</h3>
                 <p className="text-gray-500 mb-4">Verify the candidate's Bank Verification Number</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity')}
+                  onClick={() => toggleCheck('personalIdentity.bvn')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Add BVN Check - ₦1,500
@@ -554,7 +582,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">BVN Verification</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity')}
+                    onClick={() => toggleCheck('personalIdentity.bvn')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -580,7 +608,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {selectedSubTab === 'nin' && (
           <div className="space-y-4">
-            {!selectedChecks.personalIdentity?.selected ? (
+            {!selectedChecks['personalIdentity.nin']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <User className="h-8 w-8 text-gray-400" />
@@ -588,7 +616,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <h3 className="text-lg font-medium text-gray-900 mb-2">NIN Verification</h3>
                 <p className="text-gray-500 mb-4">Verify the candidate's National Identification Number</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity')}
+                  onClick={() => toggleCheck('personalIdentity.nin')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Add NIN Check - ₦1,000
@@ -599,7 +627,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">NIN Verification</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity')}
+                    onClick={() => toggleCheck('personalIdentity.nin')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -625,7 +653,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {selectedSubTab === 'frsc' && (
           <div className="space-y-4">
-            {!selectedChecks.personalIdentity?.selected ? (
+            {!selectedChecks['personalIdentity.frsc']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <User className="h-8 w-8 text-gray-400" />
@@ -633,7 +661,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <h3 className="text-lg font-medium text-gray-900 mb-2">FRSC History Check</h3>
                 <p className="text-gray-500 mb-4">Check the candidate's Federal Road Safety Corps history</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity')}
+                  onClick={() => toggleCheck('personalIdentity.frsc')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Add FRSC Check - ₦2,500
@@ -644,7 +672,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">FRSC History Check</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity')}
+                    onClick={() => toggleCheck('personalIdentity.frsc')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -670,7 +698,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {selectedSubTab === 'residency' && (
           <div className="space-y-4">
-            {!selectedChecks.personalIdentity?.selected ? (
+            {!selectedChecks['personalIdentity.residency']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <MapPin className="h-8 w-8 text-gray-400" />
@@ -678,7 +706,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <h3 className="text-lg font-medium text-gray-900 mb-2">State Residency Verification</h3>
                 <p className="text-gray-500 mb-4">Verify the candidate's state of residence</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity')}
+                  onClick={() => toggleCheck('personalIdentity.residency')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Add Residency Check - ₦1,200
@@ -689,7 +717,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">State Residency Verification</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity')}
+                    onClick={() => toggleCheck('personalIdentity.residency')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -715,7 +743,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {selectedSubTab === 'nameChange' && (
           <div className="space-y-4">
-            {!selectedChecks.personalIdentity?.selected ? (
+            {!selectedChecks['personalIdentity.nameChange']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <User className="h-8 w-8 text-gray-400" />
@@ -723,7 +751,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Name Change History</h3>
                 <p className="text-gray-500 mb-4">Check for any legal name changes</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity')}
+                  onClick={() => toggleCheck('personalIdentity.nameChange')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Add Name Change Check - ₦800
@@ -734,7 +762,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">Name Change History</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity')}
+                    onClick={() => toggleCheck('personalIdentity.nameChange')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -760,7 +788,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {selectedSubTab === 'email' && (
           <div className="space-y-4">
-            {!selectedChecks.personalIdentity?.selected ? (
+            {!selectedChecks['personalIdentity.email']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Mail className="h-8 w-8 text-gray-400" />
@@ -768,7 +796,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Email Verification</h3>
                 <p className="text-gray-500 mb-4">Verify the candidate's email address</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity')}
+                  onClick={() => toggleCheck('personalIdentity.email')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Add Email Check - ₦500
@@ -779,7 +807,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">Email Verification</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity')}
+                    onClick={() => toggleCheck('personalIdentity.email')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
