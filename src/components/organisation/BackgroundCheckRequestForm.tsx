@@ -413,13 +413,13 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const renderPersonalIdentityContent = () => {
     const details = request.details?.personalIdentity
     const subTabs = [
-      { key: 'address', name: 'Address', icon: MapPin },
-      { key: 'bvn', name: 'BVN Check', icon: User },
-      { key: 'nin', name: 'NIN Check', icon: User },
-      { key: 'frsc', name: 'FRSC History', icon: User },
-      { key: 'residency', name: 'State Residency', icon: MapPin },
-      { key: 'nameChange', name: 'Name change', icon: User },
-      { key: 'email', name: 'Email', icon: Mail }
+      { key: 'address', name: 'Address', icon: MapPin, price: 2000 },
+      { key: 'bvn', name: 'BVN Check', icon: User, price: 1500 },
+      { key: 'nin', name: 'NIN Check', icon: User, price: 1000 },
+      { key: 'frsc', name: 'FRSC History', icon: User, price: 2500 },
+      { key: 'residency', name: 'State Residency', icon: MapPin, price: 1200 },
+      { key: 'nameChange', name: 'Name change', icon: User, price: 800 },
+      { key: 'email', name: 'Email', icon: Mail, price: 500 }
     ]
 
     return (
@@ -444,87 +444,364 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         {/* Content based on selected sub-tab */}
         {selectedSubTab === 'address' && (
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">ADDRESS</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={details?.address || ''}
-                    onChange={(e) => handleInputChange('details.personalIdentity.address', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  />
-                ) : (
-                  <p className="text-gray-900">{details?.address || 'No address provided'}</p>
-                )}
+            {!selectedChecks.personalIdentity?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Address Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's residential address</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Address Check - ₦2,000
+                </button>
               </div>
-              <div className="text-right">
-                <span className="text-sm text-gray-500">From Jun, 2019 to now</span>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Address Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">ADDRESS</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.address || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.address', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.address || 'No address provided'}</p>
+                    )}
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm text-gray-500">From Jun, 2019 to now</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">L.G.A</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.lga || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.lga', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.lga || 'Not specified'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">CITY</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.city || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.city', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.city || 'Not specified'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">STATE</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.state || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.state', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.state || 'Not specified'}</p>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">L.G.A</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={details?.lga || ''}
-                    onChange={(e) => handleInputChange('details.personalIdentity.lga', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  />
-                ) : (
-                  <p className="text-gray-900">{details?.lga || 'Not specified'}</p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">CITY</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={details?.city || ''}
-                    onChange={(e) => handleInputChange('details.personalIdentity.city', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  />
-                ) : (
-                  <p className="text-gray-900">{details?.city || 'Not specified'}</p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">STATE</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={details?.state || ''}
-                    onChange={(e) => handleInputChange('details.personalIdentity.state', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  />
-                ) : (
-                  <p className="text-gray-900">{details?.state || 'Not specified'}</p>
-                )}
-              </div>
-            </div>
+            )}
           </div>
         )}
 
         {selectedSubTab === 'bvn' && (
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">BVN Number</label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={details?.bvn || ''}
-                  onChange={(e) => handleInputChange('details.personalIdentity.bvn', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
-              ) : (
-                <p className="text-gray-900">{details?.bvn || 'Not provided'}</p>
-              )}
-            </div>
+            {!selectedChecks.personalIdentity?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">BVN Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's Bank Verification Number</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add BVN Check - ₦1,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">BVN Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">BVN Number</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={details?.bvn || ''}
+                      onChange={(e) => handleInputChange('details.personalIdentity.bvn', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.bvn || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
-        {/* Add other sub-tabs content here */}
+        {selectedSubTab === 'nin' && (
+          <div className="space-y-4">
+            {!selectedChecks.personalIdentity?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">NIN Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's National Identification Number</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add NIN Check - ₦1,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">NIN Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">NIN Number</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={details?.nin || ''}
+                      onChange={(e) => handleInputChange('details.personalIdentity.nin', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.nin || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'frsc' && (
+          <div className="space-y-4">
+            {!selectedChecks.personalIdentity?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">FRSC History Check</h3>
+                <p className="text-gray-500 mb-4">Check the candidate's Federal Road Safety Corps history</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add FRSC Check - ₦2,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">FRSC History Check</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Driver's License Number</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={details?.frscHistory || ''}
+                      onChange={(e) => handleInputChange('details.personalIdentity.frscHistory', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.frscHistory || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'residency' && (
+          <div className="space-y-4">
+            {!selectedChecks.personalIdentity?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">State Residency Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's state of residence</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Residency Check - ₦1,200
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">State Residency Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">State of Residence</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={details?.stateResidency || ''}
+                      onChange={(e) => handleInputChange('details.personalIdentity.stateResidency', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.stateResidency || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'nameChange' && (
+          <div className="space-y-4">
+            {!selectedChecks.personalIdentity?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Name Change History</h3>
+                <p className="text-gray-500 mb-4">Check for any legal name changes</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Name Change Check - ₦800
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Name Change History</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Previous Names</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={details?.nameChange || ''}
+                      onChange={(e) => handleInputChange('details.personalIdentity.nameChange', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.nameChange || 'No previous names'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'email' && (
+          <div className="space-y-4">
+            {!selectedChecks.personalIdentity?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Email Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's email address</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Email Check - ₦500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Email Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                  {isEditing ? (
+                    <input
+                      type="email"
+                      value={details?.email || ''}
+                      onChange={(e) => handleInputChange('details.personalIdentity.email', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.email || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     )
   }
@@ -645,19 +922,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                               {result.toUpperCase().replace('-', ' ')}
                             </span>
                           )}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              toggleCheck(category.key)
-                            }}
-                            className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${
-                              isCheckSelected
-                                ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                                : 'bg-green-100 text-green-700 hover:bg-green-200'
-                            }`}
-                          >
-                            {isCheckSelected ? 'Remove' : 'Add'}
-                          </button>
                           <ChevronRight className="h-4 w-4 text-gray-400" />
                         </div>
                       </div>
