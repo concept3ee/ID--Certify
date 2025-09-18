@@ -517,13 +517,9 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
-            <h1 className="text-xl font-semibold">Background Check Report</h1>
+            <h1 className="text-xl font-semibold">Background Check Request</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="text-right">
-              <p className="text-sm opacity-90">IDCERTIFY NO</p>
-              <p className="font-semibold">{request.id}</p>
-            </div>
             {request.status === 'completed' && (
               <button className="bg-white text-red-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center space-x-2">
                 <Download className="h-4 w-4" />
@@ -539,92 +535,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
         </div>
 
-        {/* Candidate Summary */}
-        <div className="px-6 py-6 border-b border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
-                <User className="h-8 w-8 text-gray-500" />
-              </div>
-              <div>
-                <div className="flex items-center space-x-3">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={request.candidateName}
-                        onChange={(e) => handleInputChange('candidateName', e.target.value)}
-                        className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none"
-                        placeholder="Enter candidate name"
-                      />
-                    ) : (
-                      request.candidateName || 'Unknown Candidate'
-                    )}
-                  </h2>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                    830
-                  </span>
-                </div>
-                <p className="text-gray-600 mt-1">
-                  {isEditing ? (
-                    <input
-                      type="email"
-                      value={request.candidateEmail}
-                      onChange={(e) => handleInputChange('candidateEmail', e.target.value)}
-                      className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none"
-                      placeholder="Enter email"
-                    />
-                  ) : (
-                    request.candidateEmail || 'No email provided'
-                  )}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-6">
-              <div className="text-center">
-                <p className="text-sm text-gray-500">COMPLETION DATE</p>
-                <p className="font-semibold text-gray-900">
-                  {request.completionDate ? new Date(request.completionDate).toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric', 
-                    year: 'numeric' 
-                  }) : 'Pending'}
-                </p>
-              </div>
-              <div className="text-center">
-                <p className="text-sm text-gray-500">IDENTITY VERIFIED</p>
-                <div className="flex items-center justify-center space-x-1">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span className="text-green-600 font-semibold">Yes</span>
-                </div>
-              </div>
-              <div className="text-center">
-                <p className="text-sm text-gray-500">CONSENT PROVIDED</p>
-                <div className="flex items-center justify-center space-x-1">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span className="text-green-600 font-semibold">
-                    {new Date().toLocaleDateString('en-US', { 
-                      month: 'short', 
-                      day: 'numeric', 
-                      year: 'numeric' 
-                    })} {new Date().toLocaleTimeString('en-US', { 
-                      hour: '2-digit', 
-                      minute: '2-digit', 
-                      second: '2-digit' 
-                    })}
-                  </span>
-                </div>
-              </div>
-              <div className="text-center">
-                <p className="text-sm text-gray-500">FLAGGED</p>
-                <div className="flex items-center justify-center space-x-1">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <span className="text-red-600 font-semibold">2 ISSUES</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Main Content */}
         <div className="flex-1 flex overflow-hidden">
