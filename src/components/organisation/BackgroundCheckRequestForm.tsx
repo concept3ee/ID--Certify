@@ -16,7 +16,8 @@ import {
   Edit3,
   Save,
   Eye,
-  EyeOff
+  EyeOff,
+  CreditCard
 } from 'lucide-react'
 
 interface BackgroundCheckRequest {
@@ -129,6 +130,17 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const [selectedCategory, setSelectedCategory] = useState('personalIdentity')
   const [selectedSubTab, setSelectedSubTab] = useState('address')
   const [showDetails, setShowDetails] = useState(false)
+  const [selectedChecks, setSelectedChecks] = useState<{[key: string]: {selected: boolean, price: number}}>({
+    personalIdentity: { selected: false, price: 5000 },
+    criminalRecord: { selected: false, price: 8000 },
+    financialCredit: { selected: false, price: 6000 },
+    fraudDetection: { selected: false, price: 4000 },
+    education: { selected: false, price: 3000 },
+    employment: { selected: false, price: 7000 },
+    medical: { selected: false, price: 4500 },
+    socialMedia: { selected: false, price: 2500 },
+    association: { selected: false, price: 3500 }
+  })
 
   // Initialize with empty form or existing data
   const [request, setRequest] = useState<BackgroundCheckRequest>({
@@ -373,6 +385,31 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     setIsEditing(false)
   }
 
+  const toggleCheck = (checkKey: string) => {
+    setSelectedChecks(prev => ({
+      ...prev,
+      [checkKey]: {
+        ...prev[checkKey],
+        selected: !prev[checkKey].selected
+      }
+    }))
+  }
+
+  const getTotalPrice = () => {
+    return Object.values(selectedChecks)
+      .filter(check => check.selected)
+      .reduce((total, check) => total + check.price, 0)
+  }
+
+  const getSelectedChecksList = () => {
+    return Object.entries(selectedChecks)
+      .filter(([_, check]) => check.selected)
+      .map(([key, check]) => ({
+        name: categories.find(c => c.key === key)?.name || key,
+        price: check.price
+      }))
+  }
+
   const renderPersonalIdentityContent = () => {
     const details = request.details?.personalIdentity
     const subTabs = [
@@ -535,6 +572,44 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
         </div>
 
+        {/* Candidate Information */}
+        <div className="px-6 py-6 border-b border-gray-200">
+          <div className="flex items-center space-x-4">
+            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+              <User className="h-8 w-8 text-gray-500" />
+            </div>
+            <div>
+              <div className="flex items-center space-x-3">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={request.candidateName}
+                      onChange={(e) => handleInputChange('candidateName', e.target.value)}
+                      className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none"
+                      placeholder="Enter candidate name"
+                    />
+                  ) : (
+                    request.candidateName || 'Unknown Candidate'
+                  )}
+                </h2>
+              </div>
+              <p className="text-gray-600 mt-1">
+                {isEditing ? (
+                  <input
+                    type="email"
+                    value={request.candidateEmail}
+                    onChange={(e) => handleInputChange('candidateEmail', e.target.value)}
+                    className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none"
+                    placeholder="Enter email"
+                  />
+                ) : (
+                  request.candidateEmail || 'No email provided'
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Main Content */}
         <div className="flex-1 flex overflow-hidden">
@@ -547,6 +622,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   const Icon = category.icon
                   const result = request.results?.[category.key as keyof typeof request.results]
                   const isSelected = selectedCategory === category.key
+                  const isCheckSelected = selectedChecks[category.key]?.selected || false
                   
                   return (
                     <div
@@ -569,6 +645,19 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                               {result.toUpperCase().replace('-', ' ')}
                             </span>
                           )}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              toggleCheck(category.key)
+                            }}
+                            className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${
+                              isCheckSelected
+                                ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                                : 'bg-green-100 text-green-700 hover:bg-green-200'
+                            }`}
+                          >
+                            {isCheckSelected ? 'Remove' : 'Add'}
+                          </button>
                           <ChevronRight className="h-4 w-4 text-gray-400" />
                         </div>
                       </div>
@@ -579,7 +668,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             </div>
           </div>
 
-          {/* Right Panel - Details */}
+          {/* Center Panel - Details */}
           <div className="flex-1 overflow-y-auto">
             <div className="p-6">
               {selectedCategory && (
@@ -606,6 +695,49 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                     )}
                   </div>
                   {renderDetailContent()}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right Panel - Payment Section */}
+          <div className="w-80 bg-gray-50 border-l border-gray-200 overflow-y-auto">
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Summary</h3>
+              
+              {getSelectedChecksList().length > 0 ? (
+                <div className="space-y-4">
+                  <div className="space-y-3">
+                    {getSelectedChecksList().map((check, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{check.name}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-semibold text-gray-900">₦{check.price.toLocaleString()}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="border-t border-gray-200 pt-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-lg font-semibold text-gray-900">Total</span>
+                      <span className="text-lg font-bold text-gray-900">₦{getTotalPrice().toLocaleString()}</span>
+                    </div>
+                    
+                    <button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+                      Proceed to Payment
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CreditCard className="h-8 w-8 text-gray-400" />
+                  </div>
+                  <p className="text-gray-500 text-sm">No background checks selected</p>
+                  <p className="text-gray-400 text-xs mt-1">Click "Add" on any category to get started</p>
                 </div>
               )}
             </div>
