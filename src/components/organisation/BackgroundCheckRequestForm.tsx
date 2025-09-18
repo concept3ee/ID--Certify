@@ -136,18 +136,55 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     'personalIdentity.bvn': { selected: false, price: 1500 },
     'personalIdentity.nin': { selected: false, price: 1000 },
     'personalIdentity.frsc': { selected: false, price: 2500 },
-    'personalIdentity.residency': { selected: false, price: 1200 },
+    'personalIdentity.birthCertificate': { selected: false, price: 1800 },
+    'personalIdentity.stateResidency': { selected: false, price: 1200 },
     'personalIdentity.nameChange': { selected: false, price: 800 },
-    'personalIdentity.email': { selected: false, price: 500 },
-    // Other categories
-    criminalRecord: { selected: false, price: 8000 },
-    financialCredit: { selected: false, price: 6000 },
-    fraudDetection: { selected: false, price: 4000 },
-    education: { selected: false, price: 3000 },
-    employment: { selected: false, price: 7000 },
-    medical: { selected: false, price: 4500 },
-    socialMedia: { selected: false, price: 2500 },
-    association: { selected: false, price: 3500 }
+    'personalIdentity.phoneEmail': { selected: false, price: 500 },
+    'personalIdentity.passport': { selected: false, price: 3000 },
+    // Criminal Record sub-checks
+    'criminalRecord.criminalHistory': { selected: false, price: 4000 },
+    'criminalRecord.financialCrime': { selected: false, price: 3500 },
+    'criminalRecord.courtRecords': { selected: false, price: 3000 },
+    'criminalRecord.sexOffenderRegistry': { selected: false, price: 2500 },
+    // Financial & Credit sub-checks
+    'financialCredit.creditReport': { selected: false, price: 2000 },
+    'financialCredit.incomeSources': { selected: false, price: 2500 },
+    'financialCredit.outstandingDebts': { selected: false, price: 1800 },
+    'financialCredit.businessFinancial': { selected: false, price: 3000 },
+    'financialCredit.firsHistory': { selected: false, price: 2200 },
+    'financialCredit.bankVerification': { selected: false, price: 1500 },
+    'financialCredit.loanHistory': { selected: false, price: 2000 },
+    // Association sub-checks
+    'association.professionalBodies': { selected: false, price: 1500 },
+    'association.alumniNetworks': { selected: false, price: 2000 },
+    'association.exclusiveAssociations': { selected: false, price: 2500 },
+    'association.politicalExposure': { selected: false, price: 3000 },
+    'association.professionalAssociations': { selected: false, price: 1200 },
+    'association.businessAssociations': { selected: false, price: 1800 },
+    'association.socialAssociations': { selected: false, price: 1000 },
+    // Medical sub-checks
+    'medical.medicalHistory': { selected: false, price: 2000 },
+    'medical.medicalRecords': { selected: false, price: 2500 },
+    'medical.drugTest': { selected: false, price: 3000 },
+    'medical.fitnessAssessment': { selected: false, price: 1500 },
+    // Employment sub-checks
+    'employment.employmentHistory': { selected: false, price: 2500 },
+    'employment.referenceCheck': { selected: false, price: 2000 },
+    'employment.backgroundGapAnalysis': { selected: false, price: 1800 },
+    // Education sub-checks
+    'education.degreeVerification': { selected: false, price: 2000 },
+    'education.transcriptVerification': { selected: false, price: 2500 },
+    'education.professionalCertifications': { selected: false, price: 1500 },
+    // Social Media sub-checks
+    'socialMedia.newsArticles': { selected: false, price: 1000 },
+    'socialMedia.onlineContent': { selected: false, price: 1500 },
+    'socialMedia.thoughtLeadership': { selected: false, price: 2000 },
+    'socialMedia.socialMediaProfiles': { selected: false, price: 1200 },
+    'socialMedia.reputationScore': { selected: false, price: 1800 },
+    // Fraud Detection sub-checks
+    'fraudDetection.identityFraud': { selected: false, price: 2000 },
+    'fraudDetection.watchlistCheck': { selected: false, price: 1500 },
+    'fraudDetection.deviceFingerprint': { selected: false, price: 1000 }
   })
 
   // Initialize with empty form or existing data
@@ -283,55 +320,55 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
       key: 'personalIdentity',
       name: 'Personal & Identity Information',
       icon: User,
-      subTabs: ['address', 'bvn', 'nin', 'frsc', 'residency', 'nameChange', 'email']
+      subTabs: ['address', 'bvn', 'nin', 'frsc', 'birthCertificate', 'stateResidency', 'nameChange', 'phoneEmail', 'passport']
     },
     {
       key: 'criminalRecord',
       name: 'Criminal Record Check',
       icon: AlertTriangle,
-      subTabs: ['criminalHistory', 'courtRecords', 'arrestRecords']
+      subTabs: ['criminalHistory', 'financialCrime', 'courtRecords', 'sexOffenderRegistry']
     },
     {
       key: 'financialCredit',
       name: 'Financial & Credit History',
       icon: CheckCircle,
-      subTabs: ['creditScore', 'creditHistory', 'financialRecords']
+      subTabs: ['creditReport', 'incomeSources', 'outstandingDebts', 'businessFinancial', 'firsHistory', 'bankVerification', 'loanHistory']
+    },
+    {
+      key: 'association',
+      name: 'Association Verification',
+      icon: CheckCircle,
+      subTabs: ['professionalBodies', 'alumniNetworks', 'exclusiveAssociations', 'politicalExposure', 'professionalAssociations', 'businessAssociations', 'socialAssociations']
+    },
+    {
+      key: 'medical',
+      name: 'Medical History',
+      icon: Clock,
+      subTabs: ['medicalHistory', 'medicalRecords', 'drugTest', 'fitnessAssessment']
+    },
+    {
+      key: 'employment',
+      name: 'Professional Records (Employment & Credentials)',
+      icon: Clock,
+      subTabs: ['employmentHistory', 'referenceCheck', 'backgroundGapAnalysis']
+    },
+    {
+      key: 'education',
+      name: 'Education',
+      icon: AlertTriangle,
+      subTabs: ['degreeVerification', 'transcriptVerification', 'professionalCertifications']
+    },
+    {
+      key: 'socialMedia',
+      name: 'Social Media & Online Presence (Digital Reputation)',
+      icon: CheckCircle,
+      subTabs: ['newsArticles', 'onlineContent', 'thoughtLeadership', 'socialMediaProfiles', 'reputationScore']
     },
     {
       key: 'fraudDetection',
       name: 'Fraud & Anti-Fraud Detection',
       icon: CheckCircle,
-      subTabs: ['fraudAlerts', 'identityTheft', 'suspiciousActivity']
-    },
-    {
-      key: 'education',
-      name: 'Education Verification',
-      icon: AlertTriangle,
-      subTabs: ['institution', 'degree', 'graduation', 'verification']
-    },
-    {
-      key: 'employment',
-      name: 'Employment History',
-      icon: Clock,
-      subTabs: ['currentEmployer', 'previousEmployers', 'employmentHistory']
-    },
-    {
-      key: 'medical',
-      name: 'Medical Records',
-      icon: Clock,
-      subTabs: ['medicalHistory', 'drugTest', 'healthRecords']
-    },
-    {
-      key: 'socialMedia',
-      name: 'Social Media Check',
-      icon: Clock,
-      subTabs: ['socialProfiles', 'onlinePresence', 'reputationCheck']
-    },
-    {
-      key: 'association',
-      name: 'Association Check',
-      icon: Clock,
-      subTabs: ['knownAssociates', 'familyConnections', 'businessAssociations']
+      subTabs: ['identityFraud', 'watchlistCheck', 'deviceFingerprint']
     }
   ]
 
@@ -413,20 +450,76 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     return Object.entries(selectedChecks)
       .filter(([_, check]) => check.selected)
       .map(([key, check]) => {
-        // Handle personal identity sub-checks
-        if (key.startsWith('personalIdentity.')) {
-          const subTab = key.split('.')[1]
-          const subTabNames: {[key: string]: string} = {
-            'address': 'Address Verification',
-            'bvn': 'BVN Check',
-            'nin': 'NIN Check',
-            'frsc': 'FRSC History Check',
-            'residency': 'State Residency Verification',
-            'nameChange': 'Name Change History',
-            'email': 'Email Verification'
+        // Handle all sub-checks
+        if (key.includes('.')) {
+          const [category, subTab] = key.split('.')
+          const subTabNames: {[key: string]: {[key: string]: string}} = {
+            'personalIdentity': {
+              'address': 'Address Verification',
+              'bvn': 'BVN Check',
+              'nin': 'NIN Check',
+              'frsc': 'FRSC History Check',
+              'birthCertificate': 'Birth Certificate',
+              'stateResidency': 'State Residency Verification',
+              'nameChange': 'Name Change History',
+              'phoneEmail': 'Phone & Email Verification',
+              'passport': 'Passport History Verification'
+            },
+            'criminalRecord': {
+              'criminalHistory': 'Criminal History',
+              'financialCrime': 'Financial Crime History',
+              'courtRecords': 'Court Records',
+              'sexOffenderRegistry': 'Sex Offender Registry'
+            },
+            'financialCredit': {
+              'creditReport': 'Credit Report',
+              'incomeSources': 'Verified Income Sources',
+              'outstandingDebts': 'Outstanding Debts & Liabilities',
+              'businessFinancial': 'Business Financial History',
+              'firsHistory': 'FIRS History',
+              'bankVerification': 'Bank Verification',
+              'loanHistory': 'Loan History'
+            },
+            'association': {
+              'professionalBodies': 'Professional Bodies (NBA, ICAN, etc.)',
+              'alumniNetworks': 'Alumni Networks (Harvard, Oxford, etc.)',
+              'exclusiveAssociations': 'Exclusive Industry Associations',
+              'politicalExposure': 'Political Exposure (PEPs)',
+              'professionalAssociations': 'Professional Associations',
+              'businessAssociations': 'Business Associations',
+              'socialAssociations': 'Social Associations'
+            },
+            'medical': {
+              'medicalHistory': 'Medical History',
+              'medicalRecords': 'Medical Records',
+              'drugTest': 'Drug Test',
+              'fitnessAssessment': 'Fitness Assessment'
+            },
+            'employment': {
+              'employmentHistory': 'Employment History',
+              'referenceCheck': 'Reference Check',
+              'backgroundGapAnalysis': 'Background Gap Analysis'
+            },
+            'education': {
+              'degreeVerification': 'Degree Verification',
+              'transcriptVerification': 'Transcript Verification',
+              'professionalCertifications': 'Professional Certifications'
+            },
+            'socialMedia': {
+              'newsArticles': 'News Articles & Public Mentions',
+              'onlineContent': 'Online Content & Reputation Analysis',
+              'thoughtLeadership': 'Thought Leadership & Professional Contributions',
+              'socialMediaProfiles': 'Social Media Profiles',
+              'reputationScore': 'Reputation Score'
+            },
+            'fraudDetection': {
+              'identityFraud': 'Identity Fraud Check',
+              'watchlistCheck': 'Watchlist Check',
+              'deviceFingerprint': 'Device Fingerprint'
+            }
           }
           return {
-            name: subTabNames[subTab] || key,
+            name: subTabNames[category]?.[subTab] || key,
             price: check.price
           }
         }
@@ -445,9 +538,11 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
       { key: 'bvn', name: 'BVN Check', icon: User, price: 1500 },
       { key: 'nin', name: 'NIN Check', icon: User, price: 1000 },
       { key: 'frsc', name: 'FRSC History', icon: User, price: 2500 },
-      { key: 'residency', name: 'State Residency', icon: MapPin, price: 1200 },
+      { key: 'birthCertificate', name: 'Birth Certificate', icon: User, price: 1800 },
+      { key: 'stateResidency', name: 'State Residency', icon: MapPin, price: 1200 },
       { key: 'nameChange', name: 'Name change', icon: User, price: 800 },
-      { key: 'email', name: 'Email', icon: Mail, price: 500 }
+      { key: 'phoneEmail', name: 'Phone & Email', icon: Mail, price: 500 },
+      { key: 'passport', name: 'Passport', icon: User, price: 3000 }
     ]
 
     return (
@@ -786,44 +881,205 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
         )}
 
-        {selectedSubTab === 'email' && (
+        {selectedSubTab === 'phoneEmail' && (
           <div className="space-y-4">
-            {!selectedChecks['personalIdentity.email']?.selected ? (
+            {!selectedChecks['personalIdentity.phoneEmail']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail className="h-8 w-8 text-gray-400" />
+                  <Phone className="h-8 w-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Email Verification</h3>
-                <p className="text-gray-500 mb-4">Verify the candidate's email address</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Phone & Email Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's phone number and email address</p>
                 <button
-                  onClick={() => toggleCheck('personalIdentity.email')}
+                  onClick={() => toggleCheck('personalIdentity.phoneEmail')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
-                  Add Email Check - ₦500
+                  Add Phone & Email Check - ₦500
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Email Verification</h3>
+                  <h3 className="text-lg font-medium text-gray-900">Phone & Email Verification</h3>
                   <button
-                    onClick={() => toggleCheck('personalIdentity.email')}
+                    onClick={() => toggleCheck('personalIdentity.phoneEmail')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
                   </button>
                 </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    {isEditing ? (
+                      <input
+                        type="tel"
+                        value={details?.email || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.email', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.email || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    {isEditing ? (
+                      <input
+                        type="email"
+                        value={details?.email || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.email', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.email || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'birthCertificate' && (
+          <div className="space-y-4">
+            {!selectedChecks['personalIdentity.birthCertificate']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Birth Certificate Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's birth certificate details</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity.birthCertificate')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Birth Certificate Check - ₦1,800
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Birth Certificate Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity.birthCertificate')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Birth Certificate Number</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.nin || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.nin', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.nin || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={details?.email || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.email', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.email || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Place of Birth</label>
                   {isEditing ? (
                     <input
-                      type="email"
-                      value={details?.email || ''}
-                      onChange={(e) => handleInputChange('details.personalIdentity.email', e.target.value)}
+                      type="text"
+                        value={details?.address || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.address', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   ) : (
-                    <p className="text-gray-900">{details?.email || 'Not provided'}</p>
+                      <p className="text-gray-900">{details?.address || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'passport' && (
+          <div className="space-y-4">
+            {!selectedChecks['personalIdentity.passport']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Passport History Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's passport details and travel history</p>
+                <button
+                  onClick={() => toggleCheck('personalIdentity.passport')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Passport Check - ₦3,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Passport History Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('personalIdentity.passport')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Passport Number</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.bvn || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.bvn', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.bvn || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Passport Expiry Date</label>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={details?.email || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.email', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.email || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Issuing Country</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                        value={details?.state || ''}
+                        onChange={(e) => handleInputChange('details.personalIdentity.state', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                      <p className="text-gray-900">{details?.state || 'Not provided'}</p>
                   )}
                 </div>
               </div>
@@ -834,10 +1090,96 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     )
   }
 
+  const renderCriminalRecordContent = () => {
+    const details = request.details?.criminalRecord
+    const subTabs = [
+      { key: 'criminalHistory', name: 'Criminal History', icon: AlertTriangle, price: 4000 },
+      { key: 'financialCrime', name: 'Financial Crime', icon: AlertTriangle, price: 3500 },
+      { key: 'courtRecords', name: 'Court Records', icon: AlertTriangle, price: 3000 },
+      { key: 'sexOffenderRegistry', name: 'Sex Offender Registry', icon: AlertTriangle, price: 2500 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'criminalHistory' && (
+          <div className="space-y-4">
+            {!selectedChecks['criminalRecord.criminalHistory']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Criminal History Check</h3>
+                <p className="text-gray-500 mb-4">Check for any criminal records or convictions</p>
+                <button
+                  onClick={() => toggleCheck('criminalRecord.criminalHistory')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Criminal History Check - ₦4,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Criminal History Check</h3>
+                  <button
+                    onClick={() => toggleCheck('criminalRecord.criminalHistory')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Criminal Record Status</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.criminalHistory || ''}
+                      onChange={(e) => handleInputChange('details.criminalRecord.criminalHistory', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select status</option>
+                      <option value="clean">Clean Record</option>
+                      <option value="minor">Minor Offenses</option>
+                      <option value="serious">Serious Offenses</option>
+                      <option value="pending">Pending Cases</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.criminalHistory || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Add other criminal record sub-tabs here */}
+      </div>
+    )
+  }
+
   const renderDetailContent = () => {
     switch (selectedCategory) {
       case 'personalIdentity':
         return renderPersonalIdentityContent()
+      case 'criminalRecord':
+        return renderCriminalRecordContent()
       default:
         return (
           <div className="text-center py-8">
