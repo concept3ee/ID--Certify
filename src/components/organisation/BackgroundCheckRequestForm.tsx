@@ -1174,12 +1174,619 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     )
   }
 
+  const renderFinancialCreditContent = () => {
+    const details = request.details?.financialCredit
+    const subTabs = [
+      { key: 'creditReport', name: 'Credit Report', icon: CheckCircle, price: 2000 },
+      { key: 'incomeSources', name: 'Income Sources', icon: CheckCircle, price: 2500 },
+      { key: 'outstandingDebts', name: 'Outstanding Debts', icon: CheckCircle, price: 1800 },
+      { key: 'businessFinancial', name: 'Business Financial', icon: CheckCircle, price: 3000 },
+      { key: 'firsHistory', name: 'FIRS History', icon: CheckCircle, price: 2200 },
+      { key: 'bankVerification', name: 'Bank Verification', icon: CheckCircle, price: 1500 },
+      { key: 'loanHistory', name: 'Loan History', icon: CheckCircle, price: 2000 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'creditReport' && (
+          <div className="space-y-4">
+            {!selectedChecks['financialCredit.creditReport']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Credit Report Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's credit history and score</p>
+                <button
+                  onClick={() => toggleCheck('financialCredit.creditReport')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Credit Report Check - ₦2,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Credit Report Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('financialCredit.creditReport')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Credit Score</label>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        value={details?.creditScore || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.creditScore', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter credit score"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.creditScore || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Credit Bureau</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.creditHistory || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.creditHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select bureau</option>
+                        <option value="experian">Experian</option>
+                        <option value="equifax">Equifax</option>
+                        <option value="transunion">TransUnion</option>
+                        <option value="crc">CRC Credit Bureau</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.creditHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Credit History Summary</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.creditHistory || ''}
+                      onChange={(e) => handleInputChange('details.financialCredit.creditHistory', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter credit history summary"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.creditHistory || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'incomeSources' && (
+          <div className="space-y-4">
+            {!selectedChecks['financialCredit.incomeSources']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Verified Income Sources</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's income sources and financial transactions</p>
+                <button
+                  onClick={() => toggleCheck('financialCredit.incomeSources')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Income Sources Check - ₦2,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Verified Income Sources</h3>
+                  <button
+                    onClick={() => toggleCheck('financialCredit.incomeSources')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Monthly Income</label>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        value={details?.creditScore || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.creditScore', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter monthly income"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.creditScore || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Income Source</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.creditHistory || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.creditHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select source</option>
+                        <option value="salary">Salary</option>
+                        <option value="business">Business</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="investment">Investment</option>
+                        <option value="other">Other</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.creditHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Employer/Business Name</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={details?.financialRecords || ''}
+                      onChange={(e) => handleInputChange('details.financialCredit.financialRecords', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      placeholder="Enter employer or business name"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.financialRecords || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'outstandingDebts' && (
+          <div className="space-y-4">
+            {!selectedChecks['financialCredit.outstandingDebts']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Outstanding Debts & Liabilities</h3>
+                <p className="text-gray-500 mb-4">Check for outstanding debts and financial liabilities</p>
+                <button
+                  onClick={() => toggleCheck('financialCredit.outstandingDebts')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Outstanding Debts Check - ₦1,800
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Outstanding Debts & Liabilities</h3>
+                  <button
+                    onClick={() => toggleCheck('financialCredit.outstandingDebts')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Total Outstanding Debt</label>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        value={details?.creditScore || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.creditScore', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter total debt amount"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.creditScore || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Debt Status</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.creditHistory || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.creditHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select status</option>
+                        <option value="current">Current</option>
+                        <option value="overdue">Overdue</option>
+                        <option value="settled">Settled</option>
+                        <option value="none">No Outstanding Debts</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.creditHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'bankVerification' && (
+          <div className="space-y-4">
+            {!selectedChecks['financialCredit.bankVerification']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Bank Verification</h3>
+                <p className="text-gray-500 mb-4">Verify bank account details and banking history</p>
+                <button
+                  onClick={() => toggleCheck('financialCredit.bankVerification')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Bank Verification - ₦1,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Bank Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('financialCredit.bankVerification')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Bank Name</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.creditHistory || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.creditHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter bank name"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.creditHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Account Number</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.financialRecords || ''}
+                        onChange={(e) => handleInputChange('details.financialCredit.financialRecords', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter account number"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.financialRecords || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Account Status</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.creditHistory || ''}
+                      onChange={(e) => handleInputChange('details.financialCredit.creditHistory', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select status</option>
+                      <option value="active">Active</option>
+                      <option value="dormant">Dormant</option>
+                      <option value="closed">Closed</option>
+                      <option value="restricted">Restricted</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.creditHistory || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  const renderAssociationContent = () => {
+    const details = request.details?.association
+    const subTabs = [
+      { key: 'professionalBodies', name: 'Professional Bodies', icon: CheckCircle, price: 1500 },
+      { key: 'alumniNetworks', name: 'Alumni Networks', icon: CheckCircle, price: 2000 },
+      { key: 'exclusiveAssociations', name: 'Exclusive Associations', icon: CheckCircle, price: 2500 },
+      { key: 'politicalExposure', name: 'Political Exposure', icon: CheckCircle, price: 3000 },
+      { key: 'professionalAssociations', name: 'Professional Associations', icon: CheckCircle, price: 1200 },
+      { key: 'businessAssociations', name: 'Business Associations', icon: CheckCircle, price: 1800 },
+      { key: 'socialAssociations', name: 'Social Associations', icon: CheckCircle, price: 1000 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'professionalBodies' && (
+          <div className="space-y-4">
+            {!selectedChecks['association.professionalBodies']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Professional Bodies (NBA, ICAN, etc.)</h3>
+                <p className="text-gray-500 mb-4">Verify membership in professional bodies and associations</p>
+                <button
+                  onClick={() => toggleCheck('association.professionalBodies')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Professional Bodies Check - ₦1,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Professional Bodies (NBA, ICAN, etc.)</h3>
+                  <button
+                    onClick={() => toggleCheck('association.professionalBodies')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Professional Body</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.knownAssociates || ''}
+                        onChange={(e) => handleInputChange('details.association.knownAssociates', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select body</option>
+                        <option value="nba">Nigerian Bar Association (NBA)</option>
+                        <option value="ican">Institute of Chartered Accountants (ICAN)</option>
+                        <option value="cima">Chartered Institute of Management Accountants (CIMA)</option>
+                        <option value="pmi">Project Management Institute (PMI)</option>
+                        <option value="other">Other</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.knownAssociates || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Membership Number</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.familyConnections || ''}
+                        onChange={(e) => handleInputChange('details.association.familyConnections', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter membership number"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.familyConnections || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Membership Status</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.businessAssociations || ''}
+                      onChange={(e) => handleInputChange('details.association.businessAssociations', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select status</option>
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                      <option value="suspended">Suspended</option>
+                      <option value="expired">Expired</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.businessAssociations || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'alumniNetworks' && (
+          <div className="space-y-4">
+            {!selectedChecks['association.alumniNetworks']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Alumni Networks (Harvard, Oxford, etc.)</h3>
+                <p className="text-gray-500 mb-4">Verify alumni status and network connections</p>
+                <button
+                  onClick={() => toggleCheck('association.alumniNetworks')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Alumni Networks Check - ₦2,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Alumni Networks (Harvard, Oxford, etc.)</h3>
+                  <button
+                    onClick={() => toggleCheck('association.alumniNetworks')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.knownAssociates || ''}
+                        onChange={(e) => handleInputChange('details.association.knownAssociates', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter institution name"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.knownAssociates || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Graduation Year</label>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        value={details?.familyConnections || ''}
+                        onChange={(e) => handleInputChange('details.association.familyConnections', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter graduation year"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.familyConnections || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Degree/Program</label>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={details?.businessAssociations || ''}
+                      onChange={(e) => handleInputChange('details.association.businessAssociations', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      placeholder="Enter degree or program"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.businessAssociations || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'politicalExposure' && (
+          <div className="space-y-4">
+            {!selectedChecks['association.politicalExposure']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Political Exposure (PEPs)</h3>
+                <p className="text-gray-500 mb-4">Check for politically exposed person status</p>
+                <button
+                  onClick={() => toggleCheck('association.politicalExposure')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Political Exposure Check - ₦3,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Political Exposure (PEPs)</h3>
+                  <button
+                    onClick={() => toggleCheck('association.politicalExposure')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">PEP Status</label>
+                  {isEditing ? (
+                    <select
+                        value={details?.knownAssociates || ''}
+                        onChange={(e) => handleInputChange('details.association.knownAssociates', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select status</option>
+                      <option value="not_pep">Not a PEP</option>
+                      <option value="domestic_pep">Domestic PEP</option>
+                      <option value="foreign_pep">Foreign PEP</option>
+                      <option value="family_pep">Family Member of PEP</option>
+                      <option value="close_associate">Close Associate of PEP</option>
+                    </select>
+                  ) : (
+                      <p className="text-gray-900">{details?.knownAssociates || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Political Position</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.familyConnections || ''}
+                        onChange={(e) => handleInputChange('details.association.familyConnections', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter political position (if applicable)"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.familyConnections || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   const renderDetailContent = () => {
     switch (selectedCategory) {
       case 'personalIdentity':
         return renderPersonalIdentityContent()
       case 'criminalRecord':
         return renderCriminalRecordContent()
+      case 'financialCredit':
+        return renderFinancialCreditContent()
+      case 'association':
+        return renderAssociationContent()
       default:
         return (
           <div className="text-center py-8">
