@@ -1777,6 +1777,269 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     )
   }
 
+  const renderMedicalContent = () => {
+    const details = request.details?.medical
+    const subTabs = [
+      { key: 'medicalHistory', name: 'Medical History', icon: Clock, price: 2000 },
+      { key: 'medicalRecords', name: 'Medical Records', icon: Clock, price: 2500 },
+      { key: 'drugTest', name: 'Drug Test', icon: Clock, price: 3000 },
+      { key: 'fitnessAssessment', name: 'Fitness Assessment', icon: Clock, price: 1500 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'medicalHistory' && (
+          <div className="space-y-4">
+            {!selectedChecks['medical.medicalHistory']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Medical History Check</h3>
+                <p className="text-gray-500 mb-4">Review the candidate's medical history and health records</p>
+                <button
+                  onClick={() => toggleCheck('medical.medicalHistory')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Medical History Check - ₦2,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Medical History Check</h3>
+                  <button
+                    onClick={() => toggleCheck('medical.medicalHistory')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Medical Conditions</label>
+                    {isEditing ? (
+                      <textarea
+                        value={details?.medicalHistory || ''}
+                        onChange={(e) => handleInputChange('details.medical.medicalHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        rows={3}
+                        placeholder="Enter any known medical conditions"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.medicalHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Health Status</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.healthRecords || ''}
+                        onChange={(e) => handleInputChange('details.medical.healthRecords', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select status</option>
+                        <option value="excellent">Excellent</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                        <option value="poor">Poor</option>
+                        <option value="not_disclosed">Not Disclosed</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.healthRecords || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'drugTest' && (
+          <div className="space-y-4">
+            {!selectedChecks['medical.drugTest']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Drug Test</h3>
+                <p className="text-gray-500 mb-4">Conduct drug screening and substance abuse testing</p>
+                <button
+                  onClick={() => toggleCheck('medical.drugTest')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Drug Test - ₦3,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Drug Test</h3>
+                  <button
+                    onClick={() => toggleCheck('medical.drugTest')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Test Type</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.drugTest || ''}
+                        onChange={(e) => handleInputChange('details.medical.drugTest', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select test type</option>
+                        <option value="urine">Urine Test</option>
+                        <option value="blood">Blood Test</option>
+                        <option value="hair">Hair Test</option>
+                        <option value="saliva">Saliva Test</option>
+                        <option value="comprehensive">Comprehensive Panel</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.drugTest || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Test Result</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.medicalHistory || ''}
+                        onChange={(e) => handleInputChange('details.medical.medicalHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select result</option>
+                        <option value="negative">Negative</option>
+                        <option value="positive">Positive</option>
+                        <option value="inconclusive">Inconclusive</option>
+                        <option value="pending">Pending</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.medicalHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Test Date</label>
+                  {isEditing ? (
+                    <input
+                      type="date"
+                      value={details?.healthRecords || ''}
+                      onChange={(e) => handleInputChange('details.medical.healthRecords', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.healthRecords || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'fitnessAssessment' && (
+          <div className="space-y-4">
+            {!selectedChecks['medical.fitnessAssessment']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Fitness Assessment</h3>
+                <p className="text-gray-500 mb-4">Evaluate physical fitness and capability for specific roles</p>
+                <button
+                  onClick={() => toggleCheck('medical.fitnessAssessment')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Fitness Assessment - ₦1,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Fitness Assessment</h3>
+                  <button
+                    onClick={() => toggleCheck('medical.fitnessAssessment')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Physical Fitness Level</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.medicalHistory || ''}
+                        onChange={(e) => handleInputChange('details.medical.medicalHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select level</option>
+                        <option value="excellent">Excellent</option>
+                        <option value="good">Good</option>
+                        <option value="average">Average</option>
+                        <option value="below_average">Below Average</option>
+                        <option value="poor">Poor</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.medicalHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Assessment Date</label>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={details?.drugTest || ''}
+                        onChange={(e) => handleInputChange('details.medical.drugTest', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.drugTest || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Assessment Notes</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.healthRecords || ''}
+                      onChange={(e) => handleInputChange('details.medical.healthRecords', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter assessment notes and observations"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.healthRecords || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   const renderDetailContent = () => {
     switch (selectedCategory) {
       case 'personalIdentity':
@@ -1787,6 +2050,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         return renderFinancialCreditContent()
       case 'association':
         return renderAssociationContent()
+      case 'medical':
+        return renderMedicalContent()
       default:
         return (
           <div className="text-center py-8">
