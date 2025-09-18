@@ -425,7 +425,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     return (
       <div className="space-y-6">
         {/* Sub-tabs */}
-        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto scrollbar-hide">
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
           {subTabs.map((tab) => (
             <button
               key={tab.key}
