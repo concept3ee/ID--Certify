@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import BackgroundCheckDetailsPage from '../../components/organisation/BackgroundCheckDetailsPage'
+import BackgroundCheckRequestForm from '../../components/organisation/BackgroundCheckRequestForm'
 import { 
   Search, 
   Filter, 
@@ -82,6 +83,8 @@ const BackgroundCheck = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [selectedCheck, setSelectedCheck] = useState<BackgroundCheck | null>(null)
   const [showDetails, setShowDetails] = useState(false)
+  const [showRequestForm, setShowRequestForm] = useState(false)
+  const [editingRequestId, setEditingRequestId] = useState<string | undefined>(undefined)
   const [candidateInfo, setCandidateInfo] = useState<{
     name: string;
     email: string;
@@ -379,7 +382,19 @@ const BackgroundCheck = () => {
 
   const handleViewDetails = (check: BackgroundCheck) => {
     setSelectedCheck(check)
-    setShowDetails(true)
+    setEditingRequestId(check.id)
+    setShowRequestForm(true)
+  }
+
+  const handleCreateNewRequest = () => {
+    setEditingRequestId(undefined)
+    setShowRequestForm(true)
+  }
+
+  const handleSaveRequest = (request: any) => {
+    console.log('Saving request:', request)
+    // Here you would typically save to your backend
+    setShowRequestForm(false)
   }
 
   return (
@@ -441,7 +456,7 @@ const BackgroundCheck = () => {
 
             <div className="flex items-center space-x-3">
               <button
-                onClick={() => setShowNewRequest(true)}
+                onClick={handleCreateNewRequest}
                 className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"
               >
                 <Plus className="h-4 w-4" />
@@ -1900,6 +1915,18 @@ const BackgroundCheck = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* New Background Check Request Form */}
+      {showRequestForm && (
+        <BackgroundCheckRequestForm
+          requestId={editingRequestId}
+          onClose={() => {
+            setShowRequestForm(false)
+            setEditingRequestId(undefined)
+          }}
+          onSave={handleSaveRequest}
+        />
       )}
     </div>
   )
