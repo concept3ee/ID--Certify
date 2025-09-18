@@ -382,6 +382,11 @@ const BackgroundCheck = () => {
 
   const handleViewDetails = (check: BackgroundCheck) => {
     setSelectedCheck(check)
+    setShowDetails(true)
+  }
+
+  const handleViewRequestForm = (check: BackgroundCheck) => {
+    setSelectedCheck(check)
     setEditingRequestId(check.id)
     setShowRequestForm(true)
   }
@@ -762,9 +767,18 @@ const BackgroundCheck = () => {
                             Oct 16, 2024 13:45:00
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium" onClick={(e) => e.stopPropagation()}>
-                            <button className="text-gray-600 hover:text-gray-700">
-                              <MoreVertical className="h-4 w-4" />
-                            </button>
+                            <div className="flex items-center space-x-2">
+                              <button
+                                onClick={() => handleViewRequestForm(check)}
+                                className="text-primary-600 hover:text-primary-700"
+                                title="View Request Form"
+                              >
+                                <Edit className="h-4 w-4" />
+                              </button>
+                              <button className="text-gray-600 hover:text-gray-700">
+                                <MoreVertical className="h-4 w-4" />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       )

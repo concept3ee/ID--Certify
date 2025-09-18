@@ -541,77 +541,88 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {/* Candidate Summary */}
         <div className="px-6 py-6 border-b border-gray-200">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
-              <User className="h-8 w-8 text-gray-500" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center space-x-3">
-                <h2 className="text-2xl font-bold text-gray-900">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                <User className="h-8 w-8 text-gray-500" />
+              </div>
+              <div>
+                <div className="flex items-center space-x-3">
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={request.candidateName}
+                        onChange={(e) => handleInputChange('candidateName', e.target.value)}
+                        className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none"
+                        placeholder="Enter candidate name"
+                      />
+                    ) : (
+                      request.candidateName || 'Unknown Candidate'
+                    )}
+                  </h2>
+                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                    830
+                  </span>
+                </div>
+                <p className="text-gray-600 mt-1">
                   {isEditing ? (
                     <input
-                      type="text"
-                      value={request.candidateName}
-                      onChange={(e) => handleInputChange('candidateName', e.target.value)}
+                      type="email"
+                      value={request.candidateEmail}
+                      onChange={(e) => handleInputChange('candidateEmail', e.target.value)}
                       className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none"
-                      placeholder="Enter candidate name"
+                      placeholder="Enter email"
                     />
                   ) : (
-                    request.candidateName || 'Unknown Candidate'
+                    request.candidateEmail || 'No email provided'
                   )}
-                </h2>
+                </p>
               </div>
-              <p className="text-gray-600 mt-1">
-                {isEditing ? (
-                  <input
-                    type="email"
-                    value={request.candidateEmail}
-                    onChange={(e) => handleInputChange('candidateEmail', e.target.value)}
-                    className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none"
-                    placeholder="Enter email"
-                  />
-                ) : (
-                  request.candidateEmail || 'No email provided'
-                )}
-              </p>
             </div>
-            {isEditing && (
-              <div className="flex items-center space-x-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Position</label>
-                  <input
-                    type="text"
-                    value={request.position}
-                    onChange={(e) => handleInputChange('position', e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter position"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
-                  <input
-                    type="text"
-                    value={request.department}
-                    onChange={(e) => handleInputChange('department', e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter department"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
-                  <select
-                    value={request.priority}
-                    onChange={(e) => handleInputChange('priority', e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  >
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                    <option value="urgent">Urgent</option>
-                  </select>
+            <div className="flex items-center space-x-6">
+              <div className="text-center">
+                <p className="text-sm text-gray-500">COMPLETION DATE</p>
+                <p className="font-semibold text-gray-900">
+                  {request.completionDate ? new Date(request.completionDate).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                  }) : 'Pending'}
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-sm text-gray-500">IDENTITY VERIFIED</p>
+                <div className="flex items-center justify-center space-x-1">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <span className="text-green-600 font-semibold">Yes</span>
                 </div>
               </div>
-            )}
+              <div className="text-center">
+                <p className="text-sm text-gray-500">CONSENT PROVIDED</p>
+                <div className="flex items-center justify-center space-x-1">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <span className="text-green-600 font-semibold">
+                    {new Date().toLocaleDateString('en-US', { 
+                      month: 'short', 
+                      day: 'numeric', 
+                      year: 'numeric' 
+                    })} {new Date().toLocaleTimeString('en-US', { 
+                      hour: '2-digit', 
+                      minute: '2-digit', 
+                      second: '2-digit' 
+                    })}
+                  </span>
+                </div>
+              </div>
+              <div className="text-center">
+                <p className="text-sm text-gray-500">FLAGGED</p>
+                <div className="flex items-center justify-center space-x-1">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <span className="text-red-600 font-semibold">2 ISSUES</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -620,15 +631,12 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           {/* Left Panel - Categories */}
           <div className="w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto">
             <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                {isEditing ? 'Select Background Checks' : 'Background Check Categories'}
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Background Check Categories</h3>
               <div className="space-y-2">
                 {categories.map((category) => {
                   const Icon = category.icon
                   const result = request.results?.[category.key as keyof typeof request.results]
                   const isSelected = selectedCategory === category.key
-                  const isChecked = request.checks[category.key as keyof typeof request.checks]
                   
                   return (
                     <div
@@ -642,22 +650,11 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          {isEditing && (
-                            <input
-                              type="checkbox"
-                              checked={isChecked}
-                              onChange={(e) => {
-                                e.stopPropagation()
-                                handleCheckChange(category.key, e.target.checked)
-                              }}
-                              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
-                            />
-                          )}
                           <Icon className="h-5 w-5 text-gray-600" />
                           <span className="text-sm font-medium text-gray-900">{category.name}</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          {result && !isEditing && (
+                          {result && (
                             <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(result)}`}>
                               {result.toUpperCase().replace('-', ' ')}
                             </span>
@@ -669,20 +666,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   )
                 })}
               </div>
-              
-              {isEditing && (
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                  <h4 className="text-sm font-semibold text-blue-900 mb-2">Selected Checks</h4>
-                  <p className="text-sm text-blue-700">
-                    {Object.values(request.checks).filter(Boolean).length} of {Object.keys(request.checks).length} checks selected
-                  </p>
-                  <div className="mt-2">
-                    <span className="text-sm font-semibold text-blue-900">
-                      Estimated Cost: ₦{Object.values(request.checks).filter(Boolean).length * 5000}
-                    </span>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
 
@@ -696,7 +679,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                       <h3 className="text-xl font-semibold text-gray-900">
                         {categories.find(c => c.key === selectedCategory)?.name}
                       </h3>
-                      {request.results?.[selectedCategory as keyof typeof request.results] && !isEditing && (
+                      {request.results?.[selectedCategory as keyof typeof request.results] && (
                         <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full border ${getStatusColor(request.results[selectedCategory as keyof typeof request.results])}`}>
                           {request.results[selectedCategory as keyof typeof request.results]?.toUpperCase().replace('-', ' ')}
                         </span>
@@ -712,90 +695,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                       </button>
                     )}
                   </div>
-                  
-                  {isEditing ? (
-                    <div className="space-y-4">
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <h4 className="text-sm font-medium text-gray-900 mb-2">What this check includes:</h4>
-                        <ul className="text-sm text-gray-600 space-y-1">
-                          {selectedCategory === 'personalIdentity' && (
-                            <>
-                              <li>• Address verification and history</li>
-                              <li>• Bank Verification Number (BVN) check</li>
-                              <li>• National Identification Number (NIN) verification</li>
-                              <li>• FRSC driving record check</li>
-                              <li>• State residency verification</li>
-                            </>
-                          )}
-                          {selectedCategory === 'criminalRecord' && (
-                            <>
-                              <li>• Criminal history search</li>
-                              <li>• Court records check</li>
-                              <li>• Arrest records verification</li>
-                            </>
-                          )}
-                          {selectedCategory === 'financialCredit' && (
-                            <>
-                              <li>• Credit score assessment</li>
-                              <li>• Credit history review</li>
-                              <li>• Financial records check</li>
-                            </>
-                          )}
-                          {selectedCategory === 'fraudDetection' && (
-                            <>
-                              <li>• Fraud alert monitoring</li>
-                              <li>• Identity theft verification</li>
-                              <li>• Suspicious activity detection</li>
-                            </>
-                          )}
-                          {selectedCategory === 'education' && (
-                            <>
-                              <li>• Institution verification</li>
-                              <li>• Degree authenticity check</li>
-                              <li>• Graduation date verification</li>
-                            </>
-                          )}
-                          {selectedCategory === 'employment' && (
-                            <>
-                              <li>• Current employer verification</li>
-                              <li>• Previous employment history</li>
-                              <li>• Employment record validation</li>
-                            </>
-                          )}
-                          {selectedCategory === 'medical' && (
-                            <>
-                              <li>• Medical history review</li>
-                              <li>• Drug test results</li>
-                              <li>• Health records verification</li>
-                            </>
-                          )}
-                          {selectedCategory === 'socialMedia' && (
-                            <>
-                              <li>• Social media profile analysis</li>
-                              <li>• Online presence assessment</li>
-                              <li>• Reputation check</li>
-                            </>
-                          )}
-                          {selectedCategory === 'association' && (
-                            <>
-                              <li>• Known associates verification</li>
-                              <li>• Family connections check</li>
-                              <li>• Business associations review</li>
-                            </>
-                          )}
-                        </ul>
-                      </div>
-                      
-                      <div className="bg-blue-50 p-4 rounded-lg">
-                        <h4 className="text-sm font-medium text-blue-900 mb-2">Processing Time</h4>
-                        <p className="text-sm text-blue-700">
-                          This check typically takes 24-48 hours to complete once the request is submitted.
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    renderDetailContent()
-                  )}
+                  {renderDetailContent()}
                 </div>
               )}
             </div>
