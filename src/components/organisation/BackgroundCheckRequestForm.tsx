@@ -3165,6 +3165,353 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     )
   }
 
+  const renderFraudDetectionContent = () => {
+    const details = request.details?.fraudDetection
+    const subTabs = [
+      { key: 'identityFraud', name: 'Identity Fraud', icon: CheckCircle, price: 2000 },
+      { key: 'watchlistCheck', name: 'Watchlist Check', icon: CheckCircle, price: 1500 },
+      { key: 'deviceFingerprint', name: 'Device Fingerprint', icon: CheckCircle, price: 1000 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'identityFraud' && (
+          <div className="space-y-4">
+            {!selectedChecks['fraudDetection.identityFraud']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Identity Fraud Check</h3>
+                <p className="text-gray-500 mb-4">Detect potential identity fraud and synthetic identity risks</p>
+                <button
+                  onClick={() => toggleCheck('fraudDetection.identityFraud')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Identity Fraud Check - ₦2,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Identity Fraud Check</h3>
+                  <button
+                    onClick={() => toggleCheck('fraudDetection.identityFraud')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Fraud Risk Level</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.fraudAlerts || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.fraudAlerts', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select risk level</option>
+                        <option value="low">Low Risk</option>
+                        <option value="medium">Medium Risk</option>
+                        <option value="high">High Risk</option>
+                        <option value="critical">Critical Risk</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.fraudAlerts || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Identity Verification Score</label>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={details?.identityTheft || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.identityTheft', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter score (0-100)"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.identityTheft || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Fraud Indicators</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.suspiciousActivity || ''}
+                      onChange={(e) => handleInputChange('details.fraudDetection.suspiciousActivity', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="List any fraud indicators found"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.suspiciousActivity || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Verification Methods Used</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.fraudAlerts || ''}
+                      onChange={(e) => handleInputChange('details.fraudDetection.fraudAlerts', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="List verification methods and checks performed"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.fraudAlerts || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'watchlistCheck' && (
+          <div className="space-y-4">
+            {!selectedChecks['fraudDetection.watchlistCheck']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Watchlist Check</h3>
+                <p className="text-gray-500 mb-4">Check against various watchlists and sanctions databases</p>
+                <button
+                  onClick={() => toggleCheck('fraudDetection.watchlistCheck')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Watchlist Check - ₦1,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Watchlist Check</h3>
+                  <button
+                    onClick={() => toggleCheck('fraudDetection.watchlistCheck')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Watchlist Status</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.fraudAlerts || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.fraudAlerts', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select status</option>
+                        <option value="clear">Clear</option>
+                        <option value="match">Match Found</option>
+                        <option value="partial">Partial Match</option>
+                        <option value="pending">Pending Review</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.fraudAlerts || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Databases Checked</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.identityTheft || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.identityTheft', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter databases checked"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.identityTheft || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Match Details</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.suspiciousActivity || ''}
+                      onChange={(e) => handleInputChange('details.fraudDetection.suspiciousActivity', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter details of any matches found"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.suspiciousActivity || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Risk Assessment</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.fraudAlerts || ''}
+                      onChange={(e) => handleInputChange('details.fraudDetection.fraudAlerts', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter risk assessment and recommendations"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.fraudAlerts || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'deviceFingerprint' && (
+          <div className="space-y-4">
+            {!selectedChecks['fraudDetection.deviceFingerprint']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Device Fingerprint</h3>
+                <p className="text-gray-500 mb-4">Analyze device fingerprint for fraud detection</p>
+                <button
+                  onClick={() => toggleCheck('fraudDetection.deviceFingerprint')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Device Fingerprint - ₦1,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Device Fingerprint</h3>
+                  <button
+                    onClick={() => toggleCheck('fraudDetection.deviceFingerprint')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Device Type</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.fraudAlerts || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.fraudAlerts', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select device type</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="desktop">Desktop</option>
+                        <option value="tablet">Tablet</option>
+                        <option value="unknown">Unknown</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.fraudAlerts || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Browser</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.identityTheft || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.identityTheft', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter browser information"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.identityTheft || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Operating System</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.suspiciousActivity || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.suspiciousActivity', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter OS information"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.suspiciousActivity || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">IP Address</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.fraudAlerts || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.fraudAlerts', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter IP address"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.fraudAlerts || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Device Risk Score</label>
+                  {isEditing ? (
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      value={details?.identityTheft || ''}
+                      onChange={(e) => handleInputChange('details.fraudDetection.identityTheft', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      placeholder="Enter risk score (0-100)"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.identityTheft || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Fingerprint Analysis</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.suspiciousActivity || ''}
+                      onChange={(e) => handleInputChange('details.fraudDetection.suspiciousActivity', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter device fingerprint analysis"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.suspiciousActivity || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   const renderDetailContent = () => {
     switch (selectedCategory) {
       case 'personalIdentity':
@@ -3183,6 +3530,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         return renderEducationContent()
       case 'socialMedia':
         return renderSocialMediaContent()
+      case 'fraudDetection':
+        return renderFraudDetectionContent()
       default:
         return (
           <div className="text-center py-8">
