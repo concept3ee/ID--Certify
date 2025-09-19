@@ -1169,7 +1169,158 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
         )}
 
-        {/* Add other criminal record sub-tabs here */}
+        {selectedSubTab === 'financialCrime' && (
+          <div className="space-y-4">
+            {!selectedChecks['criminalRecord.financialCrime']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Financial Crime History</h3>
+                <p className="text-gray-500 mb-4">Check for financial crimes and fraud-related offenses</p>
+                <button
+                  onClick={() => toggleCheck('criminalRecord.financialCrime')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Financial Crime Check - ₦3,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Financial Crime History</h3>
+                  <button
+                    onClick={() => toggleCheck('criminalRecord.financialCrime')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Crime Type</label>
+                  {isEditing ? (
+                    <select
+                        value={details?.courtRecords || ''}
+                        onChange={(e) => handleInputChange('details.criminalRecord.courtRecords', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select crime type</option>
+                      <option value="fraud">Fraud</option>
+                      <option value="embezzlement">Embezzlement</option>
+                      <option value="money_laundering">Money Laundering</option>
+                      <option value="tax_evasion">Tax Evasion</option>
+                      <option value="identity_theft">Identity Theft</option>
+                      <option value="none">No Financial Crimes</option>
+                    </select>
+                  ) : (
+                      <p className="text-gray-900">{details?.courtRecords || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'courtRecords' && (
+          <div className="space-y-4">
+            {!selectedChecks['criminalRecord.courtRecords']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Court Records</h3>
+                <p className="text-gray-500 mb-4">Search court records and legal proceedings</p>
+                <button
+                  onClick={() => toggleCheck('criminalRecord.courtRecords')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Court Records Check - ₦3,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Court Records</h3>
+                  <button
+                    onClick={() => toggleCheck('criminalRecord.courtRecords')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Court Type</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.courtRecords || ''}
+                      onChange={(e) => handleInputChange('details.criminalRecord.courtRecords', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select court type</option>
+                      <option value="federal">Federal Court</option>
+                      <option value="state">State Court</option>
+                      <option value="county">County Court</option>
+                      <option value="municipal">Municipal Court</option>
+                      <option value="none">No Court Records</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.courtRecords || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'sexOffenderRegistry' && (
+          <div className="space-y-4">
+            {!selectedChecks['criminalRecord.sexOffenderRegistry']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Sex Offender Registry</h3>
+                <p className="text-gray-500 mb-4">Check against sex offender registries</p>
+                <button
+                  onClick={() => toggleCheck('criminalRecord.sexOffenderRegistry')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Sex Offender Registry Check - ₦2,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Sex Offender Registry</h3>
+                  <button
+                    onClick={() => toggleCheck('criminalRecord.sexOffenderRegistry')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Registry Status</label>
+                  {isEditing ? (
+                    <select
+                        value={details?.arrestRecords || ''}
+                        onChange={(e) => handleInputChange('details.criminalRecord.arrestRecords', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select status</option>
+                      <option value="clear">Clear</option>
+                      <option value="registered">Registered</option>
+                      <option value="pending">Pending Review</option>
+                      <option value="expired">Registration Expired</option>
+                    </select>
+                  ) : (
+                      <p className="text-gray-900">{details?.arrestRecords || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     )
   }
