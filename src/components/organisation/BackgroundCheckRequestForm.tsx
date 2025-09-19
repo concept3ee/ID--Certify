@@ -2736,6 +2736,435 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     )
   }
 
+  const renderSocialMediaContent = () => {
+    const details = request.details?.socialMedia
+    const subTabs = [
+      { key: 'newsArticles', name: 'News Articles', icon: CheckCircle, price: 1000 },
+      { key: 'onlineContent', name: 'Online Content', icon: CheckCircle, price: 1500 },
+      { key: 'thoughtLeadership', name: 'Thought Leadership', icon: CheckCircle, price: 2000 },
+      { key: 'socialMediaProfiles', name: 'Social Media Profiles', icon: CheckCircle, price: 1200 },
+      { key: 'reputationScore', name: 'Reputation Score', icon: CheckCircle, price: 1800 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'newsArticles' && (
+          <div className="space-y-4">
+            {!selectedChecks['socialMedia.newsArticles']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">News Articles & Public Mentions</h3>
+                <p className="text-gray-500 mb-4">Search for news articles and public mentions (positive or negative)</p>
+                <button
+                  onClick={() => toggleCheck('socialMedia.newsArticles')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add News Articles Check - ₦1,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">News Articles & Public Mentions</h3>
+                  <button
+                    onClick={() => toggleCheck('socialMedia.newsArticles')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Search Keywords</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.socialProfiles || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter search keywords"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Search Period</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.onlinePresence || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.onlinePresence', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select period</option>
+                        <option value="1_year">Last 1 Year</option>
+                        <option value="2_years">Last 2 Years</option>
+                        <option value="5_years">Last 5 Years</option>
+                        <option value="all_time">All Time</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.onlinePresence || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Article Sentiment</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.reputationCheck || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.reputationCheck', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select sentiment</option>
+                      <option value="positive">Positive</option>
+                      <option value="negative">Negative</option>
+                      <option value="neutral">Neutral</option>
+                      <option value="mixed">Mixed</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.reputationCheck || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Found Articles</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.socialProfiles || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={4}
+                      placeholder="List found articles and their sources"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'onlineContent' && (
+          <div className="space-y-4">
+            {!selectedChecks['socialMedia.onlineContent']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Online Content & Reputation Analysis</h3>
+                <p className="text-gray-500 mb-4">Analyze online content and digital reputation</p>
+                <button
+                  onClick={() => toggleCheck('socialMedia.onlineContent')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Online Content Check - ₦1,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Online Content & Reputation Analysis</h3>
+                  <button
+                    onClick={() => toggleCheck('socialMedia.onlineContent')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Content Type</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.socialProfiles || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select type</option>
+                        <option value="blog_posts">Blog Posts</option>
+                        <option value="forum_posts">Forum Posts</option>
+                        <option value="comments">Comments</option>
+                        <option value="reviews">Reviews</option>
+                        <option value="other">Other</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Content Sentiment</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.onlinePresence || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.onlinePresence', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select sentiment</option>
+                        <option value="positive">Positive</option>
+                        <option value="negative">Negative</option>
+                        <option value="neutral">Neutral</option>
+                        <option value="concerning">Concerning</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.onlinePresence || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Platforms Checked</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.reputationCheck || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.reputationCheck', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="List platforms and websites checked"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.reputationCheck || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Analysis Summary</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.socialProfiles || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter analysis summary and findings"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'socialMediaProfiles' && (
+          <div className="space-y-4">
+            {!selectedChecks['socialMedia.socialMediaProfiles']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Social Media Profiles</h3>
+                <p className="text-gray-500 mb-4">Check social media profiles and activity</p>
+                <button
+                  onClick={() => toggleCheck('socialMedia.socialMediaProfiles')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Social Media Profiles Check - ₦1,200
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Social Media Profiles</h3>
+                  <button
+                    onClick={() => toggleCheck('socialMedia.socialMediaProfiles')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Platform</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.socialProfiles || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select platform</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="twitter">Twitter/X</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="other">Other</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Profile Status</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.onlinePresence || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.onlinePresence', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="private">Private</option>
+                        <option value="deleted">Deleted</option>
+                        <option value="not_found">Not Found</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.onlinePresence || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Profile URL</label>
+                  {isEditing ? (
+                    <input
+                      type="url"
+                      value={details?.reputationCheck || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.reputationCheck', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      placeholder="Enter profile URL"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.reputationCheck || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Activity Summary</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.socialProfiles || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter activity summary and observations"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'reputationScore' && (
+          <div className="space-y-4">
+            {!selectedChecks['socialMedia.reputationScore']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Reputation Score</h3>
+                <p className="text-gray-500 mb-4">Calculate overall digital reputation score</p>
+                <button
+                  onClick={() => toggleCheck('socialMedia.reputationScore')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Reputation Score - ₦1,800
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Reputation Score</h3>
+                  <button
+                    onClick={() => toggleCheck('socialMedia.reputationScore')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Overall Score</label>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={details?.socialProfiles || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter score (0-100)"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Score Category</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.onlinePresence || ''}
+                        onChange={(e) => handleInputChange('details.socialMedia.onlinePresence', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select category</option>
+                        <option value="excellent">Excellent (90-100)</option>
+                        <option value="good">Good (70-89)</option>
+                        <option value="average">Average (50-69)</option>
+                        <option value="poor">Poor (30-49)</option>
+                        <option value="concerning">Concerning (0-29)</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.onlinePresence || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Score Breakdown</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.reputationCheck || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.reputationCheck', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={4}
+                      placeholder="Enter detailed score breakdown and factors"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.reputationCheck || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Recommendations</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.socialProfiles || ''}
+                      onChange={(e) => handleInputChange('details.socialMedia.socialProfiles', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter recommendations based on reputation analysis"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.socialProfiles || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   const renderDetailContent = () => {
     switch (selectedCategory) {
       case 'personalIdentity':
@@ -2752,6 +3181,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         return renderEmploymentContent()
       case 'education':
         return renderEducationContent()
+      case 'socialMedia':
+        return renderSocialMediaContent()
       default:
         return (
           <div className="text-center py-8">
