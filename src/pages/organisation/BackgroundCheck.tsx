@@ -76,7 +76,7 @@ interface BackgroundCheck {
 }
 
 const BackgroundCheck = () => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'requests' | 'reports' | 'settings'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'reports' | 'settings'>('overview')
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilters, setShowFilters] = useState(false)
   const [showNewRequest, setShowNewRequest] = useState(false)
@@ -426,16 +426,6 @@ const BackgroundCheck = () => {
                     <span>Overview</span>
                   </button>
                   <button
-                    onClick={() => setActiveTab('requests')}
-                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                      activeTab === 'requests'
-                        ? 'bg-white text-gray-900 shadow-sm font-bold'
-                        : 'text-gray-500 hover:text-gray-700 font-medium'
-                    }`}
-                  >
-                    <span>Requests</span>
-                  </button>
-                  <button
                     onClick={() => setActiveTab('reports')}
                     className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
                       activeTab === 'reports'
@@ -526,47 +516,7 @@ const BackgroundCheck = () => {
             </div>
           </div>
 
-          {/* Recent Requests */}
-          <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Requests</h2>
-              <button className="text-sm text-primary-600 hover:text-primary-700 font-medium">
-                View All
-              </button>
-            </div>
-            <div className="space-y-4">
-              {backgroundChecks.slice(0, 3).map((check) => (
-                <div key={check.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                      <User className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">{check.candidateName}</p>
-                      <p className="text-sm text-gray-500">{check.position} • {check.department}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(check.status)}`}>
-                      {check.status.replace('-', ' ')}
-                    </span>
-                    <button
-                      onClick={() => handleViewDetails(check)}
-                      className="text-primary-600 hover:text-primary-700"
-                    >
-                      <Eye className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'requests' && (
-        <div className="px-6 space-y-6">
-          {/* Search and Filters */}
+          {/* Background Check Requests Table */}
           <div className="bg-white rounded-xl p-6 border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">Background Check Requests</h2>
@@ -809,6 +759,7 @@ const BackgroundCheck = () => {
           </div>
         </div>
       )}
+
 
       {activeTab === 'reports' && (
         <div className="px-6 space-y-6">
