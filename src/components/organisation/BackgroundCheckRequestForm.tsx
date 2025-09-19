@@ -3711,8 +3711,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
-      <div className="bg-white rounded-xl w-full max-w-7xl h-[95vh] sm:h-[90vh] flex flex-col">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl w-full max-w-7xl h-[90vh] flex flex-col">
         {/* Header */}
         <div className="bg-red-600 text-white px-6 py-4 rounded-t-xl flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -3780,9 +3780,9 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+        <div className="flex-1 flex overflow-hidden">
           {/* Left Panel - Categories */}
-          <div className="w-full lg:w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto max-h-64 lg:max-h-none">
+          <div className="w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto">
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Background Check Categories</h3>
               <div className="space-y-2">
@@ -3825,7 +3825,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
           {/* Center Panel - Details */}
           <div className="flex-1 overflow-y-auto">
-            <div className="p-4 sm:p-6">
+            <div className="p-6">
               {selectedCategory && (
                 <div className="space-y-6">
                   <div className="flex items-center space-x-3">
@@ -3845,7 +3845,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
 
           {/* Right Panel - Payment Section */}
-          <div className="w-full lg:w-80 bg-gray-50 border-l border-gray-200 overflow-y-auto max-h-64 lg:max-h-none">
+          <div className="w-80 bg-gray-50 border-l border-gray-200 overflow-y-auto">
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Summary</h3>
               

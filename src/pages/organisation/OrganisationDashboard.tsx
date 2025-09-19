@@ -33,6 +33,8 @@ import Rewards from './Rewards'
 import Ratings from './Ratings'
 import HistoricalData from './HistoricalData'
 import BackgroundCheck from './BackgroundCheck'
+import BackgroundCheckDetails from './BackgroundCheckDetails'
+import BackgroundCheckRequest from './BackgroundCheckRequest'
 
 const OrganisationDashboard = () => {
   const { userType } = useSelector((state: RootState) => state.auth)
@@ -49,10 +51,7 @@ const OrganisationDashboard = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Header - Hidden on mobile since MobileNavigation has its own header */}
-        <div className="hidden lg:block">
-          <Header />
-        </div>
+        <Header />
         
         <main className="flex-1 overflow-y-auto min-h-0">
           <Routes>
@@ -745,8 +744,10 @@ const OrganisationDashboard = () => {
             {/* Verification Payment Route */}
             <Route path="/verification/payment" element={<VerificationPayment />} />
 
-            {/* Background Check Route */}
+            {/* Background Check Routes */}
             <Route path="/background-check" element={<BackgroundCheck />} />
+            <Route path="/background-check/details/:id" element={<BackgroundCheckDetails />} />
+            <Route path="/background-check/request/:id?" element={<BackgroundCheckRequest />} />
 
             {/* Document Management Routes */}
             <Route path="/documents" element={
