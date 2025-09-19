@@ -413,11 +413,11 @@ const BackgroundCheck = () => {
             </div>
 
             <div className="flex-1 flex justify-center">
-              <div className="bg-gray-100 rounded-lg p-1">
-                <nav className="flex space-x-1">
+              <div className="bg-gray-100 rounded-lg p-1 w-full max-w-md">
+                <nav className="flex space-x-1 overflow-x-auto">
                   <button
                     onClick={() => setActiveTab('overview')}
-                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                    className={`flex items-center space-x-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                       activeTab === 'overview'
                         ? 'bg-white text-gray-900 shadow-sm font-bold'
                         : 'text-gray-500 hover:text-gray-700 font-medium'
@@ -427,7 +427,7 @@ const BackgroundCheck = () => {
                   </button>
                   <button
                     onClick={() => setActiveTab('reports')}
-                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                    className={`flex items-center space-x-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                       activeTab === 'reports'
                         ? 'bg-white text-gray-900 shadow-sm font-bold'
                         : 'text-gray-500 hover:text-gray-700 font-medium'
@@ -437,7 +437,7 @@ const BackgroundCheck = () => {
                   </button>
                   <button
                     onClick={() => setActiveTab('settings')}
-                    className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                    className={`flex items-center space-x-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                       activeTab === 'settings'
                         ? 'bg-white text-gray-900 shadow-sm font-bold'
                         : 'text-gray-500 hover:text-gray-700 font-medium'
@@ -596,33 +596,33 @@ const BackgroundCheck = () => {
             )}
 
             {/* Table Controls */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 space-y-4 sm:space-y-0">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                 {/* Search Bar */}
-                <div className="relative">
+                <div className="relative w-full sm:w-auto">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Q Search"
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full sm:w-auto"
                   />
                 </div>
                 
-                {/* Date Range Selector */}
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                {/* Date Range Selector - Hidden on mobile */}
+                <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-600">
                   <Calendar className="h-4 w-4" />
                   <span>Start Jan 6, 2022 - End Jan 13, 2022</span>
                 </div>
               </div>
               
-              <div className="flex items-center space-x-3">
-                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <div className="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto">
+                <button className="flex items-center space-x-2 px-3 sm:px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
                   <Download className="h-4 w-4" />
-                  <span>Export</span>
+                  <span className="hidden sm:inline">Export</span>
                 </button>
-                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <button className="flex items-center space-x-2 px-3 sm:px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
                   <Filter className="h-4 w-4" />
-                  <span>Filter</span>
+                  <span className="hidden sm:inline">Filter</span>
                 </button>
               </div>
             </div>
@@ -638,17 +638,17 @@ const BackgroundCheck = () => {
                 <table className="w-full">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <input type="checkbox" className="rounded border-gray-300" />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">FIRST NAME</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MIDDLE NAME</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">LAST NAME</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">STATUS</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">TRUST SCORE</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">BG CHECK SCORE</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DATE INITIATED</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                      <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NAME</th>
+                      <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MIDDLE NAME</th>
+                      <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">LAST NAME</th>
+                      <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">STATUS</th>
+                      <th className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">TRUST SCORE</th>
+                      <th className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">BG CHECK SCORE</th>
+                      <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DATE INITIATED</th>
+                      <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -685,39 +685,42 @@ const BackgroundCheck = () => {
                           className="hover:bg-blue-50 cursor-pointer transition-all duration-200 border-l-4 border-transparent hover:border-primary-500"
                           onClick={() => handleViewDetails(check)}
                         >
-                          <td className="px-6 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
                             <input type="checkbox" className="rounded border-gray-300" />
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
-                              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center mr-3 text-white font-semibold text-sm">
+                              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center mr-2 sm:mr-3 text-white font-semibold text-xs sm:text-sm">
                                 {firstName.charAt(0)}
                               </div>
-                              <span className="text-sm font-medium text-gray-900">{firstName}</span>
+                              <div>
+                                <div className="text-sm font-medium text-gray-900">{firstName}</div>
+                                <div className="hidden sm:block text-xs text-gray-500">{middleName} {lastName}</div>
+                              </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{middleName}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{lastName}</td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span className="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 border border-green-200">
+                          <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900">{middleName}</td>
+                          <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900">{lastName}</td>
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                            <span className="inline-flex px-2 sm:px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 border border-green-200">
                               COMPLETED
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
                             <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getScoreColor(trustScore)}`}>
                               {trustScore}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap">
                             <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${getScoreColor(trustScore)}`}>
                               {trustScore}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             Oct 16, 2024 13:45:00
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium" onClick={(e) => e.stopPropagation()}>
-                            <div className="flex items-center space-x-2">
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center space-x-1 sm:space-x-2">
                               <button
                                 onClick={() => handleViewRequestForm(check)}
                                 className="text-primary-600 hover:text-primary-700"
@@ -738,21 +741,21 @@ const BackgroundCheck = () => {
               </div>
               
               {/* Pagination */}
-              <div className="bg-white px-6 py-3 border-t border-gray-200 flex items-center justify-between">
+              <div className="bg-white px-3 sm:px-6 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
                 <div className="flex items-center space-x-2">
-                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">← Previous</button>
+                  <button className="px-2 sm:px-3 py-1 text-xs sm:text-sm text-gray-600 hover:text-gray-800">← Previous</button>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <button className="px-3 py-1 text-sm bg-red-500 text-white rounded">1</button>
-                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">2</button>
-                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">3</button>
-                  <span className="px-2 text-gray-400">...</span>
-                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">8</button>
-                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">9</button>
-                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">10</button>
+                <div className="flex items-center space-x-1 overflow-x-auto">
+                  <button className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-red-500 text-white rounded">1</button>
+                  <button className="hidden sm:block px-3 py-1 text-sm text-gray-600 hover:text-gray-800">2</button>
+                  <button className="hidden sm:block px-3 py-1 text-sm text-gray-600 hover:text-gray-800">3</button>
+                  <span className="hidden sm:block px-2 text-gray-400">...</span>
+                  <button className="hidden md:block px-3 py-1 text-sm text-gray-600 hover:text-gray-800">8</button>
+                  <button className="hidden md:block px-3 py-1 text-sm text-gray-600 hover:text-gray-800">9</button>
+                  <button className="hidden md:block px-3 py-1 text-sm text-gray-600 hover:text-gray-800">10</button>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <button className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">Next →</button>
+                  <button className="px-2 sm:px-3 py-1 text-xs sm:text-sm text-gray-600 hover:text-gray-800">Next →</button>
                 </div>
               </div>
             </div>

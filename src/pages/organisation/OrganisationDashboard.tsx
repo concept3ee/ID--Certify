@@ -49,7 +49,10 @@ const OrganisationDashboard = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <Header />
+        {/* Header - Hidden on mobile since MobileNavigation has its own header */}
+        <div className="hidden lg:block">
+          <Header />
+        </div>
         
         <main className="flex-1 overflow-y-auto min-h-0">
           <Routes>
