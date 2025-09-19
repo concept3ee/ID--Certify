@@ -2040,6 +2040,345 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     )
   }
 
+  const renderEmploymentContent = () => {
+    const details = request.details?.employment
+    const subTabs = [
+      { key: 'employmentHistory', name: 'Employment History', icon: Clock, price: 2500 },
+      { key: 'referenceCheck', name: 'Reference Check', icon: Clock, price: 2000 },
+      { key: 'backgroundGapAnalysis', name: 'Background Gap Analysis', icon: Clock, price: 1800 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'employmentHistory' && (
+          <div className="space-y-4">
+            {!selectedChecks['employment.employmentHistory']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Employment History Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's employment history and work experience</p>
+                <button
+                  onClick={() => toggleCheck('employment.employmentHistory')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Employment History Check - ₦2,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Employment History Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('employment.employmentHistory')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Current Employer</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.currentEmployer || ''}
+                        onChange={(e) => handleInputChange('details.employment.currentEmployer', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter current employer name"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.currentEmployer || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Position/Title</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.employmentHistory || ''}
+                        onChange={(e) => handleInputChange('details.employment.employmentHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter current position"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.employmentHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Employment Start Date</label>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={details?.currentEmployer || ''}
+                        onChange={(e) => handleInputChange('details.employment.currentEmployer', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.currentEmployer || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Employment Status</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.previousEmployers || ''}
+                        onChange={(e) => handleInputChange('details.employment.previousEmployers', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="terminated">Terminated</option>
+                        <option value="resigned">Resigned</option>
+                        <option value="contract">Contract</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.previousEmployers || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Previous Employers</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.previousEmployers || ''}
+                      onChange={(e) => handleInputChange('details.employment.previousEmployers', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter previous employers and positions"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.previousEmployers || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'referenceCheck' && (
+          <div className="space-y-4">
+            {!selectedChecks['employment.referenceCheck']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Reference Check</h3>
+                <p className="text-gray-500 mb-4">Contact and verify professional references</p>
+                <button
+                  onClick={() => toggleCheck('employment.referenceCheck')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Reference Check - ₦2,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Reference Check</h3>
+                  <button
+                    onClick={() => toggleCheck('employment.referenceCheck')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Reference Name</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.currentEmployer || ''}
+                        onChange={(e) => handleInputChange('details.employment.currentEmployer', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter reference name"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.currentEmployer || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Reference Position</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.employmentHistory || ''}
+                        onChange={(e) => handleInputChange('details.employment.employmentHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter reference position"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.employmentHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Reference Company</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.previousEmployers || ''}
+                        onChange={(e) => handleInputChange('details.employment.previousEmployers', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter reference company"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.previousEmployers || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Reference Contact</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.currentEmployer || ''}
+                        onChange={(e) => handleInputChange('details.employment.currentEmployer', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter contact information"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.currentEmployer || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Reference Feedback</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.employmentHistory || ''}
+                      onChange={(e) => handleInputChange('details.employment.employmentHistory', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter reference feedback and comments"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.employmentHistory || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'backgroundGapAnalysis' && (
+          <div className="space-y-4">
+            {!selectedChecks['employment.backgroundGapAnalysis']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Background Gap Analysis</h3>
+                <p className="text-gray-500 mb-4">Analyze gaps in employment history and background</p>
+                <button
+                  onClick={() => toggleCheck('employment.backgroundGapAnalysis')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Background Gap Analysis - ₦1,800
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Background Gap Analysis</h3>
+                  <button
+                    onClick={() => toggleCheck('employment.backgroundGapAnalysis')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Gap Period Start</label>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={details?.currentEmployer || ''}
+                        onChange={(e) => handleInputChange('details.employment.currentEmployer', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.currentEmployer || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Gap Period End</label>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={details?.employmentHistory || ''}
+                        onChange={(e) => handleInputChange('details.employment.employmentHistory', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.employmentHistory || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Gap Explanation</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.previousEmployers || ''}
+                      onChange={(e) => handleInputChange('details.employment.previousEmployers', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter explanation for employment gaps"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.previousEmployers || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Gap Analysis Result</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.currentEmployer || ''}
+                      onChange={(e) => handleInputChange('details.employment.currentEmployer', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select result</option>
+                      <option value="explained">Gap Explained</option>
+                      <option value="unexplained">Gap Unexplained</option>
+                      <option value="concerning">Concerning</option>
+                      <option value="acceptable">Acceptable</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.currentEmployer || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   const renderDetailContent = () => {
     switch (selectedCategory) {
       case 'personalIdentity':
@@ -2052,6 +2391,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         return renderAssociationContent()
       case 'medical':
         return renderMedicalContent()
+      case 'employment':
+        return renderEmploymentContent()
       default:
         return (
           <div className="text-center py-8">
