@@ -130,6 +130,12 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const [selectedCategory, setSelectedCategory] = useState('personalIdentity')
   const [selectedSubTab, setSelectedSubTab] = useState('address')
   const [showDetails, setShowDetails] = useState(false)
+  // Payment flow states
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [showOTPModal, setShowOTPModal] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [otp, setOtp] = useState<string[]>(['', '', '', '', '', ''])
+
   const [selectedChecks, setSelectedChecks] = useState<{[key: string]: {selected: boolean, price: number}}>({
     // Personal Identity sub-checks
     'personalIdentity.address': { selected: false, price: 2000 },
@@ -444,6 +450,18 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     return Object.values(selectedChecks)
       .filter(check => check.selected)
       .reduce((total, check) => total + check.price, 0)
+  }
+
+  // Payment calculation functions
+  const calculateTotal = () => {
+    const subtotal = Object.entries(selectedChecks)
+      .filter(([_, check]) => check.selected)
+      .reduce((sum, [_, check]) => sum + check.price, 0)
+    
+    const serviceFee = Math.round(subtotal * 0.1) // 10% service fee
+    const total = subtotal + serviceFee
+    
+    return { subtotal, serviceFee, total }
   }
 
   const getSelectedChecksList = () => {
@@ -3852,7 +3870,10 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                       <span className="text-lg font-bold text-gray-900">₦{getTotalPrice().toLocaleString()}</span>
                     </div>
                     
-                    <button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+                    <button 
+                      onClick={() => setShowPaymentModal(true)}
+                      className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+                    >
                       Proceed to Payment
                     </button>
                   </div>
@@ -3870,6 +3891,207 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Payment Modal */}
+      {showPaymentModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+          <div className="bg-white rounded-2xl w-full max-w-4xl p-6 relative">
+            <button 
+              onClick={() => setShowPaymentModal(false)} 
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="p-6">
+              <div className="flex items-center space-x-2 mb-6">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <h4 className="text-lg font-semibold text-gray-900">Review and Deposit</h4>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left Column - Escrow Summary */}
+                <div className="space-y-6">
+                  <div className="bg-white border border-gray-200 rounded-lg p-6">
+                    <h5 className="font-semibold text-gray-900 mb-4">Escrow Summary</h5>
+                    {(() => {
+                      const totals = calculateTotal()
+                      return (
+                        <div className="space-y-3">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Selected Background Checks Total</span>
+                            <span className="font-medium">₦{totals.subtotal.toLocaleString()}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Platform Service Fee</span>
+                            <span className="font-medium">₦{totals.serviceFee.toLocaleString()}</span>
+                          </div>
+                          <div className="border-t border-gray-200 pt-3">
+                            <div className="flex justify-between text-lg font-semibold">
+                              <span>Total to Escrow</span>
+                              <span>₦{totals.total.toLocaleString()}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })()}
+                  </div>
+
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h5 className="font-semibold text-gray-900 mb-4">Escrow Details</h5>
+                    <div className="space-y-3">
+                      <div className="flex items-center text-sm text-green-700">
+                        <CheckCircle className="h-4 w-4 mr-2" />
+                        Funds will be held securely
+                      </div>
+                      <div className="flex items-center text-sm text-green-700">
+                        <CheckCircle className="h-4 w-4 mr-2" />
+                        Released after check is complete
+                      </div>
+                      <div className="flex items-center text-sm text-green-700">
+                        <CheckCircle className="h-4 w-4 mr-2" />
+                        Refund if candidate doesn't respond in 7d
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column - Wallet Information */}
+                <div className="space-y-6">
+                  <div className="bg-red-600 text-white rounded-lg p-6">
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold">WALLET</span>
+                      <span className="text-sm opacity-75">Powered by SureBanker</span>
+                    </div>
+                    <div className="text-2xl font-bold mt-2">₦20,132.00</div>
+                  </div>
+
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-gray-900 mb-2">₦14,632</div>
+                      <div className="text-sm text-gray-600">Remaining after escrow</div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center">
+                    <button
+                      onClick={() => {
+                        setShowPaymentModal(false)
+                        setShowOTPModal(true)
+                      }}
+                      className="w-full px-8 py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 text-lg font-semibold"
+                    >
+                      Deposit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* OTP Verification Modal */}
+      {showOTPModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+          <div className="bg-white rounded-2xl w-full max-w-md p-6 relative">
+            <button 
+              onClick={() => setShowOTPModal(false)} 
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="text-center mb-6">
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="h-6 w-6 text-red-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">OTP Verification</h3>
+              <p className="text-sm text-gray-600">We texted a verification code to +23470*******061</p>
+              <p className="text-sm text-gray-600 mt-2">
+                You are authorizing a payment of <strong>NGN {calculateTotal().total.toLocaleString()}.00</strong> on <strong>{new Date().toLocaleDateString()}</strong> from your <strong>SureBanker Account</strong> to <strong>SureEscrow</strong>
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-center space-x-2">
+                {[1,2,3,4,5,6].map((digit) => (
+                  <input
+                    key={digit}
+                    type="text"
+                    maxLength={1}
+                    value={otp[digit - 1]}
+                    onChange={(e) => {
+                      const newOtp = [...otp]
+                      newOtp[digit - 1] = e.target.value
+                      setOtp(newOtp)
+                    }}
+                    className="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  />
+                ))}
+              </div>
+
+              <div className="text-center">
+                <p className="text-sm text-gray-600">
+                  Didn't receive the code? <span className="text-red-600 font-medium">Request new code 0:24</span>
+                </p>
+              </div>
+
+              <button
+                onClick={() => {
+                  setShowOTPModal(false)
+                  setShowSuccessModal(true)
+                }}
+                className="w-full py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold"
+              >
+                Pay
+              </button>
+
+              <div className="text-center">
+                <p className="text-sm text-gray-600">
+                  <span className="text-red-600 font-medium">Request via code via Email</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+          <div className="bg-white rounded-2xl w-full max-w-md p-6 relative">
+            <button 
+              onClick={() => {
+                setShowSuccessModal(false)
+                onClose()
+              }} 
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Request Sent to Candidate</h3>
+              <p className="text-sm text-gray-600 mb-6">
+                Background check request for <strong className="text-red-600">{request.candidateName}</strong> has been successfully paid. Please allow up to 48 hours for the results to be processed.
+              </p>
+              <button
+                onClick={() => {
+                  setShowSuccessModal(false)
+                  onClose()
+                }}
+                className="w-full py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold"
+              >
+                View Request
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
