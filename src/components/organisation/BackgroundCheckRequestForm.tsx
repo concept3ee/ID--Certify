@@ -115,14 +115,26 @@ interface BackgroundCheckRequest {
   tags?: string[]
 }
 
+interface PreFilledData {
+  candidateName: string
+  candidateEmail: string
+  idcertifyId: string
+}
+
 interface BackgroundCheckRequestFormProps {
   requestId?: string
+  entityType?: 'individual' | 'organization' | null
+  isRegistered?: boolean | null
+  preFilledData?: PreFilledData
   onClose: () => void
   onSave?: (request: BackgroundCheckRequest) => void
 }
 
 const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   requestId,
+  entityType,
+  isRegistered,
+  preFilledData,
   onClose,
   onSave
 }) => {
@@ -196,8 +208,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   // Initialize with empty form or existing data
   const [request, setRequest] = useState<BackgroundCheckRequest>({
     id: requestId || `BC-${Date.now()}`,
-    candidateName: '',
-    candidateEmail: '',
+    candidateName: preFilledData?.candidateName || '',
+    candidateEmail: preFilledData?.candidateEmail || '',
     candidatePhone: '',
     position: '',
     department: '',
@@ -3722,7 +3734,17 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
-            <h1 className="text-xl font-semibold">Background Check Request</h1>
+            <div>
+              <h1 className="text-xl font-semibold">Background Check Request</h1>
+              {isRegistered && preFilledData && (
+                <div className="flex items-center space-x-2 mt-1">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <span className="text-sm text-green-700">
+                    Pre-filled data for {entityType === 'individual' ? 'Individual' : 'Organization'}: {preFilledData.candidateName}
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
           <div className="flex items-center space-x-4">
             {request.status === 'completed' && (

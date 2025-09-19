@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import BackgroundCheckDetailsPage from '../../components/organisation/BackgroundCheckDetailsPage'
+import BackgroundCheckRequestForm from '../../components/organisation/BackgroundCheckRequestForm'
 import { 
   Search, 
   Filter, 
@@ -75,12 +76,19 @@ interface BackgroundCheck {
 }
 
 const BackgroundCheck = () => {
-  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<'overview' | 'reports' | 'settings'>('overview')
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilters, setShowFilters] = useState(false)
   const [showNewRequest, setShowNewRequest] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  const [selectedCheck, setSelectedCheck] = useState<BackgroundCheck | null>(null)
+  const [showDetails, setShowDetails] = useState(false)
+  const [showRequestForm, setShowRequestForm] = useState(false)
+  const [editingRequestId, setEditingRequestId] = useState<string | undefined>(undefined)
+  const [showEntitySelectionModal, setShowEntitySelectionModal] = useState(false)
+  const [selectedEntityType, setSelectedEntityType] = useState<'individual' | 'organization' | null>(null)
+  const [isRegistered, setIsRegistered] = useState<boolean | null>(null)
+  const [showRegisteredUserForm, setShowRegisteredUserForm] = useState(false)
   const [candidateInfo, setCandidateInfo] = useState<{
     name: string;
     email: string;
@@ -377,17 +385,28 @@ const BackgroundCheck = () => {
   }
 
   const handleViewDetails = (check: BackgroundCheck) => {
-    navigate(`/organisation/background-check/details/${check.id}`)
+    setSelectedCheck(check)
+    setShowDetails(true)
   }
 
   const handleViewRequestForm = (check: BackgroundCheck) => {
-    navigate(`/organisation/background-check/request/${check.id}`)
+    setSelectedCheck(check)
+    setEditingRequestId(check.id)
+    setShowRequestForm(true)
   }
 
   const handleCreateNewRequest = () => {
-    navigate('/organisation/background-check/request')
+    setEditingRequestId(undefined)
+    setSelectedEntityType(null)
+    setIsRegistered(null)
+    setShowEntitySelectionModal(true)
   }
 
+  const handleSaveRequest = (request: any) => {
+    console.log('Saving request:', request)
+    // Here you would typically save to your backend
+    setShowRequestForm(false)
+  }
 
   return (
     <div className="space-y-6">
@@ -1245,6 +1264,324 @@ const BackgroundCheck = () => {
         </div>
       )}
 
+      {/* Entity Selection Modal */}
+      {showEntitySelectionModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+          <div className="bg-white rounded-2xl w-full max-w-2xl p-6 relative">
+            <button 
+              onClick={() => setShowEntitySelectionModal(false)} 
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <User className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">New Background Check Request</h3>
+              <p className="text-gray-600">Let's get started by selecting the type of entity you want to perform a background check on.</p>
+            </div>
+
+            {/* Entity Type Selection */}
+            <div className="mb-8">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4">What type of entity are you checking?</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button
+                  onClick={() => setSelectedEntityType('individual')}
+                  className={`p-6 border-2 rounded-xl text-left transition-all duration-200 ${
+                    selectedEntityType === 'individual'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                      selectedEntityType === 'individual' ? 'bg-blue-100' : 'bg-gray-100'
+                    }`}>
+                      <User className={`h-6 w-6 ${
+                        selectedEntityType === 'individual' ? 'text-blue-600' : 'text-gray-600'
+                      }`} />
+                    </div>
+                    <div>
+                      <h5 className="font-semibold text-gray-900">Individual</h5>
+                      <p className="text-sm text-gray-600">Check a person's background</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setSelectedEntityType('organization')}
+                  className={`p-6 border-2 rounded-xl text-left transition-all duration-200 ${
+                    selectedEntityType === 'organization'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                      selectedEntityType === 'organization' ? 'bg-blue-100' : 'bg-gray-100'
+                    }`}>
+                      <Building className={`h-6 w-6 ${
+                        selectedEntityType === 'organization' ? 'text-blue-600' : 'text-gray-600'
+                      }`} />
+                    </div>
+                    <div>
+                      <h5 className="font-semibold text-gray-900">Organization</h5>
+                      <p className="text-sm text-gray-600">Check a company's background</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Registration Status Selection */}
+            {selectedEntityType && (
+              <div className="mb-8">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                  Is this {selectedEntityType} registered with IDcertify?
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <button
+                    onClick={() => setIsRegistered(true)}
+                    className={`p-6 border-2 rounded-xl text-left transition-all duration-200 ${
+                      isRegistered === true
+                        ? 'border-green-500 bg-green-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        isRegistered === true ? 'bg-green-100' : 'bg-gray-100'
+                      }`}>
+                        <CheckCircle className={`h-6 w-6 ${
+                          isRegistered === true ? 'text-green-600' : 'text-gray-600'
+                        }`} />
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-gray-900">Yes, Registered</h5>
+                        <p className="text-sm text-gray-600">They have an IDcertify account</p>
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => setIsRegistered(false)}
+                    className={`p-6 border-2 rounded-xl text-left transition-all duration-200 ${
+                      isRegistered === false
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        isRegistered === false ? 'bg-orange-100' : 'bg-gray-100'
+                      }`}>
+                        <User className={`h-6 w-6 ${
+                          isRegistered === false ? 'text-orange-600' : 'text-gray-600'
+                        }`} />
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-gray-900">No, Not Registered</h5>
+                        <p className="text-sm text-gray-600">They don't have an IDcertify account</p>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setShowEntitySelectionModal(false)}
+                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (isRegistered === true) {
+                    setShowEntitySelectionModal(false)
+                    setShowRegisteredUserForm(true)
+                  } else if (isRegistered === false) {
+                    setShowEntitySelectionModal(false)
+                    setShowRequestForm(true)
+                  }
+                }}
+                disabled={!selectedEntityType || isRegistered === null}
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Registered User Form Modal */}
+      {showRegisteredUserForm && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+          <div className="bg-white rounded-2xl w-full max-w-2xl p-6 relative">
+            <button 
+              onClick={() => setShowRegisteredUserForm(false)} 
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">Registered {selectedEntityType === 'individual' ? 'Individual' : 'Organization'}</h3>
+              <p className="text-gray-600">Please provide the {selectedEntityType === 'individual' ? 'person\'s' : 'organization\'s'} IDcertify details to pre-fill the form.</p>
+            </div>
+
+            <div className="space-y-6">
+              {/* Search for Registered User */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Search for {selectedEntityType === 'individual' ? 'Individual' : 'Organization'}
+                </label>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder={`Enter ${selectedEntityType === 'individual' ? 'name, email, or ID' : 'company name, email, or ID'}`}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              {/* Mock Search Results */}
+              <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <h4 className="font-semibold text-gray-900 mb-3">Search Results</h4>
+                <div className="space-y-3">
+                  {selectedEntityType === 'individual' ? (
+                    // Individual results
+                    <>
+                      <div className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                          J
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-medium text-gray-900">John Doe</h5>
+                          <p className="text-sm text-gray-600">john.doe@email.com • ID: IDC-123456</p>
+                        </div>
+                        <button className="text-blue-600 hover:text-blue-700">
+                          <CheckCircle className="h-5 w-5" />
+                        </button>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer">
+                        <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                          S
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-medium text-gray-900">Sarah Johnson</h5>
+                          <p className="text-sm text-gray-600">sarah.j@email.com • ID: IDC-789012</p>
+                        </div>
+                        <button className="text-blue-600 hover:text-blue-700">
+                          <CheckCircle className="h-5 w-5" />
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    // Organization results
+                    <>
+                      <div className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                          T
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-medium text-gray-900">TechCorp Solutions</h5>
+                          <p className="text-sm text-gray-600">info@techcorp.com • ID: IDC-ORG-001</p>
+                        </div>
+                        <button className="text-blue-600 hover:text-blue-700">
+                          <CheckCircle className="h-5 w-5" />
+                        </button>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer">
+                        <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                          I
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-medium text-gray-900">InnovateLabs Inc.</h5>
+                          <p className="text-sm text-gray-600">contact@innovatelabs.com • ID: IDC-ORG-002</p>
+                        </div>
+                        <button className="text-blue-600 hover:text-blue-700">
+                          <CheckCircle className="h-5 w-5" />
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Pre-filled Information Display */}
+              <div className="border border-green-200 rounded-lg p-4 bg-green-50">
+                <h4 className="font-semibold text-green-900 mb-3 flex items-center">
+                  <CheckCircle className="h-5 w-5 mr-2" />
+                  Pre-filled Information
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-green-700">Name:</span>
+                    <span className="text-green-900 font-medium">
+                      {selectedEntityType === 'individual' ? 'John Doe' : 'TechCorp Solutions'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-green-700">Email:</span>
+                    <span className="text-green-900 font-medium">
+                      {selectedEntityType === 'individual' ? 'john.doe@email.com' : 'info@techcorp.com'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-green-700">IDcertify ID:</span>
+                    <span className="text-green-900 font-medium">
+                      {selectedEntityType === 'individual' ? 'IDC-123456' : 'IDC-ORG-001'}
+                    </span>
+                  </div>
+                  {selectedEntityType === 'organization' && (
+                    <div className="flex justify-between">
+                      <span className="text-green-700">Registration Date:</span>
+                      <span className="text-green-900 font-medium">Jan 15, 2023</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-end space-x-3 mt-8">
+              <button
+                onClick={() => setShowRegisteredUserForm(false)}
+                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Back
+              </button>
+              <button
+                onClick={() => {
+                  setShowRegisteredUserForm(false)
+                  setShowRequestForm(true)
+                }}
+                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Continue with Pre-filled Data
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Background Check Details Page */}
+      {showDetails && selectedCheck && (
+        <BackgroundCheckDetailsPage
+          backgroundCheck={selectedCheck}
+          onClose={() => setShowDetails(false)}
+        />
+      )}
 
       {/* New Request Modal - Multi-Step Flow */}
       {showNewRequest && (
@@ -1862,6 +2199,26 @@ const BackgroundCheck = () => {
         </div>
       )}
 
+      {/* New Background Check Request Form */}
+      {showRequestForm && (
+        <BackgroundCheckRequestForm
+          requestId={editingRequestId}
+          entityType={selectedEntityType}
+          isRegistered={isRegistered}
+          preFilledData={isRegistered ? {
+            candidateName: selectedEntityType === 'individual' ? 'John Doe' : 'TechCorp Solutions',
+            candidateEmail: selectedEntityType === 'individual' ? 'john.doe@email.com' : 'info@techcorp.com',
+            idcertifyId: selectedEntityType === 'individual' ? 'IDC-123456' : 'IDC-ORG-001'
+          } : undefined}
+          onClose={() => {
+            setShowRequestForm(false)
+            setEditingRequestId(undefined)
+            setSelectedEntityType(null)
+            setIsRegistered(null)
+          }}
+          onSave={handleSaveRequest}
+        />
+      )}
     </div>
   )
 }

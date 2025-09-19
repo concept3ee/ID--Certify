@@ -33,8 +33,6 @@ import Rewards from './Rewards'
 import Ratings from './Ratings'
 import HistoricalData from './HistoricalData'
 import BackgroundCheck from './BackgroundCheck'
-import BackgroundCheckDetails from './BackgroundCheckDetails'
-import BackgroundCheckRequest from './BackgroundCheckRequest'
 
 const OrganisationDashboard = () => {
   const { userType } = useSelector((state: RootState) => state.auth)
@@ -744,10 +742,8 @@ const OrganisationDashboard = () => {
             {/* Verification Payment Route */}
             <Route path="/verification/payment" element={<VerificationPayment />} />
 
-            {/* Background Check Routes */}
+            {/* Background Check Route */}
             <Route path="/background-check" element={<BackgroundCheck />} />
-            <Route path="/background-check/details/:id" element={<BackgroundCheckDetails />} />
-            <Route path="/background-check/request/:id?" element={<BackgroundCheckRequest />} />
 
             {/* Document Management Routes */}
             <Route path="/documents" element={
