@@ -2379,6 +2379,363 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     )
   }
 
+  const renderEducationContent = () => {
+    const details = request.details?.education
+    const subTabs = [
+      { key: 'degreeVerification', name: 'Degree Verification', icon: AlertTriangle, price: 2000 },
+      { key: 'transcriptVerification', name: 'Transcript Verification', icon: AlertTriangle, price: 2500 },
+      { key: 'professionalCertifications', name: 'Professional Certifications', icon: AlertTriangle, price: 1500 }
+    ]
+
+    return (
+      <div className="space-y-6">
+        {/* Sub-tabs */}
+        <div className="flex space-x-1 border-b border-gray-200 overflow-x-auto">
+          {subTabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setSelectedSubTab(tab.key)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                selectedSubTab === tab.key
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Content based on selected sub-tab */}
+        {selectedSubTab === 'degreeVerification' && (
+          <div className="space-y-4">
+            {!selectedChecks['education.degreeVerification']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Degree Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's educational degrees and qualifications</p>
+                <button
+                  onClick={() => toggleCheck('education.degreeVerification')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Degree Verification - ₦2,000
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Degree Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('education.degreeVerification')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.institution || ''}
+                        onChange={(e) => handleInputChange('details.education.institution', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter institution name"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.institution || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Degree Type</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.degree || ''}
+                        onChange={(e) => handleInputChange('details.education.degree', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select degree</option>
+                        <option value="bachelor">Bachelor's Degree</option>
+                        <option value="master">Master's Degree</option>
+                        <option value="phd">PhD/Doctorate</option>
+                        <option value="diploma">Diploma</option>
+                        <option value="certificate">Certificate</option>
+                        <option value="other">Other</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.degree || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Field of Study</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.degree || ''}
+                        onChange={(e) => handleInputChange('details.education.degree', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter field of study"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.degree || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Graduation Year</label>
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        value={details?.graduationDate || ''}
+                        onChange={(e) => handleInputChange('details.education.graduationDate', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter graduation year"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.graduationDate || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Verification Status</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.verificationStatus || ''}
+                      onChange={(e) => handleInputChange('details.education.verificationStatus', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select status</option>
+                      <option value="verified">Verified</option>
+                      <option value="pending">Pending</option>
+                      <option value="unverified">Unverified</option>
+                      <option value="discrepancy">Discrepancy Found</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.verificationStatus || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'transcriptVerification' && (
+          <div className="space-y-4">
+            {!selectedChecks['education.transcriptVerification']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Transcript Verification</h3>
+                <p className="text-gray-500 mb-4">Verify academic transcripts and grade records</p>
+                <button
+                  onClick={() => toggleCheck('education.transcriptVerification')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Transcript Verification - ₦2,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Transcript Verification</h3>
+                  <button
+                    onClick={() => toggleCheck('education.transcriptVerification')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">GPA/CGPA</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.institution || ''}
+                        onChange={(e) => handleInputChange('details.education.institution', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter GPA/CGPA"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.institution || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Grading Scale</label>
+                    {isEditing ? (
+                      <select
+                        value={details?.degree || ''}
+                        onChange={(e) => handleInputChange('details.education.degree', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      >
+                        <option value="">Select scale</option>
+                        <option value="4.0">4.0 Scale</option>
+                        <option value="5.0">5.0 Scale</option>
+                        <option value="100">100 Point Scale</option>
+                        <option value="percentage">Percentage</option>
+                        <option value="other">Other</option>
+                      </select>
+                    ) : (
+                      <p className="text-gray-900">{details?.degree || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Academic Standing</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.graduationDate || ''}
+                      onChange={(e) => handleInputChange('details.education.graduationDate', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select standing</option>
+                      <option value="excellent">Excellent</option>
+                      <option value="good">Good</option>
+                      <option value="satisfactory">Satisfactory</option>
+                      <option value="poor">Poor</option>
+                      <option value="probation">Academic Probation</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.graduationDate || 'Not provided'}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Transcript Notes</label>
+                  {isEditing ? (
+                    <textarea
+                      value={details?.verificationStatus || ''}
+                      onChange={(e) => handleInputChange('details.education.verificationStatus', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      rows={3}
+                      placeholder="Enter any additional notes about the transcript"
+                    />
+                  ) : (
+                    <p className="text-gray-900">{details?.verificationStatus || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'professionalCertifications' && (
+          <div className="space-y-4">
+            {!selectedChecks['education.professionalCertifications']?.selected ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Professional Certifications</h3>
+                <p className="text-gray-500 mb-4">Verify professional certifications and licenses</p>
+                <button
+                  onClick={() => toggleCheck('education.professionalCertifications')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                >
+                  Add Professional Certifications - ₦1,500
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">Professional Certifications</h3>
+                  <button
+                    onClick={() => toggleCheck('education.professionalCertifications')}
+                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Certification Name</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.institution || ''}
+                        onChange={(e) => handleInputChange('details.education.institution', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter certification name"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.institution || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Issuing Organization</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.degree || ''}
+                        onChange={(e) => handleInputChange('details.education.degree', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter issuing organization"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.degree || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Certification Number</label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={details?.graduationDate || ''}
+                        onChange={(e) => handleInputChange('details.education.graduationDate', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="Enter certification number"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.graduationDate || 'Not provided'}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={details?.verificationStatus || ''}
+                        onChange={(e) => handleInputChange('details.education.verificationStatus', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.verificationStatus || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Certification Status</label>
+                  {isEditing ? (
+                    <select
+                      value={details?.verificationStatus || ''}
+                      onChange={(e) => handleInputChange('details.education.verificationStatus', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="">Select status</option>
+                      <option value="active">Active</option>
+                      <option value="expired">Expired</option>
+                      <option value="suspended">Suspended</option>
+                      <option value="revoked">Revoked</option>
+                      <option value="pending">Pending</option>
+                    </select>
+                  ) : (
+                    <p className="text-gray-900">{details?.verificationStatus || 'Not provided'}</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   const renderDetailContent = () => {
     switch (selectedCategory) {
       case 'personalIdentity':
@@ -2393,6 +2750,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         return renderMedicalContent()
       case 'employment':
         return renderEmploymentContent()
+      case 'education':
+        return renderEducationContent()
       default:
         return (
           <div className="text-center py-8">
