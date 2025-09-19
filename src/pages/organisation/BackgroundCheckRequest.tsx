@@ -9,11 +9,11 @@ const BackgroundCheckRequest = () => {
   const handleSave = (requestData: any) => {
     console.log('Saving request:', requestData)
     // In a real app, this would save to the backend
-    navigate('/background-check')
+    navigate('/organisation/background-check')
   }
 
   const handleClose = () => {
-    navigate('/background-check')
+    navigate('/organisation/background-check')
   }
 
   return (

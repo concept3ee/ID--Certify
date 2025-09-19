@@ -377,15 +377,15 @@ const BackgroundCheck = () => {
   }
 
   const handleViewDetails = (check: BackgroundCheck) => {
-    navigate(`/background-check/details/${check.id}`)
+    navigate(`/organisation/background-check/details/${check.id}`)
   }
 
   const handleViewRequestForm = (check: BackgroundCheck) => {
-    navigate(`/background-check/request/${check.id}`)
+    navigate(`/organisation/background-check/request/${check.id}`)
   }
 
   const handleCreateNewRequest = () => {
-    navigate('/background-check/request')
+    navigate('/organisation/background-check/request')
   }
 
 
