@@ -697,21 +697,21 @@ const DataMonitoring = () => {
                   </button>
                 </nav>
               </div>
-            </div>
+        </div>
 
             {/* Right Side - Action Button */}
             <div className="flex-shrink-0">
-              <div className="flex items-center space-x-2">
-                <button className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
-                  <Download className="h-4 w-4 mr-2" />
-                  Export Report
-                </button>
-                <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Refresh
-                </button>
-              </div>
-            </div>
+        <div className="flex items-center space-x-2">
+          <button className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">
+            <Download className="h-4 w-4 mr-2" />
+            Export Report
+          </button>
+          <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
+          </button>
+        </div>
+      </div>
           </div>
         </div>
       </div>

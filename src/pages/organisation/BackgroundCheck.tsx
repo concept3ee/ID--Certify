@@ -2206,7 +2206,9 @@ const BackgroundCheck = () => {
           entityType={selectedEntityType}
           isRegistered={isRegistered}
           preFilledData={isRegistered ? {
-            candidateName: selectedEntityType === 'individual' ? 'John Doe' : 'TechCorp Solutions',
+            firstName: selectedEntityType === 'individual' ? 'John' : 'TechCorp',
+            middleName: selectedEntityType === 'individual' ? '' : '',
+            lastName: selectedEntityType === 'individual' ? 'Doe' : 'Solutions',
             candidateEmail: selectedEntityType === 'individual' ? 'john.doe@email.com' : 'info@techcorp.com',
             idcertifyId: selectedEntityType === 'individual' ? 'IDC-123456' : 'IDC-ORG-001'
           } : undefined}
