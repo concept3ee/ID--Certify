@@ -20,7 +20,10 @@ import {
   EyeOff,
   CreditCard,
   Upload,
-  FileText
+  FileText,
+  Plus,
+  Trash2,
+  ChevronDown
 } from 'lucide-react'
 
 interface BackgroundCheckRequest {
@@ -74,6 +77,17 @@ interface BackgroundCheckRequest {
       stateResidency: string
       nameChange: string
       email: string
+      // Multiple addresses support
+      addresses?: Array<{
+        id: string
+        addressType: string
+        residenceFrom: string
+        residenceTo: string
+        street: string
+        buildingNumber: string
+        city: string
+        state: string
+      }>
       // Enhanced address fields
       addressType: string
       residenceFrom: string
@@ -300,6 +314,22 @@ interface BackgroundCheckRequest {
       taxPenalties: number
       taxAuditStatus: string
       firsHistorySummary: string
+      // Multiple income sources
+      incomeSourceEntries?: Array<{
+        id: string
+        sourceType: string
+        sourceDescription: string
+        monthlyAmount: number
+        annualAmount: number
+        frequency: string
+        verificationMethod: string
+        verificationStatus: string
+        employerName: string
+        startDate: string
+        endDate: string
+        stability: string
+        paymentMethod: string
+      }>
     }
     fraudDetection: {
       fraudAlerts: string
@@ -364,6 +394,21 @@ interface BackgroundCheckRequest {
       certificationNumber: string
       certificationDescription: string
       professionalCertificationsVerificationSummary: string
+      // Multiple degree entries
+      degreeEntries?: Array<{
+        id: string
+        institutionName: string
+        degreeType: string
+        fieldOfStudy: string
+        graduationYear: number
+        gpaClassOfDegree: string
+        institutionLocation: string
+        institutionType: string
+        verificationStatus: string
+        expectedGraduationDate: string
+        currentlyEnrolled: boolean
+        degreeLevel: string
+      }>
     }
     employment: {
       currentEmployer: string
@@ -393,6 +438,20 @@ interface BackgroundCheckRequest {
       gapStatus: string
       gapExplanation: string
       gapAnalysisSummary: string
+      // Multiple employment entries
+      employmentEntries?: Array<{
+        id: string
+        companyName: string
+        position: string
+        startDate: string
+        endDate: string
+        employmentType: string
+        salary: string
+        responsibilities: string
+        reasonForLeaving: string
+        supervisorName: string
+        supervisorContact: string
+      }>
     }
     medical: {
       medicalHistory: string
@@ -563,6 +622,10 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const [selectedCategory, setSelectedCategory] = useState('personalIdentity')
   const [selectedSubTab, setSelectedSubTab] = useState('address')
   const [showDetails, setShowDetails] = useState(false)
+  const [expandedAddresses, setExpandedAddresses] = useState<Set<string>>(new Set(['addr-1']))
+  const [expandedEmployments, setExpandedEmployments] = useState<Set<string>>(new Set(['emp-1']))
+  const [expandedDegrees, setExpandedDegrees] = useState<Set<string>>(new Set(['deg-1']))
+  const [expandedIncomeSources, setExpandedIncomeSources] = useState<Set<string>>(new Set(['income-1']))
   // Payment flow states
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [showOTPModal, setShowOTPModal] = useState(false)
@@ -985,6 +1048,19 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             stateResidency: 'Lagos State',
             nameChange: 'No changes',
             email: 'NeneAfamefuna@gmail.com',
+            // Multiple addresses support
+            addresses: [
+              {
+                id: 'addr-1',
+                addressType: 'residential',
+                residenceFrom: 'Jun 2019',
+                residenceTo: 'now',
+                street: 'Ajanaku Street',
+                buildingNumber: '6',
+                city: 'Lagos',
+                state: 'Lagos'
+              }
+            ],
             // Enhanced address fields
             addressType: 'residential',
             residenceFrom: 'Jun 2019',
@@ -1210,7 +1286,25 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             outstandingTax: 0,
             taxPenalties: 0,
             taxAuditStatus: 'never-audited',
-            firsHistorySummary: 'Excellent tax compliance record with FIRS. All tax returns filed on time with no outstanding obligations. No penalties or audit issues. Regular taxpayer with consistent compliance.'
+            firsHistorySummary: 'Excellent tax compliance record with FIRS. All tax returns filed on time with no outstanding obligations. No penalties or audit issues. Regular taxpayer with consistent compliance.',
+            // Multiple income sources
+            incomeSourceEntries: [
+              {
+                id: 'income-1',
+                sourceType: 'employment',
+                sourceDescription: 'Primary employment salary',
+                monthlyAmount: 250000,
+                annualAmount: 3000000,
+                frequency: 'monthly',
+                verificationMethod: 'pay-stub',
+                verificationStatus: 'verified',
+                employerName: 'Tech Solutions Ltd',
+                startDate: '2022-03-01',
+                endDate: '',
+                stability: 'stable',
+                paymentMethod: 'direct-deposit'
+              }
+            ]
           },
           fraudDetection: {
             fraudAlerts: 'No fraud alerts',
@@ -1257,6 +1351,23 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             institutionLocation: 'Lagos, Nigeria',
             institutionType: 'university',
             degreeVerificationSummary: 'Degree verification completed. Institution confirmed as accredited. Degree type and field of study verified. Graduation year and class of degree confirmed.',
+            // Multiple degree entries
+            degreeEntries: [
+              {
+                id: 'deg-1',
+                institutionName: 'University of Lagos',
+                degreeType: 'bachelor',
+                fieldOfStudy: 'Computer Science',
+                graduationYear: 2019,
+                gpaClassOfDegree: 'Second Class Upper',
+                institutionLocation: 'Lagos, Nigeria',
+                institutionType: 'university',
+                verificationStatus: 'verified',
+                expectedGraduationDate: '2019-07-15',
+                currentlyEnrolled: false,
+                degreeLevel: 'undergraduate'
+              }
+            ],
             // Enhanced transcript verification fields
             transcriptGpa: '3.7/4.0',
             gradingScale: '4.0',
@@ -1287,6 +1398,22 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             salaryRange: '₦800,000 - ₦1,200,000',
             previousEmploymentHistory: 'Previous Company (2019-2022) - Software Engineer, ABC Corp (2017-2019) - Junior Developer',
             employmentVerificationSummary: 'Employment history verified with current and previous employers. All positions and dates confirmed. No discrepancies found.',
+            // Multiple employment entries
+            employmentEntries: [
+              {
+                id: 'emp-1',
+                companyName: 'Tech Corp',
+                position: 'Senior Software Engineer',
+                startDate: '2022-01-15',
+                endDate: 'Current',
+                employmentType: 'Full-time',
+                salary: '₦1,000,000',
+                responsibilities: 'Lead development of web applications, mentor junior developers, and architect scalable solutions.',
+                reasonForLeaving: 'Current position',
+                supervisorName: 'John Smith',
+                supervisorContact: 'john.smith@techcorp.com'
+              }
+            ],
             // Enhanced reference check fields
             referenceName: 'John Smith',
             referencePosition: 'Engineering Manager',
@@ -1533,6 +1660,282 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200'
     }
+  }
+
+  // Address management functions
+  const addNewAddress = () => {
+    const newAddress = {
+      id: `addr-${Date.now()}`,
+      addressType: 'residential',
+      residenceFrom: '',
+      residenceTo: '',
+      street: '',
+      buildingNumber: '',
+      city: '',
+      state: ''
+    }
+    
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        personalIdentity: {
+          ...prev.details?.personalIdentity,
+          addresses: [...(prev.details?.personalIdentity?.addresses || []), newAddress]
+        }
+      } as any
+    }))
+    setExpandedAddresses(prev => new Set([...prev, newAddress.id]))
+  }
+
+  const removeAddress = (addressId: string) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        personalIdentity: {
+          ...prev.details?.personalIdentity,
+          addresses: (prev.details?.personalIdentity?.addresses || []).filter(addr => addr.id !== addressId)
+        }
+      } as any
+    }))
+  }
+
+  const updateAddress = (addressId: string, field: string, value: any) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        personalIdentity: {
+          ...prev.details?.personalIdentity,
+          addresses: (prev.details?.personalIdentity?.addresses || []).map(addr => 
+            addr.id === addressId ? { ...addr, [field]: value } : addr
+          )
+        }
+      } as any
+    }))
+  }
+
+  const toggleAddressExpansion = (addressId: string) => {
+    setExpandedAddresses(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(addressId)) {
+        newSet.delete(addressId)
+      } else {
+        newSet.add(addressId)
+      }
+      return newSet
+    })
+  }
+
+  // Employment management functions
+  const addNewEmployment = () => {
+    const newEmployment = {
+      id: `emp-${Date.now()}`,
+      companyName: '',
+      position: '',
+      startDate: '',
+      endDate: '',
+      employmentType: 'Full-time',
+      salary: '',
+      responsibilities: '',
+      reasonForLeaving: '',
+      supervisorName: '',
+      supervisorContact: ''
+    }
+    
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        employment: {
+          ...prev.details?.employment,
+          employmentEntries: [...(prev.details?.employment?.employmentEntries || []), newEmployment]
+        }
+      } as any
+    }))
+    setExpandedEmployments(prev => new Set([...prev, newEmployment.id]))
+  }
+
+  const removeEmployment = (employmentId: string) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        employment: {
+          ...prev.details?.employment,
+          employmentEntries: (prev.details?.employment?.employmentEntries || []).filter(emp => emp.id !== employmentId)
+        }
+      } as any
+    }))
+  }
+
+  const updateEmployment = (employmentId: string, field: string, value: any) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        employment: {
+          ...prev.details?.employment,
+          employmentEntries: (prev.details?.employment?.employmentEntries || []).map(emp => 
+            emp.id === employmentId ? { ...emp, [field]: value } : emp
+          )
+        }
+      } as any
+    }))
+  }
+
+  const toggleEmploymentExpansion = (employmentId: string) => {
+    setExpandedEmployments(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(employmentId)) {
+        newSet.delete(employmentId)
+      } else {
+        newSet.add(employmentId)
+      }
+      return newSet
+    })
+  }
+
+  // Degree management functions
+  const addNewDegree = () => {
+    const newDegree = {
+      id: `deg-${Date.now()}`,
+      institutionName: '',
+      degreeType: '',
+      fieldOfStudy: '',
+      graduationYear: new Date().getFullYear(),
+      gpaClassOfDegree: '',
+      institutionLocation: '',
+      institutionType: '',
+      verificationStatus: 'pending',
+      expectedGraduationDate: '',
+      currentlyEnrolled: false,
+      degreeLevel: ''
+    }
+    
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        education: {
+          ...prev.details?.education,
+          degreeEntries: [...(prev.details?.education?.degreeEntries || []), newDegree]
+        }
+      } as any
+    }))
+    setExpandedDegrees(prev => new Set([...prev, newDegree.id]))
+  }
+
+  const removeDegree = (degreeId: string) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        education: {
+          ...prev.details?.education,
+          degreeEntries: (prev.details?.education?.degreeEntries || []).filter(deg => deg.id !== degreeId)
+        }
+      } as any
+    }))
+  }
+
+  const updateDegree = (degreeId: string, field: string, value: any) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        education: {
+          ...prev.details?.education,
+          degreeEntries: (prev.details?.education?.degreeEntries || []).map(deg => 
+            deg.id === degreeId ? { ...deg, [field]: value } : deg
+          )
+        }
+      } as any
+    }))
+  }
+
+  const toggleDegreeExpansion = (degreeId: string) => {
+    setExpandedDegrees(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(degreeId)) {
+        newSet.delete(degreeId)
+      } else {
+        newSet.add(degreeId)
+      }
+      return newSet
+    })
+  }
+
+  // Income source management functions
+  const addNewIncomeSource = () => {
+    const newIncomeSource = {
+      id: `income-${Date.now()}`,
+      sourceType: '',
+      sourceDescription: '',
+      monthlyAmount: 0,
+      annualAmount: 0,
+      frequency: 'monthly',
+      verificationMethod: '',
+      verificationStatus: 'pending',
+      employerName: '',
+      startDate: '',
+      endDate: '',
+      stability: '',
+      paymentMethod: ''
+    }
+    
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        financialCredit: {
+          ...prev.details?.financialCredit,
+          incomeSourceEntries: [...(prev.details?.financialCredit?.incomeSourceEntries || []), newIncomeSource]
+        }
+      } as any
+    }))
+    setExpandedIncomeSources(prev => new Set([...prev, newIncomeSource.id]))
+  }
+
+  const removeIncomeSource = (incomeId: string) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        financialCredit: {
+          ...prev.details?.financialCredit,
+          incomeSourceEntries: (prev.details?.financialCredit?.incomeSourceEntries || []).filter(income => income.id !== incomeId)
+        }
+      } as any
+    }))
+  }
+
+  const updateIncomeSource = (incomeId: string, field: string, value: any) => {
+    setRequest(prev => ({
+      ...prev,
+      details: {
+        ...prev.details,
+        financialCredit: {
+          ...prev.details?.financialCredit,
+          incomeSourceEntries: (prev.details?.financialCredit?.incomeSourceEntries || []).map(income => 
+            income.id === incomeId ? { ...income, [field]: value } : income
+          )
+        }
+      } as any
+    }))
+  }
+
+  const toggleIncomeSourceExpansion = (incomeId: string) => {
+    setExpandedIncomeSources(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(incomeId)) {
+        newSet.delete(incomeId)
+      } else {
+        newSet.add(incomeId)
+      }
+      return newSet
+    })
   }
 
   const handleInputChange = (field: string, value: any) => {
@@ -2061,16 +2464,60 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   }
 
   const getTotalPrice = () => {
-    return Object.values(selectedChecks)
-      .filter(check => check.selected)
-      .reduce((total, check) => total + check.price, 0)
+    return Object.entries(selectedChecks)
+      .filter(([_, check]) => check.selected)
+      .reduce((total, [key, check]) => {
+        // Special handling for address verification - multiply by number of addresses
+        if (key === 'personalIdentity.address') {
+          const addressCount = request.details?.personalIdentity?.addresses?.length || 1
+          return total + (check.price * addressCount)
+        }
+        // Special handling for employment history verification - multiply by number of employment entries
+        if (key === 'employment.employmentHistory') {
+          const employmentCount = request.details?.employment?.employmentEntries?.length || 1
+          return total + (check.price * employmentCount)
+        }
+        // Special handling for degree verification - multiply by number of degree entries
+        if (key === 'education.degreeVerification') {
+          const degreeCount = request.details?.education?.degreeEntries?.length || 1
+          return total + (check.price * degreeCount)
+        }
+        // Special handling for income sources verification - multiply by number of income source entries
+        if (key === 'financialCredit.incomeSources') {
+          const incomeSourceCount = request.details?.financialCredit?.incomeSourceEntries?.length || 1
+          return total + (check.price * incomeSourceCount)
+        }
+        return total + check.price
+      }, 0)
   }
 
   // Payment calculation functions
   const calculateTotal = () => {
     const subtotal = Object.entries(selectedChecks)
       .filter(([_, check]) => check.selected)
-      .reduce((sum, [_, check]) => sum + check.price, 0)
+      .reduce((sum, [key, check]) => {
+        // Special handling for address verification - multiply by number of addresses
+        if (key === 'personalIdentity.address') {
+          const addressCount = request.details?.personalIdentity?.addresses?.length || 1
+          return sum + (check.price * addressCount)
+        }
+        // Special handling for employment history verification - multiply by number of employment entries
+        if (key === 'employment.employmentHistory') {
+          const employmentCount = request.details?.employment?.employmentEntries?.length || 1
+          return sum + (check.price * employmentCount)
+        }
+        // Special handling for degree verification - multiply by number of degree entries
+        if (key === 'education.degreeVerification') {
+          const degreeCount = request.details?.education?.degreeEntries?.length || 1
+          return sum + (check.price * degreeCount)
+        }
+        // Special handling for income sources verification - multiply by number of income source entries
+        if (key === 'financialCredit.incomeSources') {
+          const incomeSourceCount = request.details?.financialCredit?.incomeSourceEntries?.length || 1
+          return sum + (check.price * incomeSourceCount)
+        }
+        return sum + check.price
+      }, 0)
     
     const serviceFee = Math.round(subtotal * 0.1) // 10% service fee
     const total = subtotal + serviceFee
@@ -2150,6 +2597,38 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
               'deviceFingerprint': 'Device Fingerprint'
             }
           }
+          // Special handling for address verification - show count
+          if (key === 'personalIdentity.address') {
+            const addressCount = request.details?.personalIdentity?.addresses?.length || 1
+            return {
+              name: `${subTabNames[category]?.[subTab] || key} (${addressCount} address${addressCount > 1 ? 'es' : ''})`,
+              price: check.price * addressCount
+            }
+          }
+          // Special handling for employment history verification - show count
+          if (key === 'employment.employmentHistory') {
+            const employmentCount = request.details?.employment?.employmentEntries?.length || 1
+            return {
+              name: `${subTabNames[category]?.[subTab] || key} (${employmentCount} employment${employmentCount > 1 ? 's' : ''})`,
+              price: check.price * employmentCount
+            }
+          }
+          // Special handling for degree verification - show count
+          if (key === 'education.degreeVerification') {
+            const degreeCount = request.details?.education?.degreeEntries?.length || 1
+            return {
+              name: `${subTabNames[category]?.[subTab] || key} (${degreeCount} degree${degreeCount > 1 ? 's' : ''})`,
+              price: check.price * degreeCount
+            }
+          }
+          // Special handling for income sources verification - show count
+          if (key === 'financialCredit.incomeSources') {
+            const incomeCount = request.details?.financialCredit?.incomeSourceEntries?.length || 1
+            return {
+              name: `${subTabNames[category]?.[subTab] || key} (${incomeCount} source${incomeCount > 1 ? 's' : ''})`,
+              price: check.price * incomeCount
+            }
+          }
           return {
             name: subTabNames[category]?.[subTab] || key,
             price: check.price
@@ -2198,708 +2677,459 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {/* Content based on selected sub-tab */}
         {selectedSubTab === 'address' && (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {!selectedChecks['personalIdentity.address']?.selected ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="h-8 w-8 text-gray-400" />
+              <div className="text-center py-12 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl border-2 border-dashed border-blue-200">
+                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <MapPin className="h-10 w-10 text-blue-600" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Address Verification</h3>
-                <p className="text-gray-500 mb-4">Verify the candidate's residential address</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Address Verification</h3>
+                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  Verify multiple residential addresses for comprehensive background checking. Each address is calculated separately.
+                </p>
+                <div className="flex items-center justify-center space-x-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">₦2,000</div>
+                    <div className="text-sm text-gray-500">per address</div>
+                  </div>
+                  <div className="text-gray-400">×</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">1</div>
+                    <div className="text-sm text-gray-500">address</div>
+                  </div>
+                  <div className="text-gray-400">=</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">₦2,000</div>
+                    <div className="text-sm text-gray-500">total</div>
+                  </div>
+                </div>
                 <button
                   onClick={() => toggleCheck('personalIdentity.address')}
-                  className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-lg hover:shadow-xl"
                 >
-                  Add Address Check - ₦2,000
+                  Start Address Verification
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Address Verification</h3>
-                  <button
-                    onClick={() => toggleCheck('personalIdentity.address')}
-                    className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
-                  >
-                    Remove
-                  </button>
-                </div>
-                {/* Address Type and Duration */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Address Type</label>
-                    {isEditing ? (
-                      <select
-                        value={details?.addressType || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.addressType', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="">Select address type</option>
-                        <option value="residential">Residential</option>
-                        <option value="business">Business</option>
-                        <option value="mailing">Mailing</option>
-                        <option value="permanent">Permanent</option>
-                        <option value="temporary">Temporary</option>
-                      </select>
-                    ) : (
-                      <p className="text-gray-900">{details?.addressType || 'Not specified'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Duration of Residence</label>
-                    {isEditing ? (
-                      <div className="flex items-center space-x-2">
-                        <input
-                          type="text"
-                          placeholder="From"
-                          value={details?.residenceFrom || ''}
-                          onChange={(e) => handleInputChange('details.personalIdentity.residenceFrom', e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        />
-                        <span className="text-gray-500">to</span>
-                        <input
-                          type="text"
-                          placeholder="To"
-                          value={details?.residenceTo || ''}
-                          onChange={(e) => handleInputChange('details.personalIdentity.residenceTo', e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        />
+              <div className="space-y-6">
+                {/* Header with controls */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <MapPin className="h-5 w-5 text-blue-600" />
                       </div>
-                    ) : (
-                      <p className="text-gray-900">
-                        {details?.residenceFrom && details?.residenceTo 
-                          ? `${details.residenceFrom} to ${details.residenceTo}`
-                          : details?.residenceFrom || 'Not specified'
-                        }
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Full Address */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Full Address</label>
-                  {isEditing ? (
-                    <textarea
-                      rows={3}
-                      value={details?.address || ''}
-                      onChange={(e) => handleInputChange('details.personalIdentity.address', e.target.value)}
-                      placeholder="Enter complete address including street, building, apartment number, etc."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
-                    />
-                  ) : (
-                    <p className="text-gray-900">{details?.address || 'No address provided'}</p>
-                  )}
-                </div>
-
-                {/* Location Details */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Street/Area</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.street || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.street', e.target.value)}
-                        placeholder="Street name or area"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.street || 'Not specified'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Building/House Number</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.buildingNumber || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.buildingNumber', e.target.value)}
-                        placeholder="Building or house number"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.buildingNumber || 'Not specified'}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Geographic Information */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">L.G.A (Local Government Area)</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.lga || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.lga', e.target.value)}
-                        placeholder="Local Government Area"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.lga || 'Not specified'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">City/Town</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.city || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.city', e.target.value)}
-                        placeholder="City or town"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.city || 'Not specified'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
-                    {isEditing ? (
-                      <select
-                        value={details?.state || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.state', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="">Select state</option>
-                        <option value="Abia">Abia</option>
-                        <option value="Adamawa">Adamawa</option>
-                        <option value="Akwa Ibom">Akwa Ibom</option>
-                        <option value="Anambra">Anambra</option>
-                        <option value="Bauchi">Bauchi</option>
-                        <option value="Bayelsa">Bayelsa</option>
-                        <option value="Benue">Benue</option>
-                        <option value="Borno">Borno</option>
-                        <option value="Cross River">Cross River</option>
-                        <option value="Delta">Delta</option>
-                        <option value="Ebonyi">Ebonyi</option>
-                        <option value="Edo">Edo</option>
-                        <option value="Ekiti">Ekiti</option>
-                        <option value="Enugu">Enugu</option>
-                        <option value="FCT">Federal Capital Territory</option>
-                        <option value="Gombe">Gombe</option>
-                        <option value="Imo">Imo</option>
-                        <option value="Jigawa">Jigawa</option>
-                        <option value="Kaduna">Kaduna</option>
-                        <option value="Kano">Kano</option>
-                        <option value="Katsina">Katsina</option>
-                        <option value="Kebbi">Kebbi</option>
-                        <option value="Kogi">Kogi</option>
-                        <option value="Kwara">Kwara</option>
-                        <option value="Lagos">Lagos</option>
-                        <option value="Nasarawa">Nasarawa</option>
-                        <option value="Niger">Niger</option>
-                        <option value="Ogun">Ogun</option>
-                        <option value="Ondo">Ondo</option>
-                        <option value="Osun">Osun</option>
-                        <option value="Oyo">Oyo</option>
-                        <option value="Plateau">Plateau</option>
-                        <option value="Rivers">Rivers</option>
-                        <option value="Sokoto">Sokoto</option>
-                        <option value="Taraba">Taraba</option>
-                        <option value="Yobe">Yobe</option>
-                        <option value="Zamfara">Zamfara</option>
-                      </select>
-                    ) : (
-                      <p className="text-gray-900">{details?.state || 'Not specified'}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Additional Information */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.postalCode || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.postalCode', e.target.value)}
-                        placeholder="Postal/ZIP code"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.postalCode || 'Not specified'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                    {isEditing ? (
-                      <select
-                        value={details?.country || 'Nigeria'}
-                        onChange={(e) => handleInputChange('details.personalIdentity.country', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="Nigeria">Nigeria</option>
-                        <option value="Ghana">Ghana</option>
-                        <option value="Kenya">Kenya</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="United States">United States</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    ) : (
-                      <p className="text-gray-900">{details?.country || 'Nigeria'}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Landmark and Additional Details */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Nearest Landmark</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.landmark || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.landmark', e.target.value)}
-                        placeholder="e.g., Near Central Mosque, Opposite GTBank"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.landmark || 'Not specified'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Property Type</label>
-                    {isEditing ? (
-                      <select
-                        value={details?.propertyType || ''}
-                        onChange={(e) => handleInputChange('details.personalIdentity.propertyType', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      >
-                        <option value="">Select property type</option>
-                        <option value="apartment">Apartment</option>
-                        <option value="house">House</option>
-                        <option value="duplex">Duplex</option>
-                        <option value="bungalow">Bungalow</option>
-                        <option value="flat">Flat</option>
-                        <option value="office">Office</option>
-                        <option value="shop">Shop</option>
-                        <option value="other">Other</option>
-                      </select>
-                    ) : (
-                      <p className="text-gray-900">{details?.propertyType || 'Not specified'}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Verification Status */}
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <CheckCircle className="h-5 w-5 text-blue-600" />
-                    <h4 className="font-medium text-blue-900">Address Verification Details</h4>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="text-blue-700">Verification Method:</span>
-                      <span className="ml-2 text-blue-900 font-medium">
-                        {details?.verificationMethod || 'Physical verification'}
-                      </span>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">Address Verification</h3>
+                        <p className="text-sm text-gray-600">
+                          {request.details?.personalIdentity?.addresses?.length || 1} address{(request.details?.personalIdentity?.addresses?.length || 1) > 1 ? 'es' : ''} selected
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-blue-700">Last Verified:</span>
-                      <span className="ml-2 text-blue-900 font-medium">
-                        {details?.lastVerified || 'Not yet verified'}
+                    <div className="flex items-center space-x-3">
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-gray-900">
+                          ₦{((request.details?.personalIdentity?.addresses?.length || 1) * 2000).toLocaleString()}
+                        </div>
+                        <div className="text-sm text-gray-500">total cost</div>
+                      </div>
+                      <button
+                        onClick={() => toggleCheck('personalIdentity.address')}
+                        className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        Remove All
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <button
+                        onClick={addNewAddress}
+                        className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        <Plus className="h-4 w-4" />
+                        <span>Add Address</span>
+                      </button>
+                      <span className="text-sm text-gray-500">
+                        Each additional address costs ₦2,000
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Supporting Documents Upload */}
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-                  <div className="flex items-center space-x-2 mb-4">
-                    <FileText className="h-5 w-5 text-gray-600" />
-                    <h4 className="font-medium text-gray-900">Supporting Documents</h4>
-                    <span className="text-sm text-gray-500">(Optional but recommended)</span>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-6">
-                    Upload supporting documents to strengthen your address verification. Accepted formats: JPEG, PNG, PDF (max 10MB each).
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Billing Document */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Billing Document</label>
-                      {isEditing ? (
-                        <div className="space-y-3">
-                          {!uploadedBillingDocument ? (
-                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                              <input
-                                type="file"
-                                id="billing-document-upload"
-                                accept=".jpg,.jpeg,.png,.pdf"
-                                onChange={(e) => handleAddressDocumentUpload(e, 'billing')}
-                                className="hidden"
-                              />
-                              <label
-                                htmlFor="billing-document-upload"
-                                className="cursor-pointer flex flex-col items-center space-y-2"
-                              >
-                                <Upload className="h-6 w-6 text-gray-400" />
-                                <div className="text-sm text-gray-600">
-                                  <span className="font-medium text-primary-600 hover:text-primary-700">Click to upload</span>
-                                </div>
-                                <div className="text-xs text-gray-500">Bank statement, utility bill, etc.</div>
-                              </label>
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-                              <div className="flex items-center space-x-3">
-                                <FileText className="h-6 w-6 text-green-600" />
-                                <div>
-                                  <p className="text-sm font-medium text-green-900">{uploadedBillingDocument.name}</p>
-                                  <p className="text-xs text-green-700">
-                                    {(uploadedBillingDocument.size / 1024 / 1024).toFixed(2)} MB
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <button
-                                  onClick={() => window.open(URL.createObjectURL(uploadedBillingDocument), '_blank')}
-                                  className="text-green-600 hover:text-green-700 p-1"
-                                  title="View file"
-                                >
-                                  <Eye className="h-4 w-4" />
-                                </button>
-                                <button
-                                  onClick={() => removeAddressDocument('billing')}
-                                  className="text-red-600 hover:text-red-700 p-1"
-                                  title="Remove file"
-                                >
-                                  <X className="h-4 w-4" />
-                                </button>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                          {uploadedBillingDocument ? (
+                {/* Address Cards */}
+                <div className="space-y-4">
+                  {request.details?.personalIdentity?.addresses?.map((address, index) => {
+                    const isExpanded = expandedAddresses.has(address.id)
+                    return (
+                      <div key={address.id} className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                        {/* Address Card Header */}
+                        <div className="p-4 border-b border-gray-100">
+                          <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
-                              <FileText className="h-5 w-5 text-gray-600" />
+                              <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <span className="text-sm font-medium text-gray-600">#{index + 1}</span>
+                              </div>
                               <div>
-                                <p className="text-sm font-medium text-gray-900">{uploadedBillingDocument.name}</p>
-                                <p className="text-xs text-gray-600">
-                                  {(uploadedBillingDocument.size / 1024 / 1024).toFixed(2)} MB
+                                <h4 className="font-medium text-gray-900">
+                                  {address.addressType ? address.addressType.charAt(0).toUpperCase() + address.addressType.slice(1) : 'Residential'} Address
+                                </h4>
+                                <p className="text-sm text-gray-500">
+                                  {address.street && address.buildingNumber 
+                                    ? `${address.buildingNumber} ${address.street}, ${address.city || 'City'}, ${address.state || 'State'}`
+                                    : 'Address details pending'
+                                  }
                                 </p>
                               </div>
                             </div>
-                          ) : (
-                            <p className="text-gray-500 text-sm">No document uploaded</p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Light Bill */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Light Bill (Electricity)</label>
-                      {isEditing ? (
-                        <div className="space-y-3">
-                          {!uploadedLightBill ? (
-                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                              <input
-                                type="file"
-                                id="light-bill-upload"
-                                accept=".jpg,.jpeg,.png,.pdf"
-                                onChange={(e) => handleAddressDocumentUpload(e, 'lightBill')}
-                                className="hidden"
-                              />
-                              <label
-                                htmlFor="light-bill-upload"
-                                className="cursor-pointer flex flex-col items-center space-y-2"
+                            <div className="flex items-center space-x-2">
+                              <div className="text-right">
+                                <div className="text-sm font-medium text-gray-900">₦2,000</div>
+                                <div className="text-xs text-gray-500">per address</div>
+                              </div>
+                              {(request.details?.personalIdentity?.addresses?.length || 0) > 1 && (
+                                <button
+                                  onClick={() => removeAddress(address.id)}
+                                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                  title="Remove this address"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              )}
+                              <button
+                                onClick={() => toggleAddressExpansion(address.id)}
+                                className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                                title={isExpanded ? "Collapse" : "Expand"}
                               >
-                                <Upload className="h-6 w-6 text-gray-400" />
-                                <div className="text-sm text-gray-600">
-                                  <span className="font-medium text-primary-600 hover:text-primary-700">Click to upload</span>
-                                </div>
-                                <div className="text-xs text-gray-500">Electricity bill</div>
-                              </label>
+                                <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                              </button>
                             </div>
-                          ) : (
-                            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-                              <div className="flex items-center space-x-3">
-                                <FileText className="h-6 w-6 text-green-600" />
-                                <div>
-                                  <p className="text-sm font-medium text-green-900">{uploadedLightBill.name}</p>
-                                  <p className="text-xs text-green-700">
-                                    {(uploadedLightBill.size / 1024 / 1024).toFixed(2)} MB
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <button
-                                  onClick={() => window.open(URL.createObjectURL(uploadedLightBill), '_blank')}
-                                  className="text-green-600 hover:text-green-700 p-1"
-                                  title="View file"
-                                >
-                                  <Eye className="h-4 w-4" />
-                                </button>
-                                <button
-                                  onClick={() => removeAddressDocument('lightBill')}
-                                  className="text-red-600 hover:text-red-700 p-1"
-                                  title="Remove file"
-                                >
-                                  <X className="h-4 w-4" />
-                                </button>
-                              </div>
-                            </div>
-                          )}
+                          </div>
                         </div>
-                      ) : (
-                        <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                          {uploadedLightBill ? (
-                            <div className="flex items-center space-x-3">
-                              <FileText className="h-5 w-5 text-gray-600" />
+
+                        {/* Address Form Content */}
+                        {isExpanded && (
+                          <div className="p-6 space-y-4">
+                            {/* Address Type and Duration */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                               <div>
-                                <p className="text-sm font-medium text-gray-900">{uploadedLightBill.name}</p>
-                                <p className="text-xs text-gray-600">
-                                  {(uploadedLightBill.size / 1024 / 1024).toFixed(2)} MB
-                                </p>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Address Type</label>
+                                {isEditing ? (
+                                  <select
+                                    value={address.addressType || ''}
+                                    onChange={(e) => updateAddress(address.id, 'addressType', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select address type</option>
+                                    <option value="residential">Residential</option>
+                                    <option value="business">Business</option>
+                                    <option value="mailing">Mailing</option>
+                                    <option value="permanent">Permanent</option>
+                                    <option value="temporary">Temporary</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{address.addressType || 'Not specified'}</p>
+                                )}
                               </div>
-                            </div>
-                          ) : (
-                            <p className="text-gray-500 text-sm">No document uploaded</p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Water Bill */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Water Bill</label>
-                      {isEditing ? (
-                        <div className="space-y-3">
-                          {!uploadedWaterBill ? (
-                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                              <input
-                                type="file"
-                                id="water-bill-upload"
-                                accept=".jpg,.jpeg,.png,.pdf"
-                                onChange={(e) => handleAddressDocumentUpload(e, 'waterBill')}
-                                className="hidden"
-                              />
-                              <label
-                                htmlFor="water-bill-upload"
-                                className="cursor-pointer flex flex-col items-center space-y-2"
-                              >
-                                <Upload className="h-6 w-6 text-gray-400" />
-                                <div className="text-sm text-gray-600">
-                                  <span className="font-medium text-primary-600 hover:text-primary-700">Click to upload</span>
-                                </div>
-                                <div className="text-xs text-gray-500">Water utility bill</div>
-                              </label>
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-                              <div className="flex items-center space-x-3">
-                                <FileText className="h-6 w-6 text-green-600" />
-                                <div>
-                                  <p className="text-sm font-medium text-green-900">{uploadedWaterBill.name}</p>
-                                  <p className="text-xs text-green-700">
-                                    {(uploadedWaterBill.size / 1024 / 1024).toFixed(2)} MB
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <button
-                                  onClick={() => window.open(URL.createObjectURL(uploadedWaterBill), '_blank')}
-                                  className="text-green-600 hover:text-green-700 p-1"
-                                  title="View file"
-                                >
-                                  <Eye className="h-4 w-4" />
-                                </button>
-                                <button
-                                  onClick={() => removeAddressDocument('waterBill')}
-                                  className="text-red-600 hover:text-red-700 p-1"
-                                  title="Remove file"
-                                >
-                                  <X className="h-4 w-4" />
-                                </button>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                          {uploadedWaterBill ? (
-                            <div className="flex items-center space-x-3">
-                              <FileText className="h-5 w-5 text-gray-600" />
                               <div>
-                                <p className="text-sm font-medium text-gray-900">{uploadedWaterBill.name}</p>
-                                <p className="text-xs text-gray-600">
-                                  {(uploadedWaterBill.size / 1024 / 1024).toFixed(2)} MB
-                                </p>
-                              </div>
-                            </div>
-                          ) : (
-                            <p className="text-gray-500 text-sm">No document uploaded</p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Tenancy Agreement */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Tenancy Agreement</label>
-                      {isEditing ? (
-                        <div className="space-y-3">
-                          {!uploadedTenancyAgreement ? (
-                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                              <input
-                                type="file"
-                                id="tenancy-agreement-upload"
-                                accept=".jpg,.jpeg,.png,.pdf"
-                                onChange={(e) => handleAddressDocumentUpload(e, 'tenancy')}
-                                className="hidden"
-                              />
-                              <label
-                                htmlFor="tenancy-agreement-upload"
-                                className="cursor-pointer flex flex-col items-center space-y-2"
-                              >
-                                <Upload className="h-6 w-6 text-gray-400" />
-                                <div className="text-sm text-gray-600">
-                                  <span className="font-medium text-primary-600 hover:text-primary-700">Click to upload</span>
-                                </div>
-                                <div className="text-xs text-gray-500">Rental agreement, lease document</div>
-                              </label>
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-                              <div className="flex items-center space-x-3">
-                                <FileText className="h-6 w-6 text-green-600" />
-                                <div>
-                                  <p className="text-sm font-medium text-green-900">{uploadedTenancyAgreement.name}</p>
-                                  <p className="text-xs text-green-700">
-                                    {(uploadedTenancyAgreement.size / 1024 / 1024).toFixed(2)} MB
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <button
-                                  onClick={() => window.open(URL.createObjectURL(uploadedTenancyAgreement), '_blank')}
-                                  className="text-green-600 hover:text-green-700 p-1"
-                                  title="View file"
-                                >
-                                  <Eye className="h-4 w-4" />
-                                </button>
-                                <button
-                                  onClick={() => removeAddressDocument('tenancy')}
-                                  className="text-red-600 hover:text-red-700 p-1"
-                                  title="Remove file"
-                                >
-                                  <X className="h-4 w-4" />
-                                </button>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                          {uploadedTenancyAgreement ? (
-                            <div className="flex items-center space-x-3">
-                              <FileText className="h-5 w-5 text-gray-600" />
-                              <div>
-                                <p className="text-sm font-medium text-gray-900">{uploadedTenancyAgreement.name}</p>
-                                <p className="text-xs text-gray-600">
-                                  {(uploadedTenancyAgreement.size / 1024 / 1024).toFixed(2)} MB
-                                </p>
-                              </div>
-                            </div>
-                          ) : (
-                            <p className="text-gray-500 text-sm">No document uploaded</p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Other Documents */}
-                  <div className="mt-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Other Supporting Documents</label>
-                    {isEditing ? (
-                      <div className="space-y-4">
-                        {/* Upload new document */}
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                          <input
-                            type="file"
-                            id="other-documents-upload"
-                            accept=".jpg,.jpeg,.png,.pdf"
-                            onChange={(e) => handleAddressDocumentUpload(e, 'other')}
-                            className="hidden"
-                          />
-                          <label
-                            htmlFor="other-documents-upload"
-                            className="cursor-pointer flex flex-col items-center space-y-2"
-                          >
-                            <Upload className="h-6 w-6 text-gray-400" />
-                            <div className="text-sm text-gray-600">
-                              <span className="font-medium text-primary-600 hover:text-primary-700">Click to upload</span>
-                            </div>
-                            <div className="text-xs text-gray-500">Additional supporting documents</div>
-                          </label>
-                        </div>
-
-                        {/* Uploaded documents list */}
-                        {uploadedOtherDocuments.length > 0 && (
-                          <div className="space-y-2">
-                            {uploadedOtherDocuments.map((file, index) => (
-                              <div key={index} className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-                                <div className="flex items-center space-x-3">
-                                  <FileText className="h-5 w-5 text-green-600" />
-                                  <div>
-                                    <p className="text-sm font-medium text-green-900">{file.name}</p>
-                                    <p className="text-xs text-green-700">
-                                      {(file.size / 1024 / 1024).toFixed(2)} MB
-                                    </p>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Duration of Residence</label>
+                                {isEditing ? (
+                                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                                    <input
+                                      type="text"
+                                      placeholder="From"
+                                      value={address.residenceFrom || ''}
+                                      onChange={(e) => updateAddress(address.id, 'residenceFrom', e.target.value)}
+                                      className="flex-1 w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                    />
+                                    <span className="text-gray-500">to</span>
+                                    <input
+                                      type="text"
+                                      placeholder="To"
+                                      value={address.residenceTo || ''}
+                                      onChange={(e) => updateAddress(address.id, 'residenceTo', e.target.value)}
+                                      className="flex-1 w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                    />
                                   </div>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                  <button
-                                    onClick={() => window.open(URL.createObjectURL(file), '_blank')}
-                                    className="text-green-600 hover:text-green-700 p-1"
-                                    title="View file"
-                                  >
-                                    <Eye className="h-4 w-4" />
-                                  </button>
-                                  <button
-                                    onClick={() => removeAddressDocument('other', index)}
-                                    className="text-red-600 hover:text-red-700 p-1"
-                                    title="Remove file"
-                                  >
-                                    <X className="h-4 w-4" />
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                        {uploadedOtherDocuments.length > 0 ? (
-                          <div className="space-y-2">
-                            {uploadedOtherDocuments.map((file, index) => (
-                              <div key={index} className="flex items-center space-x-3">
-                                <FileText className="h-5 w-5 text-gray-600" />
-                                <div>
-                                  <p className="text-sm font-medium text-gray-900">{file.name}</p>
-                                  <p className="text-xs text-gray-600">
-                                    {(file.size / 1024 / 1024).toFixed(2)} MB
+                                ) : (
+                                  <p className="text-gray-900">
+                                    {address.residenceFrom && address.residenceTo 
+                                      ? `${address.residenceFrom} to ${address.residenceTo}`
+                                      : address.residenceFrom || 'Not specified'
+                                    }
                                   </p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Location Details */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Street/Area</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={address.street || ''}
+                                    onChange={(e) => updateAddress(address.id, 'street', e.target.value)}
+                                    placeholder="Street name or area"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{address.street || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Building/House Number</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={address.buildingNumber || ''}
+                                    onChange={(e) => updateAddress(address.id, 'buildingNumber', e.target.value)}
+                                    placeholder="Building or house number"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{address.buildingNumber || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Geographic Information */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">City/Town</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={address.city || ''}
+                                    onChange={(e) => updateAddress(address.id, 'city', e.target.value)}
+                                    placeholder="City or town"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{address.city || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                {isEditing ? (
+                                  <select
+                                    value={address.state || ''}
+                                    onChange={(e) => updateAddress(address.id, 'state', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select state</option>
+                                    <option value="Abia">Abia</option>
+                                    <option value="Adamawa">Adamawa</option>
+                                    <option value="Akwa Ibom">Akwa Ibom</option>
+                                    <option value="Anambra">Anambra</option>
+                                    <option value="Bauchi">Bauchi</option>
+                                    <option value="Bayelsa">Bayelsa</option>
+                                    <option value="Benue">Benue</option>
+                                    <option value="Borno">Borno</option>
+                                    <option value="Cross River">Cross River</option>
+                                    <option value="Delta">Delta</option>
+                                    <option value="Ebonyi">Ebonyi</option>
+                                    <option value="Edo">Edo</option>
+                                    <option value="Ekiti">Ekiti</option>
+                                    <option value="Enugu">Enugu</option>
+                                    <option value="FCT">Federal Capital Territory</option>
+                                    <option value="Gombe">Gombe</option>
+                                    <option value="Imo">Imo</option>
+                                    <option value="Jigawa">Jigawa</option>
+                                    <option value="Kaduna">Kaduna</option>
+                                    <option value="Kano">Kano</option>
+                                    <option value="Katsina">Katsina</option>
+                                    <option value="Kebbi">Kebbi</option>
+                                    <option value="Kogi">Kogi</option>
+                                    <option value="Kwara">Kwara</option>
+                                    <option value="Lagos">Lagos</option>
+                                    <option value="Nasarawa">Nasarawa</option>
+                                    <option value="Niger">Niger</option>
+                                    <option value="Ogun">Ogun</option>
+                                    <option value="Ondo">Ondo</option>
+                                    <option value="Osun">Osun</option>
+                                    <option value="Oyo">Oyo</option>
+                                    <option value="Plateau">Plateau</option>
+                                    <option value="Rivers">Rivers</option>
+                                    <option value="Sokoto">Sokoto</option>
+                                    <option value="Taraba">Taraba</option>
+                                    <option value="Yobe">Yobe</option>
+                                    <option value="Zamfara">Zamfara</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{address.state || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Supporting Documents Upload */}
+                            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                              <div className="flex items-center space-x-2 mb-4">
+                                <FileText className="h-5 w-5 text-gray-600" />
+                                <h4 className="font-medium text-gray-900">Supporting Documents</h4>
+                                <span className="text-sm text-gray-500">(Optional but recommended)</span>
+                              </div>
+                              <p className="text-sm text-gray-600 mb-6">
+                                Upload supporting documents to strengthen your address verification. Accepted formats: JPEG, PNG, PDF (max 10MB each).
+                              </p>
+
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {/* Billing Document */}
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-2">Billing Document</label>
+                                  {isEditing ? (
+                                    <div className="space-y-3">
+                                      {!uploadedBillingDocument ? (
+                                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
+                                          <input
+                                            type="file"
+                                            id={`billing-document-upload-${address.id}`}
+                                            accept=".jpg,.jpeg,.png,.pdf"
+                                            onChange={(e) => handleAddressDocumentUpload(e, 'billing')}
+                                            className="hidden"
+                                          />
+                                          <label
+                                            htmlFor={`billing-document-upload-${address.id}`}
+                                            className="cursor-pointer flex flex-col items-center space-y-2"
+                                          >
+                                            <Upload className="h-6 w-6 text-gray-400" />
+                                            <div className="text-sm text-gray-600">
+                                              <span className="font-medium text-primary-600 hover:text-primary-700">Click to upload</span>
+                                            </div>
+                                            <div className="text-xs text-gray-500">Bank statement, utility bill, etc.</div>
+                                          </label>
+                                        </div>
+                                      ) : (
+                                        <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                                          <div className="flex items-center space-x-3">
+                                            <FileText className="h-6 w-6 text-green-600" />
+                                            <div>
+                                              <p className="text-sm font-medium text-green-900">{uploadedBillingDocument.name}</p>
+                                              <p className="text-xs text-green-700">
+                                                {(uploadedBillingDocument.size / 1024 / 1024).toFixed(2)} MB
+                                              </p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center space-x-2">
+                                            <button
+                                              onClick={() => uploadedBillingDocument && window.open(URL.createObjectURL(uploadedBillingDocument), '_blank')}
+                                              className="text-green-600 hover:text-green-700 p-1"
+                                              title="View file"
+                                            >
+                                              <Eye className="h-4 w-4" />
+                                            </button>
+                                            <button
+                                              onClick={() => removeAddressDocument('billing')}
+                                              className="text-red-600 hover:text-red-700 p-1"
+                                              title="Remove file"
+                                            >
+                                              <X className="h-4 w-4" />
+                                            </button>
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                                      {uploadedBillingDocument ? (
+                                        <div className="flex items-center space-x-3">
+                                          <FileText className="h-5 w-5 text-gray-600" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-900">{uploadedBillingDocument.name}</p>
+                                            <p className="text-xs text-gray-600">
+                                              {(uploadedBillingDocument.size / 1024 / 1024).toFixed(2)} MB
+                                            </p>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <p className="text-gray-500 text-sm">No document uploaded</p>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Light Bill */}
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-2">Light Bill (Electricity)</label>
+                                  {isEditing ? (
+                                    <div className="space-y-3">
+                                      {!uploadedLightBill ? (
+                                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
+                                          <input
+                                            type="file"
+                                            id={`light-bill-upload-${address.id}`}
+                                            accept=".jpg,.jpeg,.png,.pdf"
+                                            onChange={(e) => handleAddressDocumentUpload(e, 'lightBill')}
+                                            className="hidden"
+                                          />
+                                          <label
+                                            htmlFor={`light-bill-upload-${address.id}`}
+                                            className="cursor-pointer flex flex-col items-center space-y-2"
+                                          >
+                                            <Upload className="h-6 w-6 text-gray-400" />
+                                            <div className="text-sm text-gray-600">
+                                              <span className="font-medium text-primary-600 hover:text-primary-700">Click to upload</span>
+                                            </div>
+                                            <div className="text-xs text-gray-500">Electricity bill</div>
+                                          </label>
+                                        </div>
+                                      ) : (
+                                        <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                                          <div className="flex items-center space-x-3">
+                                            <FileText className="h-6 w-6 text-green-600" />
+                                            <div>
+                                              <p className="text-sm font-medium text-green-900">{uploadedLightBill.name}</p>
+                                              <p className="text-xs text-green-700">
+                                                {(uploadedLightBill.size / 1024 / 1024).toFixed(2)} MB
+                                              </p>
+                                            </div>
+                                          </div>
+                                          <div className="flex items-center space-x-2">
+                                            <button
+                                              onClick={() => uploadedLightBill && window.open(URL.createObjectURL(uploadedLightBill), '_blank')}
+                                              className="text-green-600 hover:text-green-700 p-1"
+                                              title="View file"
+                                            >
+                                              <Eye className="h-4 w-4" />
+                                            </button>
+                                            <button
+                                              onClick={() => removeAddressDocument('lightBill')}
+                                              className="text-red-600 hover:text-red-700 p-1"
+                                              title="Remove file"
+                                            >
+                                              <X className="h-4 w-4" />
+                                            </button>
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                                      {uploadedLightBill ? (
+                                        <div className="flex items-center space-x-3">
+                                          <FileText className="h-5 w-5 text-gray-600" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-900">{uploadedLightBill.name}</p>
+                                            <p className="text-xs text-gray-600">
+                                              {(uploadedLightBill.size / 1024 / 1024).toFixed(2)} MB
+                                            </p>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <p className="text-gray-500 text-sm">No document uploaded</p>
+                                      )}
+                                    </div>
+                                  )}
                                 </div>
                               </div>
-                            ))}
+                            </div>
                           </div>
-                        ) : (
-                          <p className="text-gray-500 text-sm">No additional documents uploaded</p>
                         )}
                       </div>
-                    )}
-                  </div>
+                    )
+                  })}
                 </div>
               </div>
             )}
@@ -6757,27 +6987,398 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         )}
 
         {selectedSubTab === 'incomeSources' && (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {!selectedChecks['financialCredit.incomeSources']?.selected ? (
+              <div className="text-center py-12 bg-gradient-to-br from-emerald-50 to-teal-100 rounded-2xl border-2 border-dashed border-emerald-200">
+                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="h-10 w-10 text-emerald-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Verified Income Sources</h3>
+                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  Verify multiple income sources for comprehensive financial background checking. Each income source is calculated separately.
+                </p>
+                <div className="flex items-center justify-center space-x-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-emerald-600">₦2,500</div>
+                    <div className="text-sm text-gray-500">per source</div>
+                  </div>
+                  <div className="text-gray-400">×</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">1</div>
+                    <div className="text-sm text-gray-500">source</div>
+                  </div>
+                  <div className="text-gray-400">=</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-emerald-600">₦2,500</div>
+                    <div className="text-sm text-gray-500">total</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => toggleCheck('financialCredit.incomeSources')}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                >
+                  Start Income Sources Verification
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Header with controls */}
+                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-6 border border-emerald-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                        <CheckCircle className="h-5 w-5 text-emerald-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">Verified Income Sources</h3>
+                        <p className="text-sm text-gray-600">
+                          {request.details?.financialCredit?.incomeSourceEntries?.length || 1} source{(request.details?.financialCredit?.incomeSourceEntries?.length || 1) > 1 ? 's' : ''} selected
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-gray-900">
+                          ₦{((request.details?.financialCredit?.incomeSourceEntries?.length || 1) * 2500).toLocaleString()}
+                        </div>
+                        <div className="text-sm text-gray-500">total cost</div>
+                      </div>
+                      <button
+                        onClick={() => toggleCheck('financialCredit.incomeSources')}
+                        className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        Remove All
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <button
+                        onClick={addNewIncomeSource}
+                        className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        <Plus className="h-4 w-4" />
+                        <span>Add Income Source</span>
+                      </button>
+                      <span className="text-sm text-gray-500">
+                        Each additional source costs ₦2,500
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Income Source Cards */}
+                <div className="space-y-4">
+                  {request.details?.financialCredit?.incomeSourceEntries?.map((incomeSource, index) => {
+                    const isExpanded = expandedIncomeSources.has(incomeSource.id)
+                    return (
+                      <div key={incomeSource.id} className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                        {/* Income Source Card Header */}
+                        <div className="p-4 border-b border-gray-100">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <span className="text-sm font-medium text-gray-600">#{index + 1}</span>
+                              </div>
+                              <div>
+                                <h4 className="font-medium text-gray-900">
+                                  {incomeSource.sourceDescription || 'Income Source'} - {incomeSource.sourceType || 'Type'}
+                                </h4>
+                                <p className="text-sm text-gray-500">
+                                  {incomeSource.monthlyAmount 
+                                    ? `₦${incomeSource.monthlyAmount.toLocaleString()}/month`
+                                    : 'Income details pending'
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="text-right">
+                                <div className="text-sm font-medium text-gray-900">₦2,500</div>
+                                <div className="text-xs text-gray-500">per source</div>
+                              </div>
+                              {(request.details?.financialCredit?.incomeSourceEntries?.length || 0) > 1 && (
+                                <button
+                                  onClick={() => removeIncomeSource(incomeSource.id)}
+                                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                  title="Remove this income source"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              )}
+                              <button
+                                onClick={() => toggleIncomeSourceExpansion(incomeSource.id)}
+                                className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                                title={isExpanded ? "Collapse" : "Expand"}
+                              >
+                                <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Income Source Form Content */}
+                        {isExpanded && (
+                          <div className="p-6 space-y-4">
+                            {/* Source Type and Description */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Source Type</label>
+                                {isEditing ? (
+                                  <select
+                                    value={incomeSource.sourceType || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'sourceType', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select source type</option>
+                                    <option value="employment">Employment</option>
+                                    <option value="business">Business</option>
+                                    <option value="freelance">Freelance</option>
+                                    <option value="investment">Investment</option>
+                                    <option value="rental">Rental Income</option>
+                                    <option value="pension">Pension</option>
+                                    <option value="allowance">Allowance</option>
+                                    <option value="other">Other</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.sourceType || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Source Description</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={incomeSource.sourceDescription || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'sourceDescription', e.target.value)}
+                                    placeholder="e.g., Primary employment salary"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.sourceDescription || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Income Amounts */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Monthly Amount (₦)</label>
+                                {isEditing ? (
+                                  <input
+                                    type="number"
+                                    min="0"
+                                    value={incomeSource.monthlyAmount || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'monthlyAmount', parseFloat(e.target.value) || 0)}
+                                    placeholder="e.g., 250000"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">
+                                    {incomeSource.monthlyAmount ? `₦${incomeSource.monthlyAmount.toLocaleString()}` : 'Not specified'}
+                                  </p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Annual Amount (₦)</label>
+                                {isEditing ? (
+                                  <input
+                                    type="number"
+                                    min="0"
+                                    value={incomeSource.annualAmount || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'annualAmount', parseFloat(e.target.value) || 0)}
+                                    placeholder="e.g., 3000000"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">
+                                    {incomeSource.annualAmount ? `₦${incomeSource.annualAmount.toLocaleString()}` : 'Not specified'}
+                                  </p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Frequency</label>
+                                {isEditing ? (
+                                  <select
+                                    value={incomeSource.frequency || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'frequency', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select frequency</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="quarterly">Quarterly</option>
+                                    <option value="annually">Annually</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="irregular">Irregular</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.frequency || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Verification Details */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Verification Method</label>
+                                {isEditing ? (
+                                  <select
+                                    value={incomeSource.verificationMethod || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'verificationMethod', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select method</option>
+                                    <option value="pay-stub">Pay Stub</option>
+                                    <option value="bank-statement">Bank Statement</option>
+                                    <option value="tax-return">Tax Return</option>
+                                    <option value="employer-letter">Employer Letter</option>
+                                    <option value="contract">Contract</option>
+                                    <option value="invoice">Invoice</option>
+                                    <option value="other">Other</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.verificationMethod || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Verification Status</label>
+                                {isEditing ? (
+                                  <select
+                                    value={incomeSource.verificationStatus || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'verificationStatus', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="pending">Pending</option>
+                                    <option value="verified">Verified</option>
+                                    <option value="rejected">Rejected</option>
+                                    <option value="in-progress">In Progress</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.verificationStatus || 'Pending'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Employment Details */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Employer/Organization</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={incomeSource.employerName || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'employerName', e.target.value)}
+                                    placeholder="e.g., Tech Solutions Ltd"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.employerName || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+                                {isEditing ? (
+                                  <select
+                                    value={incomeSource.paymentMethod || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'paymentMethod', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select method</option>
+                                    <option value="direct-deposit">Direct Deposit</option>
+                                    <option value="check">Check</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="transfer">Bank Transfer</option>
+                                    <option value="mobile-money">Mobile Money</option>
+                                    <option value="other">Other</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.paymentMethod || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Duration and Stability */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                                {isEditing ? (
+                                  <input
+                                    type="date"
+                                    value={incomeSource.startDate || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'startDate', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.startDate || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                                {isEditing ? (
+                                  <input
+                                    type="date"
+                                    value={incomeSource.endDate || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'endDate', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.endDate || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Stability</label>
+                                {isEditing ? (
+                                  <select
+                                    value={incomeSource.stability || ''}
+                                    onChange={(e) => updateIncomeSource(incomeSource.id, 'stability', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select stability</option>
+                                    <option value="stable">Stable</option>
+                                    <option value="variable">Variable</option>
+                                    <option value="seasonal">Seasonal</option>
+                                    <option value="irregular">Irregular</option>
+                                    <option value="temporary">Temporary</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{incomeSource.stability || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'outstandingDebts' && (
+          <div className="space-y-4">
+            {!selectedChecks['financialCredit.outstandingDebts']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="h-8 w-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Verified Income Sources</h3>
-                <p className="text-gray-500 mb-4">Verify the candidate's income sources and financial transactions</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Outstanding Debts & Liabilities</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's outstanding debts and financial liabilities</p>
                 <button
-                  onClick={() => toggleCheck('financialCredit.incomeSources')}
+                  onClick={() => toggleCheck('financialCredit.outstandingDebts')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
-                  Add Income Sources Check - ₦2,500
+                  Add Outstanding Debts Check - ₦1,800
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Verified Income Sources</h3>
+                  <h3 className="text-lg font-medium text-gray-900">Outstanding Debts & Liabilities</h3>
                   <button
-                    onClick={() => toggleCheck('financialCredit.incomeSources')}
+                    onClick={() => toggleCheck('financialCredit.outstandingDebts')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -10849,27 +11450,334 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {/* Content based on selected sub-tab */}
         {selectedSubTab === 'employmentHistory' && (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {!selectedChecks['employment.employmentHistory']?.selected ? (
+              <div className="text-center py-12 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl border-2 border-dashed border-green-200">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Clock className="h-10 w-10 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Employment History Verification</h3>
+                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  Verify multiple employment history entries for comprehensive background checking. Each employment entry is calculated separately.
+                </p>
+                <div className="flex items-center justify-center space-x-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">₦2,500</div>
+                    <div className="text-sm text-gray-500">per employment</div>
+                  </div>
+                  <div className="text-gray-400">×</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">1</div>
+                    <div className="text-sm text-gray-500">employment</div>
+                  </div>
+                  <div className="text-gray-400">=</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">₦2,500</div>
+                    <div className="text-sm text-gray-500">total</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => toggleCheck('employment.employmentHistory')}
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                >
+                  Start Employment History Verification
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Header with controls */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                        <Clock className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">Employment History Verification</h3>
+                        <p className="text-sm text-gray-600">
+                          {request.details?.employment?.employmentEntries?.length || 1} employment{(request.details?.employment?.employmentEntries?.length || 1) > 1 ? 's' : ''} selected
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-gray-900">
+                          ₦{((request.details?.employment?.employmentEntries?.length || 1) * 2500).toLocaleString()}
+                        </div>
+                        <div className="text-sm text-gray-500">total cost</div>
+                      </div>
+                      <button
+                        onClick={() => toggleCheck('employment.employmentHistory')}
+                        className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        Remove All
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <button
+                        onClick={addNewEmployment}
+                        className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        <Plus className="h-4 w-4" />
+                        <span>Add Employment</span>
+                      </button>
+                      <span className="text-sm text-gray-500">
+                        Each additional employment costs ₦2,500
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Employment Cards */}
+                <div className="space-y-4">
+                  {request.details?.employment?.employmentEntries?.map((employment, index) => {
+                    const isExpanded = expandedEmployments.has(employment.id)
+                    return (
+                      <div key={employment.id} className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                        {/* Employment Card Header */}
+                        <div className="p-4 border-b border-gray-100">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <span className="text-sm font-medium text-gray-600">#{index + 1}</span>
+                              </div>
+                              <div>
+                                <h4 className="font-medium text-gray-900">
+                                  {employment.companyName || 'Company Name'} - {employment.position || 'Position'}
+                                </h4>
+                                <p className="text-sm text-gray-500">
+                                  {employment.startDate && employment.endDate 
+                                    ? `${employment.startDate} to ${employment.endDate}`
+                                    : employment.startDate || 'Employment details pending'
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="text-right">
+                                <div className="text-sm font-medium text-gray-900">₦2,500</div>
+                                <div className="text-xs text-gray-500">per employment</div>
+                              </div>
+                              {(request.details?.employment?.employmentEntries?.length || 0) > 1 && (
+                                <button
+                                  onClick={() => removeEmployment(employment.id)}
+                                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                  title="Remove this employment"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              )}
+                              <button
+                                onClick={() => toggleEmploymentExpansion(employment.id)}
+                                className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                                title={isExpanded ? "Collapse" : "Expand"}
+                              >
+                                <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Employment Form Content */}
+                        {isExpanded && (
+                          <div className="p-6 space-y-4">
+                            {/* Company and Position */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={employment.companyName || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'companyName', e.target.value)}
+                                    placeholder="Company name"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.companyName || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Position/Job Title</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={employment.position || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'position', e.target.value)}
+                                    placeholder="Job title or position"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.position || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Employment Period */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                                {isEditing ? (
+                                  <input
+                                    type="date"
+                                    value={employment.startDate || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'startDate', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.startDate || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                                {isEditing ? (
+                                  <input
+                                    type="date"
+                                    value={employment.endDate || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'endDate', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.endDate || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Employment Type</label>
+                                {isEditing ? (
+                                  <select
+                                    value={employment.employmentType || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'employmentType', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select type</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Internship">Internship</option>
+                                    <option value="Temporary">Temporary</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{employment.employmentType || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Salary and Responsibilities */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Salary</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={employment.salary || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'salary', e.target.value)}
+                                    placeholder="e.g., ₦500,000 annually"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.salary || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Reason for Leaving</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={employment.reasonForLeaving || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'reasonForLeaving', e.target.value)}
+                                    placeholder="e.g., Career advancement, relocation"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.reasonForLeaving || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Responsibilities */}
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Key Responsibilities</label>
+                              {isEditing ? (
+                                <textarea
+                                  rows={3}
+                                  value={employment.responsibilities || ''}
+                                  onChange={(e) => updateEmployment(employment.id, 'responsibilities', e.target.value)}
+                                  placeholder="Describe key responsibilities and achievements"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                                />
+                              ) : (
+                                <p className="text-gray-900">{employment.responsibilities || 'Not specified'}</p>
+                              )}
+                            </div>
+
+                            {/* Supervisor Information */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Supervisor Name</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={employment.supervisorName || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'supervisorName', e.target.value)}
+                                    placeholder="Direct supervisor or manager"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.supervisorName || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Supervisor Contact</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={employment.supervisorContact || ''}
+                                    onChange={(e) => updateEmployment(employment.id, 'supervisorContact', e.target.value)}
+                                    placeholder="Email or phone number"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{employment.supervisorContact || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'referenceCheck' && (
+          <div className="space-y-4">
+            {!selectedChecks['employment.referenceCheck']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Clock className="h-8 w-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Employment History Verification</h3>
-                <p className="text-gray-500 mb-4">Verify the candidate's employment history and work experience</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Reference Check</h3>
+                <p className="text-gray-500 mb-4">Verify employment through professional references</p>
                 <button
-                  onClick={() => toggleCheck('employment.employmentHistory')}
+                  onClick={() => toggleCheck('employment.referenceCheck')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
-                  Add Employment History Check - ₦2,500
+                  Add Reference Check - ₦2,000
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Employment History Verification</h3>
+                  <h3 className="text-lg font-medium text-gray-900">Reference Check</h3>
                   <button
-                    onClick={() => toggleCheck('employment.employmentHistory')}
+                    onClick={() => toggleCheck('employment.referenceCheck')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
@@ -11641,27 +12549,370 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {/* Content based on selected sub-tab */}
         {selectedSubTab === 'degreeVerification' && (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {!selectedChecks['education.degreeVerification']?.selected ? (
+              <div className="text-center py-12 bg-gradient-to-br from-purple-50 to-indigo-100 rounded-2xl border-2 border-dashed border-purple-200">
+                <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <AlertTriangle className="h-10 w-10 text-purple-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Degree Verification</h3>
+                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  Verify multiple educational degrees and qualifications for comprehensive background checking. Each degree is calculated separately.
+                </p>
+                <div className="flex items-center justify-center space-x-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">₦2,000</div>
+                    <div className="text-sm text-gray-500">per degree</div>
+                  </div>
+                  <div className="text-gray-400">×</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-gray-900">1</div>
+                    <div className="text-sm text-gray-500">degree</div>
+                  </div>
+                  <div className="text-gray-400">=</div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">₦2,000</div>
+                    <div className="text-sm text-gray-500">total</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => toggleCheck('education.degreeVerification')}
+                  className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                >
+                  Start Degree Verification
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Header with controls */}
+                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border border-purple-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <AlertTriangle className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">Degree Verification</h3>
+                        <p className="text-sm text-gray-600">
+                          {request.details?.education?.degreeEntries?.length || 1} degree{(request.details?.education?.degreeEntries?.length || 1) > 1 ? 's' : ''} selected
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-gray-900">
+                          ₦{((request.details?.education?.degreeEntries?.length || 1) * 2000).toLocaleString()}
+                        </div>
+                        <div className="text-sm text-gray-500">total cost</div>
+                      </div>
+                      <button
+                        onClick={() => toggleCheck('education.degreeVerification')}
+                        className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        Remove All
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <button
+                        onClick={addNewDegree}
+                        className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        <Plus className="h-4 w-4" />
+                        <span>Add Degree</span>
+                      </button>
+                      <span className="text-sm text-gray-500">
+                        Each additional degree costs ₦2,000
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Degree Cards */}
+                <div className="space-y-4">
+                  {request.details?.education?.degreeEntries?.map((degree, index) => {
+                    const isExpanded = expandedDegrees.has(degree.id)
+                    return (
+                      <div key={degree.id} className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                        {/* Degree Card Header */}
+                        <div className="p-4 border-b border-gray-100">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <span className="text-sm font-medium text-gray-600">#{index + 1}</span>
+                              </div>
+                              <div>
+                                <h4 className="font-medium text-gray-900">
+                                  {degree.fieldOfStudy || 'Field of Study'} - {degree.degreeType || 'Degree Type'}
+                                </h4>
+                                <p className="text-sm text-gray-500">
+                                  {degree.institutionName 
+                                    ? `${degree.institutionName} (${degree.graduationYear || 'Year'})`
+                                    : 'Degree details pending'
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="text-right">
+                                <div className="text-sm font-medium text-gray-900">₦2,000</div>
+                                <div className="text-xs text-gray-500">per degree</div>
+                              </div>
+                              {(request.details?.education?.degreeEntries?.length || 0) > 1 && (
+                                <button
+                                  onClick={() => removeDegree(degree.id)}
+                                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                  title="Remove this degree"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
+                              )}
+                              <button
+                                onClick={() => toggleDegreeExpansion(degree.id)}
+                                className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                                title={isExpanded ? "Collapse" : "Expand"}
+                              >
+                                <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Degree Form Content */}
+                        {isExpanded && (
+                          <div className="p-6 space-y-4">
+                            {/* Institution and Degree Type */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Institution Name</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={degree.institutionName || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'institutionName', e.target.value)}
+                                    placeholder="Institution name"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{degree.institutionName || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Degree Type</label>
+                                {isEditing ? (
+                                  <select
+                                    value={degree.degreeType || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'degreeType', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select degree type</option>
+                                    <option value="certificate">Certificate</option>
+                                    <option value="diploma">Diploma</option>
+                                    <option value="associate">Associate Degree</option>
+                                    <option value="bachelor">Bachelor's Degree</option>
+                                    <option value="master">Master's Degree</option>
+                                    <option value="doctorate">Doctorate</option>
+                                    <option value="professional">Professional Degree</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{degree.degreeType || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Field of Study and Graduation */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Field of Study</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={degree.fieldOfStudy || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'fieldOfStudy', e.target.value)}
+                                    placeholder="e.g., Computer Science, Business Administration"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{degree.fieldOfStudy || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Graduation Year</label>
+                                {isEditing ? (
+                                  <input
+                                    type="number"
+                                    value={degree.graduationYear || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'graduationYear', parseInt(e.target.value))}
+                                    placeholder="e.g., 2020"
+                                    min="1950"
+                                    max={new Date().getFullYear() + 10}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{degree.graduationYear || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* GPA and Institution Details */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">GPA/Class of Degree</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={degree.gpaClassOfDegree || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'gpaClassOfDegree', e.target.value)}
+                                    placeholder="e.g., 3.7/4.0 or First Class"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{degree.gpaClassOfDegree || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Institution Location</label>
+                                {isEditing ? (
+                                  <input
+                                    type="text"
+                                    value={degree.institutionLocation || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'institutionLocation', e.target.value)}
+                                    placeholder="e.g., Lagos, Nigeria"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{degree.institutionLocation || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Institution Type</label>
+                                {isEditing ? (
+                                  <select
+                                    value={degree.institutionType || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'institutionType', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select type</option>
+                                    <option value="university">University</option>
+                                    <option value="college">College</option>
+                                    <option value="polytechnic">Polytechnic</option>
+                                    <option value="technical">Technical Institute</option>
+                                    <option value="vocational">Vocational School</option>
+                                    <option value="online">Online Institution</option>
+                                    <option value="international">International Institution</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{degree.institutionType || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Enrollment Status and Verification */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Currently Enrolled</label>
+                                {isEditing ? (
+                                  <select
+                                    value={degree.currentlyEnrolled ? 'true' : 'false'}
+                                    onChange={(e) => updateDegree(degree.id, 'currentlyEnrolled', e.target.value === 'true')}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="false">No (Graduated)</option>
+                                    <option value="true">Yes (Currently Enrolled)</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{degree.currentlyEnrolled ? 'Yes (Currently Enrolled)' : 'No (Graduated)'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Verification Status</label>
+                                {isEditing ? (
+                                  <select
+                                    value={degree.verificationStatus || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'verificationStatus', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="pending">Pending</option>
+                                    <option value="verified">Verified</option>
+                                    <option value="rejected">Rejected</option>
+                                    <option value="in-progress">In Progress</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{degree.verificationStatus || 'Pending'}</p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Additional Details */}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Expected Graduation Date</label>
+                                {isEditing ? (
+                                  <input
+                                    type="date"
+                                    value={degree.expectedGraduationDate || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'expectedGraduationDate', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  />
+                                ) : (
+                                  <p className="text-gray-900">{degree.expectedGraduationDate || 'Not specified'}</p>
+                                )}
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Degree Level</label>
+                                {isEditing ? (
+                                  <select
+                                    value={degree.degreeLevel || ''}
+                                    onChange={(e) => updateDegree(degree.id, 'degreeLevel', e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                  >
+                                    <option value="">Select level</option>
+                                    <option value="undergraduate">Undergraduate</option>
+                                    <option value="graduate">Graduate</option>
+                                    <option value="postgraduate">Postgraduate</option>
+                                    <option value="doctoral">Doctoral</option>
+                                    <option value="professional">Professional</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-gray-900">{degree.degreeLevel || 'Not specified'}</p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedSubTab === 'transcriptVerification' && (
+          <div className="space-y-4">
+            {!selectedChecks['education.transcriptVerification']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <AlertTriangle className="h-8 w-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Degree Verification</h3>
-                <p className="text-gray-500 mb-4">Verify the candidate's educational degrees and qualifications</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Transcript Verification</h3>
+                <p className="text-gray-500 mb-4">Verify the candidate's academic transcripts and grades</p>
                 <button
-                  onClick={() => toggleCheck('education.degreeVerification')}
+                  onClick={() => toggleCheck('education.transcriptVerification')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
-                  Add Degree Verification - ₦2,000
+                  Add Transcript Verification - ₦2,500
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Degree Verification</h3>
+                  <h3 className="text-lg font-medium text-gray-900">Transcript Verification</h3>
                   <button
-                    onClick={() => toggleCheck('education.degreeVerification')}
+                    onClick={() => toggleCheck('education.transcriptVerification')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove

@@ -29,7 +29,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
     candidate: {
       name: 'Nene Oyinda Afamefuna',
       email: 'NeneAfamefuna@gmail.com',
-      profileImage: '/api/placeholder/80/80',
+      profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80',
       score: 830
     },
     completionDate: 'Mar 23, 2025',
@@ -109,6 +109,28 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               status: 'Registered',
               timeline: 'From Jun, 2019 to now'
             }
+          },
+          bankVerification: {
+            name: 'Bank Verification',
+            data: {
+              status: 'Verified',
+              timeline: 'From Jun, 2019 to now',
+              banks: [
+                { name: 'First Bank of Nigeria', accountType: 'Savings', status: 'Active', verified: true },
+                { name: 'Guaranty Trust Bank', accountType: 'Current', status: 'Active', verified: true }
+              ]
+            }
+          },
+          loanHistory: {
+            name: 'Loan History',
+            data: {
+              status: 'Clear',
+              timeline: 'From Jun, 2019 to now',
+              loans: [
+                { type: 'Personal Loan', amount: '₦500,000', status: 'Paid Off', date: '2023' },
+                { type: 'Car Loan', amount: '₦2,000,000', status: 'Current', date: '2024' }
+              ]
+            }
           }
         }
       },
@@ -153,42 +175,489 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
         }
       },
       financialCredit: {
-        name: 'Financial & Credit History',
+        name: 'Credit Profile Report',
         status: 'completed',
         subTabs: {
-          creditReport: {
-            name: 'Credit Report',
-            data: {
-              creditScore: 720,
-              rating: 'Good',
-              timeline: 'From Jun, 2019 to now',
-              summary: {
-                totalAccounts: 5,
-                activeAccounts: 3,
-                delinquentAccounts: 0,
-                creditUtilization: '25%'
-              }
-            }
-          },
-          bankVerification: {
-            name: 'Bank Verification',
+          personalDetails: {
+            name: 'Personal Details',
             data: {
               status: 'Verified',
               timeline: 'From Jun, 2019 to now',
-              banks: [
-                { name: 'First Bank of Nigeria', accountType: 'Savings', status: 'Active', verified: true },
-                { name: 'Guaranty Trust Bank', accountType: 'Current', status: 'Active', verified: true }
-              ]
+              details: {
+                firstCentralReferenceNumber: '1387342',
+                surname: 'Afamefuna',
+                firstName: 'Nene Oyinda',
+                otherNames: '',
+                uniqueTrackingNumber: '',
+                dateOfBirth: '17/04/1990',
+                gender: 'Female',
+                maritalStatus: 'Single',
+                nationality: 'Nigerian',
+                noOfDependants: 0,
+                nationalIdNumber: 'LO568819382',
+                bankVerificationNumber: '22144154780',
+                driversLicenseNumber: '',
+                pencomId: '',
+                passportNumber: 'A50237867',
+                otherIdNumber: '',
+                latestResidentialAddress: 'No 6 Ajanaku Street, Opebi, Ikeja, Lagos',
+                latestPostalAddress: 'NA',
+                homeTelephone: '08035351815',
+                workTelephone: '08033205377',
+                mobileNumber: '08098033211',
+                emailAddress: 'NeneAfamefuna@gmail.com',
+                currentEmployer: 'Tech Solutions Ltd',
+                propertyOwnershipType: 'Rented'
+              }
             }
           },
-          loanHistory: {
-            name: 'Loan History',
+          delinquencyInformation: {
+            name: 'Delinquency Information',
             data: {
               status: 'Clear',
               timeline: 'From Jun, 2019 to now',
-              loans: [
-                { type: 'Personal Loan', amount: '₦500,000', status: 'Paid Off', date: '2023' },
-                { type: 'Car Loan', amount: '₦2,000,000', status: 'Current', date: '2024' }
+              highestDelinquency: {
+                subscriberName: 'First Bank Plc Lagos',
+                accountNumber: '2011289357',
+                yearMonth: '20250630',
+                daysInArrears: '2125'
+              },
+              delinquencies: [
+                { type: 'Payment Default', status: 'None', date: null },
+                { type: 'Late Payment', status: 'None', date: null }
+              ]
+            }
+          },
+          creditAccountSummary: {
+            name: 'Credit Account Summary',
+            data: {
+              status: 'Good',
+              timeline: 'From Jun, 2019 to now',
+              summary: {
+                totalMonthlyInstallments: { naira: '640,289.00', usd: '0.00' },
+                totalOutstandingDebt: { naira: '144,591.00', usd: '0.00' },
+                totalAccountsInArrears: { count1: '3', count2: '0' },
+                totalArrearAmount: { naira: '144,591.00', usd: '0.00' },
+                totalAccountsInGoodStanding: { count1: '40', count2: '2' },
+                totalAccountsTaken: { count1: '42', count2: '0' }
+              },
+              judgements: {
+                totalNumberOfJudgements: { count1: '0', count2: '0' },
+                totalJudgementAmount: { naira: '0', usd: '0' },
+                dateOfLastJudgement: { count1: '-', count2: '-' }
+              },
+              dishonouredCheques: {
+                totalNumberOfDishonouredCheques: { count1: '0', count2: '0' },
+                totalAmountOfDishonouredCheques: { naira: '0.00', usd: '0.00' },
+                dateOfLastBouncedCheque: { count1: '', count2: '' }
+              },
+              utilities: {
+                totalNumberOfUtilities: { count1: '', count2: '' },
+                totalAmountOfUtilities: { naira: '', usd: '' },
+                dateOfLastUtility: { count1: '', count2: '' }
+              }
+            }
+          },
+          creditAccountRating: {
+            name: 'Credit Account Rating',
+            data: {
+              status: 'Good',
+              timeline: 'From Jun, 2019 to now',
+              rating: {
+                overallRating: 'A',
+                creditScore: 720,
+                riskLevel: 'Low',
+                ratingDate: '2024-12-15',
+                previousRating: 'B+',
+                ratingHistory: [
+                  { date: '2024-12-15', rating: 'A', score: 720 },
+                  { date: '2024-09-15', rating: 'B+', score: 680 },
+                  { date: '2024-06-15', rating: 'B', score: 650 },
+                  { date: '2024-03-15', rating: 'B-', score: 620 }
+                ],
+                ratingFactors: {
+                  paymentHistory: { score: 95, weight: 'High', impact: 'Positive' },
+                  creditUtilization: { score: 85, weight: 'High', impact: 'Positive' },
+                  creditHistory: { score: 80, weight: 'Medium', impact: 'Positive' },
+                  newCredit: { score: 70, weight: 'Medium', impact: 'Neutral' },
+                  creditMix: { score: 75, weight: 'Low', impact: 'Positive' }
+                },
+                riskAssessment: {
+                  probabilityOfDefault: '2.5%',
+                  expectedLoss: '₦15,000',
+                  riskCategory: 'Low Risk',
+                  recommendation: 'Approve'
+                }
+              }
+            }
+          },
+          creditAgreementsSummary: {
+            name: 'Credit Agreements Summary',
+            data: {
+              status: 'Active',
+              timeline: 'From Jun, 2019 to now',
+              agreements: [
+                {
+                  subscriberName: 'Guaranty Trust Bank Plc',
+                  accountNumber: '023603530530010059000',
+                  currency: 'NGN',
+                  availedLimit: '0.00',
+                  outstandingBalance: '0.00',
+                  instalmentAmount: '14,500.00',
+                  arrearAmount: '0.00',
+                  facilityClassification: 'Performing',
+                  accountStatus: 'Open'
+                },
+                {
+                  subscriberName: 'Branch International Financial Services Limited',
+                  accountNumber: '0449325435',
+                  currency: 'NGN',
+                  availedLimit: '25,000.00',
+                  outstandingBalance: '0.00',
+                  instalmentAmount: '0.00',
+                  arrearAmount: '0.00',
+                  facilityClassification: 'Performing',
+                  accountStatus: 'Closed'
+                },
+                {
+                  subscriberName: 'Access Bank Plc Lagos',
+                  accountNumber: '0697011114',
+                  currency: 'NGN',
+                  availedLimit: '0.00',
+                  outstandingBalance: '0.00',
+                  instalmentAmount: '0.00',
+                  arrearAmount: '0.00',
+                  facilityClassification: 'Performing',
+                  accountStatus: 'Closed'
+                }
+              ]
+            }
+          },
+          creditAgreements: {
+            name: 'Credit Agreements',
+            data: {
+              status: 'Active',
+              timeline: 'From Jun, 2019 to now',
+              agreements: [
+                { type: 'Credit Card', amount: '₦500,000', status: 'Active', date: '2023' },
+                { type: 'Personal Loan', amount: '₦1,000,000', status: 'Active', date: '2024' }
+              ]
+            }
+          },
+          guarantorDetails: {
+            name: 'Guarantor Details',
+            data: {
+              status: 'Available',
+              timeline: 'From Jun, 2019 to now',
+              summary: {
+                numberOfAccountsRequiringGuarantors: 0,
+                numberOfGuarantorsSecured: 0
+              },
+              latestGuarantor: {
+                surname: 'Adebayo',
+                otherNames: 'Oluwaseun Michael',
+                nationalIdNumber: 'NGN12345678901',
+                pencomId: 'PEN123456789',
+                driversLicenseNumber: 'DL123456789',
+                passportNumber: 'A12345678',
+                otherIdNumber: 'OTH123456789',
+                dateOfBirth: '15/03/1985',
+                homeTelephone: '08012345678',
+                workTelephone: '08087654321',
+                mobileNumber: '08098765432'
+              }
+            }
+          },
+          collateralInformation: {
+            name: 'Collateral Information',
+            data: {
+              status: 'Available',
+              timeline: 'From Jun, 2019 to now',
+              collaterals: [
+                {
+                  supplierName: 'First Bank of Nigeria Plc',
+                  loanSecurityStatus: 'Active',
+                  collateralType: 'Real Estate Property',
+                  collateralDetails: 'Residential property located at 15 Victoria Island, Lagos. Property value: ₦25,000,000. Title deed registered.'
+                },
+                {
+                  supplierName: 'Guaranty Trust Bank Plc',
+                  loanSecurityStatus: 'Active',
+                  collateralType: 'Motor Vehicle',
+                  collateralDetails: '2019 Toyota Camry with registration number ABC123XY. Vehicle value: ₦8,500,000. Insurance and registration current.'
+                },
+                {
+                  supplierName: 'Access Bank Plc',
+                  loanSecurityStatus: 'Released',
+                  collateralType: 'Fixed Deposit',
+                  collateralDetails: 'Fixed deposit account with Access Bank. Original amount: ₦3,000,000. Released on completion of loan repayment.'
+                }
+              ]
+            }
+          },
+          dishonouredChequeInformation: {
+            name: 'Dishonoured Cheque Information',
+            data: {
+              status: 'Clear',
+              timeline: 'From Jun, 2019 to now',
+              cheques: [
+                {
+                  dateChequeIssued: '2024-03-15',
+                  dateChequeDishonoured: '2024-03-18',
+                  issuingBank: 'First Bank of Nigeria Plc',
+                  amount: '₦150,000.00'
+                },
+                {
+                  dateChequeIssued: '2024-01-22',
+                  dateChequeDishonoured: '2024-01-25',
+                  issuingBank: 'Guaranty Trust Bank Plc',
+                  amount: '₦75,000.00'
+                }
+              ]
+            }
+          },
+          companyDirectorshipSummary: {
+            name: 'Company Directorship Summary',
+            data: {
+              status: 'Active',
+              timeline: 'From Jun, 2019 to now',
+              summary: {
+                totalNumberOfCompanyDirectorships: 3
+              },
+              directorships: [
+                {
+                  companyName: 'Tech Solutions Ltd',
+                  position: 'Managing Director',
+                  appointmentDate: '2020-03-15',
+                  status: 'Active',
+                  companyRegistrationNumber: 'RC1234567',
+                  shareholding: '60%'
+                },
+                {
+                  companyName: 'Innovation Hub Ltd',
+                  position: 'Non-Executive Director',
+                  appointmentDate: '2021-08-22',
+                  status: 'Active',
+                  companyRegistrationNumber: 'RC2345678',
+                  shareholding: '25%'
+                },
+                {
+                  companyName: 'Digital Ventures Ltd',
+                  position: 'Executive Director',
+                  appointmentDate: '2022-01-10',
+                  status: 'Resigned',
+                  companyRegistrationNumber: 'RC3456789',
+                  shareholding: '0%'
+                }
+              ]
+            }
+          },
+          enquiryHistory: {
+            name: 'Enquiry History in Last 12 Months',
+            data: {
+              status: 'Normal',
+              timeline: 'From Jun, 2019 to now',
+              enquiries: [
+                {
+                  enquiryDate: '23/09/2025 12:15:27',
+                  nameOfEnquirer: 'Hills Harvest Microfinance Bank - Oluwatosin Owolabi',
+                  enquirerPhoneNumber: '',
+                  reasonForEnquiry: 'Reviewing of existing credit facilities.'
+                },
+                {
+                  enquiryDate: '15/08/2024 09:30:15',
+                  nameOfEnquirer: 'First Bank of Nigeria Plc - Credit Department',
+                  enquirerPhoneNumber: '08012345678',
+                  reasonForEnquiry: 'Credit facility application review.'
+                },
+                {
+                  enquiryDate: '02/07/2024 14:45:33',
+                  nameOfEnquirer: 'Guaranty Trust Bank Plc - Risk Assessment',
+                  enquirerPhoneNumber: '08087654321',
+                  reasonForEnquiry: 'Loan application processing.'
+                },
+                {
+                  enquiryDate: '18/06/2024 11:20:45',
+                  nameOfEnquirer: 'Access Bank Plc - Credit Analysis',
+                  enquirerPhoneNumber: '08098765432',
+                  reasonForEnquiry: 'Credit limit increase request.'
+                }
+              ]
+            }
+          },
+          identificationHistory: {
+            name: 'Identification History',
+            data: {
+              status: 'Verified',
+              timeline: 'From Jun, 2019 to now',
+              identifications: [
+                {
+                  bureauUpdateDate: '2024-03-15',
+                  identificationType: 'National ID Card',
+                  identificationDetails: 'NGN12345678901 - Issued by NIMC, Lagos State. Status: Active and Verified.'
+                },
+                {
+                  bureauUpdateDate: '2024-02-28',
+                  identificationType: 'Driver\'s License',
+                  identificationDetails: 'DL123456789 - Issued by FRSC, Lagos State. Valid until 2029-02-28.'
+                },
+                {
+                  bureauUpdateDate: '2024-01-20',
+                  identificationType: 'International Passport',
+                  identificationDetails: 'A12345678 - Issued by NIS, Lagos State. Valid until 2034-01-20.'
+                },
+                {
+                  bureauUpdateDate: '2023-12-10',
+                  identificationType: 'Bank Verification Number (BVN)',
+                  identificationDetails: '22144154780 - Registered with CBN. Status: Active and Verified.'
+                },
+                {
+                  bureauUpdateDate: '2023-11-05',
+                  identificationType: 'PENCOM ID',
+                  identificationDetails: 'PEN123456789 - Registered with PENCOM. Status: Active.'
+                }
+              ]
+            }
+          },
+          addressHistory: {
+            name: 'Address History',
+            data: {
+              status: 'Verified',
+              timeline: 'From Jun, 2019 to now',
+              addresses: [
+                {
+                  bureauUpdate: '30/05/2019',
+                  address: 'Residential',
+                  addressLine1: '1 SOLA OLAMIDE STREET AHYMADIYAH BUS STOP OJOKORO',
+                  addressLine2: '',
+                  addressLine3: '',
+                  addressLine4: ''
+                },
+                {
+                  bureauUpdate: '29/12/2022',
+                  address: 'Residential',
+                  addressLine1: '1 sola olamide close otunba runsewe estate Ifakoljaiye',
+                  addressLine2: '',
+                  addressLine3: '',
+                  addressLine4: 'Lagos'
+                },
+                {
+                  bureauUpdate: '29/07/2024',
+                  address: 'Residential',
+                  addressLine1: '1sola olamide close runsewe estate ahmadiyaijaiye ojokorol',
+                  addressLine2: '',
+                  addressLine3: '',
+                  addressLine4: ''
+                },
+                {
+                  bureauUpdate: '29/07/2014',
+                  address: 'Residential',
+                  addressLine1: '1 SOLA OLAMIDE CLOSE OFF OTUNBA RUNSEWE EST',
+                  addressLine2: 'AHMADIYA BUSTOP IJAIYE IJOKORO',
+                  addressLine3: '99',
+                  addressLine4: '15'
+                },
+                {
+                  bureauUpdate: '28/01/2022',
+                  address: 'Residential',
+                  addressLine1: 'Ifako Ijaiye Ojokoro Nigeria',
+                  addressLine2: '8 Shola Olamide Close',
+                  addressLine3: 'Ojokoro',
+                  addressLine4: 'Lagos'
+                },
+                {
+                  bureauUpdate: '29/07/2014',
+                  address: 'Postal',
+                  addressLine1: 'NA',
+                  addressLine2: '',
+                  addressLine3: '',
+                  addressLine4: ''
+                }
+              ]
+            }
+          },
+          employmentHistory: {
+            name: 'Employment History',
+            data: {
+              status: 'Verified',
+              timeline: 'From Jun, 2019 to now',
+              employments: [
+                {
+                  bureauUpdateDate: '2024-03-15',
+                  company: 'Tech Solutions Ltd',
+                  occupation: 'Software Engineer'
+                },
+                {
+                  bureauUpdateDate: '2023-08-22',
+                  company: 'Digital Innovations Inc',
+                  occupation: 'Senior Developer'
+                },
+                {
+                  bureauUpdateDate: '2022-12-10',
+                  company: 'First Bank of Nigeria Plc',
+                  occupation: 'IT Specialist'
+                },
+                {
+                  bureauUpdateDate: '2021-06-15',
+                  company: 'Guaranty Trust Bank Plc',
+                  occupation: 'Systems Analyst'
+                },
+                {
+                  bureauUpdateDate: '2020-01-20',
+                  company: 'Access Bank Plc',
+                  occupation: 'Junior Developer'
+                }
+              ]
+            }
+          },
+          telephoneHistory: {
+            name: 'Telephone History',
+            data: {
+              status: 'Verified',
+              timeline: 'From Jun, 2019 to now',
+              telephones: [
+                {
+                  homeTelephone: {
+                    bureauUpdateDate: '15/05/2025',
+                    telephoneNumber: '08035351815'
+                  },
+                  workTelephone: {
+                    bureauUpdateDate: '19/07/2025',
+                    telephoneNumber: '08033205377'
+                  },
+                  mobileNumber: {
+                    bureauUpdateDate: '01/09/2025',
+                    telephoneNumber: '08098033211'
+                  }
+                },
+                {
+                  homeTelephone: {
+                    bureauUpdateDate: '21/02/2025',
+                    telephoneNumber: '08098033211'
+                  },
+                  workTelephone: {
+                    bureauUpdateDate: '15/05/2025',
+                    telephoneNumber: '08035351815'
+                  },
+                  mobileNumber: {
+                    bureauUpdateDate: '19/07/2025',
+                    telephoneNumber: '08033205377'
+                  }
+                },
+                {
+                  homeTelephone: {
+                    bureauUpdateDate: '17/02/2021',
+                    telephoneNumber: '2348098033211'
+                  },
+                  workTelephone: {
+                    bureauUpdateDate: '21/02/2025',
+                    telephoneNumber: '08098033211'
+                  },
+                  mobileNumber: {
+                    bureauUpdateDate: '15/05/2025',
+                    telephoneNumber: '08035351815'
+                  }
+                }
               ]
             }
           }
@@ -778,6 +1247,86 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       )
     }
     
+    if (selectedSubTab === 'bankVerification') {
+      return (
+        <div className="space-y-6">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-gray-900">Bank Accounts</h4>
+            {subTab.data.banks.map((bank: any, index: number) => (
+              <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">BANK:</span>
+                    <p className="text-sm text-gray-900">{bank.name}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">ACCOUNT TYPE:</span>
+                    <p className="text-sm text-gray-900">{bank.accountType}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">STATUS:</span>
+                    <p className="text-sm text-gray-900">{bank.status}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">VERIFIED:</span>
+                    <p className="text-sm text-gray-900">{bank.verified ? 'Yes' : 'No'}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'loanHistory') {
+      return (
+        <div className="space-y-6">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-gray-900">Loan History</h4>
+            {subTab.data.loans.map((loan: any, index: number) => (
+              <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">LOAN TYPE:</span>
+                    <p className="text-sm text-gray-900">{loan.type}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">AMOUNT:</span>
+                    <p className="text-sm text-gray-900">{loan.amount}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">STATUS:</span>
+                    <p className="text-sm text-gray-900">{loan.status}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">DATE:</span>
+                    <p className="text-sm text-gray-900">{loan.date}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+    
     return null
   }
 
@@ -893,51 +1442,20 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
     return null
   }
 
-  // Financial & Credit History Render Functions
+  // Credit Profile Report Render Functions
   const renderFinancialCreditContent = (subTab: any, selectedSubTab: string) => {
-    if (selectedSubTab === 'creditReport') {
+    if (selectedSubTab === 'personalDetails') {
       return (
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <CheckCircle className="h-6 w-6 text-green-600" />
-              <div>
-                <span className="text-sm font-medium text-gray-600">STATUS:</span>
-                <p className="text-sm text-gray-900">Completed</p>
-              </div>
-            </div>
-            <div className="text-right">
-              <span className="text-sm font-medium text-gray-600">CREDIT SCORE:</span>
-              <p className="text-2xl font-bold text-green-600">{subTab.data.creditScore}</p>
-              <p className="text-sm text-gray-600">{subTab.data.rating}</p>
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Personal Details</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes the consumer's demographic informations.</p>
+            <div className="mt-2">
+              <span className="text-sm font-bold text-gray-900">PERSONAL DETAILS SUMMARY: {subTab.data.details.firstName} {subTab.data.details.surname}</span>
             </div>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL ACCOUNTS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.summary.totalAccounts}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">ACTIVE ACCOUNTS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.summary.activeAccounts}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">DELINQUENT:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.summary.delinquentAccounts}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">UTILIZATION:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.summary.creditUtilization}</p>
-            </div>
-          </div>
-        </div>
-      )
-    }
-    
-    if (selectedSubTab === 'bankVerification') {
-      return (
-        <div className="space-y-6">
+
           <div className="flex items-center space-x-3">
             <CheckCircle className="h-6 w-6 text-green-600" />
             <div>
@@ -946,26 +1464,171 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
           
+          {/* Two Column Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column */}
+            <div className="space-y-4">
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">FirstCentral Reference Number:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.firstCentralReferenceNumber}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Surname:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.surname}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">First Name:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.firstName}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Date of Birth:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.dateOfBirth}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Marital Status:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.maritalStatus || 'Not specified'}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">National ID Number:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.nationalIdNumber}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Driver's License Number:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.driversLicenseNumber || 'Not specified'}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Other ID Number:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.otherIdNumber || 'Not specified'}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Latest Residential Address:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.latestResidentialAddress}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Home Telephone:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.homeTelephone}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Current Employer:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.currentEmployer || 'Not specified'}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Email Address:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.emailAddress || 'Not specified'}</p>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-4">
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Unique Tracking Number:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.uniqueTrackingNumber || 'Not specified'}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Other Names:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.otherNames || 'Not specified'}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Bank Verification Number (BVN):</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.bankVerificationNumber}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Gender:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.gender}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">No. of Dependants:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.noOfDependants}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">PENCOM ID:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.pencomId || 'Not specified'}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Passport Number:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.passportNumber}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Nationality:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.nationality}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Latest Postal Address:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.latestPostalAddress}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Work Telephone:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.workTelephone}</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Property Ownership Type:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.propertyOwnershipType || 'Not specified'}</p>
+              </div>
+              <div className="bg-white p-3 rounded">
+                <span className="text-sm font-medium text-gray-600">Mobile Number:</span>
+                <p className="text-sm text-gray-900 font-medium">{subTab.data.details.mobileNumber}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'delinquencyInformation') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Delinquency Information</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes the Customer's Highest Delinquency information.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Highest Delinquency Information */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="border-b border-gray-200 p-4">
+              <h4 className="text-lg font-semibold text-gray-900">Highest Delinquency Details</h4>
+            </div>
+            <div className="p-4 space-y-3">
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-sm font-bold text-gray-700">Subscriber Name:</span>
+                <span className="text-sm text-gray-900">{subTab.data.highestDelinquency.subscriberName}</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-sm font-bold text-gray-700">Account Number:</span>
+                <span className="text-sm text-gray-900">{subTab.data.highestDelinquency.accountNumber}</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-sm font-bold text-gray-700">Year/Month:</span>
+                <span className="text-sm text-gray-900">{subTab.data.highestDelinquency.yearMonth}</span>
+              </div>
+              <div className="flex justify-between items-center py-2">
+                <span className="text-sm font-bold text-gray-700">Days in Arrears:</span>
+                <span className="text-sm text-gray-900">{subTab.data.highestDelinquency.daysInArrears}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Delinquency Records */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-900">Bank Accounts</h4>
-            {subTab.data.banks.map((bank: any, index: number) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg">
+            <h4 className="text-lg font-semibold text-gray-900">Other Delinquency Records</h4>
+            {subTab.data.delinquencies.map((delinquency: any, index: number) => (
+              <div key={index} className="p-4 bg-green-50 border border-green-200 rounded-lg">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <span className="text-sm font-medium text-gray-600">BANK:</span>
-                    <p className="text-sm text-gray-900">{bank.name}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">ACCOUNT TYPE:</span>
-                    <p className="text-sm text-gray-900">{bank.accountType}</p>
+                    <span className="text-sm font-medium text-gray-600">TYPE:</span>
+                    <p className="text-sm text-gray-900">{delinquency.type}</p>
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-600">STATUS:</span>
-                    <p className="text-sm text-gray-900">{bank.status}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">VERIFIED:</span>
-                    <p className="text-sm text-gray-900">{bank.verified ? 'Yes' : 'No'}</p>
+                    <p className="text-sm text-gray-900">{delinquency.status}</p>
                   </div>
                 </div>
               </div>
@@ -975,7 +1638,463 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       )
     }
     
-    if (selectedSubTab === 'loanHistory') {
+    if (selectedSubTab === 'creditAccountSummary') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Credit Account Summary</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a summary of all aggregated credit and loan informations.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Credit Account Summary Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Category/Description</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">Dates/Counts</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">(=N=)</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">(US$)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {/* General Credit Summary */}
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Monthly Installments</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">{subTab.data.summary.totalMonthlyInstallments.naira}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">{subTab.data.summary.totalMonthlyInstallments.usd}</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Outstanding Debt</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">{subTab.data.summary.totalOutstandingDebt.naira}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">{subTab.data.summary.totalOutstandingDebt.usd}</td>
+                  </tr>
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Number of Accounts in Arrears</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.summary.totalAccountsInArrears.count1} / {subTab.data.summary.totalAccountsInArrears.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Arrear Amount</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">{subTab.data.summary.totalArrearAmount.naira}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">{subTab.data.summary.totalArrearAmount.usd}</td>
+                  </tr>
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Number of Accounts in Good Standing</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.summary.totalAccountsInGoodStanding.count1} / {subTab.data.summary.totalAccountsInGoodStanding.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Number of Accounts Taken</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.summary.totalAccountsTaken.count1} / {subTab.data.summary.totalAccountsTaken.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+
+                  {/* Judgements Section */}
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm font-semibold text-gray-900 border-r border-gray-200">Judgements</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Number of Judgements</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.judgements.totalNumberOfJudgements.count1} / {subTab.data.judgements.totalNumberOfJudgements.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Judgement Amount</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">{subTab.data.judgements.totalJudgementAmount.naira}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">{subTab.data.judgements.totalJudgementAmount.usd}</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Date of Last Judgement</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.judgements.dateOfLastJudgement.count1} / {subTab.data.judgements.dateOfLastJudgement.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+
+                  {/* Dishonoured Cheques Section */}
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm font-semibold text-gray-900 border-r border-gray-200">Dishonoured Cheques</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Number of Dishonoured Cheques</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.dishonouredCheques.totalNumberOfDishonouredCheques.count1} / {subTab.data.dishonouredCheques.totalNumberOfDishonouredCheques.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Amount of Dishonoured Cheques</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">{subTab.data.dishonouredCheques.totalAmountOfDishonouredCheques.naira}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">{subTab.data.dishonouredCheques.totalAmountOfDishonouredCheques.usd}</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Date of Last Bounced Cheque</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.dishonouredCheques.dateOfLastBouncedCheque.count1} {subTab.data.dishonouredCheques.dateOfLastBouncedCheque.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+
+                  {/* Utilities Section */}
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm font-semibold text-gray-900 border-r border-gray-200">Utilities</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Number of Utilities</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.utilities.totalNumberOfUtilities.count1} {subTab.data.utilities.totalNumberOfUtilities.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                  <tr className="bg-white">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Total Amount of Utilities</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">{subTab.data.utilities.totalAmountOfUtilities.naira}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">{subTab.data.utilities.totalAmountOfUtilities.usd}</td>
+                  </tr>
+                  <tr className="bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">Date of Last Utility</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">{subTab.data.utilities.dateOfLastUtility.count1} {subTab.data.utilities.dateOfLastUtility.count2}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">-</td>
+                    <td className="px-4 py-3 text-sm text-gray-900 text-right">-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'creditAccountRating') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Credit Account Rating</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes comprehensive credit rating and risk assessment information.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Overall Rating Summary */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+              <span className="text-sm font-medium text-gray-600">OVERALL RATING</span>
+              <p className="text-3xl font-bold text-green-600 mt-2">{subTab.data.rating.overallRating}</p>
+              <p className="text-xs text-gray-500 mt-1">Current Rating</p>
+            </div>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+              <span className="text-sm font-medium text-gray-600">CREDIT SCORE</span>
+              <p className="text-3xl font-bold text-blue-600 mt-2">{subTab.data.rating.creditScore}</p>
+              <p className="text-xs text-gray-500 mt-1">Out of 850</p>
+            </div>
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+              <span className="text-sm font-medium text-gray-600">RISK LEVEL</span>
+              <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskLevel}</p>
+              <p className="text-xs text-gray-500 mt-1">Risk Category</p>
+            </div>
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg border border-orange-200">
+              <span className="text-sm font-medium text-gray-600">RATING DATE</span>
+              <p className="text-lg font-semibold text-orange-600 mt-2">{subTab.data.rating.ratingDate}</p>
+              <p className="text-xs text-gray-500 mt-1">Last Updated</p>
+            </div>
+          </div>
+
+          {/* Rating History */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Rating History</h4>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                    <th className="px-6 py-3 text-center text-sm font-semibold text-gray-700">Rating</th>
+                    <th className="px-6 py-3 text-center text-sm font-semibold text-gray-700">Score</th>
+                    <th className="px-6 py-3 text-center text-sm font-semibold text-gray-700">Change</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.rating.ratingHistory.map((history: any, index: number) => {
+                    const isCurrent = index === 0;
+                    const previousScore = index < subTab.data.rating.ratingHistory.length - 1 ? 
+                      subTab.data.rating.ratingHistory[index + 1].score : null;
+                    const change = previousScore ? history.score - previousScore : 0;
+                    
+                    return (
+                      <tr key={index} className={isCurrent ? 'bg-green-50' : 'bg-white'}>
+                        <td className="px-6 py-4 text-sm text-gray-900">{history.date}</td>
+                        <td className="px-6 py-4 text-center">
+                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${
+                            isCurrent ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {history.rating}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center text-sm text-gray-900">{history.score}</td>
+                        <td className="px-6 py-4 text-center">
+                          {change !== 0 && (
+                            <span className={`text-sm font-medium ${
+                              change > 0 ? 'text-green-600' : 'text-red-600'
+                            }`}>
+                              {change > 0 ? '+' : ''}{change}
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Rating Factors */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Rating Factors</h4>
+            </div>
+            <div className="p-6 space-y-4">
+              {Object.entries(subTab.data.rating.ratingFactors).map(([factor, data]: [string, any]) => (
+                <div key={factor} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-sm font-semibold text-gray-900 capitalize">
+                        {factor.replace(/([A-Z])/g, ' $1').trim()}
+                      </span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        data.impact === 'Positive' ? 'bg-green-100 text-green-800' :
+                        data.impact === 'Negative' ? 'bg-red-100 text-red-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {data.impact}
+                      </span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        data.weight === 'High' ? 'bg-blue-100 text-blue-800' :
+                        data.weight === 'Medium' ? 'bg-orange-100 text-orange-800' :
+                        'bg-gray-100 text-gray-800'
+                      }`}>
+                        {data.weight} Weight
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div 
+                        className={`h-2 rounded-full ${
+                          data.score >= 80 ? 'bg-green-500' :
+                          data.score >= 60 ? 'bg-yellow-500' :
+                          'bg-red-500'
+                        }`}
+                        style={{ width: `${data.score}%` }}
+                      ></div>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900 w-12 text-right">{data.score}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Risk Assessment */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Risk Assessment</h4>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Probability of Default</span>
+                  <p className="text-2xl font-bold text-red-600 mt-2">{subTab.data.rating.riskAssessment.probabilityOfDefault}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Expected Loss</span>
+                  <p className="text-2xl font-bold text-orange-600 mt-2">{subTab.data.rating.riskAssessment.expectedLoss}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Risk Category</span>
+                  <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskAssessment.riskCategory}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Recommendation</span>
+                  <p className="text-lg font-semibold text-green-600 mt-2">{subTab.data.rating.riskAssessment.recommendation}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'creditAgreementsSummary') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Credit Agreements Summary</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a Summarized payment behaviour of all credit agreements as reported by the Credit Providers</p>
+          </div>
+
+          {/* Non-Performing Notice */}
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-red-800">
+                  NON PERFORMING: Loans/Facility that is more than 90 days in arrears
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Credit Agreements Summary Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto max-h-96 overflow-y-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50 sticky top-0 z-10">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[200px]">Subscriber Name</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[180px]">Account Number</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[80px]">Currency</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[120px]">Availed Limit</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[140px]">Outstanding Balance</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[130px]">Instalment Amount</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[120px]">Arrear Amount</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[150px]">Facility Classification</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 min-w-[120px]">Account Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.agreements.map((agreement: any, index: number) => (
+                    <tr 
+                      key={index} 
+                      className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 cursor-pointer transition-colors duration-150`}
+                      onClick={() => {
+                        setSelectedAgreement(agreement)
+                        setShowAgreementModal(true)
+                      }}
+                    >
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{agreement.subscriberName}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 font-mono">
+                        {agreement.accountNumber}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">
+                        {agreement.currency}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.availedLimit}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.outstandingBalance}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.instalmentAmount}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.arrearAmount}
+                      </td>
+                      <td className="px-4 py-3 text-center border-r border-gray-200">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          agreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
+                          agreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {agreement.facilityClassification}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          agreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
+                          agreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {agreement.accountStatus}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL AGREEMENTS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.agreements.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">OPEN ACCOUNTS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.agreements.filter((a: any) => a.accountStatus === 'Open').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">CLOSED ACCOUNTS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.agreements.filter((a: any) => a.accountStatus === 'Closed').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">PERFORMING:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.agreements.filter((a: any) => a.facilityClassification === 'Performing').length}
+              </p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'creditAgreements') {
       return (
         <div className="space-y-6">
           <div className="flex items-center space-x-3">
@@ -987,29 +2106,812 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           </div>
           
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-900">Loan History</h4>
-            {subTab.data.loans.map((loan: any, index: number) => (
+            <h4 className="text-lg font-semibold text-gray-900">Credit Agreements</h4>
+            {subTab.data.agreements.map((agreement: any, index: number) => (
               <div key={index} className="p-4 bg-gray-50 rounded-lg">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <span className="text-sm font-medium text-gray-600">LOAN TYPE:</span>
-                    <p className="text-sm text-gray-900">{loan.type}</p>
+                    <span className="text-sm font-medium text-gray-600">TYPE:</span>
+                    <p className="text-sm text-gray-900">{agreement.type}</p>
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-600">AMOUNT:</span>
-                    <p className="text-sm text-gray-900">{loan.amount}</p>
+                    <p className="text-sm text-gray-900">{agreement.amount}</p>
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-600">STATUS:</span>
-                    <p className="text-sm text-gray-900">{loan.status}</p>
+                    <p className="text-sm text-gray-900">{agreement.status}</p>
                   </div>
                   <div>
                     <span className="text-sm font-medium text-gray-600">DATE:</span>
-                    <p className="text-sm text-gray-900">{loan.date}</p>
+                    <p className="text-sm text-gray-900">{agreement.date}</p>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'guarantorDetails') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Guarantor Details</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes an aggregate of Guarantor provided on Credit/Loan application.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Guarantor Summary */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Guarantor Summary</h4>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-700">Number of Accounts Requiring Guarantors:</span>
+                  <span className="text-sm font-semibold text-gray-900">{subTab.data.summary.numberOfAccountsRequiringGuarantors}</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                  <span className="text-sm font-medium text-gray-700">Number of Guarantors Secured:</span>
+                  <span className="text-sm font-semibold text-gray-900">{subTab.data.summary.numberOfGuarantorsSecured}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Latest Guarantor Details */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+              <h4 className="text-lg font-bold text-orange-800">Latest Guarantor Details</h4>
+              <p className="text-sm italic text-orange-700 mt-1">This section includes the details of the latest Guarantor used on Credit/Loan application.</p>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left Column */}
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Surname:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.surname}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">National ID Number:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.nationalIdNumber}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Driver's License Number:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.driversLicenseNumber}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Other ID Number:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.otherIdNumber}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Home Telephone:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.homeTelephone}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Mobile Number:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.mobileNumber}</span>
+                  </div>
+                </div>
+
+                {/* Right Column */}
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Other Names:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.otherNames}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">PENCOM ID:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.pencomId}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Passport Number:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.passportNumber}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Date of Birth:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.dateOfBirth}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-50 px-3 py-2 rounded">Work Telephone:</span>
+                    <span className="text-sm text-gray-900 bg-white px-3 py-2 rounded border">{subTab.data.latestGuarantor.workTelephone}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'collateralInformation') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Collateral Information</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This sections includes collateral details as reported by the Credit Providers.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Collateral Information Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Supplier Name</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">Loan Security Status</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">Collateral Type</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Collateral Details</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.collaterals.map((collateral: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{collateral.supplierName}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-center border-r border-gray-200">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          collateral.loanSecurityStatus === 'Active' ? 'bg-green-100 text-green-800' :
+                          collateral.loanSecurityStatus === 'Released' ? 'bg-blue-100 text-blue-800' :
+                          collateral.loanSecurityStatus === 'Forfeited' ? 'bg-red-100 text-red-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {collateral.loanSecurityStatus}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center text-sm text-gray-900 border-r border-gray-200">
+                        {collateral.collateralType}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900">
+                        <div className="max-w-md">
+                          <p className="text-sm leading-relaxed">{collateral.collateralDetails}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.collaterals.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">ACTIVE COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Active').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">RELEASED COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Released').length}
+              </p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'dishonouredChequeInformation') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Dishonoured Cheque Information</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes the consumer's bounced cheques information.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Dishonoured Cheque Information Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Date Cheque Issued</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Date Cheque Dishonoured</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Issuing Bank</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">Amount</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.cheques.map((cheque: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        {cheque.dateChequeIssued}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        {cheque.dateChequeDishonoured}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{cheque.issuingBank}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right">
+                        <span className="font-semibold text-red-600">{cheque.amount}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL DISHONOURED CHEQUES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.cheques.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL AMOUNT:</span>
+              <p className="text-lg font-semibold text-red-600">
+                ₦{subTab.data.cheques.reduce((total: number, cheque: any) => {
+                  const amount = parseFloat(cheque.amount.replace(/[₦,]/g, ''));
+                  return total + amount;
+                }, 0).toLocaleString('en-NG', { minimumFractionDigits: 2 })}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'companyDirectorshipSummary') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Company Directorship Summary</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a summary of directorships held information.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Summary Section */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Directorship Summary</h4>
+            </div>
+            <div className="p-6">
+              <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                <span className="text-sm font-medium text-gray-700">Total Number of Company Directorships:</span>
+                <span className="text-sm font-semibold text-gray-900">{subTab.data.summary.totalNumberOfCompanyDirectorships}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Directorships Details */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Directorship Details</h4>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Company Name</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">Position</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">Appointment Date</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">Status</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200">Registration Number</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">Shareholding</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.directorships.map((directorship: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{directorship.companyName}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-center text-sm text-gray-900 border-r border-gray-200">
+                        {directorship.position}
+                      </td>
+                      <td className="px-4 py-3 text-center text-sm text-gray-900 border-r border-gray-200">
+                        {directorship.appointmentDate}
+                      </td>
+                      <td className="px-4 py-3 text-center border-r border-gray-200">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          directorship.status === 'Active' ? 'bg-green-100 text-green-800' :
+                          directorship.status === 'Resigned' ? 'bg-red-100 text-red-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {directorship.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center text-sm text-gray-900 border-r border-gray-200 font-mono">
+                        {directorship.companyRegistrationNumber}
+                      </td>
+                      <td className="px-4 py-3 text-center text-sm text-gray-900">
+                        <span className="font-semibold">{directorship.shareholding}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">ACTIVE DIRECTORShips:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.directorships.filter((d: any) => d.status === 'Active').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">RESIGNED DIRECTORShips:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.directorships.filter((d: any) => d.status === 'Resigned').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL COMPANIES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.directorships.length}</p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'enquiryHistory') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Enquiry History in Last 12 Months</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a list of organisations or credit providers who have requested a Credit Report of this consumer.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Enquiry History Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Enquiry Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Name of Enquirer</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Enquirer Phone Number</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Reason for Enquiry</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.enquiries.map((enquiry: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <span className="font-mono">{enquiry.enquiryDate}</span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{enquiry.nameOfEnquirer}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        {enquiry.enquirerPhoneNumber || <span className="text-gray-400 italic">Not provided</span>}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900">
+                        <div className="max-w-md">
+                          <p className="text-sm leading-relaxed">{enquiry.reasonForEnquiry}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL ENQUIRIES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.enquiries.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST ENQUIRY:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.enquiries[0]?.enquiryDate.split(' ')[0] || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'identificationHistory') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Identification History</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Identification means presented on the Credit/Loan applications.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Identification History Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Bureau Update Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Identification Type</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Identification Details</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.identifications.map((identification: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <span className="font-mono">{identification.bureauUpdateDate}</span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{identification.identificationType}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900">
+                        <div className="max-w-md">
+                          <p className="text-sm leading-relaxed">{identification.identificationDetails}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL IDENTIFICATIONS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.identifications.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.identifications[0]?.bureauUpdateDate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'addressHistory') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Address History</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Address Information presented on the Credit/Loan applications.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Address History Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Bureau Update</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Address</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Address Line 1</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Address Line 2</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Address Line 3</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Address Line 4</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.addresses.map((address: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <span className="font-mono">{address.bureauUpdate}</span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <span className="font-medium">{address.address}</span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="text-sm leading-relaxed">{address.addressLine1}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="text-sm leading-relaxed">{address.addressLine2 || ''}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="text-sm leading-relaxed">{address.addressLine3 || ''}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900">
+                        <div className="max-w-xs">
+                          <p className="text-sm leading-relaxed">{address.addressLine4 || ''}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL ADDRESSES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.addresses.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.addresses[0]?.bureauUpdate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'employmentHistory') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Employment History</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Employment Information presented on the Credit/Loan applications.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Employment History Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Bureau Update Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Company</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Occupation</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.employments.map((employment: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <span className="font-mono">{employment.bureauUpdateDate}</span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{employment.company}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900">
+                        <div className="max-w-xs">
+                          <p className="text-sm leading-relaxed">{employment.occupation}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL EMPLOYMENTS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.employments.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.employments[0]?.bureauUpdateDate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'telephoneHistory') {
+      return (
+        <div className="space-y-6">
+          {/* Header Section */}
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
+            <h3 className="text-lg font-bold text-orange-800">Telephone History</h3>
+            <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Contact Information presented on the Credit/Loan applications.</p>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Telephone History Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Home Telephone</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Work Telephone</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Mobile Number</th>
+                  </tr>
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Bureau Update Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Bureau Update Date</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Bureau Update Date</th>
+                  </tr>
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Telephone Number</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200">Telephone Number</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Telephone Number</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.telephones.map((telephone: any, index: number) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="space-y-2">
+                          <div>
+                            <span className="font-mono text-xs text-gray-600">Bureau Update Date:</span>
+                            <p className="font-mono text-sm">{telephone.homeTelephone.bureauUpdateDate}</p>
+                          </div>
+                          <div>
+                            <span className="font-mono text-xs text-gray-600">Telephone Number:</span>
+                            <p className="font-mono text-sm">{telephone.homeTelephone.telephoneNumber}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="space-y-2">
+                          <div>
+                            <span className="font-mono text-xs text-gray-600">Bureau Update Date:</span>
+                            <p className="font-mono text-sm">{telephone.workTelephone.bureauUpdateDate}</p>
+                          </div>
+                          <div>
+                            <span className="font-mono text-xs text-gray-600">Telephone Number:</span>
+                            <p className="font-mono text-sm">{telephone.workTelephone.telephoneNumber}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900">
+                        <div className="space-y-2">
+                          <div>
+                            <span className="font-mono text-xs text-gray-600">Bureau Update Date:</span>
+                            <p className="font-mono text-sm">{telephone.mobileNumber.bureauUpdateDate}</p>
+                          </div>
+                          <div>
+                            <span className="font-mono text-xs text-gray-600">Telephone Number:</span>
+                            <p className="font-mono text-sm">{telephone.mobileNumber.telephoneNumber}</p>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL RECORDS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.telephones.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.telephones[0]?.mobileNumber?.bureauUpdateDate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
           </div>
         </div>
       )
@@ -1892,10 +3794,19 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
     )
   }
 
+  const [isScrolledToTop, setIsScrolledToTop] = useState(true)
+  const [selectedAgreement, setSelectedAgreement] = useState<any>(null)
+  const [showAgreementModal, setShowAgreementModal] = useState(false)
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const scrollTop = e.currentTarget.scrollTop
+    setIsScrolledToTop(scrollTop <= 10)
+  }
+
   return (
-    <div className="fixed inset-0 bg-white z-[9999] overflow-y-auto">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-8 py-6">
+    <div className="fixed inset-0 bg-white z-[9999] flex flex-col">
+      {/* Static Header */}
+      <div className="flex-shrink-0 bg-white border-b border-gray-200 px-8 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <button
@@ -1915,70 +3826,80 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
         </div>
       </div>
 
-      {/* Report Header */}
-      <div className="bg-red-600 text-white px-8 py-8">
+      {/* Static Report Header */}
+      <div className="flex-shrink-0 bg-red-600 text-white px-8 py-3">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Background Check Report</h1>
-          </div>
           <div className="flex items-center space-x-6">
-            <button className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm">
-              <Download className="h-4 w-4" />
-              <span>Download Full Report</span>
-            </button>
-            <div className="text-right">
-              <div className="text-sm opacity-90 font-medium">IDCERTIFY NO</div>
-              <div className="text-xl font-bold">{backgroundCheckData.id}</div>
+            <h1 className="text-xl font-bold tracking-tight">Background Check Report</h1>
+            <div className="flex items-center space-x-2">
+              <div className="text-xs opacity-90 font-medium">IDCERTIFY NO</div>
+              <div className="text-sm font-bold">{backgroundCheckData.id}</div>
             </div>
           </div>
+          <button className="bg-white text-red-600 px-3 py-1.5 rounded-md font-semibold flex items-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm text-xs">
+            <Download className="h-3 w-3" />
+            <span>Download Report</span>
+          </button>
         </div>
       </div>
 
-      {/* Candidate Summary */}
-      <div className="bg-white px-8 py-8 border-b border-gray-200">
-        <div className="flex items-start space-x-8">
-          <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center border-2 border-gray-200">
-            <User className="h-12 w-12 text-gray-500" />
+      {/* Static Candidate Summary */}
+      <div className="flex-shrink-0 bg-white px-8 py-3 border-b border-gray-200">
+        <div className="flex items-center justify-between">
+          {/* Left: Profile & Basic Info */}
+          <div className="flex items-center space-x-4">
+            <div className="w-24 h-24 rounded-full border-2 border-gray-200 overflow-hidden">
+              <img
+                src={backgroundCheckData.candidate.profileImage || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80'}
+                alt={backgroundCheckData.candidate.name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Fallback to User icon if image fails to load
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const parent = target.parentElement;
+                  if (parent) {
+                    parent.innerHTML = '<div class="w-full h-full bg-gray-100 flex items-center justify-center"><svg class="h-12 w-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>';
+                  }
+                }}
+              />
+            </div>
+            <div>
+              <div className="flex items-center space-x-3">
+                <h2 className="text-lg font-bold text-gray-900">{backgroundCheckData.candidate.name}</h2>
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                  {backgroundCheckData.candidate.score}
+                </div>
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold inline-flex items-center space-x-1">
+                  <CheckCircle className="h-3 w-3" />
+                  <span>Completed</span>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm mt-0.5">{backgroundCheckData.candidate.email}</p>
+            </div>
           </div>
-          <div className="flex-1">
-            <div className="flex items-center space-x-4 mb-3">
-              <h2 className="text-3xl font-bold text-gray-900 tracking-tight">{backgroundCheckData.candidate.name}</h2>
-              <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
-                {backgroundCheckData.candidate.score}
+
+          {/* Right: Status Details */}
+          <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-2">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">COMPLETION</div>
+                <div className="text-sm font-semibold text-gray-900">{backgroundCheckData.completionDate}</div>
               </div>
             </div>
-            <p className="text-gray-600 mb-6 text-lg">{backgroundCheckData.candidate.email}</p>
-            <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center space-x-2">
-              <CheckCircle className="h-4 w-4" />
-              <span>Completed</span>
+            <div className="flex items-center space-x-2">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">IDENTITY</div>
+                <div className="text-sm font-semibold text-gray-900">Verified</div>
+              </div>
             </div>
-          </div>
-          <div className="text-right">
-            <div className="grid grid-cols-2 gap-8 text-sm">
-              <div className="space-y-1">
-                <div className="text-gray-500 font-medium text-xs uppercase tracking-wide">COMPLETION DATE</div>
-                <div className="font-semibold text-gray-900">{backgroundCheckData.completionDate}</div>
-              </div>
-              <div className="space-y-1">
-                <div className="text-gray-500 font-medium text-xs uppercase tracking-wide">IDENTITY VERIFIED</div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span className="font-semibold text-gray-900">Yes</span>
-                </div>
-              </div>
-              <div className="space-y-1">
-                <div className="text-gray-500 font-medium text-xs uppercase tracking-wide">CONSENT PROVIDED</div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span className="font-semibold text-gray-900">{backgroundCheckData.consentProvided}</span>
-                </div>
-              </div>
-              <div className="space-y-1">
-                <div className="text-gray-500 font-medium text-xs uppercase tracking-wide">FLAGGED</div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <span className="font-semibold text-gray-900">{backgroundCheckData.flaggedIssues} ISSUES</span>
-                </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">FLAGGED</div>
+                <div className="text-sm font-semibold text-gray-900">{backgroundCheckData.flaggedIssues} Issues</div>
               </div>
             </div>
           </div>
@@ -1986,10 +3907,10 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       </div>
 
       {/* Main Content */}
-      <div className="flex min-h-screen">
-        {/* Left Panel - Categories */}
-        <div className="w-1/3 bg-gray-50 border-r border-gray-200 p-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-6">Background Check Categories</h3>
+      <div className="flex-1 flex w-full max-w-full overflow-hidden">
+        {/* Static Left Panel - Categories */}
+        <div className="w-1/4 bg-gray-50 border-r border-gray-200 p-4 flex-shrink-0">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Background Check Categories</h3>
           <div className="space-y-3">
             {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
               <button
@@ -2001,64 +3922,71 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                     setSelectedSubTab(Object.keys(category.subTabs)[0])
                   }
                 }}
-                className={`w-full flex items-center justify-between p-4 rounded-xl text-left transition-all duration-200 ${
+                className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-all duration-200 ${
                   selectedCategory === key 
                     ? 'bg-white border-2 border-gray-200 shadow-md' 
                     : 'hover:bg-white hover:shadow-sm border border-transparent'
                 }`}
               >
-                <div className="flex items-center space-x-4">
-                  {getStatusIcon(category.status)}
-                  <span className="text-sm font-semibold text-gray-900">{category.name}</span>
+                <div className="flex-1 min-w-0 flex items-center">
+                  <span className="text-sm font-semibold text-gray-900 leading-tight break-words">{category.name}</span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <span className={getStatusBadge(category.status)}>
-                    {getStatusText(category.status)}
-                  </span>
-                  <ChevronRight className="h-4 w-4 text-gray-400" />
-                </div>
+                <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0 ml-2" />
               </button>
             ))}
           </div>
         </div>
 
-        {/* Right Panel - Details */}
-        <div className="flex-1 bg-white p-8">
+        {/* Scrollable Right Panel - Details */}
+        <div className="flex-1 bg-white p-6 min-w-0 overflow-y-auto" onScroll={handleScroll}>
           {selectedCategory && backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories]?.subTabs && (
             <>
               {/* Category Header */}
-              <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-4">
-                  <h3 className="text-2xl font-bold text-gray-900 tracking-tight">
+                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">
                     {backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].name}
                   </h3>
                   <span className={getStatusBadge(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].status)}>
                     {getStatusText(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].status)}
                   </span>
                 </div>
+                {selectedCategory === 'financialCredit' && (
+                  <button className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold flex items-center space-x-2 hover:bg-red-700 transition-colors duration-200 shadow-sm text-sm">
+                    <Download className="h-4 w-4" />
+                    <span>Download Credit Report</span>
+                  </button>
+                )}
               </div>
 
               {/* Sub-tabs */}
-              <div className="border-b border-gray-200 mb-8">
-                <nav className="-mb-px flex space-x-8">
-                  {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
-                    <button
-                      key={key}
-                      onClick={() => setSelectedSubTab(key)}
-                      className={`py-3 px-1 border-b-2 font-semibold text-sm transition-colors duration-200 ${
-                        selectedSubTab === key
-                          ? 'border-red-500 text-red-600'
-                          : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                      }`}
-                    >
-                      {subTab.name}
-                    </button>
-                  ))}
-                </nav>
+              <div className="border-b border-gray-200 mb-6 w-full">
+                <style>{`
+                  .nav-scroll::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
+                <div className="w-full overflow-hidden">
+                  <nav className="-mb-px flex space-x-4 overflow-x-auto nav-scroll pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
+                      <button
+                        key={key}
+                        onClick={() => setSelectedSubTab(key)}
+                        className={`py-2 px-2 border-b-2 font-semibold text-sm transition-colors duration-200 whitespace-nowrap flex-shrink-0 min-w-fit ${
+                          selectedSubTab === key
+                            ? 'border-red-500 text-red-600'
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        }`}
+                      >
+                        {subTab.name}
+                      </button>
+                    ))}
+                  </nav>
+                </div>
               </div>
 
               {/* Detail Content */}
-              <div className="min-h-96">
+              <div className="min-h-64">
                 {renderDetailContent()}
               </div>
             </>
@@ -2066,6 +3994,181 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
 
         </div>
       </div>
+
+      {/* Credit Agreement Details Modal */}
+      {showAgreementModal && selectedAgreement && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-xl font-bold text-gray-900">
+                Details of Credit Agreement with "{selectedAgreement.subscriberName}" for Account Number: {selectedAgreement.accountNumber}
+              </h2>
+              <button
+                onClick={() => setShowAgreementModal(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 space-y-6">
+              {/* Account Information */}
+              <div>
+                <h3 className="text-lg font-bold text-orange-600 mb-4">Account Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Left Column */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Subscriber Name:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.subscriberName}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Effective Date:</span>
+                      <span className="text-sm text-gray-900">20/06/2019</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Type of Credit Facility:</span>
+                      <span className="text-sm text-gray-900">Personal fixed term loan</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Credit / Debit:</span>
+                      <span className="text-sm text-gray-900">-</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Current Balance:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.outstandingBalance}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Arrear Amount:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.arrearAmount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Facility Classification:</span>
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        selectedAgreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
+                        selectedAgreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {selectedAgreement.facilityClassification}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Account Status:</span>
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        selectedAgreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
+                        selectedAgreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {selectedAgreement.accountStatus}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Repayment Frequency:</span>
+                      <span className="text-sm text-gray-900">Mo</span>
+                    </div>
+                  </div>
+
+                  {/* Right Column */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Account Number:</span>
+                      <span className="text-sm text-gray-900 font-mono">{selectedAgreement.accountNumber}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Bureau Updated Date:</span>
+                      <span className="text-sm text-gray-900">15/10/2024</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Currency:</span>
+                      <span className="text-sm text-gray-900 font-semibold">{selectedAgreement.currency}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Loan Amount/Credit Limit:</span>
+                      <span className="text-sm text-gray-900">-</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Instalment Amount:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.instalmentAmount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Expiry Date:</span>
+                      <span className="text-sm text-gray-900">20/07/2019</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Last Payment Date:</span>
+                      <span className="text-sm text-gray-900">01/07/2019</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Loan Duration:</span>
+                      <span className="text-sm text-gray-900">30 Day(s)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 24 Months Payment History */}
+              <div>
+                <h3 className="text-lg font-bold text-orange-600 mb-4">24 Months Payment History</h3>
+                <div className="grid grid-cols-12 gap-2">
+                  {/* First Row - Recent 12 months */}
+                  {['SEP 2025', 'AUG 2025', 'JUL 2025', 'JUN 2025', 'MAY 2025', 'APR 2025', 'MAR 2025', 'FEB 2025', 'JAN 2025', 'DEC 2024', 'NOV 2024', 'OCT 2024'].map((month, index) => (
+                    <div key={month} className="text-center">
+                      <div className="text-xs font-medium text-gray-600 mb-1">{month}</div>
+                      <div className={`w-full h-8 rounded flex items-center justify-center text-xs font-semibold ${
+                        ['SEP 2025', 'FEB 2025', 'NOV 2024'].includes(month) 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {['SEP 2025', 'FEB 2025', 'NOV 2024'].includes(month) ? 'OK' : 'ND'}
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {/* Second Row - Previous 12 months */}
+                  {['SEP 2024', 'AUG 2024', 'JUL 2024', 'JUN 2024', 'MAY 2024', 'APR 2024', 'MAR 2024', 'FEB 2024', 'JAN 2024', 'DEC 2023', 'NOV 2023', 'OCT 2023'].map((month, index) => (
+                    <div key={month} className="text-center">
+                      <div className="text-xs font-medium text-gray-600 mb-1">{month}</div>
+                      <div className={`w-full h-8 rounded flex items-center justify-center text-xs font-semibold ${
+                        ['MAY 2024', 'NOV 2023'].includes(month) 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {['MAY 2024', 'NOV 2023'].includes(month) ? 'OK' : 'ND'}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Legend */}
+                <div className="mt-4 flex items-center space-x-6 text-sm">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-green-100 rounded"></div>
+                    <span className="text-gray-600">OK - Payment made on time</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 bg-blue-100 rounded"></div>
+                    <span className="text-gray-600">ND - No Data available</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex justify-end p-6 border-t border-gray-200">
+              <button
+                onClick={() => setShowAgreementModal(false)}
+                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
