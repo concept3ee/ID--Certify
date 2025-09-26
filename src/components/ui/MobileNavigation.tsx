@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { 
   Home, 
@@ -9,7 +9,12 @@ import {
   X,
   ChevronDown,
   Bell,
-  Search
+  Search,
+  Plus,
+  User,
+  FileText,
+  Shield,
+  CreditCard
 } from 'lucide-react'
 
 interface MobileNavigationProps {
@@ -20,7 +25,35 @@ interface MobileNavigationProps {
 const MobileNavigation = ({ userType = 'organisation', onNavigate }: MobileNavigationProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [showSearch, setShowSearch] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const location = useLocation()
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false)
+    setShowSearch(false)
+  }, [location.pathname])
+
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false)
+        setShowSearch(false)
+      }
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [])
+
+  // Quick actions for mobile
+  const quickActions = [
+    { name: 'New Verification', href: '/organisation/verification', icon: Plus, color: 'bg-blue-500' },
+    { name: 'Add Employee', href: '/organisation/employees', icon: User, color: 'bg-green-500' },
+    { name: 'View Reports', href: '/organisation/analytics', icon: FileText, color: 'bg-purple-500' },
+    { name: 'Security', href: '/organisation/security', icon: Shield, color: 'bg-red-500' }
+  ]
 
   const navigationItems = [
     {
@@ -102,25 +135,49 @@ const MobileNavigation = ({ userType = 'organisation', onNavigate }: MobileNavig
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3">
+      <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-40">
         <div className="flex items-center justify-between">
           <button
             onClick={() => setIsOpen(true)}
-            className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+            style={{ minWidth: '44px', minHeight: '44px' }}
           >
             <Menu className="h-6 w-6" />
           </button>
           
-          <div className="flex items-center space-x-3">
-            <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+          <div className="flex items-center space-x-2">
+            <button 
+              onClick={() => setShowSearch(!showSearch)}
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+              style={{ minWidth: '44px', minHeight: '44px' }}
+            >
               <Search className="h-5 w-5" />
             </button>
-            <button className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+            <button className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+              style={{ minWidth: '44px', minHeight: '44px' }}
+            >
               <Bell className="h-5 w-5" />
               <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
             </button>
           </div>
         </div>
+
+        {/* Mobile Search Bar */}
+        {showSearch && (
+          <div className="mt-3">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+                autoFocus
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Mobile Navigation Overlay */}
@@ -151,6 +208,26 @@ const MobileNavigation = ({ userType = 'organisation', onNavigate }: MobileNavig
               </button>
             </div>
 
+            {/* Quick Actions */}
+            <div className="p-4 border-b border-gray-200">
+              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {quickActions.map((action, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleNavigation(action.href)}
+                    className="flex flex-col items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+                    style={{ minHeight: '60px' }}
+                  >
+                    <div className={`p-2 rounded-lg ${action.color} mb-2`}>
+                      <action.icon className="h-5 w-5 text-white" />
+                    </div>
+                    <span className="text-xs font-medium text-gray-700 text-center">{action.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Navigation */}
             <nav className="flex-1 overflow-y-auto p-4">
               <div className="space-y-2">
@@ -164,11 +241,12 @@ const MobileNavigation = ({ userType = 'organisation', onNavigate }: MobileNavig
                           handleNavigation(item.href)
                         }
                       }}
-                      className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${
+                      className={`w-full flex items-center justify-between p-4 rounded-lg transition-colors touch-manipulation ${
                         isActive(item.href)
                           ? 'bg-blue-50 text-blue-700 border border-blue-200'
                           : 'text-gray-700 hover:bg-gray-50'
                       }`}
+                      style={{ minHeight: '56px' }}
                     >
                       <div className="flex items-center space-x-3">
                         <item.icon className={`h-5 w-5 ${
@@ -218,6 +296,64 @@ const MobileNavigation = ({ userType = 'organisation', onNavigate }: MobileNavig
           </div>
         </div>
       )}
+
+      {/* Bottom Navigation Bar */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-30">
+        <div className="flex items-center justify-around">
+          <button
+            onClick={() => handleNavigation('/organisation')}
+            className={`flex flex-col items-center p-2 rounded-lg transition-colors touch-manipulation ${
+              isActive('/organisation') ? 'text-blue-600' : 'text-gray-500'
+            }`}
+            style={{ minWidth: '44px', minHeight: '44px' }}
+          >
+            <Home className="h-5 w-5 mb-1" />
+            <span className="text-xs font-medium">Home</span>
+          </button>
+          
+          <button
+            onClick={() => handleNavigation('/organisation/verification')}
+            className={`flex flex-col items-center p-2 rounded-lg transition-colors touch-manipulation ${
+              isActive('/organisation/verification') ? 'text-blue-600' : 'text-gray-500'
+            }`}
+            style={{ minWidth: '44px', minHeight: '44px' }}
+          >
+            <Shield className="h-5 w-5 mb-1" />
+            <span className="text-xs font-medium">Verify</span>
+          </button>
+          
+          <button
+            onClick={() => handleNavigation('/organisation/analytics')}
+            className={`flex flex-col items-center p-2 rounded-lg transition-colors touch-manipulation ${
+              isActive('/organisation/analytics') ? 'text-blue-600' : 'text-gray-500'
+            }`}
+            style={{ minWidth: '44px', minHeight: '44px' }}
+          >
+            <BarChart3 className="h-5 w-5 mb-1" />
+            <span className="text-xs font-medium">Analytics</span>
+          </button>
+          
+          <button
+            onClick={() => handleNavigation('/organisation/employees')}
+            className={`flex flex-col items-center p-2 rounded-lg transition-colors touch-manipulation ${
+              isActive('/organisation/employees') ? 'text-blue-600' : 'text-gray-500'
+            }`}
+            style={{ minWidth: '44px', minHeight: '44px' }}
+          >
+            <Users className="h-5 w-5 mb-1" />
+            <span className="text-xs font-medium">People</span>
+          </button>
+          
+          <button
+            onClick={() => setIsOpen(true)}
+            className="flex flex-col items-center p-2 rounded-lg transition-colors touch-manipulation text-gray-500"
+            style={{ minWidth: '44px', minHeight: '44px' }}
+          >
+            <Menu className="h-5 w-5 mb-1" />
+            <span className="text-xs font-medium">More</span>
+          </button>
+        </div>
+      </div>
     </>
   )
 }

@@ -10,6 +10,8 @@ import {
   X,
   User
 } from 'lucide-react'
+import MobileTable from '../ui/MobileTable'
+import MobileModal from '../ui/MobileModal'
 
 interface BackgroundCheckDetailsPageProps {
   backgroundCheck: any
@@ -1186,15 +1188,15 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   <div key={index} className="bg-red-50 border border-red-200 rounded-lg p-4">
                     <div className="grid grid-cols-3 gap-4">
                       <div>
-                        <span className="text-sm font-medium text-gray-600">VIOLATION:</span>
+                      <span className="text-sm font-medium text-gray-600">VIOLATION:</span>
                         <p className="text-sm text-gray-900">{violation.violation}</p>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-gray-600">VIOLATION DATE:</span>
+                      <span className="text-sm font-medium text-gray-600">VIOLATION DATE:</span>
                         <p className="text-sm text-gray-900">{violation.date}</p>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-gray-600">POINTS:</span>
+                      <span className="text-sm font-medium text-gray-600">POINTS:</span>
                         <p className="text-sm text-gray-900">{violation.points}</p>
                       </div>
                     </div>
@@ -1990,80 +1992,105 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
           
-          {/* Credit Agreements Summary Table */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="overflow-x-auto max-h-96 overflow-y-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50 sticky top-0 z-10">
-                  <tr>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[200px]">Subscriber Name</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[180px]">Account Number</th>
-                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[80px]">Currency</th>
-                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[120px]">Availed Limit</th>
-                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[140px]">Outstanding Balance</th>
-                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[130px]">Instalment Amount</th>
-                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[120px]">Arrear Amount</th>
-                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[150px]">Facility Classification</th>
-                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 min-w-[120px]">Account Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {subTab.data.agreements.map((agreement: any, index: number) => (
-                    <tr 
-                      key={index} 
-                      className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 cursor-pointer transition-colors duration-150`}
-                      onClick={() => {
-                        setSelectedAgreement(agreement)
-                        setShowAgreementModal(true)
-                      }}
-                    >
-                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                        <div className="max-w-xs">
-                          <p className="font-medium">{agreement.subscriberName}</p>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 font-mono">
-                        {agreement.accountNumber}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">
-                        {agreement.currency}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
-                        {agreement.availedLimit}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
-                        {agreement.outstandingBalance}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
-                        {agreement.instalmentAmount}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
-                        {agreement.arrearAmount}
-                      </td>
-                      <td className="px-4 py-3 text-center border-r border-gray-200">
-                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                          agreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
-                          agreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
-                          'bg-yellow-100 text-yellow-800'
-                        }`}>
-                          {agreement.facilityClassification}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                          agreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
-                          agreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
-                          'bg-yellow-100 text-yellow-800'
-                        }`}>
-                          {agreement.accountStatus}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          {/* Credit Agreements Summary Table - Mobile Optimized */}
+          <MobileTable
+            data={subTab.data.agreements}
+            columns={[
+              {
+                key: 'subscriberName',
+                label: 'Subscriber Name',
+                width: 'min-w-[200px]',
+                render: (value) => (
+                  <div className="max-w-xs">
+                    <p className="font-medium">{value}</p>
+                  </div>
+                )
+              },
+              {
+                key: 'accountNumber',
+                label: 'Account Number',
+                width: 'min-w-[180px]',
+                render: (value) => (
+                  <span className="font-mono text-sm">{value}</span>
+                )
+              },
+              {
+                key: 'currency',
+                label: 'Currency',
+                width: 'min-w-[80px]',
+                render: (value) => (
+                  <span className="text-center font-semibold">{value}</span>
+                )
+              },
+              {
+                key: 'availedLimit',
+                label: 'Availed Limit',
+                width: 'min-w-[120px]',
+                render: (value) => (
+                  <span className="text-right font-mono">{value}</span>
+                )
+              },
+              {
+                key: 'outstandingBalance',
+                label: 'Outstanding Balance',
+                width: 'min-w-[140px]',
+                render: (value) => (
+                  <span className="text-right font-mono">{value}</span>
+                )
+              },
+              {
+                key: 'instalmentAmount',
+                label: 'Instalment Amount',
+                width: 'min-w-[130px]',
+                render: (value) => (
+                  <span className="text-right font-mono">{value}</span>
+                )
+              },
+              {
+                key: 'arrearAmount',
+                label: 'Arrear Amount',
+                width: 'min-w-[120px]',
+                render: (value) => (
+                  <span className="text-right font-mono">{value}</span>
+                )
+              },
+              {
+                key: 'facilityClassification',
+                label: 'Facility Classification',
+                width: 'min-w-[150px]',
+                render: (value) => (
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    value === 'Performing' ? 'bg-green-100 text-green-800' :
+                    value === 'Non-Performing' ? 'bg-red-100 text-red-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {value}
+                  </span>
+                )
+              },
+              {
+                key: 'accountStatus',
+                label: 'Account Status',
+                width: 'min-w-[120px]',
+                render: (value) => (
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    value === 'Open' ? 'bg-blue-100 text-blue-800' :
+                    value === 'Closed' ? 'bg-gray-100 text-gray-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {value}
+                  </span>
+                )
+              }
+            ]}
+            onRowClick={(agreement) => {
+              setSelectedAgreement(agreement)
+              setShowAgreementModal(true)
+            }}
+            maxHeight="max-h-96"
+            showCardView={true}
+            cardViewBreakpoint="md"
+          />
 
           {/* Summary Statistics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -3383,7 +3410,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   </div>
                   {result.explanation && (
                     <div className="col-span-2">
-                      <span className="text-sm font-medium text-gray-600">EXPLANATION:</span>
+                    <span className="text-sm font-medium text-gray-600">EXPLANATION:</span>
                       <p className="text-sm text-gray-900">{result.explanation}</p>
                     </div>
                   )}
@@ -3995,59 +4022,47 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
         </div>
       </div>
 
-      {/* Credit Agreement Details Modal */}
-      {showAgreementModal && selectedAgreement && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h2 className="text-xl font-bold text-gray-900">
-                Details of Credit Agreement with "{selectedAgreement.subscriberName}" for Account Number: {selectedAgreement.accountNumber}
-              </h2>
-              <button
-                onClick={() => setShowAgreementModal(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-6 space-y-6">
-              {/* Account Information */}
-              <div>
-                <h3 className="text-lg font-bold text-orange-600 mb-4">Account Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Left Column */}
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Subscriber Name:</span>
-                      <span className="text-sm text-gray-900">{selectedAgreement.subscriberName}</span>
+      {/* Credit Agreement Details Modal - Mobile Optimized */}
+      <MobileModal
+        isOpen={showAgreementModal}
+        onClose={() => setShowAgreementModal(false)}
+        title={`Credit Agreement: ${selectedAgreement?.subscriberName || ''}`}
+        fullScreen={false}
+      >
+        {selectedAgreement && (
+          <div className="p-4 sm:p-6 space-y-6">
+            {/* Account Information */}
+            <div>
+              <h3 className="text-lg font-bold text-orange-600 mb-4">Account Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Left Column */}
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Subscriber Name:</span>
+                    <span className="text-sm text-gray-900">{selectedAgreement.subscriberName}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Effective Date:</span>
+                    <span className="text-sm text-gray-900">20/06/2019</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Effective Date:</span>
-                      <span className="text-sm text-gray-900">20/06/2019</span>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Type of Credit Facility:</span>
+                    <span className="text-sm text-gray-900">Personal fixed term loan</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Type of Credit Facility:</span>
-                      <span className="text-sm text-gray-900">Personal fixed term loan</span>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Credit / Debit:</span>
+                    <span className="text-sm text-gray-900">-</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Credit / Debit:</span>
-                      <span className="text-sm text-gray-900">-</span>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Current Balance:</span>
+                    <span className="text-sm text-gray-900">{selectedAgreement.outstandingBalance}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Current Balance:</span>
-                      <span className="text-sm text-gray-900">{selectedAgreement.outstandingBalance}</span>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Arrear Amount:</span>
+                    <span className="text-sm text-gray-900">{selectedAgreement.arrearAmount}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Arrear Amount:</span>
-                      <span className="text-sm text-gray-900">{selectedAgreement.arrearAmount}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Facility Classification:</span>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Facility Classification:</span>
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         selectedAgreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
                         selectedAgreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
@@ -4056,8 +4071,8 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                         {selectedAgreement.facilityClassification}
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Account Status:</span>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Account Status:</span>
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         selectedAgreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
                         selectedAgreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
@@ -4066,9 +4081,9 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                         {selectedAgreement.accountStatus}
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-600">Repayment Frequency:</span>
-                      <span className="text-sm text-gray-900">Mo</span>
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">Repayment Frequency:</span>
+                    <span className="text-sm text-gray-900">Mo</span>
                     </div>
                   </div>
 
@@ -4156,19 +4171,9 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             </div>
-
-            {/* Modal Footer */}
-            <div className="flex justify-end p-6 border-t border-gray-200">
-              <button
-                onClick={() => setShowAgreementModal(false)}
-                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
-              >
-                Close
-              </button>
-            </div>
           </div>
-        </div>
-      )}
+        )}
+      </MobileModal>
     </div>
   )
 }

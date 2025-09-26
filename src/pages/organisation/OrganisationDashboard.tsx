@@ -51,7 +51,7 @@ const OrganisationDashboard = () => {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Header />
         
-        <main className="flex-1 overflow-y-auto min-h-0">
+        <main className="flex-1 overflow-y-auto min-h-0 pb-20 lg:pb-0">
           <Routes>
             <Route path="/" element={
               <div className="p-4 sm:p-6">
