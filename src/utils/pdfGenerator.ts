@@ -230,16 +230,25 @@ export const generateCreditReportPDF = async (reportData: CreditReportData) => {
 const addPersonalDetails = (pdf: jsPDF, data: any, yPos: number, pageWidth: number, addText: any, addLine: any, addRect: any, checkNewPage: any) => {
   let y = yPos
   
-  const details = [
-    { label: 'Full Name', value: data.fullName || 'N/A' },
-    { label: 'Date of Birth', value: data.dateOfBirth || 'N/A' },
-    { label: 'Gender', value: data.gender || 'N/A' },
-    { label: 'Marital Status', value: data.maritalStatus || 'N/A' },
-    { label: 'Nationality', value: data.nationality || 'N/A' },
-    { label: 'BVN', value: data.bvn || 'N/A' }
+  // Extract details from the nested structure
+  const details = data?.details || {}
+  
+  const personalInfo = [
+    { label: 'Full Name', value: `${details.firstName || ''} ${details.surname || ''}`.trim() || 'N/A' },
+    { label: 'Date of Birth', value: details.dateOfBirth || 'N/A' },
+    { label: 'Gender', value: details.gender || 'N/A' },
+    { label: 'Marital Status', value: details.maritalStatus || 'N/A' },
+    { label: 'Nationality', value: details.nationality || 'N/A' },
+    { label: 'BVN', value: details.bankVerificationNumber || 'N/A' },
+    { label: 'NIN', value: details.nationalIdNumber || 'N/A' },
+    { label: 'Passport Number', value: details.passportNumber || 'N/A' },
+    { label: 'Email Address', value: details.emailAddress || 'N/A' },
+    { label: 'Mobile Number', value: details.mobileNumber || 'N/A' },
+    { label: 'Current Employer', value: details.currentEmployer || 'N/A' },
+    { label: 'Residential Address', value: details.latestResidentialAddress || 'N/A' }
   ]
   
-  details.forEach(detail => {
+  personalInfo.forEach(detail => {
     checkNewPage(10)
     y = addText(`${detail.label}: ${detail.value}`, 15, y, pageWidth - 30)
     y += 5
@@ -251,11 +260,29 @@ const addPersonalDetails = (pdf: jsPDF, data: any, yPos: number, pageWidth: numb
 const addDelinquencyInfo = (pdf: jsPDF, data: any, yPos: number, pageWidth: number, addText: any, addLine: any, addRect: any, checkNewPage: any) => {
   let y = yPos
   
-  y = addText(`Status: ${data.status || 'No Delinquency'}`, 15, y, pageWidth - 30, 12, '#059669')
+  y = addText(`Status: ${data.status || 'No Delinquency'}`, 15, y, pageWidth - 30, 12, data.status === 'Clear' ? '#059669' : '#DC2626')
   y += 5
-  y = addText(`Total Delinquent Amount: ${data.totalAmount || '₦0.00'}`, 15, y, pageWidth - 30)
-  y += 5
-  y = addText(`Number of Delinquencies: ${data.count || '0'}`, 15, y, pageWidth - 30)
+  
+  if (data.highestDelinquency) {
+    y = addText(`Highest Delinquency:`, 15, y, pageWidth - 30, 10, '#000000')
+    y += 5
+    y = addText(`  Subscriber: ${data.highestDelinquency.subscriberName || 'N/A'}`, 20, y, pageWidth - 40, 9, '#6B7280')
+    y += 5
+    y = addText(`  Account: ${data.highestDelinquency.accountNumber || 'N/A'}`, 20, y, pageWidth - 40, 9, '#6B7280')
+    y += 5
+    y = addText(`  Days in Arrears: ${data.highestDelinquency.daysInArrears || '0'}`, 20, y, pageWidth - 40, 9, '#6B7280')
+    y += 5
+  }
+  
+  if (data.delinquencies && data.delinquencies.length > 0) {
+    y = addText(`Delinquency History:`, 15, y, pageWidth - 30, 10, '#000000')
+    y += 5
+    data.delinquencies.forEach((delinquency: any, index: number) => {
+      checkNewPage(15)
+      y = addText(`${index + 1}. ${delinquency.type}: ${delinquency.status}`, 20, y, pageWidth - 40, 9, '#6B7280')
+      y += 5
+    })
+  }
   
   return y
 }
@@ -282,6 +309,20 @@ const addCreditAccountSummary = (pdf: jsPDF, data: any, yPos: number, pageWidth:
   })
   
   y += cardHeight + 10
+  
+  // Add account details if available
+  if (data.accounts && data.accounts.length > 0) {
+    y = addText('Account Details:', 15, y, pageWidth - 30, 10, '#000000')
+    y += 5
+    
+    data.accounts.forEach((account: any, index: number) => {
+      checkNewPage(25)
+      addRect(10, y, pageWidth - 20, 20, '#F9FAFB')
+      addText(`Account ${index + 1}: ${account.subscriberName || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Number: ${account.accountNumber || 'N/A'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      y += 25
+    })
+  }
   
   return y
 }
@@ -343,6 +384,22 @@ const addCreditAgreementsSummary = (pdf: jsPDF, data: any, yPos: number, pageWid
     y = addText(`${stat.label}: ${stat.value}`, 15, y, pageWidth - 30)
     y += 5
   })
+  
+  // Add agreement details if available
+  if (data.agreements && data.agreements.length > 0) {
+    y += 5
+    y = addText('Agreement Details:', 15, y, pageWidth - 30, 10, '#000000')
+    y += 5
+    
+    data.agreements.forEach((agreement: any, index: number) => {
+      checkNewPage(30)
+      addRect(10, y, pageWidth - 20, 25, '#F9FAFB')
+      addText(`Agreement ${index + 1}: ${agreement.subscriberName || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Account: ${agreement.accountNumber || 'N/A'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      addText(`Balance: ${agreement.outstandingBalance || 'N/A'}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
+      y += 30
+    })
+  }
   
   return y
 }

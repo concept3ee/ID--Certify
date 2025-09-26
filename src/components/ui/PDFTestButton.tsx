@@ -20,20 +20,51 @@ const sampleCreditReportData = {
         personalDetails: {
           name: 'Personal Details',
           data: {
-            fullName: 'Nene Oyinda Afamefuna',
-            dateOfBirth: '15/08/1990',
-            gender: 'Female',
-            maritalStatus: 'Single',
-            nationality: 'Nigerian',
-            bvn: '12345678901'
+            status: 'Verified',
+            timeline: 'From Jun, 2019 to now',
+            details: {
+              firstCentralReferenceNumber: '1387342',
+              surname: 'Afamefuna',
+              firstName: 'Nene Oyinda',
+              otherNames: '',
+              uniqueTrackingNumber: '',
+              dateOfBirth: '17/04/1990',
+              gender: 'Female',
+              maritalStatus: 'Single',
+              nationality: 'Nigerian',
+              noOfDependants: 0,
+              nationalIdNumber: 'LO568819382',
+              bankVerificationNumber: '22144154780',
+              driversLicenseNumber: '',
+              pencomId: '',
+              passportNumber: 'A50237867',
+              otherIdNumber: '',
+              latestResidentialAddress: 'No 6 Ajanaku Street, Opebi, Ikeja, Lagos',
+              latestPostalAddress: 'NA',
+              homeTelephone: '08035351815',
+              workTelephone: '08033205377',
+              mobileNumber: '08098033211',
+              emailAddress: 'NeneAfamefuna@gmail.com',
+              currentEmployer: 'Tech Solutions Ltd',
+              propertyOwnershipType: 'Rented'
+            }
           }
         },
         delinquencyInformation: {
           name: 'Delinquency Information',
           data: {
-            status: 'No Delinquency',
-            totalAmount: '₦0.00',
-            count: 0
+            status: 'Clear',
+            timeline: 'From Jun, 2019 to now',
+            highestDelinquency: {
+              subscriberName: 'First Bank Plc Lagos',
+              accountNumber: '2011289357',
+              yearMonth: '20250630',
+              daysInArrears: '2125'
+            },
+            delinquencies: [
+              { type: 'Payment Default', status: 'None', date: null },
+              { type: 'Late Payment', status: 'None', date: null }
+            ]
           }
         },
         creditAccountSummary: {
