@@ -498,18 +498,22 @@ const addCompanyDirectorshipSummary = (pdf: jsPDF, data: any, yPos: number, page
 const addEnquiryHistory = (pdf: jsPDF, data: any, yPos: number, pageWidth: number, addText: any, addLine: any, addRect: any, checkNewPage: any) => {
   let y = yPos
   
-  y = addText(`Total Enquiries (Last 12 Months): ${data.totalEnquiries || '0'}`, 15, y, pageWidth - 30)
+  y = addText(`Total Enquiries (Last 12 Months): ${data.enquiries?.length || 0}`, 15, y, pageWidth - 30)
   y += 10
   
   if (data.enquiries && data.enquiries.length > 0) {
     data.enquiries.forEach((enquiry: any, index: number) => {
-      checkNewPage(20)
+      checkNewPage(25)
       
-      addRect(10, y, pageWidth - 20, 15, '#F9FAFB')
-      addText(`${enquiry.date}: ${enquiry.institution} - ${enquiry.purpose}`, 15, y + 10, pageWidth - 30, 9, '#000000')
+      addRect(10, y, pageWidth - 20, 22, '#F9FAFB')
+      addText(`${enquiry.enquiryDate || 'N/A'}: ${enquiry.nameOfEnquirer || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Phone: ${enquiry.enquirerPhoneNumber || 'N/A'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      addText(`Reason: ${enquiry.reasonForEnquiry || 'N/A'}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
       
-      y += 20
+      y += 25
     })
+  } else {
+    y = addText('No enquiries found in the last 12 months.', 15, y, pageWidth - 30, 10, '#6B7280')
   }
   
   return y
@@ -520,13 +524,14 @@ const addIdentificationHistory = (pdf: jsPDF, data: any, yPos: number, pageWidth
   
   if (data.identifications && data.identifications.length > 0) {
     data.identifications.forEach((id: any, index: number) => {
-      checkNewPage(25)
+      checkNewPage(30)
       
-      addRect(10, y, pageWidth - 20, 20, '#F9FAFB')
-      addText(`ID ${index + 1}: ${id.type} - ${id.number}`, 15, y + 8, pageWidth - 30, 10, '#000000')
-      addText(`Issued: ${id.issueDate}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      addRect(10, y, pageWidth - 20, 25, '#F9FAFB')
+      addText(`ID ${index + 1}: ${id.identificationType || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Update Date: ${id.bureauUpdateDate || 'N/A'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      addText(`Details: ${id.identificationDetails || 'N/A'}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
       
-      y += 25
+      y += 30
     })
   } else {
     y = addText('No identification history available', 15, y, pageWidth - 30)
@@ -540,14 +545,23 @@ const addAddressHistory = (pdf: jsPDF, data: any, yPos: number, pageWidth: numbe
   
   if (data.addresses && data.addresses.length > 0) {
     data.addresses.forEach((address: any, index: number) => {
-      checkNewPage(30)
+      checkNewPage(35)
       
-      addRect(10, y, pageWidth - 20, 25, '#F9FAFB')
-      addText(`Address ${index + 1}: ${address.address}`, 15, y + 8, pageWidth - 30, 10, '#000000')
-      addText(`Period: ${address.startDate} - ${address.endDate || 'Current'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
-      addText(`Type: ${address.type}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
+      addRect(10, y, pageWidth - 20, 30, '#F9FAFB')
+      addText(`Address ${index + 1}: ${address.address || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Update Date: ${address.bureauUpdate || 'N/A'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
       
-      y += 30
+      // Combine address lines
+      const fullAddress = [
+        address.addressLine1,
+        address.addressLine2,
+        address.addressLine3,
+        address.addressLine4
+      ].filter(line => line && line.trim()).join(', ')
+      
+      addText(`Full Address: ${fullAddress || 'N/A'}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
+      
+      y += 35
     })
   } else {
     y = addText('No address history available', 15, y, pageWidth - 30)
@@ -561,14 +575,27 @@ const addEmploymentHistory = (pdf: jsPDF, data: any, yPos: number, pageWidth: nu
   
   if (data.employments && data.employments.length > 0) {
     data.employments.forEach((employment: any, index: number) => {
-      checkNewPage(30)
+      checkNewPage(35)
       
-      addRect(10, y, pageWidth - 20, 25, '#F9FAFB')
-      addText(`Employment ${index + 1}: ${employment.company}`, 15, y + 8, pageWidth - 30, 10, '#000000')
-      addText(`Position: ${employment.position}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
-      addText(`Period: ${employment.startDate} - ${employment.endDate || 'Current'}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
+      addRect(10, y, pageWidth - 20, 30, '#F9FAFB')
+      addText(`Employment ${index + 1}: ${employment.company || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Position: ${employment.occupation || 'N/A'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      addText(`Update Date: ${employment.bureauUpdateDate || 'N/A'}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
       
-      y += 30
+      y += 35
+    })
+  } else if (data.employers && data.employers.length > 0) {
+    // Handle alternative data structure
+    data.employers.forEach((employment: any, index: number) => {
+      checkNewPage(40)
+      
+      addRect(10, y, pageWidth - 20, 35, '#F9FAFB')
+      addText(`Employment ${index + 1}: ${employment.company || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Position: ${employment.position || 'N/A'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      addText(`Duration: ${employment.duration || 'N/A'}`, 15, y + 22, pageWidth - 30, 9, '#6B7280')
+      addText(`Salary: ${employment.salary || 'N/A'}`, 15, y + 29, pageWidth - 30, 9, '#6B7280')
+      
+      y += 40
     })
   } else {
     y = addText('No employment history available', 15, y, pageWidth - 30)
@@ -582,11 +609,31 @@ const addTelephoneHistory = (pdf: jsPDF, data: any, yPos: number, pageWidth: num
   
   if (data.telephones && data.telephones.length > 0) {
     data.telephones.forEach((telephone: any, index: number) => {
+      checkNewPage(40)
+      
+      addRect(10, y, pageWidth - 20, 35, '#F9FAFB')
+      addText(`Telephone Record ${index + 1}:`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      
+      if (telephone.homeTelephone) {
+        addText(`Home: ${telephone.homeTelephone.telephoneNumber || 'N/A'} (Updated: ${telephone.homeTelephone.bureauUpdateDate || 'N/A'})`, 20, y + 15, pageWidth - 40, 9, '#6B7280')
+      }
+      if (telephone.workTelephone) {
+        addText(`Work: ${telephone.workTelephone.telephoneNumber || 'N/A'} (Updated: ${telephone.workTelephone.bureauUpdateDate || 'N/A'})`, 20, y + 22, pageWidth - 40, 9, '#6B7280')
+      }
+      if (telephone.mobileNumber) {
+        addText(`Mobile: ${telephone.mobileNumber.telephoneNumber || 'N/A'} (Updated: ${telephone.mobileNumber.bureauUpdateDate || 'N/A'})`, 20, y + 29, pageWidth - 40, 9, '#6B7280')
+      }
+      
+      y += 40
+    })
+  } else if (data.phoneNumbers && data.phoneNumbers.length > 0) {
+    // Handle alternative data structure
+    data.phoneNumbers.forEach((phone: any, index: number) => {
       checkNewPage(25)
       
       addRect(10, y, pageWidth - 20, 20, '#F9FAFB')
-      addText(`Phone ${index + 1}: ${telephone.number}`, 15, y + 8, pageWidth - 30, 10, '#000000')
-      addText(`Type: ${telephone.type}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
+      addText(`Phone ${index + 1}: ${phone.number || 'N/A'}`, 15, y + 8, pageWidth - 30, 10, '#000000')
+      addText(`Period: ${phone.startDate || 'N/A'} - ${phone.endDate || 'Current'}`, 15, y + 15, pageWidth - 30, 9, '#6B7280')
       
       y += 25
     })
