@@ -3832,50 +3832,55 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
 
   return (
     <div className="fixed inset-0 bg-white z-[9999] flex flex-col">
-      {/* Static Header */}
-      <div className="flex-shrink-0 bg-white border-b border-gray-200 px-8 py-4">
+      {/* Mobile Header */}
+      <div className="flex-shrink-0 bg-white border-b border-gray-200 px-4 sm:px-8 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <button
               onClick={onClose}
-              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200"
+              className="flex items-center space-x-1 sm:space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 touch-manipulation"
+              style={{ minWidth: '44px', minHeight: '44px' }}
             >
-              <ArrowLeft className="h-5 w-5" />
-              <span className="text-sm font-medium">Background Check Report</span>
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Background Check Report</span>
+              <span className="text-xs sm:text-sm font-medium sm:hidden">Report</span>
             </button>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1"
+            className="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-2 touch-manipulation"
+            style={{ minWidth: '44px', minHeight: '44px' }}
           >
             <X className="h-5 w-5" />
           </button>
         </div>
       </div>
 
-      {/* Static Report Header */}
-      <div className="flex-shrink-0 bg-red-600 text-white px-8 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-6">
-            <h1 className="text-xl font-bold tracking-tight">Background Check Report</h1>
+      {/* Mobile Report Header */}
+      <div className="flex-shrink-0 bg-red-600 text-white px-4 sm:px-8 py-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-6">
+            <h1 className="text-lg sm:text-xl font-bold tracking-tight">Background Check Report</h1>
             <div className="flex items-center space-x-2">
               <div className="text-xs opacity-90 font-medium">IDCERTIFY NO</div>
               <div className="text-sm font-bold">{backgroundCheckData.id}</div>
             </div>
           </div>
-          <button className="bg-white text-red-600 px-3 py-1.5 rounded-md font-semibold flex items-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm text-xs">
-            <Download className="h-3 w-3" />
-            <span>Download Report</span>
+          <button className="bg-white text-red-600 px-3 py-2 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm text-xs touch-manipulation self-start sm:self-auto"
+            style={{ minWidth: '44px', minHeight: '44px' }}>
+            <Download className="h-4 w-4" />
+            <span className="hidden sm:inline">Download Report</span>
+            <span className="sm:hidden">Download</span>
           </button>
         </div>
       </div>
 
-      {/* Static Candidate Summary */}
-      <div className="flex-shrink-0 bg-white px-8 py-3 border-b border-gray-200">
-        <div className="flex items-center justify-between">
-          {/* Left: Profile & Basic Info */}
-          <div className="flex items-center space-x-4">
-            <div className="w-24 h-24 rounded-full border-2 border-gray-200 overflow-hidden">
+      {/* Mobile Candidate Summary */}
+      <div className="flex-shrink-0 bg-white px-4 sm:px-8 py-3 border-b border-gray-200">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+          {/* Profile & Basic Info */}
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-2 border-gray-200 overflow-hidden flex-shrink-0">
               <img
                 src={backgroundCheckData.candidate.profileImage || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80'}
                 alt={backgroundCheckData.candidate.name}
@@ -3886,57 +3891,84 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   target.style.display = 'none';
                   const parent = target.parentElement;
                   if (parent) {
-                    parent.innerHTML = '<div class="w-full h-full bg-gray-100 flex items-center justify-center"><svg class="h-12 w-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>';
+                    parent.innerHTML = '<div class="w-full h-full bg-gray-100 flex items-center justify-center"><svg class="h-8 w-8 sm:h-12 sm:w-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>';
                   }
                 }}
               />
             </div>
-            <div>
-              <div className="flex items-center space-x-3">
-                <h2 className="text-lg font-bold text-gray-900">{backgroundCheckData.candidate.name}</h2>
-                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
-                  {backgroundCheckData.candidate.score}
-                </div>
-                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold inline-flex items-center space-x-1">
-                  <CheckCircle className="h-3 w-3" />
-                  <span>Completed</span>
+            <div className="flex flex-col min-w-0 flex-1">
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3">
+                <h2 className="text-base sm:text-lg font-bold text-gray-900 truncate">{backgroundCheckData.candidate.name}</h2>
+                <div className="flex items-center space-x-2">
+                  <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                    {backgroundCheckData.candidate.score}
+                  </div>
+                  <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold inline-flex items-center space-x-1">
+                    <CheckCircle className="h-3 w-3" />
+                    <span>Completed</span>
+                  </div>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm mt-0.5">{backgroundCheckData.candidate.email}</p>
+              <p className="text-gray-600 text-xs sm:text-sm mt-1 truncate">{backgroundCheckData.candidate.email}</p>
             </div>
           </div>
 
-          {/* Right: Status Details */}
-          <div className="flex items-center space-x-8">
+          {/* Status Details - Mobile Stacked */}
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-6">
             <div className="flex items-center space-x-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0" />
               <div>
                 <div className="text-xs text-gray-500 uppercase tracking-wide">COMPLETION</div>
-                <div className="text-sm font-semibold text-gray-900">{backgroundCheckData.completionDate}</div>
+                <div className="text-xs sm:text-sm font-semibold text-gray-900">{backgroundCheckData.completionDate}</div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0" />
               <div>
                 <div className="text-xs text-gray-500 uppercase tracking-wide">IDENTITY</div>
-                <div className="text-sm font-semibold text-gray-900">Verified</div>
+                <div className="text-xs sm:text-sm font-semibold text-gray-900">Verified</div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></div>
               <div>
                 <div className="text-xs text-gray-500 uppercase tracking-wide">FLAGGED</div>
-                <div className="text-sm font-semibold text-gray-900">{backgroundCheckData.flaggedIssues} Issues</div>
+                <div className="text-xs sm:text-sm font-semibold text-gray-900">{backgroundCheckData.flaggedIssues} Issues</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Mobile Category Navigation */}
+      <div className="lg:hidden flex-shrink-0 bg-gray-50 border-b border-gray-200 px-4 py-3">
+        <div className="flex space-x-2 overflow-x-auto scrollbar-hide">
+          {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
+            <button
+              key={key}
+              onClick={() => {
+                setSelectedCategory(key)
+                if (category.subTabs) {
+                  setSelectedSubTab(Object.keys(category.subTabs)[0])
+                }
+              }}
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 touch-manipulation ${
+                selectedCategory === key 
+                  ? 'bg-white text-gray-900 shadow-sm border border-gray-200' 
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-white'
+              }`}
+              style={{ minWidth: '44px', minHeight: '44px' }}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="flex-1 flex w-full max-w-full overflow-hidden">
-        {/* Static Left Panel - Categories */}
-        <div className="w-1/4 bg-gray-50 border-r border-gray-200 p-4 flex-shrink-0">
+        {/* Desktop Left Panel - Categories */}
+        <div className="hidden lg:block w-1/4 bg-gray-50 border-r border-gray-200 p-4 flex-shrink-0">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Background Check Categories</h3>
           <div className="space-y-3">
             {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
@@ -3944,7 +3976,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 key={key}
                 onClick={() => {
                   setSelectedCategory(key)
-                  // Set first sub-tab as default when switching categories
                   if (category.subTabs) {
                     setSelectedSubTab(Object.keys(category.subTabs)[0])
                   }
@@ -3964,14 +3995,14 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           </div>
         </div>
 
-        {/* Scrollable Right Panel - Details */}
-        <div className="flex-1 bg-white p-6 min-w-0 overflow-y-auto" onScroll={handleScroll}>
+        {/* Mobile/Desktop Content Panel */}
+        <div className="flex-1 bg-white p-4 sm:p-6 min-w-0 overflow-y-auto" onScroll={handleScroll}>
           {selectedCategory && backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories]?.subTabs && (
             <>
-              {/* Category Header */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">
+              {/* Mobile Category Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 space-y-3 sm:space-y-0">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">
                     {backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].name}
                   </h3>
                   <span className={getStatusBadge(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].status)}>
@@ -3979,31 +4010,34 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   </span>
                 </div>
                 {selectedCategory === 'financialCredit' && (
-                  <button className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold flex items-center space-x-2 hover:bg-red-700 transition-colors duration-200 shadow-sm text-sm">
+                  <button className="bg-red-600 text-white px-3 py-2 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:bg-red-700 transition-colors duration-200 shadow-sm text-xs sm:text-sm touch-manipulation self-start sm:self-auto"
+                    style={{ minWidth: '44px', minHeight: '44px' }}>
                     <Download className="h-4 w-4" />
-                    <span>Download Credit Report</span>
+                    <span className="hidden sm:inline">Download Credit Report</span>
+                    <span className="sm:hidden">Download</span>
                   </button>
                 )}
               </div>
 
               {/* Sub-tabs */}
-              <div className="border-b border-gray-200 mb-6 w-full">
+              <div className="border-b border-gray-200 mb-4 sm:mb-6 w-full">
                 <style>{`
                   .nav-scroll::-webkit-scrollbar {
                     display: none;
                   }
                 `}</style>
                 <div className="w-full overflow-hidden">
-                  <nav className="-mb-px flex space-x-4 overflow-x-auto nav-scroll pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                  <nav className="-mb-px flex space-x-2 sm:space-x-4 overflow-x-auto nav-scroll pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
                       <button
                         key={key}
                         onClick={() => setSelectedSubTab(key)}
-                        className={`py-2 px-2 border-b-2 font-semibold text-sm transition-colors duration-200 whitespace-nowrap flex-shrink-0 min-w-fit ${
+                        className={`py-2 px-3 border-b-2 font-semibold text-xs sm:text-sm transition-colors duration-200 whitespace-nowrap flex-shrink-0 min-w-fit touch-manipulation ${
                           selectedSubTab === key
                             ? 'border-red-500 text-red-600'
                             : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                         }`}
+                        style={{ minWidth: '44px', minHeight: '44px' }}
                       >
                         {subTab.name}
                       </button>
