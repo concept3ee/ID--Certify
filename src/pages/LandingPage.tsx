@@ -93,7 +93,7 @@ const LandingPage = () => {
               <img 
                 src="/aws-logo.svg" 
                 alt="Secured by Amazon Web Services" 
-                className="h-8 w-auto"
+                className="h-32 w-auto"
               />
             </div>
 
@@ -160,7 +160,7 @@ const LandingPage = () => {
             <img 
               src="/aws-logo.svg" 
               alt="Secured by Amazon Web Services" 
-              className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
+              className="h-48 w-auto opacity-80 hover:opacity-100 transition-opacity"
             />
           </div>
         </div>
@@ -450,7 +450,7 @@ const LandingPage = () => {
                 <img 
                   src="/aws-logo.svg" 
                   alt="Secured by Amazon Web Services" 
-                  className="h-6 w-auto opacity-70"
+                  className="h-24 w-auto opacity-70"
                 />
               </div>
             </div>
