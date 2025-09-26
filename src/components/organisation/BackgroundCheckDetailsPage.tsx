@@ -13,6 +13,7 @@ import {
 import MobileTable from '../ui/MobileTable'
 import MobileModal from '../ui/MobileModal'
 import { generateCreditReportPDF } from '../../utils/pdfGenerator'
+import PDFTestButton from '../ui/PDFTestButton'
 
 interface BackgroundCheckDetailsPageProps {
   backgroundCheck: any
@@ -3825,6 +3826,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
   const [isScrolledToTop, setIsScrolledToTop] = useState(true)
   const [selectedAgreement, setSelectedAgreement] = useState<any>(null)
   const [showAgreementModal, setShowAgreementModal] = useState(false)
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const scrollTop = e.currentTarget.scrollTop
@@ -3832,12 +3834,21 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
   }
 
   const handleDownloadCreditReport = async () => {
+    if (isGeneratingPDF) return // Prevent multiple simultaneous generations
+    
+    setIsGeneratingPDF(true)
     try {
       const pdf = await generateCreditReportPDF(backgroundCheckData)
-      pdf.save(`Credit_Profile_Report_${backgroundCheckData.id}_${new Date().toISOString().split('T')[0]}.pdf`)
+      const filename = `Credit_Profile_Report_${backgroundCheckData.id}_${new Date().toISOString().split('T')[0]}.pdf`
+      pdf.save(filename)
+      
+      // Show success message
+      console.log('PDF generated successfully:', filename)
     } catch (error) {
       console.error('Error generating PDF:', error)
-      alert('Error generating PDF. Please try again.')
+      alert('Error generating PDF. Please try again. If the problem persists, please contact support.')
+    } finally {
+      setIsGeneratingPDF(false)
     }
   }
 
@@ -3879,11 +3890,24 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           </div>
           <button 
             onClick={handleDownloadCreditReport}
-            className="bg-white text-red-600 px-3 py-2 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm text-xs touch-manipulation self-start sm:self-auto"
+            disabled={isGeneratingPDF}
+            className={`px-3 py-2 rounded-md font-semibold flex items-center justify-center space-x-2 transition-colors duration-200 shadow-sm text-xs touch-manipulation self-start sm:self-auto ${
+              isGeneratingPDF 
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                : 'bg-white text-red-600 hover:bg-gray-50'
+            }`}
             style={{ minWidth: '44px', minHeight: '44px' }}>
-            <Download className="h-4 w-4" />
-            <span className="hidden sm:inline">Download Report</span>
-            <span className="sm:hidden">Download</span>
+            {isGeneratingPDF ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-gray-600"></div>
+            ) : (
+              <Download className="h-4 w-4" />
+            )}
+            <span className="hidden sm:inline">
+              {isGeneratingPDF ? 'Generating...' : 'Download Report'}
+            </span>
+            <span className="sm:hidden">
+              {isGeneratingPDF ? '...' : 'Download'}
+            </span>
           </button>
         </div>
       </div>
@@ -4025,11 +4049,24 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 {selectedCategory === 'financialCredit' && (
                   <button 
                     onClick={handleDownloadCreditReport}
-                    className="bg-red-600 text-white px-3 py-2 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:bg-red-700 transition-colors duration-200 shadow-sm text-xs sm:text-sm touch-manipulation self-start sm:self-auto"
+                    disabled={isGeneratingPDF}
+                    className={`px-3 py-2 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-colors duration-200 shadow-sm text-xs sm:text-sm touch-manipulation self-start sm:self-auto ${
+                      isGeneratingPDF 
+                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                        : 'bg-red-600 text-white hover:bg-red-700'
+                    }`}
                     style={{ minWidth: '44px', minHeight: '44px' }}>
-                    <Download className="h-4 w-4" />
-                    <span className="hidden sm:inline">Download Credit Report</span>
-                    <span className="sm:hidden">Download</span>
+                    {isGeneratingPDF ? (
+                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-200 border-t-white"></div>
+                    ) : (
+                      <Download className="h-4 w-4" />
+                    )}
+                    <span className="hidden sm:inline">
+                      {isGeneratingPDF ? 'Generating PDF...' : 'Download Credit Report'}
+                    </span>
+                    <span className="sm:hidden">
+                      {isGeneratingPDF ? '...' : 'Download'}
+                    </span>
                   </button>
                 )}
               </div>
@@ -4092,6 +4129,9 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           </div>
         </div>
       )}
+      
+      {/* PDF Test Button - Remove in production */}
+      <PDFTestButton />
     </div>
   )
 }

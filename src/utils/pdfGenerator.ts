@@ -25,18 +25,25 @@ interface CreditReportData {
 }
 
 export const generateCreditReportPDF = async (reportData: CreditReportData) => {
-  const pdf = new jsPDF('p', 'mm', 'a4')
-  const pageWidth = pdf.internal.pageSize.getWidth()
-  const pageHeight = pdf.internal.pageSize.getHeight()
-  let yPosition = 20
+  try {
+    const pdf = new jsPDF('p', 'mm', 'a4')
+    const pageWidth = pdf.internal.pageSize.getWidth()
+    const pageHeight = pdf.internal.pageSize.getHeight()
+    let yPosition = 20
 
   // Helper function to add text with word wrapping
   const addText = (text: string, x: number, y: number, maxWidth: number, fontSize: number = 10, color: string = '#000000') => {
-    pdf.setFontSize(fontSize)
-    pdf.setTextColor(color)
-    const lines = pdf.splitTextToSize(text, maxWidth)
-    pdf.text(lines, x, y)
-    return y + (lines.length * fontSize * 0.4)
+    try {
+      pdf.setFontSize(fontSize)
+      pdf.setTextColor(color)
+      const safeText = String(text || 'N/A')
+      const lines = pdf.splitTextToSize(safeText, maxWidth)
+      pdf.text(lines, x, y)
+      return y + (lines.length * fontSize * 0.4)
+    } catch (error) {
+      console.warn('Error adding text to PDF:', error)
+      return y + fontSize * 0.4
+    }
   }
 
   // Helper function to add a line
@@ -212,7 +219,11 @@ export const generateCreditReportPDF = async (reportData: CreditReportData) => {
     pdf.text('This report is confidential and for authorized use only.', 20, pageHeight - 5)
   }
 
-  return pdf
+    return pdf
+  } catch (error) {
+    console.error('Error in PDF generation:', error)
+    throw new Error('Failed to generate PDF. Please try again.')
+  }
 }
 
 // Helper functions for different content types
