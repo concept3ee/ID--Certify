@@ -3979,26 +3979,32 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
 
       {/* Mobile Category Navigation */}
       <div className="lg:hidden flex-shrink-0 bg-gray-50 border-b border-gray-200 px-4 py-3">
-        <div className="flex space-x-2 overflow-x-auto scrollbar-hide">
-          {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
-            <button
-              key={key}
-              onClick={() => {
-                setSelectedCategory(key)
-                if (category.subTabs) {
-                  setSelectedSubTab(Object.keys(category.subTabs)[0])
-                }
-              }}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 touch-manipulation ${
-                selectedCategory === key 
-                  ? 'bg-white text-gray-900 shadow-sm border border-gray-200' 
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white'
-              }`}
-              style={{ minWidth: '44px', minHeight: '44px' }}
-            >
-              {category.name}
-            </button>
-          ))}
+        <div className="relative">
+          <select
+            value={selectedCategory}
+            onChange={(e) => {
+              const newCategory = e.target.value
+              setSelectedCategory(newCategory)
+              const category = backgroundCheckData.categories[newCategory as keyof typeof backgroundCheckData.categories]
+              if (category.subTabs) {
+                setSelectedSubTab(Object.keys(category.subTabs)[0])
+              }
+            }}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200 appearance-none cursor-pointer"
+            style={{ minHeight: '44px' }}
+          >
+            {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
+              <option key={key} value={key}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+          {/* Custom dropdown arrow */}
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -4071,30 +4077,27 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 )}
               </div>
 
-              {/* Sub-tabs */}
-              <div className="border-b border-gray-200 mb-4 sm:mb-6 w-full">
-                <style>{`
-                  .nav-scroll::-webkit-scrollbar {
-                    display: none;
-                  }
-                `}</style>
-                <div className="w-full overflow-hidden">
-                  <nav className="-mb-px flex space-x-2 sm:space-x-4 overflow-x-auto nav-scroll pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {/* Sub-tabs Dropdown */}
+              <div className="mb-4 sm:mb-6 w-full">
+                <div className="relative">
+                  <select
+                    value={selectedSubTab}
+                    onChange={(e) => setSelectedSubTab(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200 appearance-none cursor-pointer"
+                    style={{ minHeight: '44px' }}
+                  >
                     {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
-                      <button
-                        key={key}
-                        onClick={() => setSelectedSubTab(key)}
-                        className={`py-2 px-3 border-b-2 font-semibold text-xs sm:text-sm transition-colors duration-200 whitespace-nowrap flex-shrink-0 min-w-fit touch-manipulation ${
-                          selectedSubTab === key
-                            ? 'border-red-500 text-red-600'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                        }`}
-                        style={{ minWidth: '44px', minHeight: '44px' }}
-                      >
+                      <option key={key} value={key}>
                         {subTab.name}
-                      </button>
+                      </option>
                     ))}
-                  </nav>
+                  </select>
+                  {/* Custom dropdown arrow */}
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
 

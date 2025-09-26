@@ -88,6 +88,15 @@ const LandingPage = () => {
               <span className="ml-2 text-xl font-bold text-gray-900">IDCertify</span>
             </div>
 
+            {/* AWS Logo */}
+            <div className="flex items-center ml-8">
+              <img 
+                src="/aws-logo.svg" 
+                alt="Secured by Amazon Web Services" 
+                className="h-8 w-auto"
+              />
+            </div>
+
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
@@ -145,6 +154,15 @@ const LandingPage = () => {
           <p className="text-sm text-gray-500">
             No credit card required. Cancel anytime.
           </p>
+
+          {/* AWS Logo in Hero Section */}
+          <div className="flex justify-center mt-12">
+            <img 
+              src="/aws-logo.svg" 
+              alt="Secured by Amazon Web Services" 
+              className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
+            />
+          </div>
         </div>
       </section>
 
@@ -423,9 +441,19 @@ const LandingPage = () => {
           </div>
 
           <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600">
-              © 2024 IDCertify. All rights reserved.
-            </p>
+            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
+              <p className="text-sm text-gray-600">
+                © 2024 IDCertify. All rights reserved.
+              </p>
+              {/* AWS Logo in Footer */}
+              <div className="flex items-center">
+                <img 
+                  src="/aws-logo.svg" 
+                  alt="Secured by Amazon Web Services" 
+                  className="h-6 w-auto opacity-70"
+                />
+              </div>
+            </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-gray-600">
                 <span className="sr-only">Twitter</span>
