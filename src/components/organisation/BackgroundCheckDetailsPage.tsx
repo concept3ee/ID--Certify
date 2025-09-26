@@ -4023,14 +4023,21 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       </div>
 
       {/* Credit Agreement Details Modal - Mobile Optimized */}
-      <MobileModal
-        isOpen={showAgreementModal}
-        onClose={() => setShowAgreementModal(false)}
-        title={`Credit Agreement: ${selectedAgreement?.subscriberName || ''}`}
-        fullScreen={false}
-      >
-        {selectedAgreement && (
-          <div className="p-4 sm:p-6 space-y-6">
+      {showAgreementModal && selectedAgreement && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+                Credit Agreement: {selectedAgreement.subscriberName}
+              </h2>
+              <button
+                onClick={() => setShowAgreementModal(false)}
+                className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <div className="p-6 space-y-6">
             {/* Account Information */}
             <div>
               <h3 className="text-lg font-bold text-orange-600 mb-4">Account Information</h3>
@@ -4169,11 +4176,10 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                     <span className="text-gray-600">ND - No Data available</span>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
-        )}
-      </MobileModal>
+        </div>
+      )}
     </div>
   )
 }
