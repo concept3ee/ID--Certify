@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import MobileTable from '../ui/MobileTable'
 import MobileModal from '../ui/MobileModal'
+import { generateCreditReportPDF } from '../../utils/pdfGenerator'
 
 interface BackgroundCheckDetailsPageProps {
   backgroundCheck: any
@@ -3830,6 +3831,16 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
     setIsScrolledToTop(scrollTop <= 10)
   }
 
+  const handleDownloadCreditReport = async () => {
+    try {
+      const pdf = await generateCreditReportPDF(backgroundCheckData)
+      pdf.save(`Credit_Profile_Report_${backgroundCheckData.id}_${new Date().toISOString().split('T')[0]}.pdf`)
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+      alert('Error generating PDF. Please try again.')
+    }
+  }
+
   return (
     <div className="fixed inset-0 bg-white z-[9999] flex flex-col">
       {/* Mobile Header */}
@@ -3866,7 +3877,9 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               <div className="text-sm font-bold">{backgroundCheckData.id}</div>
             </div>
           </div>
-          <button className="bg-white text-red-600 px-3 py-2 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm text-xs touch-manipulation self-start sm:self-auto"
+          <button 
+            onClick={handleDownloadCreditReport}
+            className="bg-white text-red-600 px-3 py-2 rounded-md font-semibold flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm text-xs touch-manipulation self-start sm:self-auto"
             style={{ minWidth: '44px', minHeight: '44px' }}>
             <Download className="h-4 w-4" />
             <span className="hidden sm:inline">Download Report</span>
@@ -4010,7 +4023,9 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   </span>
                 </div>
                 {selectedCategory === 'financialCredit' && (
-                  <button className="bg-red-600 text-white px-3 py-2 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:bg-red-700 transition-colors duration-200 shadow-sm text-xs sm:text-sm touch-manipulation self-start sm:self-auto"
+                  <button 
+                    onClick={handleDownloadCreditReport}
+                    className="bg-red-600 text-white px-3 py-2 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:bg-red-700 transition-colors duration-200 shadow-sm text-xs sm:text-sm touch-manipulation self-start sm:self-auto"
                     style={{ minWidth: '44px', minHeight: '44px' }}>
                     <Download className="h-4 w-4" />
                     <span className="hidden sm:inline">Download Credit Report</span>
