@@ -106,7 +106,7 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
             <img 
               src="/aws-logo.svg" 
               alt="Secured by Amazon Web Services" 
-              className="h-24 w-auto opacity-70"
+              className="h-10 w-auto opacity-70"
             />
           </div>
         </div>

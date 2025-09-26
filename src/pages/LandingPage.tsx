@@ -93,7 +93,7 @@ const LandingPage = () => {
               <img 
                 src="/aws-logo.svg" 
                 alt="Secured by Amazon Web Services" 
-                className="h-32 w-auto"
+                className="h-12 w-auto"
               />
             </div>
 
