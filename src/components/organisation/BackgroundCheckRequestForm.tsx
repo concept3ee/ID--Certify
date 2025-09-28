@@ -15914,13 +15914,13 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         </div>
 
         {/* Candidate Information */}
-        <div className="px-6 py-6 border-b border-gray-200">
-          <div className="flex items-center space-x-4">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <div className="flex items-start space-x-4">
             {/* Editable Profile Image */}
-            <div className="relative">
-              <div className="flex items-center space-x-2">
+            <div className="relative flex-shrink-0">
+              <div className="flex flex-col items-center space-y-1">
                 {profileImagePreview ? (
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-green-300">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-300">
                     <img 
                       src={profileImagePreview} 
                       alt="Profile" 
@@ -15928,15 +15928,15 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                     />
                   </div>
                 ) : (
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 ${
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 ${
                     !request.profileImage ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-gray-200'
                   }`}>
-                    <User className={`h-8 w-8 ${!request.profileImage ? 'text-red-500' : 'text-gray-500'}`} />
+                    <User className={`h-6 w-6 ${!request.profileImage ? 'text-red-500' : 'text-gray-500'}`} />
                   </div>
                 )}
                 {isEditing && (
-                  <div className="text-xs text-gray-600">
-                    <div className="font-medium">Profile Picture <span className="text-red-500">*</span></div>
+                  <div className="text-xs text-center">
+                    <div className="font-medium text-gray-700">Profile Picture <span className="text-red-500">*</span></div>
                     <div className="text-gray-500">Required</div>
                   </div>
                 )}
@@ -15952,36 +15952,37 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   />
                   <label 
                     htmlFor="profileImageUpload"
-                    className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary-600 transition-colors"
+                    className="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary-600 transition-colors"
                   >
-                    <Upload className="h-3 w-3 text-white" />
+                    <Upload className="h-2.5 w-2.5 text-white" />
                   </label>
                 </div>
               )}
               {isEditing && profileImagePreview && (
                 <button
                   onClick={removeProfileImage}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 transition-colors"
+                  className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 transition-colors"
                 >
                   <span className="text-white text-xs">×</span>
                 </button>
               )}
               {!request.profileImage && isEditing && (
-                <div className="absolute -bottom-6 left-0 right-0 text-center">
+                <div className="absolute -bottom-5 left-0 right-0 text-center">
                   <p className="text-red-500 text-xs">Profile picture is required</p>
                 </div>
               )}
             </div>
-            <div className="flex-1">
+            
+            <div className="flex-1 min-w-0">
               {/* Order Number */}
-              <div className="mb-4">
+              <div className="mb-3">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Order Number</label>
                 {isEditing ? (
                   <input
                     type="text"
                     value={request.orderNumber}
                     onChange={(e) => handleInputChange('orderNumber', e.target.value)}
-                    className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none w-full"
+                    className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none w-full max-w-xs"
                     placeholder="Enter order number"
                   />
                 ) : (
@@ -15989,8 +15990,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 )}
               </div>
 
-              {/* Name Fields */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              {/* Name Fields - Compact Layout */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     First Name <span className="text-red-500">*</span>
@@ -16059,8 +16060,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 </div>
               </div>
 
-              {/* Contact Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {/* Contact Information - Compact Layout */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                   {isEditing ? (
@@ -16092,7 +16093,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         <select
                           value={request.countryCode}
                           onChange={(e) => handleInputChange('countryCode', e.target.value)}
-                          className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none pr-2 mr-2"
+                          className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none pr-2 mr-2 text-sm"
                         >
                           {countryCodes.map((country) => (
                             <option key={country.code} value={country.code}>
@@ -16127,7 +16128,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   )}
                 </div>
               </div>
-
             </div>
           </div>
         </div>
