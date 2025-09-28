@@ -101,14 +101,6 @@ const Header = ({ onToggleSidebar, isSidebarCollapsed }: HeaderProps) => {
             <Menu className="h-5 w-5" />
           </button>
 
-          {/* AWS Logo */}
-          <div className="flex items-center">
-            <img 
-              src="/aws-logo.svg" 
-              alt="Secured by Amazon Web Services" 
-              className="h-10 w-auto opacity-70"
-            />
-          </div>
         </div>
 
         {/* Right Section - Search, Notifications, Chats, Profile */}
