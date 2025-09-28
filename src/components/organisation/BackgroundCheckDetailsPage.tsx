@@ -2378,11 +2378,23 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This sections includes collateral details as reported by the Credit Providers.</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.collaterals.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">ACTIVE COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Active').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">RELEASED COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Released').length}
+              </p>
             </div>
           </div>
           
@@ -2431,25 +2443,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL COLLATERALS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.collaterals.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">ACTIVE COLLATERALS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Active').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">RELEASED COLLATERALS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Released').length}
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2463,11 +2456,24 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes the consumer's bounced cheques information.</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL DISHONOURED CHEQUES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.cheques.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL AMOUNT:</span>
+              <p className="text-lg font-semibold text-red-600">
+                ₦{subTab.data.cheques.reduce((total: number, cheque: any) => {
+                  const amount = parseFloat(cheque.amount.replace(/[₦,]/g, ''));
+                  return total + amount;
+                }, 0).toLocaleString('en-NG', { minimumFractionDigits: 2 })}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2507,26 +2513,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL DISHONOURED CHEQUES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.cheques.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL AMOUNT:</span>
-              <p className="text-lg font-semibold text-red-600">
-                ₦{subTab.data.cheques.reduce((total: number, cheque: any) => {
-                  const amount = parseFloat(cheque.amount.replace(/[₦,]/g, ''));
-                  return total + amount;
-                }, 0).toLocaleString('en-NG', { minimumFractionDigits: 2 })}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2647,11 +2633,21 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of organisations or credit providers who have requested a Credit Report of this consumer.</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL ENQUIRIES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.enquiries.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST ENQUIRY:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.enquiries[0]?.enquiryDate.split(' ')[0] || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2693,23 +2689,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL ENQUIRIES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.enquiries.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST ENQUIRY:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.enquiries[0]?.enquiryDate.split(' ')[0] || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2788,11 +2767,21 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Address Information presented on the Credit/Loan applications.</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL ADDRESSES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.addresses.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.addresses[0]?.bureauUpdate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2846,23 +2835,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL ADDRESSES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.addresses.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.addresses[0]?.bureauUpdate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2876,11 +2848,21 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Employment Information presented on the Credit/Loan applications.</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL EMPLOYMENTS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.employments.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.employments[0]?.bureauUpdateDate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2918,23 +2900,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL EMPLOYMENTS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.employments.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.employments[0]?.bureauUpdateDate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
-            </div>
-          </div>
         </div>
       )
     }
