@@ -4268,8 +4268,129 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 <X className="h-6 w-6" />
               </button>
             </div>
-            <div className="p-6">
-              <p>Modal content will be implemented here</p>
+            <div className="p-6 space-y-6">
+              {/* Account Information */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Account Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Account Number:</span>
+                    <p className="text-sm text-gray-900 font-mono">{selectedAgreement.accountNumber}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Currency:</span>
+                    <p className="text-sm text-gray-900">{selectedAgreement.currency}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Availed Limit:</span>
+                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.availedLimit}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Outstanding Balance:</span>
+                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.outstandingBalance}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Instalment Amount:</span>
+                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.instalmentAmount}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Arrear Amount:</span>
+                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.arrearAmount}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Facility Classification:</span>
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                      selectedAgreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
+                      selectedAgreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {selectedAgreement.facilityClassification}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">Account Status:</span>
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                      selectedAgreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
+                      selectedAgreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {selectedAgreement.accountStatus}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 24 Months Payment History */}
+              <div className="bg-white border border-gray-200 rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">24 Months Payment History</h3>
+                <div className="grid grid-cols-12 gap-1 mb-2">
+                  {/* Month headers */}
+                  {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month, index) => (
+                    <div key={index} className="text-center text-xs font-medium text-gray-600 bg-gray-50 py-2 rounded">
+                      {month}
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-12 gap-1 mb-2">
+                  {/* 2024 row */}
+                  {['OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK'].map((status, index) => (
+                    <div key={index} className={`text-center text-xs font-medium py-2 rounded ${
+                      status === 'OK' ? 'bg-green-100 text-green-800' :
+                      status === 'ND' ? 'bg-blue-100 text-blue-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {status}
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-12 gap-1">
+                  {/* 2023 row */}
+                  {['OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK'].map((status, index) => (
+                    <div key={index} className={`text-center text-xs font-medium py-2 rounded ${
+                      status === 'OK' ? 'bg-green-100 text-green-800' :
+                      status === 'ND' ? 'bg-blue-100 text-blue-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {status}
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Legend */}
+                <div className="mt-4 flex flex-wrap gap-4 text-xs">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-green-100 border border-green-300 rounded"></div>
+                    <span className="text-gray-600">OK - Payment on time</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-blue-100 border border-blue-300 rounded"></div>
+                    <span className="text-gray-600">ND - No data</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-red-100 border border-red-300 rounded"></div>
+                    <span className="text-gray-600">Late - Payment delayed</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment Summary */}
+              <div className="bg-blue-50 rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Summary</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">24</div>
+                    <div className="text-sm text-gray-600">Months On Time</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">0</div>
+                    <div className="text-sm text-gray-600">Late Payments</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">100%</div>
+                    <div className="text-sm text-gray-600">Payment Rate</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
