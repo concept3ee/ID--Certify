@@ -4107,7 +4107,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       {/* Main Content */}
       <div className="flex-1 flex w-full max-w-full overflow-hidden">
         {/* Desktop Left Panel - Categories */}
-        <div className="hidden lg:block w-1/4 bg-gray-50 border-r border-gray-200 p-4 flex-shrink-0">
+        <div className="hidden lg:block w-1/5 bg-gray-50 border-r border-gray-200 p-4 flex-shrink-0">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Background Check Categories</h3>
           <div className="space-y-3">
             {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
