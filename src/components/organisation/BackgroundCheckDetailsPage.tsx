@@ -2913,11 +2913,21 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Contact Information presented on the Credit/Loan applications.</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL RECORDS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.telephones.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.telephones[0]?.mobileNumber?.bureauUpdateDate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2988,23 +2998,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL RECORDS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.telephones.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.telephones[0]?.mobileNumber?.bureauUpdateDate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
-            </div>
-          </div>
         </div>
       )
     }
