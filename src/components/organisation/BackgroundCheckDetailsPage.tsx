@@ -1867,6 +1867,143 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
               <h4 className="text-lg font-semibold text-gray-900">Rating History</h4>
             </div>
+            
+            {/* Rating History Chart */}
+            <div className="p-6 border-b border-gray-200">
+              <div className="mb-4">
+                <h5 className="text-sm font-medium text-gray-700 mb-2">Credit Score Trend</h5>
+                <div className="h-64 bg-gray-50 rounded-lg p-4 relative">
+                  <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+                    {/* Grid lines */}
+                    <defs>
+                      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e5e7eb" strokeWidth="0.5"/>
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                    
+                    {/* Y-axis labels and lines */}
+                    {(() => {
+                      const scores = subTab.data.rating.ratingHistory.map((h: any) => h.score);
+                      const minScore = Math.min(...scores);
+                      const maxScore = Math.max(...scores);
+                      const range = maxScore - minScore;
+                      const padding = range * 0.1;
+                      const yMin = minScore - padding;
+                      const yMax = maxScore + padding;
+                      
+                      return (
+                        <>
+                          {/* Y-axis labels */}
+                          {[yMin, (yMin + yMax) / 2, yMax].map((value, index) => (
+                            <g key={index}>
+                              <line 
+                                x1="30" 
+                                y1={180 - ((value - yMin) / (yMax - yMin)) * 160} 
+                                x2="370" 
+                                y2={180 - ((value - yMin) / (yMax - yMin)) * 160} 
+                                stroke="#d1d5db" 
+                                strokeWidth="1"
+                              />
+                              <text 
+                                x="25" 
+                                y={180 - ((value - yMin) / (yMax - yMin)) * 160 + 4} 
+                                textAnchor="end" 
+                                fontSize="10" 
+                                fill="#6b7280"
+                              >
+                                {Math.round(value)}
+                              </text>
+                            </g>
+                          ))}
+                          
+                          {/* Data points and line */}
+                          {subTab.data.rating.ratingHistory.map((history: any, index: number) => {
+                            const x = 50 + (index * (320 / (subTab.data.rating.ratingHistory.length - 1)));
+                            const y = 180 - ((history.score - yMin) / (yMax - yMin)) * 160;
+                            const isCurrent = index === 0;
+                            
+                            return (
+                              <g key={index}>
+                                {/* Data point */}
+                                <circle 
+                                  cx={x} 
+                                  cy={y} 
+                                  r={isCurrent ? "6" : "4"} 
+                                  fill={isCurrent ? "#10b981" : "#3b82f6"} 
+                                  stroke="white" 
+                                  strokeWidth="2"
+                                />
+                                
+                                {/* Date label */}
+                                <text 
+                                  x={x} 
+                                  y="195" 
+                                  textAnchor="middle" 
+                                  fontSize="9" 
+                                  fill="#6b7280"
+                                >
+                                  {new Date(history.date).toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}
+                                </text>
+                                
+                                {/* Score label */}
+                                <text 
+                                  x={x} 
+                                  y={y - 10} 
+                                  textAnchor="middle" 
+                                  fontSize="10" 
+                                  fill={isCurrent ? "#10b981" : "#3b82f6"}
+                                  fontWeight="bold"
+                                >
+                                  {history.score}
+                                </text>
+                                
+                                {/* Rating label */}
+                                <text 
+                                  x={x} 
+                                  y={y + 20} 
+                                  textAnchor="middle" 
+                                  fontSize="9" 
+                                  fill="#6b7280"
+                                >
+                                  {history.rating}
+                                </text>
+                                
+                                {/* Line to next point */}
+                                {index < subTab.data.rating.ratingHistory.length - 1 && (
+                                  <line 
+                                    x1={x} 
+                                    y1={y} 
+                                    x2={50 + ((index + 1) * (320 / (subTab.data.rating.ratingHistory.length - 1)))} 
+                                    y2={180 - ((subTab.data.rating.ratingHistory[index + 1].score - yMin) / (yMax - yMin)) * 160} 
+                                    stroke="#3b82f6" 
+                                    strokeWidth="2" 
+                                    fill="none"
+                                  />
+                                )}
+                              </g>
+                            );
+                          })}
+                        </>
+                      );
+                    })()}
+                  </svg>
+                </div>
+                
+                {/* Chart Legend */}
+                <div className="flex items-center justify-center space-x-6 mt-4 text-sm">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span className="text-gray-600">Current Rating</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <span className="text-gray-600">Historical Ratings</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50">
