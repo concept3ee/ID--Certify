@@ -15990,8 +15990,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 )}
               </div>
 
-              {/* Name Fields - Compact Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+              {/* Name and Contact Fields - Single Row Layout */}
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     First Name <span className="text-red-500">*</span>
@@ -16058,10 +16058,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                     <p className="text-gray-900">{request.lastName || 'No last name'}</p>
                   )}
                 </div>
-              </div>
-
-              {/* Contact Information - Compact Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                   {isEditing ? (
@@ -16093,7 +16089,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         <select
                           value={request.countryCode}
                           onChange={(e) => handleInputChange('countryCode', e.target.value)}
-                          className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none pr-2 mr-2 text-sm"
+                          className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none pr-1 mr-1 text-xs"
                         >
                           {countryCodes.map((country) => (
                             <option key={country.code} value={country.code}>
