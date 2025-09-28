@@ -1645,6 +1645,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
+
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
         </div>
       )
     }
@@ -1796,6 +1815,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
             </div>
           </div>
         </div>
@@ -2120,6 +2158,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
+
         </div>
       )
     }
@@ -2281,6 +2338,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             cardViewBreakpoint="md"
           />
 
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
+
         </div>
       )
     }
@@ -2384,6 +2460,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             </div>
           </div>
+
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
         </div>
       )
     }
@@ -2462,6 +2557,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
+
         </div>
       )
     }
@@ -2529,6 +2643,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
             </div>
           </div>
 
@@ -2639,6 +2772,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
+
         </div>
       )
     }
@@ -2708,6 +2860,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
+
         </div>
       )
     }
@@ -2770,6 +2941,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
             </div>
           </div>
 
@@ -2854,6 +3044,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
+            </div>
+          </div>
+
         </div>
       )
     }
@@ -2916,6 +3125,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
             </div>
           </div>
 
@@ -3014,6 +3242,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Disclaimer Section */}
+          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
+            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
+              <p>
+                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+              </p>
+              <p>
+                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
+              </p>
+              <p>
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+              </p>
+              <p>
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+              </p>
             </div>
           </div>
 
