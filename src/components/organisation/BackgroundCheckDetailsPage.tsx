@@ -4868,9 +4868,9 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
         </div>
       </div>
 
-      {/* Mobile Category Navigation */}
+      {/* Mobile Category Navigation - Chrome Style */}
       <div className="lg:hidden flex-shrink-0 bg-gray-50 border-b border-gray-200 px-4 py-3">
-        <div className="flex flex-wrap gap-2">
+        <div className="bg-gray-100 rounded-lg p-1 flex flex-wrap gap-0.5">
           {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
             <button
               key={key}
@@ -4880,14 +4880,17 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   setSelectedSubTab(Object.keys(category.subTabs)[0])
                 }
               }}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-150 whitespace-nowrap relative ${
                 selectedCategory === key
-                  ? 'bg-red-600 text-white shadow-md'
-                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                  ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
               }`}
               style={{ minHeight: '44px' }}
             >
               {category.name}
+              {selectedCategory === key && (
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full"></div>
+              )}
             </button>
           ))}
         </div>
@@ -4962,27 +4965,24 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 )}
               </div>
 
-              {/* Sub-tabs Navigation */}
+              {/* Sub-tabs Navigation - Chrome Style */}
               <div className="mb-4 sm:mb-6 w-full">
-                <div className="flex flex-wrap gap-0 border-b border-gray-300">
+                <div className="bg-gray-100 rounded-lg p-1 flex flex-wrap gap-0.5">
                   {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
                     <button
                       key={key}
                       onClick={() => setSelectedSubTab(key)}
-                      className={`px-4 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap relative ${
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-150 whitespace-nowrap relative ${
                         selectedSubTab === key
-                          ? 'bg-black text-white rounded-t-lg'
-                          : 'bg-white text-gray-700 hover:bg-gray-50 rounded-t-lg'
+                          ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
                       }`}
-                      style={{ 
-                        minHeight: '40px',
-                        borderTopLeftRadius: '8px',
-                        borderTopRightRadius: '8px',
-                        borderBottomLeftRadius: selectedSubTab === key ? '0px' : '8px',
-                        borderBottomRightRadius: selectedSubTab === key ? '0px' : '8px'
-                      }}
+                      style={{ minHeight: '36px' }}
                     >
                       {subTab.name}
+                      {selectedSubTab === key && (
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full"></div>
+                      )}
                     </button>
                   ))}
                 </div>
