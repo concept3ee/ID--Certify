@@ -186,7 +186,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             name: 'Personal Details',
             data: {
               status: 'Verified',
-              timeline: 'From Jun, 2019 to now',
               details: {
                 firstCentralReferenceNumber: '1387342',
                 surname: 'Afamefuna',
@@ -3790,7 +3789,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       <div className="space-y-8">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold text-gray-900 tracking-tight">{(subTab as any).name}</h3>
-          <span className="text-sm text-gray-500 font-medium">{(subTab as any).data.timeline}</span>
         </div>
 
         {/* Personal & Identity Information */}
