@@ -15993,7 +15993,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
               {/* Name and Contact Fields - Single Row Layout */}
               <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs font-medium text-gray-700 mb-1">
                     First Name <span className="text-red-500">*</span>
                   </label>
                   {isEditing ? (
@@ -16002,7 +16002,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         type="text"
                         value={request.firstName}
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
-                        className={`bg-transparent border-b focus:border-primary-500 outline-none w-full ${
+                        className={`bg-transparent border-b focus:border-primary-500 outline-none w-full text-sm ${
                           !request.firstName.trim() 
                             ? 'border-red-300' 
                             : 'border-gray-300'
@@ -16011,29 +16011,29 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         required
                       />
                       {!request.firstName.trim() && (
-                        <p className="text-red-500 text-xs mt-1">First name is required</p>
+                        <p className="text-red-500 text-[10px] mt-1">First name is required</p>
                       )}
                     </div>
                   ) : (
-                    <p className="text-gray-900">{request.firstName || 'No first name'}</p>
+                    <p className="text-gray-900 text-sm">{request.firstName || 'No first name'}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Middle Name</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Middle Name</label>
                   {isEditing ? (
                     <input
                       type="text"
                       value={request.middleName}
                       onChange={(e) => handleInputChange('middleName', e.target.value)}
-                      className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none w-full"
+                      className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none w-full text-sm"
                       placeholder="Enter middle name"
                     />
                   ) : (
-                    <p className="text-gray-900">{request.middleName || 'No middle name'}</p>
+                    <p className="text-gray-900 text-sm">{request.middleName || 'No middle name'}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-xs font-medium text-gray-700 mb-1">
                     Last Name <span className="text-red-500">*</span>
                   </label>
                   {isEditing ? (
@@ -16042,7 +16042,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         type="text"
                         value={request.lastName}
                         onChange={(e) => handleInputChange('lastName', e.target.value)}
-                        className={`bg-transparent border-b focus:border-primary-500 outline-none w-full ${
+                        className={`bg-transparent border-b focus:border-primary-500 outline-none w-full text-sm ${
                           !request.lastName.trim() 
                             ? 'border-red-300' 
                             : 'border-gray-300'
@@ -16051,22 +16051,22 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         required
                       />
                       {!request.lastName.trim() && (
-                        <p className="text-red-500 text-xs mt-1">Last name is required</p>
+                        <p className="text-red-500 text-[10px] mt-1">Last name is required</p>
                       )}
                     </div>
                   ) : (
-                    <p className="text-gray-900">{request.lastName || 'No last name'}</p>
+                    <p className="text-gray-900 text-sm">{request.lastName || 'No last name'}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Email</label>
                   {isEditing ? (
                     <div>
                       <input
                         type="email"
                         value={request.candidateEmail}
                         onChange={(e) => handleInputChange('candidateEmail', e.target.value)}
-                        className={`bg-transparent border-b focus:border-primary-500 outline-none w-full ${
+                        className={`bg-transparent border-b focus:border-primary-500 outline-none w-full text-sm ${
                           request.candidateEmail && !validateEmail(request.candidateEmail) 
                             ? 'border-red-300' 
                             : 'border-gray-300'
@@ -16074,15 +16074,15 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         placeholder="Enter email"
                       />
                       {request.candidateEmail && !validateEmail(request.candidateEmail) && (
-                        <p className="text-red-500 text-xs mt-1">Please enter a valid email address</p>
+                        <p className="text-red-500 text-[10px] mt-1">Please enter a valid email address</p>
                       )}
                     </div>
                   ) : (
-                    <p className="text-gray-900">{request.candidateEmail || 'No email provided'}</p>
+                    <p className="text-gray-900 text-sm">{request.candidateEmail || 'No email provided'}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Phone Number</label>
                   {isEditing ? (
                     <div>
                       <div className="flex">
@@ -16101,7 +16101,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                           type="tel"
                           value={request.candidatePhone}
                           onChange={(e) => handleInputChange('candidatePhone', e.target.value.replace(/\D/g, ''))}
-                          className={`bg-transparent border-b focus:border-primary-500 outline-none flex-1 ${
+                          className={`bg-transparent border-b focus:border-primary-500 outline-none flex-1 text-sm ${
                             request.candidatePhone && !validatePhoneNumber(request.candidatePhone, request.countryCode)
                               ? 'border-red-300' 
                               : 'border-gray-300'
@@ -16110,7 +16110,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                         />
                       </div>
                       {request.candidatePhone && !validatePhoneNumber(request.candidatePhone, request.countryCode) && (
-                        <p className="text-red-500 text-xs mt-1">
+                        <p className="text-red-500 text-[10px] mt-1">
                           Phone number must be {request.countryCode === '+234' ? '10' : 
                            request.countryCode === '+86' ? '11' : 
                            request.countryCode === '+49' || request.countryCode === '+55' ? '10' : '9'} digits for {countryCodes.find(c => c.code === request.countryCode)?.country}
@@ -16118,7 +16118,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                       )}
                     </div>
                   ) : (
-                    <p className="text-gray-900">
+                    <p className="text-gray-900 text-sm">
                       {request.countryCode} {request.candidatePhone || 'No phone provided'}
                     </p>
                   )}
