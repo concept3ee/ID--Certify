@@ -1566,7 +1566,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           {/* Disclaimer Section */}
           <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
             <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-600 leading-relaxed space-y-1">
+            <div className="text-xs text-gray-500 leading-tight space-y-1">
               <p>
                 The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
               </p>
