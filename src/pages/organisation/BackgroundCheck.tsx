@@ -601,37 +601,6 @@ const BackgroundCheck = () => {
               </div>
             )}
 
-            {/* Table Controls */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-4">
-                {/* Search Bar */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Q Search"
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  />
-                </div>
-                
-                {/* Date Range Selector */}
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Calendar className="h-4 w-4" />
-                  <span>Start Jan 6, 2022 - End Jan 13, 2022</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                  <Download className="h-4 w-4" />
-                  <span>Export</span>
-                </button>
-                <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                  <Filter className="h-4 w-4" />
-                  <span>Filter</span>
-                </button>
-              </div>
-            </div>
 
             {/* Requests Table */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
