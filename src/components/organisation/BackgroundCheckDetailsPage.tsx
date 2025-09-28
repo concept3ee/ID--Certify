@@ -1835,6 +1835,33 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
+          {/* Risk Assessment */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Risk Assessment</h4>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Probability of Default</span>
+                  <p className="text-2xl font-bold text-red-600 mt-2">{subTab.data.rating.riskAssessment.probabilityOfDefault}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Expected Loss</span>
+                  <p className="text-2xl font-bold text-orange-600 mt-2">{subTab.data.rating.riskAssessment.expectedLoss}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Risk Category</span>
+                  <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskAssessment.riskCategory}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Recommendation</span>
+                  <p className="text-lg font-semibold text-green-600 mt-2">{subTab.data.rating.riskAssessment.recommendation}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Rating History */}
           <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
             <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
@@ -1932,32 +1959,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Risk Assessment */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-              <h4 className="text-lg font-semibold text-gray-900">Risk Assessment</h4>
-            </div>
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Probability of Default</span>
-                  <p className="text-2xl font-bold text-red-600 mt-2">{subTab.data.rating.riskAssessment.probabilityOfDefault}</p>
-                </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Expected Loss</span>
-                  <p className="text-2xl font-bold text-orange-600 mt-2">{subTab.data.rating.riskAssessment.expectedLoss}</p>
-                </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Risk Category</span>
-                  <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskAssessment.riskCategory}</p>
-                </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Recommendation</span>
-                  <p className="text-lg font-semibold text-green-600 mt-2">{subTab.data.rating.riskAssessment.recommendation}</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       )
     }
