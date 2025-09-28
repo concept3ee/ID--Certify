@@ -1841,22 +1841,151 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               <h4 className="text-lg font-semibold text-gray-900">Risk Assessment</h4>
             </div>
             <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Probability of Default</span>
-                  <p className="text-2xl font-bold text-red-600 mt-2">{subTab.data.rating.riskAssessment.probabilityOfDefault}</p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Risk Metrics */}
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center">
+                    <span className="text-sm font-medium text-gray-600">Probability of Default</span>
+                    <p className="text-2xl font-bold text-red-600 mt-2">{subTab.data.rating.riskAssessment.probabilityOfDefault}</p>
+                  </div>
+                  <div className="text-center">
+                    <span className="text-sm font-medium text-gray-600">Expected Loss</span>
+                    <p className="text-2xl font-bold text-orange-600 mt-2">{subTab.data.rating.riskAssessment.expectedLoss}</p>
+                  </div>
+                  <div className="text-center">
+                    <span className="text-sm font-medium text-gray-600">Risk Category</span>
+                    <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskAssessment.riskCategory}</p>
+                  </div>
+                  <div className="text-center">
+                    <span className="text-sm font-medium text-gray-600">Recommendation</span>
+                    <p className="text-lg font-semibold text-green-600 mt-2">{subTab.data.rating.riskAssessment.recommendation}</p>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Expected Loss</span>
-                  <p className="text-2xl font-bold text-orange-600 mt-2">{subTab.data.rating.riskAssessment.expectedLoss}</p>
+
+                {/* Risk Distribution Pie Chart */}
+                <div className="flex flex-col items-center">
+                  <h5 className="text-lg font-semibold text-gray-900 mb-4">Risk Distribution</h5>
+                  <div className="relative w-48 h-48">
+                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                      {/* Background circle */}
+                      <circle cx="50" cy="50" r="40" fill="#f3f4f6" stroke="#e5e7eb" strokeWidth="2"/>
+                      
+                      {/* Low Risk - 70% */}
+                      <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="40" 
+                        fill="none" 
+                        stroke="#10b981" 
+                        strokeWidth="8"
+                        strokeDasharray={`${2 * Math.PI * 40 * 0.7} ${2 * Math.PI * 40}`}
+                        strokeDashoffset="0"
+                      />
+                      
+                      {/* Medium Risk - 20% */}
+                      <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="40" 
+                        fill="none" 
+                        stroke="#f59e0b" 
+                        strokeWidth="8"
+                        strokeDasharray={`${2 * Math.PI * 40 * 0.2} ${2 * Math.PI * 40}`}
+                        strokeDashoffset={`-${2 * Math.PI * 40 * 0.7}`}
+                      />
+                      
+                      {/* High Risk - 10% */}
+                      <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="40" 
+                        fill="none" 
+                        stroke="#ef4444" 
+                        strokeWidth="8"
+                        strokeDasharray={`${2 * Math.PI * 40 * 0.1} ${2 * Math.PI * 40}`}
+                        strokeDashoffset={`-${2 * Math.PI * 40 * 0.9}`}
+                      />
+                      
+                      {/* Center text */}
+                      <text x="50" y="45" textAnchor="middle" className="text-sm font-bold fill-gray-900">Risk</text>
+                      <text x="50" y="58" textAnchor="middle" className="text-xs fill-gray-600">Profile</text>
+                    </svg>
+                  </div>
+                  
+                  {/* Legend */}
+                  <div className="mt-4 space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-700">Low Risk (70%)</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <span className="text-sm text-gray-700">Medium Risk (20%)</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <span className="text-sm text-gray-700">High Risk (10%)</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Risk Category</span>
-                  <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskAssessment.riskCategory}</p>
-                </div>
-                <div className="text-center">
-                  <span className="text-sm font-medium text-gray-600">Recommendation</span>
-                  <p className="text-lg font-semibold text-green-600 mt-2">{subTab.data.rating.riskAssessment.recommendation}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Credit Score Trend Chart */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Credit Score Trend</h4>
+            </div>
+            <div className="p-6">
+              <div className="h-64 relative">
+                <svg className="w-full h-full" viewBox="0 0 400 200">
+                  {/* Grid lines */}
+                  <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#f3f4f6" strokeWidth="1"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid)" />
+                  
+                  {/* Y-axis labels */}
+                  <text x="10" y="20" className="text-xs fill-gray-500">850</text>
+                  <text x="10" y="60" className="text-xs fill-gray-500">750</text>
+                  <text x="10" y="100" className="text-xs fill-gray-500">650</text>
+                  <text x="10" y="140" className="text-xs fill-gray-500">550</text>
+                  <text x="10" y="180" className="text-xs fill-gray-500">450</text>
+                  
+                  {/* Credit score line chart */}
+                  <polyline
+                    fill="none"
+                    stroke="#3b82f6"
+                    strokeWidth="3"
+                    points="50,40 150,80 250,100 350,40"
+                  />
+                  
+                  {/* Data points */}
+                  <circle cx="50" cy="40" r="4" fill="#3b82f6" />
+                  <circle cx="150" cy="80" r="4" fill="#3b82f6" />
+                  <circle cx="250" cy="100" r="4" fill="#3b82f6" />
+                  <circle cx="350" cy="40" r="4" fill="#3b82f6" />
+                  
+                  {/* Data labels */}
+                  <text x="50" y="30" className="text-xs fill-gray-700" textAnchor="middle">720</text>
+                  <text x="150" y="70" className="text-xs fill-gray-700" textAnchor="middle">680</text>
+                  <text x="250" y="90" className="text-xs fill-gray-700" textAnchor="middle">650</text>
+                  <text x="350" y="30" className="text-xs fill-gray-700" textAnchor="middle">620</text>
+                  
+                  {/* Date labels */}
+                  <text x="50" y="195" className="text-xs fill-gray-500" textAnchor="middle">Dec 2024</text>
+                  <text x="150" y="195" className="text-xs fill-gray-500" textAnchor="middle">Sep 2024</text>
+                  <text x="250" y="195" className="text-xs fill-gray-500" textAnchor="middle">Jun 2024</text>
+                  <text x="350" y="195" className="text-xs fill-gray-500" textAnchor="middle">Mar 2024</text>
+                </svg>
+                
+                {/* Trend indicator */}
+                <div className="absolute top-4 right-4 flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="text-sm font-medium text-green-600">+100 points improvement</span>
                 </div>
               </div>
             </div>
@@ -1867,143 +1996,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
               <h4 className="text-lg font-semibold text-gray-900">Rating History</h4>
             </div>
-            
-            {/* Rating History Chart */}
-            <div className="p-6 border-b border-gray-200">
-              <div className="mb-4">
-                <h5 className="text-sm font-medium text-gray-700 mb-2">Credit Score Trend</h5>
-                <div className="h-64 bg-gray-50 rounded-lg p-4 relative">
-                  <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
-                    {/* Grid lines */}
-                    <defs>
-                      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e5e7eb" strokeWidth="0.5"/>
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grid)" />
-                    
-                    {/* Y-axis labels and lines */}
-                    {(() => {
-                      const scores = subTab.data.rating.ratingHistory.map((h: any) => h.score);
-                      const minScore = Math.min(...scores);
-                      const maxScore = Math.max(...scores);
-                      const range = maxScore - minScore;
-                      const padding = range * 0.1;
-                      const yMin = minScore - padding;
-                      const yMax = maxScore + padding;
-                      
-                      return (
-                        <>
-                          {/* Y-axis labels */}
-                          {[yMin, (yMin + yMax) / 2, yMax].map((value, index) => (
-                            <g key={index}>
-                              <line 
-                                x1="30" 
-                                y1={180 - ((value - yMin) / (yMax - yMin)) * 160} 
-                                x2="370" 
-                                y2={180 - ((value - yMin) / (yMax - yMin)) * 160} 
-                                stroke="#d1d5db" 
-                                strokeWidth="1"
-                              />
-                              <text 
-                                x="25" 
-                                y={180 - ((value - yMin) / (yMax - yMin)) * 160 + 4} 
-                                textAnchor="end" 
-                                fontSize="10" 
-                                fill="#6b7280"
-                              >
-                                {Math.round(value)}
-                              </text>
-                            </g>
-                          ))}
-                          
-                          {/* Data points and line */}
-                          {subTab.data.rating.ratingHistory.map((history: any, index: number) => {
-                            const x = 50 + (index * (320 / (subTab.data.rating.ratingHistory.length - 1)));
-                            const y = 180 - ((history.score - yMin) / (yMax - yMin)) * 160;
-                            const isCurrent = index === 0;
-                            
-                            return (
-                              <g key={index}>
-                                {/* Data point */}
-                                <circle 
-                                  cx={x} 
-                                  cy={y} 
-                                  r={isCurrent ? "6" : "4"} 
-                                  fill={isCurrent ? "#10b981" : "#3b82f6"} 
-                                  stroke="white" 
-                                  strokeWidth="2"
-                                />
-                                
-                                {/* Date label */}
-                                <text 
-                                  x={x} 
-                                  y="195" 
-                                  textAnchor="middle" 
-                                  fontSize="9" 
-                                  fill="#6b7280"
-                                >
-                                  {new Date(history.date).toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}
-                                </text>
-                                
-                                {/* Score label */}
-                                <text 
-                                  x={x} 
-                                  y={y - 10} 
-                                  textAnchor="middle" 
-                                  fontSize="10" 
-                                  fill={isCurrent ? "#10b981" : "#3b82f6"}
-                                  fontWeight="bold"
-                                >
-                                  {history.score}
-                                </text>
-                                
-                                {/* Rating label */}
-                                <text 
-                                  x={x} 
-                                  y={y + 20} 
-                                  textAnchor="middle" 
-                                  fontSize="9" 
-                                  fill="#6b7280"
-                                >
-                                  {history.rating}
-                                </text>
-                                
-                                {/* Line to next point */}
-                                {index < subTab.data.rating.ratingHistory.length - 1 && (
-                                  <line 
-                                    x1={x} 
-                                    y1={y} 
-                                    x2={50 + ((index + 1) * (320 / (subTab.data.rating.ratingHistory.length - 1)))} 
-                                    y2={180 - ((subTab.data.rating.ratingHistory[index + 1].score - yMin) / (yMax - yMin)) * 160} 
-                                    stroke="#3b82f6" 
-                                    strokeWidth="2" 
-                                    fill="none"
-                                  />
-                                )}
-                              </g>
-                            );
-                          })}
-                        </>
-                      );
-                    })()}
-                  </svg>
-                </div>
-                
-                {/* Chart Legend */}
-                <div className="flex items-center justify-center space-x-6 mt-4 text-sm">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span className="text-gray-600">Current Rating</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                    <span className="text-gray-600">Historical Ratings</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50">
@@ -2049,50 +2041,74 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Rating Factors */}
+          {/* Rating Factors Visualization */}
           <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
             <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-              <h4 className="text-lg font-semibold text-gray-900">Rating Factors</h4>
+              <h4 className="text-lg font-semibold text-gray-900">Rating Factors Analysis</h4>
             </div>
-            <div className="p-6 space-y-4">
-              {Object.entries(subTab.data.rating.ratingFactors).map(([factor, data]: [string, any]) => (
-                <div key={factor} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-sm font-semibold text-gray-900 capitalize">
-                        {factor.replace(/([A-Z])/g, ' $1').trim()}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        data.impact === 'Positive' ? 'bg-green-100 text-green-800' :
-                        data.impact === 'Negative' ? 'bg-red-100 text-red-800' :
-                        'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {data.impact}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        data.weight === 'High' ? 'bg-blue-100 text-blue-800' :
-                        data.weight === 'Medium' ? 'bg-orange-100 text-orange-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        {data.weight} Weight
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-32 bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${
-                          data.score >= 80 ? 'bg-green-500' :
-                          data.score >= 60 ? 'bg-yellow-500' :
-                          'bg-red-500'
-                        }`}
-                        style={{ width: `${data.score}%` }}
-                      ></div>
-                    </div>
-                    <span className="text-sm font-semibold text-gray-900 w-12 text-right">{data.score}</span>
+            <div className="p-6 space-y-6">
+              {/* Overall Score Visualization */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h5 className="text-lg font-semibold text-gray-900">Overall Credit Health</h5>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-blue-600">81/100</div>
+                    <div className="text-sm text-gray-600">Weighted Average</div>
                   </div>
                 </div>
-              ))}
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" style={{width: '81%'}}></div>
+                </div>
+              </div>
+
+              {/* Individual Factor Charts */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {Object.entries(subTab.data.rating.ratingFactors).map(([factor, data]: [string, any]) => (
+                  <div key={factor} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm font-semibold text-gray-900 capitalize">
+                          {factor.replace(/([A-Z])/g, ' $1').trim()}
+                        </span>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          data.impact === 'Positive' ? 'bg-green-100 text-green-800' :
+                          data.impact === 'Negative' ? 'bg-red-100 text-red-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {data.impact}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-gray-900">{data.score}/100</div>
+                        <div className="text-xs text-gray-500">{data.weight} Weight</div>
+                      </div>
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+                      <div 
+                        className={`h-2 rounded-full ${
+                          data.impact === 'Positive' ? 'bg-gradient-to-r from-green-400 to-green-600' :
+                          data.impact === 'Negative' ? 'bg-gradient-to-r from-red-400 to-red-600' :
+                          'bg-gradient-to-r from-yellow-400 to-yellow-600'
+                        }`}
+                        style={{width: `${data.score}%`}}
+                      ></div>
+                    </div>
+                    
+                    {/* Impact Indicator */}
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-gray-500">Score</span>
+                      <div className="flex items-center space-x-1">
+                        {data.impact === 'Positive' && <span className="text-green-600">↗</span>}
+                        {data.impact === 'Negative' && <span className="text-red-600">↘</span>}
+                        {data.impact === 'Neutral' && <span className="text-yellow-600">→</span>}
+                        <span className="text-gray-600">{data.impact} Impact</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
