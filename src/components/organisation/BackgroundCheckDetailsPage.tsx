@@ -4964,17 +4964,23 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
 
               {/* Sub-tabs Navigation */}
               <div className="mb-4 sm:mb-6 w-full">
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-0 border-b border-gray-300">
                   {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
                     <button
                       key={key}
                       onClick={() => setSelectedSubTab(key)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                      className={`px-4 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap relative ${
                         selectedSubTab === key
-                          ? 'bg-red-600 text-white shadow-md'
-                          : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                          ? 'bg-black text-white rounded-t-lg'
+                          : 'bg-white text-gray-700 hover:bg-gray-50 rounded-t-lg'
                       }`}
-                      style={{ minHeight: '32px' }}
+                      style={{ 
+                        minHeight: '40px',
+                        borderTopLeftRadius: '8px',
+                        borderTopRightRadius: '8px',
+                        borderBottomLeftRadius: selectedSubTab === key ? '0px' : '8px',
+                        borderBottomRightRadius: selectedSubTab === key ? '0px' : '8px'
+                      }}
                     >
                       {subTab.name}
                     </button>
