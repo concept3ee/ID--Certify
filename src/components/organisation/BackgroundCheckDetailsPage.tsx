@@ -1574,10 +1574,10 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
               </p>
               <p>
-                Prembly Limited neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
+                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
               </p>
               <p>
-                Prembly Limited shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
               </p>
             </div>
           </div>
