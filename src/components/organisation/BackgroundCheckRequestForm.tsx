@@ -15920,7 +15920,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             <div className="relative flex-shrink-0">
               <div className="flex flex-col items-center space-y-1">
                 {profileImagePreview ? (
-                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-300">
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-green-300">
                     <img 
                       src={profileImagePreview} 
                       alt="Profile" 
@@ -15928,10 +15928,10 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                     />
                   </div>
                 ) : (
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 ${
+                  <div className={`w-24 h-24 rounded-full flex items-center justify-center border-2 ${
                     !request.profileImage ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-gray-200'
                   }`}>
-                    <User className={`h-6 w-6 ${!request.profileImage ? 'text-red-500' : 'text-gray-500'}`} />
+                    <User className={`h-12 w-12 ${!request.profileImage ? 'text-red-500' : 'text-gray-500'}`} />
                   </div>
                 )}
                 {isEditing && (
