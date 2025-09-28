@@ -2114,6 +2114,32 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a Summarized payment behaviour of all credit agreements as reported by the Credit Providers</p>
           </div>
 
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL AGREEMENTS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.agreements.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">OPEN ACCOUNTS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.agreements.filter((a: any) => a.accountStatus === 'Open').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">CLOSED ACCOUNTS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.agreements.filter((a: any) => a.accountStatus === 'Closed').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">PERFORMING:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.agreements.filter((a: any) => a.facilityClassification === 'Performing').length}
+              </p>
+            </div>
+          </div>
+
           {/* Non-Performing Notice */}
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <div className="flex items-center">
@@ -2236,31 +2262,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             cardViewBreakpoint="md"
           />
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL AGREEMENTS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.agreements.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">OPEN ACCOUNTS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.agreements.filter((a: any) => a.accountStatus === 'Open').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">CLOSED ACCOUNTS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.agreements.filter((a: any) => a.accountStatus === 'Closed').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">PERFORMING:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.agreements.filter((a: any) => a.facilityClassification === 'Performing').length}
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2539,6 +2540,26 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a summary of directorships held information.</p>
           </div>
 
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">ACTIVE DIRECTORSHIPS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.directorships.filter((d: any) => d.status === 'Active').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">RESIGNED DIRECTORSHIPS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.directorships.filter((d: any) => d.status === 'Resigned').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL COMPANIES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.directorships.length}</p>
+            </div>
+          </div>
+
           <div className="flex items-center space-x-3">
             <CheckCircle className="h-6 w-6 text-green-600" />
             <div>
@@ -2613,25 +2634,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">ACTIVE DIRECTORShips:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.directorships.filter((d: any) => d.status === 'Active').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">RESIGNED DIRECTORShips:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.directorships.filter((d: any) => d.status === 'Resigned').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL COMPANIES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.directorships.length}</p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2721,11 +2723,21 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Identification means presented on the Credit/Loan applications.</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL IDENTIFICATIONS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.identifications.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.identifications[0]?.bureauUpdateDate || 'N/A'}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2763,23 +2775,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL IDENTIFICATIONS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.identifications.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.identifications[0]?.bureauUpdateDate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
-            </div>
-          </div>
         </div>
       )
     }
