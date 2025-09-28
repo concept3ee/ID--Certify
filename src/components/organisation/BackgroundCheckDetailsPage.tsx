@@ -336,17 +336,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               ]
             }
           },
-          creditAgreements: {
-            name: 'Credit Agreements',
-            data: {
-              status: 'Active',
-              timeline: 'From Jun, 2019 to now',
-              agreements: [
-                { type: 'Credit Card', amount: '₦500,000', status: 'Active', date: '2023' },
-                { type: 'Personal Loan', amount: '₦1,000,000', status: 'Active', date: '2024' }
-              ]
-            }
-          },
           guarantorDetails: {
             name: 'Guarantor Details',
             data: {
@@ -2276,45 +2265,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       )
     }
     
-    if (selectedSubTab === 'creditAgreements') {
-      return (
-        <div className="space-y-6">
-          <div className="flex items-center space-x-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
-              <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-sm text-gray-900">{subTab.data.status}</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-900">Credit Agreements</h4>
-            {subTab.data.agreements.map((agreement: any, index: number) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">TYPE:</span>
-                    <p className="text-sm text-gray-900">{agreement.type}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">AMOUNT:</span>
-                    <p className="text-sm text-gray-900">{agreement.amount}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">STATUS:</span>
-                    <p className="text-sm text-gray-900">{agreement.status}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">DATE:</span>
-                    <p className="text-sm text-gray-900">{agreement.date}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )
-    }
     
     if (selectedSubTab === 'guarantorDetails') {
       return (
