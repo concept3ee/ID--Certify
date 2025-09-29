@@ -15980,8 +15980,8 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             
             <div className="flex-1 min-w-0">
 
-              {/* Name and Contact Fields - Single Row Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+              {/* Name Fields - First Row */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
                 <div>
                   <label className="block text-xs font-medium text-gray-700 mb-1">
                     First Name <span className="text-red-500">*</span>
@@ -16048,6 +16048,10 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                     <p className="text-gray-900 text-sm">{request.lastName || 'No last name'}</p>
                   )}
                 </div>
+              </div>
+
+              {/* Contact Fields - Second Row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-gray-700 mb-1">Email</label>
                   {isEditing ? (
