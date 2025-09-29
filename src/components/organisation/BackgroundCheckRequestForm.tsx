@@ -15925,38 +15925,55 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             <div className="relative flex-shrink-0">
               <div className="flex flex-col items-center space-y-1">
                 {profileImagePreview ? (
-                  <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-green-300">
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-green-300 relative">
                     <img 
                       src={profileImagePreview} 
                       alt="Profile" 
                       className="w-full h-full object-cover"
                     />
+                    {isEditing && (
+                      <div className="absolute bottom-1 right-1">
+                        <input
+                          type="file"
+                          onChange={handleProfileImageUpload}
+                          accept="image/jpeg,image/png,image/jpg"
+                          className="hidden"
+                          id="profileImageUpload"
+                        />
+                        <label 
+                          htmlFor="profileImageUpload"
+                          className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-200 transition-colors shadow-md border border-red-200"
+                        >
+                          <Upload className="h-3 w-3 text-red-600" />
+                        </label>
+                      </div>
+                    )}
                   </div>
                 ) : (
-                  <div className={`w-24 h-24 rounded-full flex items-center justify-center border-2 ${
+                  <div className={`w-24 h-24 rounded-full flex items-center justify-center border-2 relative ${
                     !request.profileImage ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-gray-200'
                   }`}>
                     <User className={`h-12 w-12 ${!request.profileImage ? 'text-red-500' : 'text-gray-500'}`} />
+                    {isEditing && (
+                      <div className="absolute bottom-1 right-1">
+                        <input
+                          type="file"
+                          onChange={handleProfileImageUpload}
+                          accept="image/jpeg,image/png,image/jpg"
+                          className="hidden"
+                          id="profileImageUpload"
+                        />
+                        <label 
+                          htmlFor="profileImageUpload"
+                          className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-200 transition-colors shadow-md border border-red-200"
+                        >
+                          <Upload className="h-3 w-3 text-red-600" />
+                        </label>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-              {isEditing && (
-                <div className="absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2">
-                  <input
-                    type="file"
-                    onChange={handleProfileImageUpload}
-                    accept="image/jpeg,image/png,image/jpg"
-                    className="hidden"
-                    id="profileImageUpload"
-                  />
-                  <label 
-                    htmlFor="profileImageUpload"
-                    className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-200 transition-colors shadow-md border border-red-200"
-                  >
-                    <Upload className="h-3 w-3 text-red-600" />
-                  </label>
-                </div>
-              )}
               {isEditing && profileImagePreview && (
                 <button
                   onClick={removeProfileImage}
