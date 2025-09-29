@@ -15898,6 +15898,11 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             </div>
           </div>
           <div className="flex items-center space-x-4">
+            {/* Order Number */}
+            <div className="text-right">
+              <div className="text-xs text-red-100 uppercase tracking-wide">Order Number</div>
+              <div className="text-sm font-semibold">{request.orderNumber}</div>
+            </div>
             {request.status === 'completed' && (
               <button className="bg-white text-red-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center space-x-2">
                 <Download className="h-4 w-4" />
@@ -15942,7 +15947,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 )}
               </div>
               {isEditing && (
-                <div className="absolute -bottom-1 -right-1">
+                <div className="absolute bottom-0 right-0 transform translate-x-1 translate-y-1">
                   <input
                     type="file"
                     onChange={handleProfileImageUpload}
@@ -15952,9 +15957,9 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   />
                   <label 
                     htmlFor="profileImageUpload"
-                    className="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary-600 transition-colors"
+                    className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-200 transition-colors shadow-md border border-red-200"
                   >
-                    <Upload className="h-2.5 w-2.5 text-white" />
+                    <Upload className="h-3 w-3 text-red-600" />
                   </label>
                 </div>
               )}
@@ -15974,21 +15979,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             </div>
             
             <div className="flex-1 min-w-0">
-              {/* Order Number */}
-              <div className="mb-3">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Order Number</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={request.orderNumber}
-                    onChange={(e) => handleInputChange('orderNumber', e.target.value)}
-                    className="bg-transparent border-b border-gray-300 focus:border-primary-500 outline-none w-full max-w-xs"
-                    placeholder="Enter order number"
-                  />
-                ) : (
-                  <p className="text-gray-900 font-medium">{request.orderNumber || 'No order number'}</p>
-                )}
-              </div>
 
               {/* Name and Contact Fields - Single Row Layout */}
               <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
