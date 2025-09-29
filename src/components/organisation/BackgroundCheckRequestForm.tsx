@@ -15947,7 +15947,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                 )}
               </div>
               {isEditing && (
-                <div className="absolute bottom-0 right-0 transform translate-x-1 translate-y-1">
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
                   <input
                     type="file"
                     onChange={handleProfileImageUpload}
