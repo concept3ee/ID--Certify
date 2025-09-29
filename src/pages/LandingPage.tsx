@@ -88,6 +88,14 @@ const LandingPage = () => {
               <span className="ml-2 text-xl font-bold text-gray-900">IDCertify</span>
             </div>
 
+            {/* AWS Logo */}
+            <div className="flex items-center ml-8">
+              <img 
+                src="/aws-logo.svg" 
+                alt="Secured by Amazon Web Services" 
+                className="h-12 w-auto"
+              />
+            </div>
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
@@ -429,6 +437,14 @@ const LandingPage = () => {
               <p className="text-sm text-gray-600">
                 © 2024 IDCertify. All rights reserved.
               </p>
+              {/* AWS Logo in Footer */}
+              <div className="flex items-center">
+                <img 
+                  src="/aws-logo.svg" 
+                  alt="Secured by Amazon Web Services" 
+                  className="h-24 w-auto opacity-70"
+                />
+              </div>
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-gray-600">
