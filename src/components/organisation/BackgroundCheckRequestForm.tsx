@@ -15965,11 +15965,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   <span className="text-white text-xs">×</span>
                 </button>
               )}
-              {!request.profileImage && isEditing && (
-                <div className="absolute -bottom-5 left-0 right-0 text-center">
-                  <p className="text-red-500 text-xs">Profile picture is required</p>
-                </div>
-              )}
             </div>
             
             <div className="flex-1 min-w-0">
