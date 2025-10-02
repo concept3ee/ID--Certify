@@ -628,6 +628,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const [expandedIncomeSources, setExpandedIncomeSources] = useState<Set<string>>(new Set(['income-1']))
   // Payment flow states
   const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [isLeftPanelCollapsed, setIsLeftPanelCollapsed] = useState(false)
   const [showOTPModal, setShowOTPModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', ''])
@@ -13150,6 +13151,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
         )}
 
+
         {selectedSubTab === 'professionalCertifications' && (
           <div className="space-y-4">
             {!selectedChecks['education.professionalCertifications']?.selected ? (
@@ -15884,11 +15886,29 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         {/* Main Content */}
         <div className="flex-1 flex overflow-hidden">
           {/* Left Panel - Categories */}
-          <div className="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto">
-            <div className="p-3">
-              <h3 className="text-base font-semibold text-gray-900 mb-3">Background Check Categories</h3>
-              <div className="space-y-2">
-                {categories.map((category) => {
+          <div className={`${isLeftPanelCollapsed ? 'w-0' : 'w-80'} bg-gray-50 border-r border-gray-200 overflow-y-auto transition-all duration-300 ease-in-out`}>
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Background Check Categories</h3>
+                <button
+                  onClick={() => setIsLeftPanelCollapsed(!isLeftPanelCollapsed)}
+                  className="p-1 hover:bg-gray-200 rounded-md transition-colors"
+                  title={isLeftPanelCollapsed ? "Expand categories" : "Collapse categories"}
+                >
+                  {isLeftPanelCollapsed ? (
+                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+              {!isLeftPanelCollapsed && (
+                <div className="space-y-2">
+                  {categories.map((category) => {
                   const Icon = category.icon
                   const result = request.results?.[category.key as keyof typeof request.results]
                   const isSelected = selectedCategory === category.key
@@ -15897,7 +15917,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   return (
                     <div
                       key={category.key}
-                      className={`p-2 rounded-lg cursor-pointer transition-all ${
+                      className={`p-3 rounded-lg cursor-pointer transition-all ${
                         isSelected 
                           ? 'bg-white border-2 border-blue-500 shadow-sm' 
                           : 'hover:bg-white hover:shadow-sm'
@@ -15905,9 +15925,9 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                       onClick={() => setSelectedCategory(category.key)}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <Icon className="h-4 w-4 text-gray-600" />
-                          <span className="text-xs font-medium text-gray-900">{category.name}</span>
+                        <div className="flex items-center space-x-3">
+                          <Icon className="h-5 w-5 text-gray-600" />
+                          <span className="text-sm font-medium text-gray-900">{category.name}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                           {result && (
@@ -15915,13 +15935,14 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                               {result.toUpperCase().replace('-', ' ')}
                             </span>
                           )}
-                          <ChevronRight className="h-3 w-3 text-gray-400" />
+                          <ChevronRight className="h-4 w-4 text-gray-400" />
                         </div>
                       </div>
                     </div>
                   )
-                })}
-              </div>
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
@@ -15945,6 +15966,19 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
               )}
             </div>
           </div>
+
+          {/* Floating Toggle Button when Left Panel is Collapsed */}
+          {isLeftPanelCollapsed && (
+            <button
+              onClick={() => setIsLeftPanelCollapsed(false)}
+              className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-200"
+              title="Show categories"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
 
           {/* Right Panel - Payment Section */}
           <div className={`bg-gray-50 border-l border-gray-200 overflow-y-auto transition-all duration-300 ${isPaymentPanelCollapsed ? 'w-12' : 'w-80'}`}>
