@@ -172,12 +172,6 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             icon: Fingerprint,
             description: 'Secure biometric data storage and verification'
           },
-          { 
-            name: 'Trust Score', 
-            href: '/individual/trust-score', 
-            icon: Award,
-            description: 'Your credibility score and improvement opportunities'
-          },
           {
             name: 'Digital Wallet',
             href: '/individual/wallet',
@@ -203,6 +197,14 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 description: 'View and download invoices'
               }
             ]
+          },
+          // MVP Features Only - Non-MVP features commented out for later use
+          /*
+          { 
+            name: 'Trust Score', 
+            href: '/individual/trust-score', 
+            icon: Award,
+            description: 'Your credibility score and improvement opportunities'
           },
           {
             name: 'Secure Documents',
@@ -327,6 +329,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
               }
             ]
           }
+          */
         ]
       case 'organisation':
         return [
@@ -382,7 +385,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
               { 
                 name: 'Collaboration', 
                 href: '/organisation/verification/collaboration', 
-                icon: Users,
+            icon: Users,
                 description: 'Team collaboration and oversight'
               },
               { 
@@ -399,6 +402,52 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
             icon: Shield,
             description: 'Comprehensive background verification for candidates and employees'
           },
+          {
+            name: 'Attestation',
+            href: '/organisation/attestation',
+            icon: UserCheck,
+            description: 'Manage attestation processes and trusted networks'
+          },
+          {
+            name: 'Biobank',
+            href: '/organisation/biobank',
+            icon: Fingerprint,
+            description: 'Secure biometric data storage and verification'
+          },
+          {
+            name: 'Digital Wallet',
+            href: '/organisation/wallet',
+            icon: Wallet,
+            description: 'Manage payments, billing, and financial transactions',
+            children: [
+              { 
+                name: 'Wallet Balance', 
+                href: '/organisation/wallet', 
+                icon: CreditCard,
+                description: 'View current balance'
+              },
+              { 
+                name: 'Transactions', 
+                href: '/organisation/wallet/transactions', 
+                icon: TrendingUp,
+                description: 'Transaction history'
+              },
+              { 
+                name: 'Billing & Invoices', 
+                href: '/organisation/billing', 
+                icon: FileText,
+                description: 'Manage billing and invoices'
+              },
+              { 
+                name: 'Payment Methods', 
+                href: '/organisation/wallet/payment-methods', 
+                icon: CreditCard,
+                description: 'Manage payment options'
+              }
+            ]
+          },
+          // MVP Features Only - Non-MVP features commented out for later use
+          /*
           {
             name: 'Employee Management',
             href: '/organisation/employees',
@@ -504,38 +553,6 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
                 href: '/organisation/trust-score/tips', 
                 icon: Lightbulb,
                 description: 'Ways to improve trust score'
-              }
-            ]
-          },
-          {
-            name: 'Financial Management',
-            href: '/organisation/wallet',
-            icon: Wallet,
-            description: 'Manage payments, billing, and financial transactions',
-            children: [
-              { 
-                name: 'Wallet Balance', 
-                href: '/organisation/wallet', 
-                icon: CreditCard,
-                description: 'View current balance'
-              },
-              { 
-                name: 'Transactions', 
-                href: '/organisation/wallet/transactions', 
-                icon: TrendingUp,
-                description: 'Transaction history'
-              },
-              { 
-                name: 'Billing & Invoices', 
-                href: '/organisation/billing', 
-                icon: FileText,
-                description: 'Manage billing and invoices'
-              },
-              { 
-                name: 'Payment Methods', 
-                href: '/organisation/wallet/payment-methods', 
-                icon: CreditCard,
-                description: 'Manage payment options'
               }
             ]
           },
@@ -793,6 +810,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
               }
             ]
           }
+          */
         ]
       case 'developer':
         return [
@@ -840,6 +858,32 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
               }
             ]
           },
+          {
+            name: 'Background Check API',
+            href: '/developer/background-check-api',
+            icon: Shield,
+            description: 'API for comprehensive background verification services'
+          },
+          {
+            name: 'Attestation API',
+            href: '/developer/attestation-api',
+            icon: UserCheck,
+            description: 'API for managing attestation processes and trusted networks'
+          },
+          {
+            name: 'Biobank API',
+            href: '/developer/biobank-api',
+            icon: Fingerprint,
+            description: 'API for secure biometric data storage and verification'
+          },
+          {
+            name: 'Wallet API',
+            href: '/developer/wallet-api',
+            icon: Wallet,
+            description: 'API for payment processing and financial transactions'
+          },
+          // MVP Features Only - Non-MVP features commented out for later use
+          /*
           {
             name: 'Customer Management',
             href: '/developer/customer-verifications',
@@ -1174,6 +1218,7 @@ const Sidebar = ({ isCollapsed = false }: SidebarProps) => {
               }
             ]
           }
+          */
         ]
       case 'admin':
         return [
