@@ -351,16 +351,13 @@ interface BackgroundCheckRequest {
       adverseMediaCheck: string
       watchlistMatches: string
       watchlistCheckSummary: string
-      // Enhanced device fingerprint fields
-      deviceType: string
-      browser: string
-      operatingSystem: string
-      screenResolution: string
-      ipAddress: string
-      deviceRiskScore: number
-      deviceTrustLevel: string
-      deviceFingerprintAnalysis: string
-      deviceFingerprintSummary: string
+      // Enhanced blacklist fields
+      blacklistStatus: string
+      riskLevel: string
+      databaseSources: string
+      matchType: string
+      blacklistAnalysis: string
+      blacklistSummary: string
     }
     education: {
       institution: string
@@ -678,12 +675,12 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
   const [uploadedFraudDocuments, setUploadedFraudDocuments] = useState<{
     identityFraudReport: File | null
     watchlistReport: File | null
-    deviceFingerprintReport: File | null
+    blacklistReport: File | null
     additionalFraudDocuments: File[]
   }>({
     identityFraudReport: null,
     watchlistReport: null,
-    deviceFingerprintReport: null,
+    blacklistReport: null,
     additionalFraudDocuments: []
   })
 
@@ -1327,16 +1324,13 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             adverseMediaCheck: 'clear',
             watchlistMatches: 'No matches found in any watchlist databases. Individual is clear of sanctions, PEP status, and adverse media.',
             watchlistCheckSummary: 'Watchlist check completed successfully. No matches found in sanctions lists, PEP databases, or adverse media. Individual is clear of all regulatory and compliance risks.',
-            // Enhanced device fingerprint fields
-            deviceType: 'desktop',
-            browser: 'Chrome 120.0.0.0',
-            operatingSystem: 'Windows 11',
-            screenResolution: '1920x1080',
-            ipAddress: '192.168.1.100',
-            deviceRiskScore: 15,
-            deviceTrustLevel: 'high',
-            deviceFingerprintAnalysis: 'Device fingerprint analysis completed. Device shows consistent patterns with low risk indicators. No suspicious activity detected.',
-            deviceFingerprintSummary: 'Device fingerprint analysis completed successfully. Device trust level: High. Risk score: 15/100. No suspicious patterns or anomalies detected. Device appears legitimate and trustworthy.'
+            // Enhanced blacklist fields
+            blacklistStatus: 'clean',
+            riskLevel: 'low',
+            databaseSources: 'OFAC, PEP, Sanctions Lists, Fraud Databases',
+            matchType: 'no-match',
+            blacklistAnalysis: 'Comprehensive blacklist check completed across multiple databases. No matches found in OFAC sanctions lists, PEP databases, or fraud databases. Individual appears clean of all regulatory and compliance risks.',
+            blacklistSummary: 'Blacklist verification completed successfully. Status: Clean. Risk Level: Low. No matches found in any monitored databases. Individual is clear of all sanctions, PEP, and fraud-related risks.'
           },
           education: {
             institution: 'University of Lagos',
@@ -2595,7 +2589,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             'fraudDetection': {
               'identityFraud': 'Identity Fraud Check',
               'watchlistCheck': 'Watchlist Check',
-              'deviceFingerprint': 'Device Fingerprint'
+              'blacklist': 'Blacklist Check'
             }
           }
           // Special handling for address verification - show count
@@ -14776,7 +14770,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     const subTabs = [
       { key: 'identityFraud', name: 'Identity Fraud', icon: CheckCircle, price: 2000 },
       { key: 'watchlistCheck', name: 'Watchlist Check', icon: CheckCircle, price: 1500 },
-      { key: 'deviceFingerprint', name: 'Device Fingerprint', icon: CheckCircle, price: 1000 }
+      { key: 'blacklist', name: 'Blacklist', icon: CheckCircle, price: 1000 }
     ]
 
     return (
@@ -15284,224 +15278,182 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           </div>
         )}
 
-        {selectedSubTab === 'deviceFingerprint' && (
+        {selectedSubTab === 'blacklist' && (
           <div className="space-y-4">
-            {!selectedChecks['fraudDetection.deviceFingerprint']?.selected ? (
+            {!selectedChecks['fraudDetection.blacklist']?.selected ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="h-8 w-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Device Fingerprint</h3>
-                <p className="text-gray-500 mb-4">Analyze device fingerprint for fraud detection</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Blacklist Check</h3>
+                <p className="text-gray-500 mb-4">Check against various blacklists and fraud databases</p>
                 <button
-                  onClick={() => toggleCheck('fraudDetection.deviceFingerprint')}
+                  onClick={() => toggleCheck('fraudDetection.blacklist')}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
                 >
-                  Add Device Fingerprint - ₦1,000
+                  Add Blacklist Check - ₦1,000
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Device Fingerprint</h3>
+                  <h3 className="text-lg font-medium text-gray-900">Blacklist Check</h3>
                   <button
-                    onClick={() => toggleCheck('fraudDetection.deviceFingerprint')}
+                    onClick={() => toggleCheck('fraudDetection.blacklist')}
                     className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded-full text-sm font-medium transition-colors"
                   >
                     Remove
                   </button>
                 </div>
-                {/* Device Information */}
+                {/* Blacklist Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Device Type</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Blacklist Status</label>
                     {isEditing ? (
                       <select
-                        value={details?.deviceType || ''}
-                        onChange={(e) => handleInputChange('details.fraudDetection.deviceType', e.target.value)}
+                        value={details?.blacklistStatus || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.blacklistStatus', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       >
-                        <option value="">Select device type</option>
-                        <option value="mobile">Mobile</option>
-                        <option value="desktop">Desktop</option>
-                        <option value="tablet">Tablet</option>
-                        <option value="laptop">Laptop</option>
-                        <option value="unknown">Unknown</option>
+                        <option value="">Select status</option>
+                        <option value="clean">Clean - Not Found</option>
+                        <option value="flagged">Flagged - Found in Database</option>
+                        <option value="suspicious">Suspicious Activity</option>
+                        <option value="fraudulent">Fraudulent Activity</option>
                       </select>
                     ) : (
-                      <p className="text-gray-900">{details?.deviceType || 'Not provided'}</p>
+                      <p className="text-gray-900">{details?.blacklistStatus || 'Not provided'}</p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Browser</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Risk Level</label>
                     {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.browser || ''}
-                        onChange={(e) => handleInputChange('details.fraudDetection.browser', e.target.value)}
+                      <select
+                        value={details?.riskLevel || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.riskLevel', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="Enter browser information"
-                      />
+                      >
+                        <option value="">Select risk level</option>
+                        <option value="low">Low Risk</option>
+                        <option value="medium">Medium Risk</option>
+                        <option value="high">High Risk</option>
+                        <option value="critical">Critical Risk</option>
+                      </select>
                     ) : (
-                      <p className="text-gray-900">{details?.browser || 'Not provided'}</p>
+                      <p className="text-gray-900">{details?.riskLevel || 'Not provided'}</p>
                     )}
                   </div>
                 </div>
 
-                {/* Device Fingerprint Details */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Operating System</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.operatingSystem || ''}
-                        onChange={(e) => handleInputChange('details.fraudDetection.operatingSystem', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="Enter OS information"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.operatingSystem || 'Not provided'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Screen Resolution</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.screenResolution || ''}
-                        onChange={(e) => handleInputChange('details.fraudDetection.screenResolution', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="e.g., 1920x1080"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.screenResolution || 'Not provided'}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">IP Address</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={details?.ipAddress || ''}
-                        onChange={(e) => handleInputChange('details.fraudDetection.ipAddress', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="Enter IP address"
-                      />
-                    ) : (
-                      <p className="text-gray-900">{details?.ipAddress || 'Not provided'}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Device Risk Assessment */}
+                {/* Blacklist Details */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Device Risk Score</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Database Sources</label>
                     {isEditing ? (
                       <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        value={details?.deviceRiskScore || ''}
-                        onChange={(e) => handleInputChange('details.fraudDetection.deviceRiskScore', e.target.value)}
+                        type="text"
+                        value={details?.databaseSources || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.databaseSources', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="Enter risk score (0-100)"
+                        placeholder="e.g., OFAC, PEP, Sanctions Lists"
                       />
                     ) : (
-                      <p className="text-gray-900">{details?.deviceRiskScore || 'Not provided'}</p>
+                      <p className="text-gray-900">{details?.databaseSources || 'Not provided'}</p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Device Trust Level</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Match Type</label>
                     {isEditing ? (
                       <select
-                        value={details?.deviceTrustLevel || ''}
-                        onChange={(e) => handleInputChange('details.fraudDetection.deviceTrustLevel', e.target.value)}
+                        value={details?.matchType || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.matchType', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       >
-                        <option value="">Select trust level</option>
-                        <option value="high">High Trust</option>
-                        <option value="medium">Medium Trust</option>
-                        <option value="low">Low Trust</option>
-                        <option value="suspicious">Suspicious</option>
+                        <option value="">Select match type</option>
+                        <option value="exact">Exact Match</option>
+                        <option value="partial">Partial Match</option>
+                        <option value="similar">Similar Match</option>
+                        <option value="no-match">No Match</option>
                       </select>
                     ) : (
-                      <p className="text-gray-900">{details?.deviceTrustLevel || 'Not provided'}</p>
+                      <p className="text-gray-900">{details?.matchType || 'Not provided'}</p>
                     )}
                   </div>
                 </div>
 
-                {/* Device Fingerprint Analysis */}
+                {/* Blacklist Analysis */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Device Fingerprint Analysis</label>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Blacklist Analysis</label>
+                    {isEditing ? (
+                      <textarea
+                        value={details?.blacklistAnalysis || ''}
+                        onChange={(e) => handleInputChange('details.fraudDetection.blacklistAnalysis', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        rows={4}
+                        placeholder="Detailed analysis of blacklist check results and findings"
+                      />
+                    ) : (
+                      <p className="text-gray-900">{details?.blacklistAnalysis || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Blacklist Summary */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Blacklist Summary</label>
                   {isEditing ? (
                     <textarea
-                      value={details?.deviceFingerprintAnalysis || ''}
-                      onChange={(e) => handleInputChange('details.fraudDetection.deviceFingerprintAnalysis', e.target.value)}
+                      value={details?.blacklistSummary || ''}
+                      onChange={(e) => handleInputChange('details.fraudDetection.blacklistSummary', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      rows={4}
-                      placeholder="Detailed analysis of device fingerprint, including any suspicious patterns or anomalies"
+                      rows={3}
+                      placeholder="Summary of blacklist verification results"
                     />
                   ) : (
-                    <p className="text-gray-900">{details?.deviceFingerprintAnalysis || 'Not provided'}</p>
+                    <p className="text-gray-900">{details?.blacklistSummary || 'Not provided'}</p>
                   )}
                 </div>
 
-                {/* Device Fingerprint Summary */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Device Fingerprint Summary</label>
-                  {isEditing ? (
-                    <textarea
-                      value={details?.deviceFingerprintSummary || ''}
-                      onChange={(e) => handleInputChange('details.fraudDetection.deviceFingerprintSummary', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      rows={4}
-                      placeholder="Comprehensive summary of device fingerprint analysis, risk assessment, and recommendations"
-                    />
-                  ) : (
-                    <p className="text-gray-900">{details?.deviceFingerprintSummary || 'Not provided'}</p>
-                  )}
-                </div>
 
-                {/* Device Fingerprint Documents Upload */}
+                {/* Blacklist Documents Upload */}
                 <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                   <div className="flex items-center space-x-2 mb-3">
                     <FileText className="h-5 w-5 text-gray-600" />
-                    <h4 className="text-sm font-medium text-gray-900">Device Fingerprint Documents</h4>
+                    <h4 className="text-sm font-medium text-gray-900">Blacklist Check Documents</h4>
                   </div>
                   <p className="text-sm text-gray-600 mb-4">
-                    Upload supporting documents for device fingerprint verification. Accepted formats: JPEG, PNG, PDF (max 10MB each).
+                    Upload supporting documents for blacklist verification. Accepted formats: JPEG, PNG, PDF (max 10MB each).
                   </p>
                   
                   <div className="space-y-4">
-                    {/* Device Fingerprint Report Upload */}
+                    {/* Blacklist Report Upload */}
                     <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700">Device Fingerprint Report</label>
+                      <label className="block text-sm font-medium text-gray-700">Blacklist Report</label>
                       {isEditing ? (
                         <div className="space-y-2">
                           <input
                             type="file"
                             accept=".pdf,.jpg,.jpeg,.png"
-                            onChange={(e) => handleFraudDocumentUpload(e, 'deviceFingerprintReport')}
+                            onChange={(e) => handleFraudDocumentUpload(e, 'blacklistReport')}
                             className="hidden"
-                            id="deviceFingerprintReport"
+                            id="blacklistReport"
                           />
                           <label
-                            htmlFor="deviceFingerprintReport"
+                            htmlFor="blacklistReport"
                             className="flex items-center justify-center w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors"
                           >
                             <Upload className="h-6 w-6 text-gray-400" />
-                            <span className="ml-2 text-sm text-gray-600">Upload Device Fingerprint Report</span>
+                            <span className="ml-2 text-sm text-gray-600">Upload Blacklist Report</span>
                           </label>
-                          {uploadedFraudDocuments.deviceFingerprintReport && (
+                          {uploadedFraudDocuments.blacklistReport && (
                             <div className="flex items-center justify-between p-2 bg-green-50 border border-green-200 rounded">
                               <div className="flex items-center space-x-2">
                                 <FileText className="h-5 w-5 text-green-600" />
-                                <span className="text-sm text-green-800">{uploadedFraudDocuments.deviceFingerprintReport.name}</span>
+                                <span className="text-sm text-green-800">{uploadedFraudDocuments.blacklistReport.name}</span>
                               </div>
                               <button
-                                onClick={() => removeFraudDocument('deviceFingerprintReport')}
+                                onClick={() => removeFraudDocument('blacklistReport')}
                                 className="text-red-600 hover:text-red-800"
                               >
                                 <X className="h-4 w-4" />
@@ -15510,7 +15462,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                           )}
                         </div>
                       ) : (
-                        <p className="text-gray-900">{uploadedFraudDocuments.deviceFingerprintReport?.name || 'No document uploaded'}</p>
+                        <p className="text-gray-900">{uploadedFraudDocuments.blacklistReport?.name || 'No document uploaded'}</p>
                       )}
                     </div>
 
@@ -15560,32 +15512,31 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   </div>
                 </div>
 
-                {/* Device Fingerprint Information Section */}
-                <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                {/* Blacklist Information Section */}
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                   <div className="flex items-start space-x-3">
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                        <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-sm font-medium text-indigo-900 mb-2">About Device Fingerprint</h4>
-                      <div className="text-sm text-indigo-800 space-y-2">
-                        <p><strong>What we analyze:</strong></p>
+                      <h4 className="text-sm font-medium text-red-900 mb-2">About Blacklist Check</h4>
+                      <div className="text-sm text-red-800 space-y-2">
+                        <p><strong>What we check:</strong></p>
                         <ul className="list-disc list-inside ml-2 space-y-1">
-                          <li>Device type, browser, and operating system</li>
-                          <li>Screen resolution and display characteristics</li>
-                          <li>IP address and network information</li>
-                          <li>Device risk scoring and trust assessment</li>
-                          <li>Device fingerprint uniqueness and consistency</li>
-                          <li>Suspicious device patterns and anomalies</li>
-                          <li>Device reputation and historical behavior</li>
+                          <li>OFAC (Office of Foreign Assets Control) sanctions lists</li>
+                          <li>PEP (Politically Exposed Persons) databases</li>
+                          <li>Global sanctions and watchlists</li>
+                          <li>Fraud and criminal databases</li>
+                          <li>Money laundering watchlists</li>
+                          <li>Regulatory enforcement lists</li>
                         </ul>
                         
-                        <div className="mt-3 p-2 bg-indigo-100 rounded text-xs">
-                          <strong>Note:</strong> Device fingerprint analysis helps detect suspicious devices, identify potential fraud patterns, and assess device trustworthiness. This check is valuable for fraud prevention and device-based risk assessment.
+                        <div className="mt-3 p-2 bg-red-100 rounded text-xs">
+                          <strong>Note:</strong> Blacklist checks help identify individuals or entities that may pose compliance or reputational risks. This check is essential for regulatory compliance and risk management.
                         </div>
                       </div>
                     </div>
