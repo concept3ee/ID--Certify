@@ -33,6 +33,7 @@ import Rewards from './Rewards'
 import Ratings from './Ratings'
 import HistoricalData from './HistoricalData'
 import BackgroundCheck from './BackgroundCheck'
+import Biobank from './Biobank'
 
 const OrganisationDashboard = () => {
   const { userType } = useSelector((state: RootState) => state.auth)
@@ -744,6 +745,13 @@ const OrganisationDashboard = () => {
 
             {/* Background Check Route */}
             <Route path="/background-check" element={<BackgroundCheck />} />
+
+            {/* Biobank Route */}
+            <Route path="/biobank" element={
+              <div className="p-4 sm:p-6">
+                <Biobank />
+              </div>
+            } />
 
             {/* Document Management Routes */}
             <Route path="/documents" element={
