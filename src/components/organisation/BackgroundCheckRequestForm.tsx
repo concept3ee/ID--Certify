@@ -15886,64 +15886,92 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         {/* Main Content */}
         <div className="flex-1 flex overflow-hidden">
           {/* Left Panel - Categories */}
-          <div className={`${isLeftPanelCollapsed ? 'w-0' : 'w-80'} bg-gray-50 border-r border-gray-200 overflow-y-auto transition-all duration-300 ease-in-out`}>
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900">Background Check Categories</h3>
+          <div className={`${isLeftPanelCollapsed ? 'w-16' : 'w-80'} bg-gray-50 border-r border-gray-200 overflow-y-auto transition-all duration-300 ease-in-out`}>
+            {isLeftPanelCollapsed ? (
+              /* Collapsed State - Show only selected category icon */
+              <div className="p-2 h-full flex flex-col items-center space-y-2">
                 <button
-                  onClick={() => setIsLeftPanelCollapsed(!isLeftPanelCollapsed)}
-                  className="p-1 hover:bg-gray-200 rounded-md transition-colors"
-                  title={isLeftPanelCollapsed ? "Expand categories" : "Collapse categories"}
+                  onClick={() => setIsLeftPanelCollapsed(false)}
+                  className="p-2 hover:bg-gray-200 rounded-md transition-colors mb-2"
+                  title="Expand categories"
                 >
-                  {isLeftPanelCollapsed ? (
-                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  ) : (
+                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                {/* Show selected category icon */}
+                {selectedCategory && (() => {
+                  const selectedCat = categories.find(c => c.key === selectedCategory)
+                  const Icon = selectedCat?.icon
+                  const result = request.results?.[selectedCategory as keyof typeof request.results]
+                  
+                  return (
+                    <div className="flex flex-col items-center space-y-1">
+                      <div className={`p-2 rounded-lg cursor-pointer transition-all ${
+                        'bg-white border-2 border-blue-500 shadow-sm'
+                      }`}>
+                        {Icon && <Icon className="h-6 w-6 text-blue-600" />}
+                      </div>
+                      {result && (
+                        <div className={`w-2 h-2 rounded-full ${getStatusColor(result).includes('green') ? 'bg-green-500' : getStatusColor(result).includes('red') ? 'bg-red-500' : 'bg-yellow-500'}`}></div>
+                      )}
+                    </div>
+                  )
+                })()}
+              </div>
+            ) : (
+              /* Expanded State - Show full categories list */
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Background Check Categories</h3>
+                  <button
+                    onClick={() => setIsLeftPanelCollapsed(true)}
+                    className="p-1 hover:bg-gray-200 rounded-md transition-colors"
+                    title="Collapse categories"
+                  >
                     <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
-                  )}
-                </button>
-              </div>
-              {!isLeftPanelCollapsed && (
+                  </button>
+                </div>
                 <div className="space-y-2">
                   {categories.map((category) => {
-                  const Icon = category.icon
-                  const result = request.results?.[category.key as keyof typeof request.results]
-                  const isSelected = selectedCategory === category.key
-                  const isCheckSelected = selectedChecks[category.key]?.selected || false
-                  
-                  return (
-                    <div
-                      key={category.key}
-                      className={`p-3 rounded-lg cursor-pointer transition-all ${
-                        isSelected 
-                          ? 'bg-white border-2 border-blue-500 shadow-sm' 
-                          : 'hover:bg-white hover:shadow-sm'
-                      }`}
-                      onClick={() => setSelectedCategory(category.key)}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <Icon className="h-5 w-5 text-gray-600" />
-                          <span className="text-sm font-medium text-gray-900">{category.name}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          {result && (
-                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(result)}`}>
-                              {result.toUpperCase().replace('-', ' ')}
-                            </span>
-                          )}
-                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                    const Icon = category.icon
+                    const result = request.results?.[category.key as keyof typeof request.results]
+                    const isSelected = selectedCategory === category.key
+                    const isCheckSelected = selectedChecks[category.key]?.selected || false
+                    
+                    return (
+                      <div
+                        key={category.key}
+                        className={`p-3 rounded-lg cursor-pointer transition-all ${
+                          isSelected 
+                            ? 'bg-white border-2 border-blue-500 shadow-sm' 
+                            : 'hover:bg-white hover:shadow-sm'
+                        }`}
+                        onClick={() => setSelectedCategory(category.key)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <Icon className="h-5 w-5 text-gray-600" />
+                            <span className="text-sm font-medium text-gray-900">{category.name}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            {result && (
+                              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${getStatusColor(result)}`}>
+                                {result.toUpperCase().replace('-', ' ')}
+                              </span>
+                            )}
+                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )
+                    )
                   })}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Center Panel - Details */}
@@ -15967,18 +15995,6 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
             </div>
           </div>
 
-          {/* Floating Toggle Button when Left Panel is Collapsed */}
-          {isLeftPanelCollapsed && (
-            <button
-              onClick={() => setIsLeftPanelCollapsed(false)}
-              className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-200"
-              title="Show categories"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          )}
 
           {/* Right Panel - Payment Section */}
           <div className={`bg-gray-50 border-l border-gray-200 overflow-y-auto transition-all duration-300 ${isPaymentPanelCollapsed ? 'w-12' : 'w-80'}`}>
