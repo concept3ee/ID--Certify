@@ -959,7 +959,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
     // Fraud Detection sub-checks
     'fraudDetection.identityFraud': { selected: false, price: 2000 },
     'fraudDetection.watchlistCheck': { selected: false, price: 1500 },
-    'fraudDetection.deviceFingerprint': { selected: false, price: 1000 }
+    'fraudDetection.blacklist': { selected: false, price: 1000 }
   })
 
   // Initialize with empty form or existing data
@@ -1623,7 +1623,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
       key: 'fraudDetection',
       name: 'Fraud & Anti-Fraud Detection',
       icon: CheckCircle,
-      subTabs: ['identityFraud', 'watchlistCheck', 'deviceFingerprint']
+      subTabs: ['identityFraud', 'watchlistCheck', 'blacklist']
     }
   ]
 
