@@ -691,16 +691,18 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               ]
             }
           },
-          deviceFingerprint: {
-            name: 'Device Fingerprint',
+          blacklist: {
+            name: 'Blacklist Check',
             data: {
-              status: 'Verified',
+              status: 'Clear',
               timeline: 'From Jun, 2019 to now',
-              device: {
-                type: 'Mobile',
-                os: 'iOS 17.2',
-                location: 'Lagos, Nigeria',
-                riskScore: 'Low'
+              blacklistInfo: {
+                status: 'Clean - Not Found',
+                riskLevel: 'Low Risk',
+                databaseSources: 'OFAC, PEP, Sanctions Lists',
+                matchType: 'No Match',
+                analysis: 'No matches found in any blacklist databases. Subject appears clean across all checked sources.',
+                summary: 'Comprehensive blacklist check completed with no adverse findings.'
               }
             }
           }
@@ -2982,7 +2984,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       )
     }
     
-    if (selectedSubTab === 'deviceFingerprint') {
+    if (selectedSubTab === 'blacklist') {
       return (
         <div className="space-y-6">
           <div className="flex items-center space-x-3">
@@ -2995,20 +2997,31 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <span className="text-sm font-medium text-gray-600">DEVICE TYPE:</span>
-              <p className="text-sm text-gray-900">{subTab.data.device.type}</p>
+              <span className="text-sm font-medium text-gray-600">BLACKLIST STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.blacklistInfo.status}</p>
             </div>
             <div>
-              <span className="text-sm font-medium text-gray-600">OPERATING SYSTEM:</span>
-              <p className="text-sm text-gray-900">{subTab.data.device.os}</p>
+              <span className="text-sm font-medium text-gray-600">RISK LEVEL:</span>
+              <p className="text-sm text-gray-900">{subTab.data.blacklistInfo.riskLevel}</p>
             </div>
             <div>
-              <span className="text-sm font-medium text-gray-600">LOCATION:</span>
-              <p className="text-sm text-gray-900">{subTab.data.device.location}</p>
+              <span className="text-sm font-medium text-gray-600">DATABASE SOURCES:</span>
+              <p className="text-sm text-gray-900">{subTab.data.blacklistInfo.databaseSources}</p>
             </div>
             <div>
-              <span className="text-sm font-medium text-gray-600">RISK SCORE:</span>
-              <p className="text-sm text-gray-900">{subTab.data.device.riskScore}</p>
+              <span className="text-sm font-medium text-gray-600">MATCH TYPE:</span>
+              <p className="text-sm text-gray-900">{subTab.data.blacklistInfo.matchType}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <span className="text-sm font-medium text-gray-600">ANALYSIS:</span>
+              <p className="text-sm text-gray-900 mt-1">{subTab.data.blacklistInfo.analysis}</p>
+            </div>
+            <div>
+              <span className="text-sm font-medium text-gray-600">SUMMARY:</span>
+              <p className="text-sm text-gray-900 mt-1">{subTab.data.blacklistInfo.summary}</p>
             </div>
           </div>
         </div>
@@ -4174,3 +4187,4 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
 }
 
 export default BackgroundCheckDetailsPage
+
