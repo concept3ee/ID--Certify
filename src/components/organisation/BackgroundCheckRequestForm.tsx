@@ -15888,7 +15888,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
           {/* Left Panel - Categories */}
           <div className={`${isLeftPanelCollapsed ? 'w-16' : 'w-80'} bg-gray-50 border-r border-gray-200 overflow-y-auto transition-all duration-300 ease-in-out`}>
             {isLeftPanelCollapsed ? (
-              /* Collapsed State - Show only selected category icon */
+              /* Collapsed State - Show all category icons */
               <div className="p-2 h-full flex flex-col items-center space-y-2">
                 <button
                   onClick={() => setIsLeftPanelCollapsed(false)}
@@ -15900,25 +15900,37 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   </svg>
                 </button>
                 
-                {/* Show selected category icon */}
-                {selectedCategory && (() => {
-                  const selectedCat = categories.find(c => c.key === selectedCategory)
-                  const Icon = selectedCat?.icon
-                  const result = request.results?.[selectedCategory as keyof typeof request.results]
-                  
-                  return (
-                    <div className="flex flex-col items-center space-y-1">
-                      <div className={`p-2 rounded-lg cursor-pointer transition-all ${
-                        'bg-white border-2 border-blue-500 shadow-sm'
-                      }`}>
-                        {Icon && <Icon className="h-6 w-6 text-blue-600" />}
+                {/* Show all category icons */}
+                <div className="space-y-2">
+                  {categories.map((category) => {
+                    const Icon = category.icon
+                    const result = request.results?.[category.key as keyof typeof request.results]
+                    const isSelected = selectedCategory === category.key
+                    
+                    return (
+                      <div key={category.key} className="flex flex-col items-center space-y-1">
+                        <div 
+                          className={`p-2 rounded-lg cursor-pointer transition-all ${
+                            isSelected 
+                              ? 'bg-white border-2 border-blue-500 shadow-sm' 
+                              : 'hover:bg-gray-100'
+                          }`}
+                          onClick={() => setSelectedCategory(category.key)}
+                          title={category.name}
+                        >
+                          {Icon && <Icon className={`h-5 w-5 ${isSelected ? 'text-blue-600' : 'text-gray-600'}`} />}
+                        </div>
+                        {result && (
+                          <div className={`w-2 h-2 rounded-full ${
+                            getStatusColor(result).includes('green') ? 'bg-green-500' : 
+                            getStatusColor(result).includes('red') ? 'bg-red-500' : 
+                            'bg-yellow-500'
+                          }`}></div>
+                        )}
                       </div>
-                      {result && (
-                        <div className={`w-2 h-2 rounded-full ${getStatusColor(result).includes('green') ? 'bg-green-500' : getStatusColor(result).includes('red') ? 'bg-red-500' : 'bg-yellow-500'}`}></div>
-                      )}
-                    </div>
-                  )
-                })()}
+                    )
+                  })}
+                </div>
               </div>
             ) : (
               /* Expanded State - Show full categories list */
