@@ -10,10 +10,6 @@ import {
   X,
   User
 } from 'lucide-react'
-import MobileTable from '../ui/MobileTable'
-import MobileModal from '../ui/MobileModal'
-import { generateCreditReportPDF } from '../../utils/pdfGenerator'
-import PDFTestButton from '../ui/PDFTestButton'
 
 interface BackgroundCheckDetailsPageProps {
   backgroundCheck: any
@@ -186,6 +182,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             name: 'Personal Details',
             data: {
               status: 'Verified',
+              timeline: 'From Jun, 2019 to now',
               details: {
                 firstCentralReferenceNumber: '1387342',
                 surname: 'Afamefuna',
@@ -333,6 +330,17 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   facilityClassification: 'Performing',
                   accountStatus: 'Closed'
                 }
+              ]
+            }
+          },
+          creditAgreements: {
+            name: 'Credit Agreements',
+            data: {
+              status: 'Active',
+              timeline: 'From Jun, 2019 to now',
+              agreements: [
+                { type: 'Credit Card', amount: '₦500,000', status: 'Active', date: '2023' },
+                { type: 'Personal Loan', amount: '₦1,000,000', status: 'Active', date: '2024' }
               ]
             }
           },
@@ -1110,25 +1118,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               <p className="text-sm text-gray-900">{subTab.data.state}</p>
             </div>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1143,25 +1132,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               <p className="text-sm text-gray-900">Yes</p>
             </div>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1174,25 +1144,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <div>
               <span className="text-sm font-medium text-gray-600">NIN MATCHED:</span>
               <p className="text-sm text-gray-900">Yes</p>
-            </div>
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
             </div>
           </div>
         </div>
@@ -1235,15 +1186,15 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   <div key={index} className="bg-red-50 border border-red-200 rounded-lg p-4">
                     <div className="grid grid-cols-3 gap-4">
                       <div>
-                      <span className="text-sm font-medium text-gray-600">VIOLATION:</span>
+                        <span className="text-sm font-medium text-gray-600">VIOLATION:</span>
                         <p className="text-sm text-gray-900">{violation.violation}</p>
                       </div>
                       <div>
-                      <span className="text-sm font-medium text-gray-600">VIOLATION DATE:</span>
+                        <span className="text-sm font-medium text-gray-600">VIOLATION DATE:</span>
                         <p className="text-sm text-gray-900">{violation.date}</p>
                       </div>
                       <div>
-                      <span className="text-sm font-medium text-gray-600">POINTS:</span>
+                        <span className="text-sm font-medium text-gray-600">POINTS:</span>
                         <p className="text-sm text-gray-900">{violation.points}</p>
                       </div>
                     </div>
@@ -1252,25 +1203,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             </div>
           )}
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1282,25 +1214,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <span className="text-sm font-medium text-gray-600">RESIDENCY:</span>
             <p className="text-sm text-gray-900">{subTab.data.residency}</p>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1311,25 +1224,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           <div>
             <span className="text-sm font-medium text-gray-600">NAME CHANGE:</span>
             <p className="text-sm text-gray-900">{subTab.data.nameChange}</p>
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -1347,25 +1241,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <div>
               <span className="text-sm font-medium text-gray-600">PHONE MATCH:</span>
               <p className="text-sm text-gray-900">Yes</p>
-            </div>
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
             </div>
           </div>
         </div>
@@ -1408,25 +1283,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1466,25 +1322,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -1536,25 +1373,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               ))}
             </div>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1595,25 +1413,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1635,25 +1434,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           <div>
             <span className="text-sm font-medium text-gray-600">LAST CHECKED:</span>
             <p className="text-sm text-gray-900">{subTab.data.lastChecked}</p>
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -1790,25 +1570,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             </div>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -1872,25 +1633,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -2045,25 +1787,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </table>
             </div>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2106,162 +1829,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               <span className="text-sm font-medium text-gray-600">RATING DATE</span>
               <p className="text-lg font-semibold text-orange-600 mt-2">{subTab.data.rating.ratingDate}</p>
               <p className="text-xs text-gray-500 mt-1">Last Updated</p>
-            </div>
-          </div>
-
-          {/* Risk Assessment */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-              <h4 className="text-lg font-semibold text-gray-900">Risk Assessment</h4>
-            </div>
-            <div className="p-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Risk Metrics */}
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <span className="text-sm font-medium text-gray-600">Probability of Default</span>
-                    <p className="text-2xl font-bold text-red-600 mt-2">{subTab.data.rating.riskAssessment.probabilityOfDefault}</p>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-sm font-medium text-gray-600">Expected Loss</span>
-                    <p className="text-2xl font-bold text-orange-600 mt-2">{subTab.data.rating.riskAssessment.expectedLoss}</p>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-sm font-medium text-gray-600">Risk Category</span>
-                    <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskAssessment.riskCategory}</p>
-                  </div>
-                  <div className="text-center">
-                    <span className="text-sm font-medium text-gray-600">Recommendation</span>
-                    <p className="text-lg font-semibold text-green-600 mt-2">{subTab.data.rating.riskAssessment.recommendation}</p>
-                  </div>
-                </div>
-
-                {/* Risk Distribution Pie Chart */}
-                <div className="flex flex-col items-center">
-                  <h5 className="text-lg font-semibold text-gray-900 mb-4">Risk Distribution</h5>
-                  <div className="relative w-48 h-48">
-                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                      {/* Background circle */}
-                      <circle cx="50" cy="50" r="40" fill="#f3f4f6" stroke="#e5e7eb" strokeWidth="2"/>
-                      
-                      {/* Low Risk - 70% */}
-                      <circle 
-                        cx="50" 
-                        cy="50" 
-                        r="40" 
-                        fill="none" 
-                        stroke="#10b981" 
-                        strokeWidth="8"
-                        strokeDasharray={`${2 * Math.PI * 40 * 0.7} ${2 * Math.PI * 40}`}
-                        strokeDashoffset="0"
-                      />
-                      
-                      {/* Medium Risk - 20% */}
-                      <circle 
-                        cx="50" 
-                        cy="50" 
-                        r="40" 
-                        fill="none" 
-                        stroke="#f59e0b" 
-                        strokeWidth="8"
-                        strokeDasharray={`${2 * Math.PI * 40 * 0.2} ${2 * Math.PI * 40}`}
-                        strokeDashoffset={`-${2 * Math.PI * 40 * 0.7}`}
-                      />
-                      
-                      {/* High Risk - 10% */}
-                      <circle 
-                        cx="50" 
-                        cy="50" 
-                        r="40" 
-                        fill="none" 
-                        stroke="#ef4444" 
-                        strokeWidth="8"
-                        strokeDasharray={`${2 * Math.PI * 40 * 0.1} ${2 * Math.PI * 40}`}
-                        strokeDashoffset={`-${2 * Math.PI * 40 * 0.9}`}
-                      />
-                      
-                      {/* Center text */}
-                      <text x="50" y="45" textAnchor="middle" className="text-sm font-bold fill-gray-900">Risk</text>
-                      <text x="50" y="58" textAnchor="middle" className="text-xs fill-gray-600">Profile</text>
-                    </svg>
-                  </div>
-                  
-                  {/* Legend */}
-                  <div className="mt-4 space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-gray-700">Low Risk (70%)</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                      <span className="text-sm text-gray-700">Medium Risk (20%)</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                      <span className="text-sm text-gray-700">High Risk (10%)</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Credit Score Trend Chart */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-              <h4 className="text-lg font-semibold text-gray-900">Credit Score Trend</h4>
-            </div>
-            <div className="p-6">
-              <div className="h-64 relative">
-                <svg className="w-full h-full" viewBox="0 0 400 200">
-                  {/* Grid lines */}
-                  <defs>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#f3f4f6" strokeWidth="1"/>
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#grid)" />
-                  
-                  {/* Y-axis labels */}
-                  <text x="10" y="20" className="text-xs fill-gray-500">850</text>
-                  <text x="10" y="60" className="text-xs fill-gray-500">750</text>
-                  <text x="10" y="100" className="text-xs fill-gray-500">650</text>
-                  <text x="10" y="140" className="text-xs fill-gray-500">550</text>
-                  <text x="10" y="180" className="text-xs fill-gray-500">450</text>
-                  
-                  {/* Credit score line chart */}
-                  <polyline
-                    fill="none"
-                    stroke="#3b82f6"
-                    strokeWidth="3"
-                    points="50,40 150,80 250,100 350,40"
-                  />
-                  
-                  {/* Data points */}
-                  <circle cx="50" cy="40" r="4" fill="#3b82f6" />
-                  <circle cx="150" cy="80" r="4" fill="#3b82f6" />
-                  <circle cx="250" cy="100" r="4" fill="#3b82f6" />
-                  <circle cx="350" cy="40" r="4" fill="#3b82f6" />
-                  
-                  {/* Data labels */}
-                  <text x="50" y="30" className="text-xs fill-gray-700" textAnchor="middle">720</text>
-                  <text x="150" y="70" className="text-xs fill-gray-700" textAnchor="middle">680</text>
-                  <text x="250" y="90" className="text-xs fill-gray-700" textAnchor="middle">650</text>
-                  <text x="350" y="30" className="text-xs fill-gray-700" textAnchor="middle">620</text>
-                  
-                  {/* Date labels */}
-                  <text x="50" y="195" className="text-xs fill-gray-500" textAnchor="middle">Dec 2024</text>
-                  <text x="150" y="195" className="text-xs fill-gray-500" textAnchor="middle">Sep 2024</text>
-                  <text x="250" y="195" className="text-xs fill-gray-500" textAnchor="middle">Jun 2024</text>
-                  <text x="350" y="195" className="text-xs fill-gray-500" textAnchor="middle">Mar 2024</text>
-                </svg>
-                
-                {/* Trend indicator */}
-                <div className="absolute top-4 right-4 flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-green-600">+100 points improvement</span>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -2315,96 +1882,79 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Rating Factors Visualization */}
+          {/* Rating Factors */}
           <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
             <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-              <h4 className="text-lg font-semibold text-gray-900">Rating Factors Analysis</h4>
+              <h4 className="text-lg font-semibold text-gray-900">Rating Factors</h4>
             </div>
-            <div className="p-6 space-y-6">
-              {/* Overall Score Visualization */}
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
-                <div className="flex items-center justify-between mb-4">
-                  <h5 className="text-lg font-semibold text-gray-900">Overall Credit Health</h5>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-blue-600">81/100</div>
-                    <div className="text-sm text-gray-600">Weighted Average</div>
-                  </div>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" style={{width: '81%'}}></div>
-                </div>
-              </div>
-
-              {/* Individual Factor Charts */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.entries(subTab.data.rating.ratingFactors).map(([factor, data]: [string, any]) => (
-                  <div key={factor} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-semibold text-gray-900 capitalize">
-                          {factor.replace(/([A-Z])/g, ' $1').trim()}
-                        </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          data.impact === 'Positive' ? 'bg-green-100 text-green-800' :
-                          data.impact === 'Negative' ? 'bg-red-100 text-red-800' :
-                          'bg-yellow-100 text-yellow-800'
-                        }`}>
-                          {data.impact}
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-gray-900">{data.score}/100</div>
-                        <div className="text-xs text-gray-500">{data.weight} Weight</div>
-                      </div>
+            <div className="p-6 space-y-4">
+              {Object.entries(subTab.data.rating.ratingFactors).map(([factor, data]: [string, any]) => (
+                <div key={factor} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-sm font-semibold text-gray-900 capitalize">
+                        {factor.replace(/([A-Z])/g, ' $1').trim()}
+                      </span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        data.impact === 'Positive' ? 'bg-green-100 text-green-800' :
+                        data.impact === 'Negative' ? 'bg-red-100 text-red-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {data.impact}
+                      </span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        data.weight === 'High' ? 'bg-blue-100 text-blue-800' :
+                        data.weight === 'Medium' ? 'bg-orange-100 text-orange-800' :
+                        'bg-gray-100 text-gray-800'
+                      }`}>
+                        {data.weight} Weight
+                      </span>
                     </div>
-                    
-                    {/* Progress Bar */}
-                    <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-32 bg-gray-200 rounded-full h-2">
                       <div 
                         className={`h-2 rounded-full ${
-                          data.impact === 'Positive' ? 'bg-gradient-to-r from-green-400 to-green-600' :
-                          data.impact === 'Negative' ? 'bg-gradient-to-r from-red-400 to-red-600' :
-                          'bg-gradient-to-r from-yellow-400 to-yellow-600'
+                          data.score >= 80 ? 'bg-green-500' :
+                          data.score >= 60 ? 'bg-yellow-500' :
+                          'bg-red-500'
                         }`}
-                        style={{width: `${data.score}%`}}
+                        style={{ width: `${data.score}%` }}
                       ></div>
                     </div>
-                    
-                    {/* Impact Indicator */}
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-500">Score</span>
-                      <div className="flex items-center space-x-1">
-                        {data.impact === 'Positive' && <span className="text-green-600">↗</span>}
-                        {data.impact === 'Negative' && <span className="text-red-600">↘</span>}
-                        {data.impact === 'Neutral' && <span className="text-yellow-600">→</span>}
-                        <span className="text-gray-600">{data.impact} Impact</span>
-                      </div>
-                    </div>
+                    <span className="text-sm font-semibold text-gray-900 w-12 text-right">{data.score}</span>
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Risk Assessment */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-900">Risk Assessment</h4>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Probability of Default</span>
+                  <p className="text-2xl font-bold text-red-600 mt-2">{subTab.data.rating.riskAssessment.probabilityOfDefault}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Expected Loss</span>
+                  <p className="text-2xl font-bold text-orange-600 mt-2">{subTab.data.rating.riskAssessment.expectedLoss}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Risk Category</span>
+                  <p className="text-lg font-semibold text-purple-600 mt-2">{subTab.data.rating.riskAssessment.riskCategory}</p>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-gray-600">Recommendation</span>
+                  <p className="text-lg font-semibold text-green-600 mt-2">{subTab.data.rating.riskAssessment.recommendation}</p>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
-
         </div>
       )
     }
@@ -2416,6 +1966,103 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
             <h3 className="text-lg font-bold text-orange-800">Credit Agreements Summary</h3>
             <p className="text-sm italic text-orange-700 mt-1">This section includes a Summarized payment behaviour of all credit agreements as reported by the Credit Providers</p>
+          </div>
+
+          {/* Non-Performing Notice */}
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-red-800">
+                  NON PERFORMING: Loans/Facility that is more than 90 days in arrears
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
+            </div>
+          </div>
+          
+          {/* Credit Agreements Summary Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="overflow-x-auto max-h-96 overflow-y-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50 sticky top-0 z-10">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[200px]">Subscriber Name</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[180px]">Account Number</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[80px]">Currency</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[120px]">Availed Limit</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[140px]">Outstanding Balance</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[130px]">Instalment Amount</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[120px]">Arrear Amount</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 border-r border-gray-200 min-w-[150px]">Facility Classification</th>
+                    <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 min-w-[120px]">Account Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {subTab.data.agreements.map((agreement: any, index: number) => (
+                    <tr 
+                      key={index} 
+                      className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 cursor-pointer transition-colors duration-150`}
+                      onClick={() => {
+                        setSelectedAgreement(agreement)
+                        setShowAgreementModal(true)
+                      }}
+                    >
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                        <div className="max-w-xs">
+                          <p className="font-medium">{agreement.subscriberName}</p>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 font-mono">
+                        {agreement.accountNumber}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-center border-r border-gray-200">
+                        {agreement.currency}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.availedLimit}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.outstandingBalance}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.instalmentAmount}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-900 text-right border-r border-gray-200">
+                        {agreement.arrearAmount}
+                      </td>
+                      <td className="px-4 py-3 text-center border-r border-gray-200">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          agreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
+                          agreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {agreement.facilityClassification}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          agreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
+                          agreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {agreement.accountStatus}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Summary Statistics */}
@@ -2443,21 +2090,13 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </p>
             </div>
           </div>
-
-          {/* Non-Performing Notice */}
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-red-800">
-                  NON PERFORMING: Loans/Facility that is more than 90 days in arrears
-                </p>
-              </div>
-            </div>
-          </div>
-
+        </div>
+      )
+    }
+    
+    if (selectedSubTab === 'creditAgreements') {
+      return (
+        <div className="space-y-6">
           <div className="flex items-center space-x-3">
             <CheckCircle className="h-6 w-6 text-green-600" />
             <div>
@@ -2466,129 +2105,34 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
           
-          {/* Credit Agreements Summary Table - Mobile Optimized */}
-          <MobileTable
-            data={subTab.data.agreements}
-            columns={[
-              {
-                key: 'subscriberName',
-                label: 'Subscriber Name',
-                width: 'min-w-[200px]',
-                render: (value) => (
-                  <div className="max-w-xs">
-                    <p className="font-medium">{value}</p>
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-gray-900">Credit Agreements</h4>
+            {subTab.data.agreements.map((agreement: any, index: number) => (
+              <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">TYPE:</span>
+                    <p className="text-sm text-gray-900">{agreement.type}</p>
                   </div>
-                )
-              },
-              {
-                key: 'accountNumber',
-                label: 'Account Number',
-                width: 'min-w-[180px]',
-                render: (value) => (
-                  <span className="font-mono text-sm">{value}</span>
-                )
-              },
-              {
-                key: 'currency',
-                label: 'Currency',
-                width: 'min-w-[80px]',
-                render: (value) => (
-                  <span className="text-center font-semibold">{value}</span>
-                )
-              },
-              {
-                key: 'availedLimit',
-                label: 'Availed Limit',
-                width: 'min-w-[120px]',
-                render: (value) => (
-                  <span className="text-right font-mono">{value}</span>
-                )
-              },
-              {
-                key: 'outstandingBalance',
-                label: 'Outstanding Balance',
-                width: 'min-w-[140px]',
-                render: (value) => (
-                  <span className="text-right font-mono">{value}</span>
-                )
-              },
-              {
-                key: 'instalmentAmount',
-                label: 'Instalment Amount',
-                width: 'min-w-[130px]',
-                render: (value) => (
-                  <span className="text-right font-mono">{value}</span>
-                )
-              },
-              {
-                key: 'arrearAmount',
-                label: 'Arrear Amount',
-                width: 'min-w-[120px]',
-                render: (value) => (
-                  <span className="text-right font-mono">{value}</span>
-                )
-              },
-              {
-                key: 'facilityClassification',
-                label: 'Facility Classification',
-                width: 'min-w-[150px]',
-                render: (value) => (
-                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                    value === 'Performing' ? 'bg-green-100 text-green-800' :
-                    value === 'Non-Performing' ? 'bg-red-100 text-red-800' :
-                    'bg-yellow-100 text-yellow-800'
-                  }`}>
-                    {value}
-                  </span>
-                )
-              },
-              {
-                key: 'accountStatus',
-                label: 'Account Status',
-                width: 'min-w-[120px]',
-                render: (value) => (
-                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                    value === 'Open' ? 'bg-blue-100 text-blue-800' :
-                    value === 'Closed' ? 'bg-gray-100 text-gray-800' :
-                    'bg-yellow-100 text-yellow-800'
-                  }`}>
-                    {value}
-                  </span>
-                )
-              }
-            ]}
-            onRowClick={(agreement) => {
-              setSelectedAgreement(agreement)
-              setShowAgreementModal(true)
-            }}
-            maxHeight="max-h-96"
-            showCardView={true}
-            cardViewBreakpoint="md"
-          />
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">AMOUNT:</span>
+                    <p className="text-sm text-gray-900">{agreement.amount}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">STATUS:</span>
+                    <p className="text-sm text-gray-900">{agreement.status}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">DATE:</span>
+                    <p className="text-sm text-gray-900">{agreement.date}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-
         </div>
       )
     }
-    
     
     if (selectedSubTab === 'guarantorDetails') {
       return (
@@ -2688,25 +2232,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             </div>
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -2720,23 +2245,11 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This sections includes collateral details as reported by the Credit Providers.</p>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL COLLATERALS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.collaterals.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">ACTIVE COLLATERALS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Active').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">RELEASED COLLATERALS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Released').length}
-              </p>
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2785,25 +2298,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.collaterals.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">ACTIVE COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Active').length}
               </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">RELEASED COLLATERALS:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.collaterals.filter((c: any) => c.loanSecurityStatus === 'Released').length}
               </p>
             </div>
           </div>
-
         </div>
       )
     }
@@ -2817,24 +2330,11 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes the consumer's bounced cheques information.</p>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL DISHONOURED CHEQUES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.cheques.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL AMOUNT:</span>
-              <p className="text-lg font-semibold text-red-600">
-                ₦{subTab.data.cheques.reduce((total: number, cheque: any) => {
-                  const amount = parseFloat(cheque.amount.replace(/[₦,]/g, ''));
-                  return total + amount;
-                }, 0).toLocaleString('en-NG', { minimumFractionDigits: 2 })}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -2874,25 +2374,26 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL DISHONOURED CHEQUES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.cheques.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL AMOUNT:</span>
+              <p className="text-lg font-semibold text-red-600">
+                ₦{subTab.data.cheques.reduce((total: number, cheque: any) => {
+                  const amount = parseFloat(cheque.amount.replace(/[₦,]/g, ''));
+                  return total + amount;
+                }, 0).toLocaleString('en-NG', { minimumFractionDigits: 2 })}
               </p>
             </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
           </div>
-
         </div>
       )
     }
@@ -2904,26 +2405,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           <div className="bg-orange-50 border-l-4 border-orange-500 p-4">
             <h3 className="text-lg font-bold text-orange-800">Company Directorship Summary</h3>
             <p className="text-sm italic text-orange-700 mt-1">This section includes a summary of directorships held information.</p>
-          </div>
-
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">ACTIVE DIRECTORSHIPS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.directorships.filter((d: any) => d.status === 'Active').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">RESIGNED DIRECTORSHIPS:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.directorships.filter((d: any) => d.status === 'Resigned').length}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL COMPANIES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.directorships.length}</p>
-            </div>
           </div>
 
           <div className="flex items-center space-x-3">
@@ -3000,25 +2481,25 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">ACTIVE DIRECTORShips:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.directorships.filter((d: any) => d.status === 'Active').length}
               </p>
             </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">RESIGNED DIRECTORShips:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.directorships.filter((d: any) => d.status === 'Resigned').length}
+              </p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL COMPANIES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.directorships.length}</p>
+            </div>
           </div>
-
         </div>
       )
     }
@@ -3032,21 +2513,11 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of organisations or credit providers who have requested a Credit Report of this consumer.</p>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL ENQUIRIES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.enquiries.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST ENQUIRY:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.enquiries[0]?.enquiryDate.split(' ')[0] || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -3088,25 +2559,23 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL ENQUIRIES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.enquiries.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST ENQUIRY:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.enquiries[0]?.enquiryDate.split(' ')[0] || 'N/A'}
               </p>
             </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
           </div>
-
         </div>
       )
     }
@@ -3120,21 +2589,11 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Identification means presented on the Credit/Loan applications.</p>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL IDENTIFICATIONS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.identifications.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.identifications[0]?.bureauUpdateDate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -3172,25 +2631,23 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL IDENTIFICATIONS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.identifications.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.identifications[0]?.bureauUpdateDate || 'N/A'}
               </p>
             </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
           </div>
-
         </div>
       )
     }
@@ -3204,21 +2661,11 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Address Information presented on the Credit/Loan applications.</p>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL ADDRESSES:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.addresses.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.addresses[0]?.bureauUpdate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -3272,25 +2719,23 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL ADDRESSES:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.addresses.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.addresses[0]?.bureauUpdate || 'N/A'}
               </p>
             </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
           </div>
-
         </div>
       )
     }
@@ -3304,21 +2749,11 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Employment Information presented on the Credit/Loan applications.</p>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL EMPLOYMENTS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.employments.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.employments[0]?.bureauUpdateDate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -3356,25 +2791,23 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL EMPLOYMENTS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.employments.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.employments[0]?.bureauUpdateDate || 'N/A'}
               </p>
             </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
           </div>
-
         </div>
       )
     }
@@ -3388,21 +2821,11 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <p className="text-sm italic text-orange-700 mt-1">This section includes a list of all Contact Information presented on the Credit/Loan applications.</p>
           </div>
 
-          {/* Summary Statistics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">TOTAL RECORDS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.telephones.length}</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
-              <p className="text-lg font-semibold text-gray-900">
-                {subTab.data.telephones[0]?.mobileNumber?.bureauUpdateDate || 'N/A'}
-              </p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
               <span className="text-sm font-medium text-gray-600">STATUS:</span>
-              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+              <p className="text-sm text-gray-900">{subTab.data.status}</p>
             </div>
           </div>
           
@@ -3473,25 +2896,23 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             </div>
           </div>
 
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
+          {/* Summary Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">TOTAL RECORDS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.telephones.length}</p>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">LATEST UPDATE:</span>
+              <p className="text-lg font-semibold text-gray-900">
+                {subTab.data.telephones[0]?.mobileNumber?.bureauUpdateDate || 'N/A'}
               </p>
             </div>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <span className="text-sm font-medium text-gray-600">STATUS:</span>
+              <p className="text-lg font-semibold text-gray-900">{subTab.data.status}</p>
+            </div>
           </div>
-
         </div>
       )
     }
@@ -3527,25 +2948,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -3575,25 +2977,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -3626,25 +3009,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <div>
               <span className="text-sm font-medium text-gray-600">RISK SCORE:</span>
               <p className="text-sm text-gray-900">{subTab.data.device.riskScore}</p>
-            </div>
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
             </div>
           </div>
         </div>
@@ -3702,25 +3066,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -3756,25 +3101,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -3815,25 +3141,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -3899,25 +3206,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -3971,25 +3259,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -4025,25 +3294,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -4095,25 +3345,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -4152,32 +3383,13 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   </div>
                   {result.explanation && (
                     <div className="col-span-2">
-                    <span className="text-sm font-medium text-gray-600">EXPLANATION:</span>
+                      <span className="text-sm font-medium text-gray-600">EXPLANATION:</span>
                       <p className="text-sm text-gray-900">{result.explanation}</p>
                     </div>
                   )}
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -4214,25 +3426,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">RESTRICTIONS:</span>
               <p className="text-lg font-semibold text-gray-900">{subTab.data.assessment.restrictions}</p>
-            </div>
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
             </div>
           </div>
         </div>
@@ -4295,25 +3488,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -4349,25 +3523,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
             <div className="bg-gray-50 p-4 rounded-lg">
               <span className="text-sm font-medium text-gray-600">SENTIMENT:</span>
               <p className="text-lg font-semibold text-gray-900">{subTab.data.analysis.overallSentiment}</p>
-            </div>
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
             </div>
           </div>
         </div>
@@ -4406,25 +3561,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -4485,25 +3621,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -4543,25 +3660,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
           </div>
         </div>
       )
@@ -4617,25 +3715,6 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Disclaimer Section */}
-          <div className="mt-6 p-4 bg-gray-50 border-t border-gray-200">
-            <h4 className="text-xs font-bold text-gray-800 mb-2">DISCLAIMER:</h4>
-            <div className="text-xs text-gray-500 leading-tight space-y-1">
-              <p>
-                The records contained in this report are compiled from various databases that may only be updated infrequently, and therefore, may not have the most current information. This report is not intended to serve as a recommendation on whether to hire the candidate investigated.
-              </p>
-              <p>
-                This report is submitted in strict confidence and except where required by law, no information provided in our reports may be revealed directly or indirectly to any person except to those whose official duties require them to have access to this report, in relation to which the report was requested by the client.
-              </p>
-              <p>
-                IDCertify neither warrants, vouches for, or authenticates the accuracy or reliability of the information contained herein, as they are given as found at the relevant data sources as of the date and time of this report, (whether on a computer information system, retrieved by manual search, or telephonic interviews). The information provided herein shall not be construed to constitute a legal opinion; rather it is a compilation of public records and/or data for your review.
-              </p>
-              <p>
-                IDCertify shall not be liable for any losses or injuries now or in the future resulting from or relating to the information provided herein. The recommended searches provided on our website should not serve as legal advice for your background investigation. You should always seek legal advice from your attorney. The recommended searches are provided to assist in your decision-making process.
-              </p>
-            </div>
-          </div>
         </div>
       )
     }
@@ -4682,6 +3761,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
       <div className="space-y-8">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-bold text-gray-900 tracking-tight">{(subTab as any).name}</h3>
+          <span className="text-sm text-gray-500 font-medium">{(subTab as any).data.timeline}</span>
         </div>
 
         {/* Personal & Identity Information */}
@@ -4717,98 +3797,58 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
   const [isScrolledToTop, setIsScrolledToTop] = useState(true)
   const [selectedAgreement, setSelectedAgreement] = useState<any>(null)
   const [showAgreementModal, setShowAgreementModal] = useState(false)
-  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const scrollTop = e.currentTarget.scrollTop
     setIsScrolledToTop(scrollTop <= 10)
   }
 
-  const handleDownloadCreditReport = async () => {
-    if (isGeneratingPDF) return // Prevent multiple simultaneous generations
-    
-    setIsGeneratingPDF(true)
-    try {
-      const pdf = await generateCreditReportPDF(backgroundCheckData)
-      const filename = `Credit_Profile_Report_${backgroundCheckData.id}_${new Date().toISOString().split('T')[0]}.pdf`
-      pdf.save(filename)
-      
-      // Show success message
-      console.log('PDF generated successfully:', filename)
-    } catch (error) {
-      console.error('Error generating PDF:', error)
-      alert('Error generating PDF. Please try again. If the problem persists, please contact support.')
-    } finally {
-      setIsGeneratingPDF(false)
-    }
-  }
-
   return (
     <div className="fixed inset-0 bg-white z-[9999] flex flex-col">
-      {/* Mobile Header */}
-      <div className="flex-shrink-0 bg-white border-b border-gray-200 px-4 sm:px-8 py-3 sm:py-4">
+      {/* Static Header */}
+      <div className="flex-shrink-0 bg-white border-b border-gray-200 px-8 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center space-x-3">
             <button
               onClick={onClose}
-              className="flex items-center space-x-1 sm:space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 touch-manipulation"
-              style={{ minWidth: '44px', minHeight: '44px' }}
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200"
             >
-              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="text-xs sm:text-sm font-medium hidden sm:inline">Background Check Report</span>
-              <span className="text-xs sm:text-sm font-medium sm:hidden">Report</span>
+              <ArrowLeft className="h-5 w-5" />
+              <span className="text-sm font-medium">Background Check Report</span>
             </button>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-2 touch-manipulation"
-            style={{ minWidth: '44px', minHeight: '44px' }}
+            className="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
       </div>
 
-      {/* Mobile Report Header */}
-      <div className="flex-shrink-0 bg-red-600 text-white px-4 sm:px-8 py-3">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-          <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-6">
-            <h1 className="text-lg sm:text-xl font-bold tracking-tight">Background Check Report</h1>
+      {/* Static Report Header */}
+      <div className="flex-shrink-0 bg-red-600 text-white px-8 py-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-6">
+            <h1 className="text-xl font-bold tracking-tight">Background Check Report</h1>
             <div className="flex items-center space-x-2">
               <div className="text-xs opacity-90 font-medium">IDCERTIFY NO</div>
               <div className="text-sm font-bold">{backgroundCheckData.id}</div>
             </div>
           </div>
-          <button 
-            onClick={handleDownloadCreditReport}
-            disabled={isGeneratingPDF}
-            className={`px-3 py-2 rounded-md font-semibold flex items-center justify-center space-x-2 transition-colors duration-200 shadow-sm text-xs touch-manipulation self-start sm:self-auto ${
-              isGeneratingPDF 
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                : 'bg-white text-red-600 hover:bg-gray-50'
-            }`}
-            style={{ minWidth: '44px', minHeight: '44px' }}>
-            {isGeneratingPDF ? (
-              <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-gray-600"></div>
-            ) : (
-              <Download className="h-4 w-4" />
-            )}
-            <span className="hidden sm:inline">
-              {isGeneratingPDF ? 'Generating...' : 'Download Report'}
-            </span>
-            <span className="sm:hidden">
-              {isGeneratingPDF ? '...' : 'Download'}
-            </span>
+          <button className="bg-white text-red-600 px-3 py-1.5 rounded-md font-semibold flex items-center space-x-2 hover:bg-gray-50 transition-colors duration-200 shadow-sm text-xs">
+            <Download className="h-3 w-3" />
+            <span>Download Report</span>
           </button>
         </div>
       </div>
 
-      {/* Mobile Candidate Summary */}
-      <div className="flex-shrink-0 bg-white px-4 sm:px-8 py-3 border-b border-gray-200">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
-          {/* Profile & Basic Info */}
-          <div className="flex items-center space-x-3 sm:space-x-4">
-            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-2 border-gray-200 overflow-hidden flex-shrink-0">
+      {/* Static Candidate Summary */}
+      <div className="flex-shrink-0 bg-white px-8 py-3 border-b border-gray-200">
+        <div className="flex items-center justify-between">
+          {/* Left: Profile & Basic Info */}
+          <div className="flex items-center space-x-4">
+            <div className="w-24 h-24 rounded-full border-2 border-gray-200 overflow-hidden">
               <img
                 src={backgroundCheckData.candidate.profileImage || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&h=150&q=80'}
                 alt={backgroundCheckData.candidate.name}
@@ -4819,87 +3859,57 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   target.style.display = 'none';
                   const parent = target.parentElement;
                   if (parent) {
-                    parent.innerHTML = '<div class="w-full h-full bg-gray-100 flex items-center justify-center"><svg class="h-8 w-8 sm:h-12 sm:w-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>';
+                    parent.innerHTML = '<div class="w-full h-full bg-gray-100 flex items-center justify-center"><svg class="h-12 w-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>';
                   }
                 }}
               />
             </div>
-            <div className="flex flex-col min-w-0 flex-1">
-              <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 truncate">{backgroundCheckData.candidate.name}</h2>
-                <div className="flex items-center space-x-2">
-                  <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
-                    {backgroundCheckData.candidate.score}
-                  </div>
-                  <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold inline-flex items-center space-x-1">
-                    <CheckCircle className="h-3 w-3" />
-                    <span>Completed</span>
-                  </div>
+            <div>
+              <div className="flex items-center space-x-3">
+                <h2 className="text-lg font-bold text-gray-900">{backgroundCheckData.candidate.name}</h2>
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                  {backgroundCheckData.candidate.score}
+                </div>
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold inline-flex items-center space-x-1">
+                  <CheckCircle className="h-3 w-3" />
+                  <span>Completed</span>
                 </div>
               </div>
-              <p className="text-gray-600 text-xs sm:text-sm mt-1 truncate">{backgroundCheckData.candidate.email}</p>
+              <p className="text-gray-600 text-sm mt-0.5">{backgroundCheckData.candidate.email}</p>
             </div>
           </div>
 
-          {/* Status Details - Mobile Stacked */}
-          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-6">
+          {/* Right: Status Details */}
+          <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-2">
-              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0" />
+              <CheckCircle className="h-4 w-4 text-green-600" />
               <div>
                 <div className="text-xs text-gray-500 uppercase tracking-wide">COMPLETION</div>
-                <div className="text-xs sm:text-sm font-semibold text-gray-900">{backgroundCheckData.completionDate}</div>
+                <div className="text-sm font-semibold text-gray-900">{backgroundCheckData.completionDate}</div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600 flex-shrink-0" />
+              <CheckCircle className="h-4 w-4 text-green-600" />
               <div>
                 <div className="text-xs text-gray-500 uppercase tracking-wide">IDENTITY</div>
-                <div className="text-xs sm:text-sm font-semibold text-gray-900">Verified</div>
+                <div className="text-sm font-semibold text-gray-900">Verified</div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></div>
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
               <div>
                 <div className="text-xs text-gray-500 uppercase tracking-wide">FLAGGED</div>
-                <div className="text-xs sm:text-sm font-semibold text-gray-900">{backgroundCheckData.flaggedIssues} Issues</div>
+                <div className="text-sm font-semibold text-gray-900">{backgroundCheckData.flaggedIssues} Issues</div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Mobile Category Navigation - Chrome Style */}
-      <div className="lg:hidden flex-shrink-0 bg-gray-50 border-b border-gray-200 px-4 py-3">
-        <div className="bg-gray-100 rounded-lg p-1 flex flex-wrap gap-0.5">
-          {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
-            <button
-              key={key}
-              onClick={() => {
-                setSelectedCategory(key)
-                if (category.subTabs) {
-                  setSelectedSubTab(Object.keys(category.subTabs)[0])
-                }
-              }}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-150 whitespace-nowrap relative ${
-                selectedCategory === key
-                  ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-              }`}
-              style={{ minHeight: '44px' }}
-            >
-              {category.name}
-              {selectedCategory === key && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full"></div>
-              )}
-            </button>
-          ))}
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 flex w-full max-w-full overflow-hidden">
-        {/* Desktop Left Panel - Categories */}
-        <div className="hidden lg:block w-1/5 bg-gray-50 border-r border-gray-200 p-4 flex-shrink-0">
+        {/* Static Left Panel - Categories */}
+        <div className="w-1/4 bg-gray-50 border-r border-gray-200 p-4 flex-shrink-0">
           <h3 className="text-lg font-bold text-gray-900 mb-4">Background Check Categories</h3>
           <div className="space-y-3">
             {Object.entries(backgroundCheckData.categories).map(([key, category]: [string, any]) => (
@@ -4907,6 +3917,7 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                 key={key}
                 onClick={() => {
                   setSelectedCategory(key)
+                  // Set first sub-tab as default when switching categories
                   if (category.subTabs) {
                     setSelectedSubTab(Object.keys(category.subTabs)[0])
                   }
@@ -4926,14 +3937,14 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
           </div>
         </div>
 
-        {/* Mobile/Desktop Content Panel */}
-        <div className="flex-1 bg-white p-4 sm:p-6 min-w-0 overflow-y-auto" onScroll={handleScroll}>
+        {/* Scrollable Right Panel - Details */}
+        <div className="flex-1 bg-white p-6 min-w-0 overflow-y-auto" onScroll={handleScroll}>
           {selectedCategory && backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories]?.subTabs && (
             <>
-              {/* Mobile Category Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 space-y-3 sm:space-y-0">
-                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">
+              {/* Category Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-4">
+                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">
                     {backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].name}
                   </h3>
                   <span className={getStatusBadge(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].status)}>
@@ -4941,50 +3952,36 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
                   </span>
                 </div>
                 {selectedCategory === 'financialCredit' && (
-                  <button 
-                    onClick={handleDownloadCreditReport}
-                    disabled={isGeneratingPDF}
-                    className={`px-3 py-2 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-colors duration-200 shadow-sm text-xs sm:text-sm touch-manipulation self-start sm:self-auto ${
-                      isGeneratingPDF 
-                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
-                        : 'bg-red-600 text-white hover:bg-red-700'
-                    }`}
-                    style={{ minWidth: '44px', minHeight: '44px' }}>
-                    {isGeneratingPDF ? (
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-200 border-t-white"></div>
-                    ) : (
-                      <Download className="h-4 w-4" />
-                    )}
-                    <span className="hidden sm:inline">
-                      {isGeneratingPDF ? 'Generating PDF...' : 'Download Credit Report'}
-                    </span>
-                    <span className="sm:hidden">
-                      {isGeneratingPDF ? '...' : 'Download'}
-                    </span>
+                  <button className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold flex items-center space-x-2 hover:bg-red-700 transition-colors duration-200 shadow-sm text-sm">
+                    <Download className="h-4 w-4" />
+                    <span>Download Credit Report</span>
                   </button>
                 )}
               </div>
 
-              {/* Sub-tabs Navigation - Chrome Style */}
-              <div className="mb-4 sm:mb-6 w-full">
-                <div className="bg-gray-100 rounded-lg p-1 flex flex-wrap gap-0.5">
-                  {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
-                    <button
-                      key={key}
-                      onClick={() => setSelectedSubTab(key)}
-                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-150 whitespace-nowrap relative ${
-                        selectedSubTab === key
-                          ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                          : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-                      }`}
-                      style={{ minHeight: '36px' }}
-                    >
-                      {subTab.name}
-                      {selectedSubTab === key && (
-                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full"></div>
-                      )}
-                    </button>
-                  ))}
+              {/* Sub-tabs */}
+              <div className="border-b border-gray-200 mb-6 w-full">
+                <style>{`
+                  .nav-scroll::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
+                <div className="w-full overflow-hidden">
+                  <nav className="-mb-px flex space-x-4 overflow-x-auto nav-scroll pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    {Object.entries(backgroundCheckData.categories[selectedCategory as keyof typeof backgroundCheckData.categories].subTabs).map(([key, subTab]: [string, any]) => (
+                      <button
+                        key={key}
+                        onClick={() => setSelectedSubTab(key)}
+                        className={`py-2 px-2 border-b-2 font-semibold text-sm transition-colors duration-200 whitespace-nowrap flex-shrink-0 min-w-fit ${
+                          selectedSubTab === key
+                            ? 'border-red-500 text-red-600'
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        }`}
+                      >
+                        {subTab.name}
+                      </button>
+                    ))}
+                  </nav>
                 </div>
               </div>
 
@@ -4998,151 +3995,180 @@ const BackgroundCheckDetailsPage: React.FC<BackgroundCheckDetailsPageProps> = ({
         </div>
       </div>
 
-      {/* Credit Agreement Details Modal - Mobile Optimized */}
+      {/* Credit Agreement Details Modal */}
       {showAgreementModal && selectedAgreement && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900">
-                Credit Agreement: {selectedAgreement.subscriberName}
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-xl font-bold text-gray-900">
+                Details of Credit Agreement with "{selectedAgreement.subscriberName}" for Account Number: {selectedAgreement.accountNumber}
               </h2>
               <button
                 onClick={() => setShowAgreementModal(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-gray-400 hover:text-gray-600 transition-colors"
               >
-                <X className="h-6 w-6" />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             </div>
+
+            {/* Modal Content */}
             <div className="p-6 space-y-6">
               {/* Account Information */}
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Account Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Account Number:</span>
-                    <p className="text-sm text-gray-900 font-mono">{selectedAgreement.accountNumber}</p>
+              <div>
+                <h3 className="text-lg font-bold text-orange-600 mb-4">Account Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Left Column */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Subscriber Name:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.subscriberName}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Effective Date:</span>
+                      <span className="text-sm text-gray-900">20/06/2019</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Type of Credit Facility:</span>
+                      <span className="text-sm text-gray-900">Personal fixed term loan</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Credit / Debit:</span>
+                      <span className="text-sm text-gray-900">-</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Current Balance:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.outstandingBalance}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Arrear Amount:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.arrearAmount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Facility Classification:</span>
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        selectedAgreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
+                        selectedAgreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {selectedAgreement.facilityClassification}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Account Status:</span>
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        selectedAgreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
+                        selectedAgreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {selectedAgreement.accountStatus}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Repayment Frequency:</span>
+                      <span className="text-sm text-gray-900">Mo</span>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Currency:</span>
-                    <p className="text-sm text-gray-900">{selectedAgreement.currency}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Availed Limit:</span>
-                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.availedLimit}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Outstanding Balance:</span>
-                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.outstandingBalance}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Instalment Amount:</span>
-                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.instalmentAmount}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Arrear Amount:</span>
-                    <p className="text-sm text-gray-900">{selectedAgreement.currency} {selectedAgreement.arrearAmount}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Facility Classification:</span>
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      selectedAgreement.facilityClassification === 'Performing' ? 'bg-green-100 text-green-800' :
-                      selectedAgreement.facilityClassification === 'Non-Performing' ? 'bg-red-100 text-red-800' :
-                      'bg-yellow-100 text-yellow-800'
-                    }`}>
-                      {selectedAgreement.facilityClassification}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Account Status:</span>
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      selectedAgreement.accountStatus === 'Open' ? 'bg-blue-100 text-blue-800' :
-                      selectedAgreement.accountStatus === 'Closed' ? 'bg-gray-100 text-gray-800' :
-                      'bg-yellow-100 text-yellow-800'
-                    }`}>
-                      {selectedAgreement.accountStatus}
-                    </span>
+
+                  {/* Right Column */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Account Number:</span>
+                      <span className="text-sm text-gray-900 font-mono">{selectedAgreement.accountNumber}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Bureau Updated Date:</span>
+                      <span className="text-sm text-gray-900">15/10/2024</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Currency:</span>
+                      <span className="text-sm text-gray-900 font-semibold">{selectedAgreement.currency}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Loan Amount/Credit Limit:</span>
+                      <span className="text-sm text-gray-900">-</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Instalment Amount:</span>
+                      <span className="text-sm text-gray-900">{selectedAgreement.instalmentAmount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Expiry Date:</span>
+                      <span className="text-sm text-gray-900">20/07/2019</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Last Payment Date:</span>
+                      <span className="text-sm text-gray-900">01/07/2019</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm font-medium text-gray-600">Loan Duration:</span>
+                      <span className="text-sm text-gray-900">30 Day(s)</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* 24 Months Payment History */}
-              <div className="bg-white border border-gray-200 rounded-lg p-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">24 Months Payment History</h3>
-                <div className="grid grid-cols-12 gap-1 mb-2">
-                  {/* Month headers */}
-                  {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month, index) => (
-                    <div key={index} className="text-center text-xs font-medium text-gray-600 bg-gray-50 py-2 rounded">
-                      {month}
+              <div>
+                <h3 className="text-lg font-bold text-orange-600 mb-4">24 Months Payment History</h3>
+                <div className="grid grid-cols-12 gap-2">
+                  {/* First Row - Recent 12 months */}
+                  {['SEP 2025', 'AUG 2025', 'JUL 2025', 'JUN 2025', 'MAY 2025', 'APR 2025', 'MAR 2025', 'FEB 2025', 'JAN 2025', 'DEC 2024', 'NOV 2024', 'OCT 2024'].map((month, index) => (
+                    <div key={month} className="text-center">
+                      <div className="text-xs font-medium text-gray-600 mb-1">{month}</div>
+                      <div className={`w-full h-8 rounded flex items-center justify-center text-xs font-semibold ${
+                        ['SEP 2025', 'FEB 2025', 'NOV 2024'].includes(month) 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {['SEP 2025', 'FEB 2025', 'NOV 2024'].includes(month) ? 'OK' : 'ND'}
+                      </div>
                     </div>
                   ))}
-                </div>
-                <div className="grid grid-cols-12 gap-1 mb-2">
-                  {/* 2024 row */}
-                  {['OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK'].map((status, index) => (
-                    <div key={index} className={`text-center text-xs font-medium py-2 rounded ${
-                      status === 'OK' ? 'bg-green-100 text-green-800' :
-                      status === 'ND' ? 'bg-blue-100 text-blue-800' :
-                      'bg-red-100 text-red-800'
-                    }`}>
-                      {status}
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-12 gap-1">
-                  {/* 2023 row */}
-                  {['OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK', 'OK'].map((status, index) => (
-                    <div key={index} className={`text-center text-xs font-medium py-2 rounded ${
-                      status === 'OK' ? 'bg-green-100 text-green-800' :
-                      status === 'ND' ? 'bg-blue-100 text-blue-800' :
-                      'bg-red-100 text-red-800'
-                    }`}>
-                      {status}
+                  
+                  {/* Second Row - Previous 12 months */}
+                  {['SEP 2024', 'AUG 2024', 'JUL 2024', 'JUN 2024', 'MAY 2024', 'APR 2024', 'MAR 2024', 'FEB 2024', 'JAN 2024', 'DEC 2023', 'NOV 2023', 'OCT 2023'].map((month, index) => (
+                    <div key={month} className="text-center">
+                      <div className="text-xs font-medium text-gray-600 mb-1">{month}</div>
+                      <div className={`w-full h-8 rounded flex items-center justify-center text-xs font-semibold ${
+                        ['MAY 2024', 'NOV 2023'].includes(month) 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {['MAY 2024', 'NOV 2023'].includes(month) ? 'OK' : 'ND'}
+                      </div>
                     </div>
                   ))}
                 </div>
                 
                 {/* Legend */}
-                <div className="mt-4 flex flex-wrap gap-4 text-xs">
+                <div className="mt-4 flex items-center space-x-6 text-sm">
                   <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-green-100 border border-green-300 rounded"></div>
-                    <span className="text-gray-600">OK - Payment on time</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-blue-100 border border-blue-300 rounded"></div>
-                    <span className="text-gray-600">ND - No data</span>
+                    <div className="w-4 h-4 bg-green-100 rounded"></div>
+                    <span className="text-gray-600">OK - Payment made on time</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-red-100 border border-red-300 rounded"></div>
-                    <span className="text-gray-600">Late - Payment delayed</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Payment Summary */}
-              <div className="bg-blue-50 rounded-lg p-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Summary</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">24</div>
-                    <div className="text-sm text-gray-600">Months On Time</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">0</div>
-                    <div className="text-sm text-gray-600">Late Payments</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">100%</div>
-                    <div className="text-sm text-gray-600">Payment Rate</div>
+                    <div className="w-4 h-4 bg-blue-100 rounded"></div>
+                    <span className="text-gray-600">ND - No Data available</span>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Modal Footer */}
+            <div className="flex justify-end p-6 border-t border-gray-200">
+              <button
+                onClick={() => setShowAgreementModal(false)}
+                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
-      
-      {/* PDF Test Button - Remove in production */}
-      <PDFTestButton />
     </div>
   )
 }

@@ -15920,7 +15920,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
 
         {/* Candidate Information */}
         <div className="px-6 py-4 border-b border-gray-200">
-          <div className="flex items-start space-x-4">
+          <div className="flex items-start space-x-8">
             {/* Editable Profile Image */}
             <div className="relative flex-shrink-0">
               <div className="flex flex-col items-center space-y-1">
@@ -15984,7 +15984,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
               )}
             </div>
             
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 ml-8">
 
               {/* Name Fields - First Row */}
               <div className="flex flex-col md:flex-row gap-3 mb-3">
@@ -16131,9 +16131,9 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
         {/* Main Content */}
         <div className="flex-1 flex overflow-hidden">
           {/* Left Panel - Categories */}
-          <div className="w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto">
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Background Check Categories</h3>
+          <div className="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto">
+            <div className="p-3">
+              <h3 className="text-base font-semibold text-gray-900 mb-3">Background Check Categories</h3>
               <div className="space-y-2">
                 {categories.map((category) => {
                   const Icon = category.icon
@@ -16144,7 +16144,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                   return (
                     <div
                       key={category.key}
-                      className={`p-3 rounded-lg cursor-pointer transition-all ${
+                      className={`p-2 rounded-lg cursor-pointer transition-all ${
                         isSelected 
                           ? 'bg-white border-2 border-blue-500 shadow-sm' 
                           : 'hover:bg-white hover:shadow-sm'
@@ -16152,9 +16152,9 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                       onClick={() => setSelectedCategory(category.key)}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <Icon className="h-5 w-5 text-gray-600" />
-                          <span className="text-sm font-medium text-gray-900">{category.name}</span>
+                        <div className="flex items-center space-x-2">
+                          <Icon className="h-4 w-4 text-gray-600" />
+                          <span className="text-xs font-medium text-gray-900">{category.name}</span>
                         </div>
                         <div className="flex items-center space-x-2">
                           {result && (
@@ -16162,7 +16162,7 @@ const BackgroundCheckRequestForm: React.FC<BackgroundCheckRequestFormProps> = ({
                               {result.toUpperCase().replace('-', ' ')}
                             </span>
                           )}
-                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                          <ChevronRight className="h-3 w-3 text-gray-400" />
                         </div>
                       </div>
                     </div>
